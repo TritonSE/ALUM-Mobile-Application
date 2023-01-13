@@ -43,3 +43,12 @@ Some lint errors can be automatically fixed. To do so, run:
 npm run lint-fix
 ```
 If your PR is failing lint check, use these commands!
+
+### Organisation
+```bash
+src/
+├── models/* (DB models to interact with the database)
+├── services/* (Methods that utilizes models to perform operations on DB. Logic of the backend )
+├── routes/* (Exposes the various services to the clients using endpoints)
+└── app.ts (Main script to run the server and use routes)
+```
