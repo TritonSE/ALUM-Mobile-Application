@@ -7,8 +7,7 @@
     "dev": "npx ts-node-dev src/app.ts",
     "format": "prettier --write .",
     "lint-fix": "(eslint --fix --cache --report-unused-disable-directives . || true) && prettier --write .",
-    "lint-check": "eslint --cache --report-unused-disable-directives . && prettier --check .",
-    "prepare": "cd .. && husky install .husky"
+    "lint-check": "eslint --cache --report-unused-disable-directives . && prettier --check ."
   },
   "keywords": [],
   "author": "",
