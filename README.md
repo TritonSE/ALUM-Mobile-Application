@@ -2,6 +2,17 @@
 ### Tools needed
 - **Xcode** - Install from App Store
 
+### Organisation
+```bash
+src/
+├── Components/*
+├── Models/* (Data Models for frontend goes here)
+├── Views/* (Views that the user will interact with)
+├── ViewModels/* (Business Logic pertaining to Views)
+├── Services/* (Logic related to external communication like API calls)
+└── ALUMApp.swift (Entry-point for the app)
+```
+
 Once Xcode is installed, double-click ALUM.xcodeproj to open the frontend in Xcode
 
 ## Backend

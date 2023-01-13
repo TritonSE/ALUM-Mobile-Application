@@ -51,8 +51,12 @@
 		0748208D29712921004AF547 /* ALUM */ = {
 			isa = PBXGroup;
 			children = (
+				07F9A5102971814900BC11A8 /* Services */,
+				07F9A50F297180F500BC11A8 /* ViewModels */,
+				07F9A50E297180F000BC11A8 /* Views */,
+				07F9A50D297180EA00BC11A8 /* Models */,
+				07F9A50C297180D700BC11A8 /* Components */,
 				0748208E29712921004AF547 /* ALUMApp.swift */,
-				0748209029712921004AF547 /* ContentView.swift */,
 				0748209229712922004AF547 /* Assets.xcassets */,
 				0748209429712922004AF547 /* Preview Content */,
 			);
@@ -65,6 +69,42 @@
 				0748209529712922004AF547 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		07F9A50C297180D700BC11A8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		07F9A50D297180EA00BC11A8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		07F9A50E297180F000BC11A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0748209029712921004AF547 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07F9A50F297180F500BC11A8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		07F9A5102971814900BC11A8 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
