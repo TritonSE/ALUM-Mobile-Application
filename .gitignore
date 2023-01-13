@@ -1,0 +1,3 @@
+# .DS_Store files are added by macOS and shouldn't be tracked
+.DS_Store
+*/.DS_Store
