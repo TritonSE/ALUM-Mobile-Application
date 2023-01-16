@@ -31,6 +31,7 @@ npm install
 ```
 
 Place `.env` file inside the `backend/` directory. 
+You can find the `.env` file in our slack channel. 
 
 Now, you are all set to start backend development. Open up VSCode and get started!
 

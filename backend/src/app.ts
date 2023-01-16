@@ -18,6 +18,6 @@ class Server {
 const server = new Server();
 
 // make server listen on some port
-((port = process.env.APP_PORT || 5000) => {
+((port = process.env.APP_PORT || 3000) => {
   server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
 })();
