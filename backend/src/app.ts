@@ -25,7 +25,9 @@ if(process.env.MONGO_URI) {
     console.log("Connected to Database");
   })
 }
-
+else{
+  console.log(process.env.MONGO_URI);
+}
 
 // make server listen on some port
 ((port = process.env.APP_PORT || 3000) => {
