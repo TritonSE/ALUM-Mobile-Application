@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { appendFile } from "fs";
 import mongoose from 'mongoose';
+import { json } from 'body-parser';
 import { userRouter } from './routes/routes'
 
 // load the environment variables from the .env file
@@ -15,7 +16,6 @@ dotenv.config({
  */
 class Server {
   public app = express();
-
 }
 
 // initialize server app
@@ -32,6 +32,7 @@ else{
   console.log(process.env.MONGO_URI);
 }
 
+server.app.use(json());
 server.app.use(userRouter);
 
 // make server listen on some port

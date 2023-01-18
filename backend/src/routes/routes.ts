@@ -10,7 +10,7 @@ router.post('/api/user', async (req: Request, res: Response) => {
     return res.status(201).send(user)
 })
 
-router.get('/api/user', [], async (req: Request, res: Response) => {
+router.get('/api/user', [],  async (req: Request, res: Response) => {
     const user = await User.find({});
     return res.status(200).send(user);
 })
