@@ -11,6 +11,7 @@
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
+		804AE4AB2978C326000B08F2 /* FilledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AA2978C326000B08F2 /* FilledButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		804AE4AA2978C326000B08F2 /* FilledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				804AE4AA2978C326000B08F2 /* FilledButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 			files = (
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
+				804AE4AB2978C326000B08F2 /* FilledButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
