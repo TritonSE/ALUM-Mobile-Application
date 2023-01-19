@@ -10,8 +10,8 @@ import SwiftUI
 struct PasswordInputFieldComponent: View {
     
     @State var password: String = ""
-    @State private var isSecured: Bool = true
-    @State private var showEye: Bool = true
+    @State var isSecured: Bool = true
+    @State var showEye: Bool = true
     
     var body: some View {
         
@@ -51,6 +51,6 @@ struct PasswordInputFieldComponent: View {
 
 struct Previews_PasswordInputFieldComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PasswordInputFieldComponent()
+        PasswordInputFieldComponent(showEye: true)
     }
 }
