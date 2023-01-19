@@ -22,7 +22,7 @@ struct TextInputFieldComponent: View {
                     .cornerRadius(8.0)
             )
             .overlay (
-                RoundedRectangle(cornerRadius: 8.0).stroke(Color("Neutral/Gray3"), lineWidth: 1.0)
+                RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
             
         }

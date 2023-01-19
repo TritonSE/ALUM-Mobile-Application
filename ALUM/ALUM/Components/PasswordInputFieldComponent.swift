@@ -30,7 +30,7 @@ struct PasswordInputFieldComponent: View {
                     .cornerRadius(8.0)
             )
             .overlay (
-                RoundedRectangle(cornerRadius: 8.0).stroke(Color("Neutral/Gray3"), lineWidth: 1.0)
+                RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
             
             if showEye {
@@ -38,7 +38,7 @@ struct PasswordInputFieldComponent: View {
                     isSecured.toggle()
                 }) {
                     Image(systemName: isSecured ? "eye.slash" : "eye")
-                        .accentColor(Color("Neutral/Gray4"))
+                        .accentColor(Color("NeutralGray4"))
                 }
                 .padding(14.0)
             }
