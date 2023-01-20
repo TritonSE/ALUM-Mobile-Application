@@ -11,7 +11,7 @@ import SwiftUI
 struct ALUMApp: App {
     var body: some Scene {
         WindowGroup {
-            FilledButton()
+            ContentView()
         }
     }
 }
