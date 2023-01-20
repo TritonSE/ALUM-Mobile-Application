@@ -21,7 +21,7 @@ struct OutlinedButtonStyle: ButtonStyle {
                 .font(.headline)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color( "ALUM Dark Blue"), lineWidth: 5)
+                        .stroke(Color( "ALUM Dark Blue"), lineWidth: 2)
                 )
                 .cornerRadius(8)
         }
