@@ -23,10 +23,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
 });
-
-userSchema.statics.build = (attr: UserInterface) => new User(attr);
 
 const User = mongoose.model<UserDoc, UserModelInterface>("User", userSchema);
 
