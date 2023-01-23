@@ -14,7 +14,7 @@ struct FilledInButtonStyle : ButtonStyle{
             if(!disabled){
                 configuration.label
                     .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(minHeight: 0, maxHeight: .infinity)
+                    .frame(height: 48)
                     .foregroundColor(.white)
                     .font(.headline)
                     .background(Color("ALUM Dark Blue"))
@@ -23,7 +23,7 @@ struct FilledInButtonStyle : ButtonStyle{
             else{
                 configuration.label
                     .frame(minWidth: 0, maxWidth: .infinity)
-                    .frame(minHeight: 0, maxHeight: .infinity)
+                    .frame(height: 48)
                     .foregroundColor(Color("NeutralGray4"))
                     .font(.headline)
                     .background(Color("NeutralGray1"))
