@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - ALUM/**
+      - .github/workflows/xcode-build.yml
 
 jobs:
   build:
