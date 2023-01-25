@@ -167,6 +167,7 @@
 				0748208A29712921004AF547 /* ALUM */,
 			);
 		};
+		error
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
