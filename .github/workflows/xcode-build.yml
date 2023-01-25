@@ -13,9 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Debug 1
-      run: cat ALUM/ALUM.xcodeproj/project.pbxproj
-
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
@@ -23,6 +20,3 @@ jobs:
 
     - name: Build and test
       run: xcodebuild build -workspace ALUM/ALUM.xcodeproj/project.xcworkspace -scheme ALUM -destination "platform=iOS Simulator,name=iPhone 11 Pro" 
-    
-    - name: Show test results
-      run: xcpretty --test --no-color
