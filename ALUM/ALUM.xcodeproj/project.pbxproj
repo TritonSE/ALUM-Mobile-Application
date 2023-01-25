@@ -16,8 +16,7 @@
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 /* End PBXBuildFile section */
 
-error
-
+ 
 /* Begin PBXFileReference section */
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
