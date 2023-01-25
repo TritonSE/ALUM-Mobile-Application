@@ -1,9 +1,11 @@
-name: iOS Build and Test
+name: Frontend - Xcode Build
 
 on:
   pull_request:
     branches:
       - main
+    paths:
+      - ALUM/**
 
 jobs:
   build:
@@ -18,5 +20,5 @@ jobs:
       with:
         xcode-version: 13
 
-    - name: Build and test
-      run: xcodebuild build -workspace ALUM/ALUM.xcodeproj/project.xcworkspace -scheme ALUM -destination "platform=iOS Simulator,name=iPhone 11 Pro" 
+    - name: Build and test on iPhone 8
+      run: xcodebuild build -workspace ALUM/ALUM.xcodeproj/project.xcworkspace -scheme ALUM -destination "platform=iOS Simulator,name=iPhone 8" 
