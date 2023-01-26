@@ -9,14 +9,15 @@ import SwiftUI
 
 struct InputValidationComponent: View {
     
+    @State var text: String = ""
     var functions: [(String) -> (Bool, String)] = []
     
     var body: some View {
         VStack {
-            TextInputFieldComponent(isSecured: false, labelText: "Username: ")
+            TextInputFieldComponent(textFieldText: $text, labelText: "Username: ")
             VStack {
                 ForEach(0..<functions.count, id: \.self) { index in
-                    var result: (Bool, String) = (self.functions[index]("password"))
+                    var result: (Bool, String) = (self.functions[index](text))
                     if (result.0) {
                         InputValidationText(isValid: true, message: result.1)
                     } else {
@@ -31,7 +32,7 @@ struct InputValidationComponent: View {
 struct InputValidationComponent_Previews: PreviewProvider {
     
     static let testFunction: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
-        if (string == "password") {
+        if (string == "Password") {
             return (true, "good work!")
         } else {
             return (false, "you failed")
@@ -39,7 +40,7 @@ struct InputValidationComponent_Previews: PreviewProvider {
     }
     
     static let testFunction2: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
-        if (string == "password") {
+        if (string == "Password") {
             return (true, "good work!")
         } else {
             return (false, "you failed")
