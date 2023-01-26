@@ -1,0 +1,25 @@
+name: Frontend - Xcode Build
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ALUM/**
+      - .github/workflows/xcode-build.yml
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: 13
+
+    - name: Build and test on iPhone 8
+      run: xcodebuild build -workspace ALUM/ALUM.xcodeproj/project.xcworkspace -scheme ALUM -destination "platform=iOS Simulator,name=iPhone 8" 
