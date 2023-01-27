@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct FilledInButtonStyle : ButtonStyle{
+struct FilledInButtonStyle: ButtonStyle {
     @State var disabled: Bool = false
-    
+
     func makeBody(configuration: Configuration) -> some View {
-            if(!disabled){
+            if !disabled {
                 configuration.label
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
@@ -19,8 +19,7 @@ struct FilledInButtonStyle : ButtonStyle{
                     .font(.headline)
                     .background(Color("ALUM Dark Blue"))
                     .cornerRadius(8)
-            }
-            else{
+            } else {
                 configuration.label
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
@@ -34,17 +33,17 @@ struct FilledInButtonStyle : ButtonStyle{
 }
 struct FilledInButton: View {
     var body: some View {
-        HStack(spacing: 10){
+        HStack(spacing: 10) {
             Button("BUTTON") {
-                
+
             }
-            .frame(minWidth: 50,maxWidth: 300, alignment: .leading)
+            .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
             .buttonStyle(FilledInButtonStyle(disabled: false))
             Button("BUTTON") {
-                
+
             }
-            .frame(minWidth: 50,maxWidth: 300, alignment: .leading)
+            .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
             .buttonStyle(FilledInButtonStyle(disabled: true))
         }
