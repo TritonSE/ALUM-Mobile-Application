@@ -36,10 +36,10 @@ struct TextInputFieldComponent: View {
             if showEye {
                 Button(action: {
                     isSecured.toggle()
-                }) {
+                }, label: {
                     Image(systemName: isSecured ? "eye.slash" : "eye")
                         .accentColor(Color("NeutralGray4"))
-                }
+                })
                 .padding(14.0)
             }
 
