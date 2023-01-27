@@ -1,4 +1,4 @@
-name: Frontend - Xcode Build
+name: Frontend - Xcode Build and SwiftLint
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - ALUM/**
-      - .github/workflows/xcode-build.yml
+      - .github/workflows/frontend.yml
 
 jobs:
   build:
