@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/routes";
+import { firebaseAuth } from "./services/firebase";
 
 // load the environment variables from the .env file
 dotenv.config({
@@ -25,6 +26,8 @@ if (process.env.MONGO_URI) {
     console.log("Connected to Database.");
   });
 }
+
+console.log(firebaseAuth);
 
 server.app.use(json());
 server.app.use(userRouter);
