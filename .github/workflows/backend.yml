@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - backend/**
-      - .github/workflows/lint-check.yml
+      - .github/workflows/backend.yml
 
 jobs:
   backend:

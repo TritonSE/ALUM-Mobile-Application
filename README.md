@@ -15,6 +15,17 @@ src/
 
 Once Xcode is installed, double-click ALUM.xcodeproj to open the frontend in Xcode
 
+### Linting
+To lint our frontend codebase, we have SwiftLint setup on the github workflow.
+
+Often times, SwiftLint will show errors that can be fixed automatically. To fix those, you need to have swiftlint setup locally. 
+1. Install SwiftLint by following the README at https://github.com/realm/SwiftLint (I used brew install but any should work). 
+2. To run swiftlint, use:
+```swiftlint lint --strict```
+3. To fix swiftlint errors, use:
+```swiftlint lint --strict --fix```
+4. After running with fix, make sure to run lint again in case there are some errors that cannot be fixed automatically.
+
 ## Backend
 ### Tools needed
 - [Postman](https://www.postman.com/) - Used to test API endpoints manually

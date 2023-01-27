@@ -12,10 +12,10 @@ struct TextInputFieldComponent: View {
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     var labelText: String = ""
-        
+
     var body: some View {
-        
-        ZStack (alignment: .trailing){
+
+        ZStack(alignment: .trailing) {
             Group {
                 if isSecured {
                     SecureField(labelText, text: $textFieldText)
@@ -29,20 +29,20 @@ struct TextInputFieldComponent: View {
                 Color("ALUM White")
                     .cornerRadius(8.0)
             )
-            .overlay (
+            .overlay(
                 RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
-            
+
             if showEye {
                 Button(action: {
                     isSecured.toggle()
-                }) {
+                }, label: {
                     Image(systemName: isSecured ? "eye.slash" : "eye")
                         .accentColor(Color("NeutralGray4"))
-                }
+                })
                 .padding(14.0)
             }
-            
+
         }
         .padding()
     }
