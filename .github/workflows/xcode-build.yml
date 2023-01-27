@@ -23,3 +23,13 @@ jobs:
 
     - name: Build and test on iPhone 8
       run: xcodebuild build -workspace ALUM/ALUM.xcodeproj/project.xcworkspace -scheme ALUM -destination "platform=iOS Simulator,name=iPhone 8" 
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: GitHub Action for SwiftLint with --strict
+        uses: norio-nomura/action-swiftlint@3.2.1
+        with:
+          args: --strict
