@@ -9,12 +9,14 @@ interface MentorInterface {
   name: string;
   organization_id: string;
   access_token: string;
+  status: string;
 }
 
 interface MentorDoc extends mongoose.Document {
   name: string;
   organization_id: string;
   access_token: string;
+  status: string;
 }
 
 interface MentorModelInterface extends mongoose.Model<MentorDoc> {
@@ -31,6 +33,10 @@ const mentorSchema = new mongoose.Schema({
     required: true,
   },
   access_token: {
+    type: String,
+    required: true,
+  },
+  status: {
     type: String,
     required: true,
   }
