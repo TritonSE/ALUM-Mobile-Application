@@ -5,12 +5,7 @@ import { json } from "body-parser";
 import { userRouter } from "./routes/routes";
 import { firebaseAuth } from "./services/firebase";
 import { createUser } from "./services/auth";
-import { create } from "domain";
-
-// load the environment variables from the .env file
-dotenv.config({
-  path: ".env",
-});
+import { mongoURI, port } from "./config";
 
 /**
  * Express server application class.
@@ -23,11 +18,10 @@ class Server {
 // initialize server app
 const server = new Server();
 
-if (process.env.MONGO_URI) {
-  mongoose.connect(process.env.MONGO_URI, {}, () => {
-    console.log("Connected to Database.");
-  });
-}
+mongoose.connect(mongoURI, {}, () => {
+  console.log("Connected to Database.");
+});
+
 
 console.log(firebaseAuth);
 
@@ -39,6 +33,5 @@ server.app.use(json());
 server.app.use(userRouter);
 
 // make server listen on some port
-((port = process.env.APP_PORT || 3000) => {
-  server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-})();
+server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
+

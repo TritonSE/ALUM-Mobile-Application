@@ -7,19 +7,7 @@
 
 import * as firebase from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import dotenv from "dotenv";
-
-dotenv.config({
-    path: ".env",
-});
-
-var serviceAccountKey = '';
-
-if(process.env.SERVICE_ACCOUNT_KEY) {
-    serviceAccountKey = process.env.SERVICE_ACCOUNT_KEY; 
-} else {
-    console.log('Service Account Key is not found')
-}
+import { serviceAccountKey } from '../config';
 
 //Initalize firebase app
 firebase.initializeApp({
