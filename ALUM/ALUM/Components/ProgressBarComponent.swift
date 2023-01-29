@@ -11,8 +11,8 @@ import SwiftUI
 
 struct ProgressBarComponent: View{
     @State var Nodes = 6
-    @State var filledNodes = 2
-    @State var activeNode = 3
+    @State var filledNodes = 4
+    @State var activeNode = 1
     
     
     
@@ -42,10 +42,14 @@ struct ProgressBarComponent: View{
                             .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
                     }
                     else if (index < filledNodes){
-                        Circle()
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .frame(width: 16, height: 16)
-                            .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
+                        ZStack {
+                            Circle()
+                                .foregroundColor(Color("ALUM Dark Blue"))
+                                .frame(width: 16, height: 16)
+                                .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
+                            
+                            Image("CheckMarkVector")
+                        }
                     }
                     else{
                         Circle()
