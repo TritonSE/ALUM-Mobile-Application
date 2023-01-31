@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TextInputFieldComponent: View {
-    @State var textFieldText: String = ""
+    @Binding var textFieldText: String
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     var labelText: String = ""
@@ -48,8 +48,22 @@ struct TextInputFieldComponent: View {
     }
 }
 
+struct TestView: View {
+    
+    @State var textInput: String = ""
+    
+    var body: some View {
+        VStack {
+            TextInputFieldComponent(textFieldText: $textInput, isSecured: false, showEye: false, labelText: "Username:")
+            Text(textInput)
+        }
+        
+    }
+}
+
 struct TextInputFieldView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        TextInputFieldComponent(isSecured: false, showEye: false, labelText: "Username:")
+        TestView()
     }
 }
