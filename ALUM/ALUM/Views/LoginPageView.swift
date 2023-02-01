@@ -10,27 +10,89 @@ import SwiftUI
 struct LoginPageView: View {
     @State var username: String = ""
     @State var password: String = ""
+    @State var clicked: Bool = false
+    // @State var buttonFilled: Bool = false
     
     
     var body: some View {
-        VStack {
+        VStack (spacing: 0) {
             Image("ALUMLogoBlue")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
+                .padding(.bottom, 16)
             
             Text("Welcome to ALUM")
                 // .font(.largeTitle)
                 .font(Font.custom("Metropolis-Thin", size: 34))
                 .foregroundColor(Color("ALUM Dark Blue"))
                 .frame(width: 306, height: 41)
+                .padding(.bottom, 64)
             
-            InputValidationComponent(componentName: Text("Email: "), labelText: "Email", functions: [Functions.EnterEmail])
+            if clicked {
+                InputValidationComponent(text: $username, componentName: Text("Email: "), labelText: "Email", showCheck: false, functions: [Functions.EnterEmail])
+                    .padding(.bottom, 12)
+                
+                Group {
+                    InputValidationComponent(text: $password, componentName: Text("Password: "), labelText: "Password", showCheck: false, functions: [Functions.EnterPassword])
+                        .padding(.bottom, 0)
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                        }) {
+                            Text("Forgot Password")
+                                .underline()
+                                .foregroundColor(.black)
+                                .font(.footnote)
+                        }
+                    }
+                    .padding(.trailing, 16.0)
+                    .padding(.bottom, 32)
+                }
+                
+            } else {
+                InputValidationComponent(text: $username, componentName: Text("Email: "), labelText: "Email", showCheck: false)
+                    .padding(.bottom, 32)
+                
+                Group {
+                    InputValidationComponent(text: $password, componentName: Text("Password: "), labelText: "Password", showCheck: false)
+                        
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                        }) {
+                            Text("Forgot Password")
+                                .underline()
+                                .foregroundColor(.black)
+                                .font(.footnote)
+                        }
+                    }
+                    .padding(.trailing, 16.0)
+                    .padding(.bottom, 32)
+                }
+                
+            }
+ 
             
-            InputValidationComponent(componentName: Text("Password: "), labelText: "Password", functions: [Functions.EnterPassword])
+            if (username != "" && password != "") {
+                Button("Login") {
+                    clicked.toggle()
+                }
+                .buttonStyle(FilledInButtonStyle(disabled: false))
+                .frame(width: 358)
+                .padding(.bottom, 32)
+            } else {
+                Button("Login") {
+                    clicked.toggle()
+                }
+                .buttonStyle(FilledInButtonStyle(disabled: true))
+                .frame(width: 358)
+                .padding(.bottom, 32)
+            }
             
-            
-            
+             
+                
         }
     }
 }
