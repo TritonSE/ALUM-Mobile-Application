@@ -28,7 +28,7 @@ struct InputValidationText: View {
                     
                 Spacer()
             }
-            .padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
+            .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
             
         } else {
             HStack {
@@ -45,7 +45,7 @@ struct InputValidationText: View {
                 
                 Spacer()
             }
-            .padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
+            .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
         }
     }
 }
