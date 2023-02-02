@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct InputValidationComponent: View {
-    
+
     @Binding var text: String
     @State var componentName: Text = Text("")
     @State var labelText: String = ""
     @State var borderColor: Color = Color("NeutralGray3")
     @State var showCheck: Bool = false
     var functions: [(String) -> (Bool, String)] = []
-    
+
     var body: some View {
         VStack {
             TextInputFieldComponent(textFieldText: $text, topLabel: componentName, borderColor: borderColor, labelText: labelText)
             VStack(spacing: 0) {
                 ForEach(0..<functions.count, id: \.self) { index in
                     let result: (Bool, String) = (self.functions[index](text))
-                    if (result.0) {
+                    if result.0 {
                         InputValidationText(isValid: true, message: result.1, showCheck: showCheck)
-                    } else if (!result.0 && result.1 == "skip") {
-                        
+                    } else if !result.0 && result.1 == "skip" {
+
                     } else {
                         InputValidationText(isValid: false, message: result.1, showCheck: showCheck)
                         // self.borderColor = Color("FunctionalError")
