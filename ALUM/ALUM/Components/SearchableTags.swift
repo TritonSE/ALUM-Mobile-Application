@@ -1,0 +1,51 @@
+//
+//  SearchableTags.swift
+//  ALUM
+//
+//  Created by Jenny Mar on 1/28/23.
+//
+
+import SwiftUI
+
+struct SearchableTags: View {
+    
+    @State var text: String = ""
+    @State var isBlue: Bool = true
+    
+    var body: some View {
+        VStack {
+            ZStack {
+                HStack {
+                    Text(text)
+                        .foregroundColor(Color(.black))
+                    Spacer()
+                        .frame(width: 10)
+                    Image(systemName: "xmark")
+                        .foregroundColor(Color("NeutralGray4"))
+                        .frame(height: 8)
+                        .frame(width: 8)
+                    
+                }
+                
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 100).stroke())
+            .foregroundColor(Color("Alum Light Blue"))
+            .font(.headline)
+            .background(Color("Alum Light Blue"))
+            .cornerRadius(100)
+                
+    
+            }
+    }
+}
+
+
+
+
+struct SearchableTags_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchableTags(text: "tag text", isBlue: true)
+        
+    }
+}

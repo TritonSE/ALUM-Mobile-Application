@@ -50,6 +50,6 @@ struct TextInputFieldComponent: View {
 
 struct TextInputFieldView_Previews: PreviewProvider {
     static var previews: some View {
-        TextInputFieldComponent(isSecured: false, showEye: false, labelText: "Username:")
+        TextInputFieldComponent(isSecured: false, showEye: true, labelText: "Username:")
     }
 }
