@@ -11,19 +11,30 @@ struct SearchableTags: View {
     
     @State var text: String = ""
     @State var isBlue: Bool = true
+    @State var isShowing: Bool = true
     
     var body: some View {
         VStack {
             ZStack {
                 HStack {
+                    
                     Text(text)
                         .foregroundColor(Color(.black))
                     Spacer()
                         .frame(width: 10)
-                    Image(systemName: "xmark")
-                        .foregroundColor(Color("NeutralGray4"))
-                        .frame(height: 8)
-                        .frame(width: 8)
+                    
+                    Button(action: {
+                        isShowing = false
+                    }) {
+                        Image(systemName:"xmark")
+                    }
+                    .foregroundColor(Color("NeutralGray4"))
+                    .frame(height: 8)
+                    .frame(width: 8)
+//                    Image(systemName: "xmark")
+//                        .foregroundColor(Color("NeutralGray4"))
+//                        .frame(height: 8)
+//                        .frame(width: 8)
                     
                 }
                 
