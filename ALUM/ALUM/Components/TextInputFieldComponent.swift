@@ -25,7 +25,7 @@ struct TextInputFieldComponent: View {
                 Spacer()
             }
             .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-            
+
             ZStack(alignment: .trailing) {
                 Group {
                     if isSecured {
@@ -61,20 +61,20 @@ struct TextInputFieldComponent: View {
 }
 
 struct TestView: View {
-    
+
     @State var textInput: String = ""
-    
+
     var body: some View {
         VStack {
             TextInputFieldComponent(textFieldText: $textInput, isSecured: false, showEye: false, labelText: "Username:")
             Text(textInput)
         }
-        
+
     }
 }
 
 struct TextInputFieldView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         TestView()
     }

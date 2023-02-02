@@ -22,7 +22,6 @@
 		97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE852988EF9900405FD6 /* FirebaseFirestore */; };
 		97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE872988EF9900405FD6 /* FirebaseStorage */; };
 		97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginPageView.swift */; };
-		97A2FE8E2989D68900405FD6 /* metropolis in Resources */ = {isa = PBXBuildFile; fileRef = 97A2FE8D2989D68800405FD6 /* metropolis */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +37,27 @@
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
 		979F60902991EBC600AC8CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97A2FE8B2989C20900405FD6 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
-		97A2FE8D2989D68800405FD6 /* metropolis */ = {isa = PBXFileReference; lastKnownFileType = folder; name = metropolis; path = ../../../Downloads/metropolis; sourceTree = "<group>"; };
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
+		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
+		97C0B6C8298B400E005DDC73 /* SIL Open Font License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SIL Open Font License.txt"; sourceTree = "<group>"; };
+		97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Thin.otf"; sourceTree = "<group>"; };
+		97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-RegularItalic.otf"; sourceTree = "<group>"; };
+		97C0B6CB298B400E005DDC73 /* Metropolis-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraBold.otf"; sourceTree = "<group>"; };
+		97C0B6CC298B400E005DDC73 /* Metropolis-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-SemiBoldItalic.otf"; sourceTree = "<group>"; };
+		97C0B6CD298B400E005DDC73 /* Metropolis-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Light.otf"; sourceTree = "<group>"; };
+		97C0B6CE298B400E005DDC73 /* Metropolis-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Regular.otf"; sourceTree = "<group>"; };
+		97C0B6CF298B400E005DDC73 /* Metropolis-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Black.otf"; sourceTree = "<group>"; };
+		97C0B6D0298B400E005DDC73 /* Metropolis-ExtraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraLightItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D1298B400E005DDC73 /* Metropolis-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Medium.otf"; sourceTree = "<group>"; };
+		97C0B6D2298B400E005DDC73 /* Metropolis-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-BlackItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D3298B400E005DDC73 /* Metropolis-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ThinItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D4298B400E005DDC73 /* Metropolis-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraLight.otf"; sourceTree = "<group>"; };
+		97C0B6D5298B400E005DDC73 /* Metropolis-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-MediumItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D6298B400E005DDC73 /* Metropolis-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-LightItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D7298B400E005DDC73 /* Metropolis-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-SemiBold.otf"; sourceTree = "<group>"; };
+		97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-BoldItalic.otf"; sourceTree = "<group>"; };
+		97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +94,9 @@
 		0748208D29712921004AF547 /* ALUM */ = {
 			isa = PBXGroup;
 			children = (
+				97C0B6C3298B3D04005DDC73 /* Info.plist */,
+				97C0B6C6298B400E005DDC73 /* metropolis */,
 				97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */,
-				97A2FE8D2989D68800405FD6 /* metropolis */,
 				07F9A5102971814900BC11A8 /* Services */,
 				07F9A50F297180F500BC11A8 /* ViewModels */,
 				07F9A50E297180F000BC11A8 /* Views */,
@@ -141,6 +160,32 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		97C0B6C6298B400E005DDC73 /* metropolis */ = {
+			isa = PBXGroup;
+			children = (
+				97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */,
+				97C0B6C8298B400E005DDC73 /* SIL Open Font License.txt */,
+				97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */,
+				97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */,
+				97C0B6CB298B400E005DDC73 /* Metropolis-ExtraBold.otf */,
+				97C0B6CC298B400E005DDC73 /* Metropolis-SemiBoldItalic.otf */,
+				97C0B6CD298B400E005DDC73 /* Metropolis-Light.otf */,
+				97C0B6CE298B400E005DDC73 /* Metropolis-Regular.otf */,
+				97C0B6CF298B400E005DDC73 /* Metropolis-Black.otf */,
+				97C0B6D0298B400E005DDC73 /* Metropolis-ExtraLightItalic.otf */,
+				97C0B6D1298B400E005DDC73 /* Metropolis-Medium.otf */,
+				97C0B6D2298B400E005DDC73 /* Metropolis-BlackItalic.otf */,
+				97C0B6D3298B400E005DDC73 /* Metropolis-ThinItalic.otf */,
+				97C0B6D4298B400E005DDC73 /* Metropolis-ExtraLight.otf */,
+				97C0B6D5298B400E005DDC73 /* Metropolis-MediumItalic.otf */,
+				97C0B6D6298B400E005DDC73 /* Metropolis-LightItalic.otf */,
+				97C0B6D7298B400E005DDC73 /* Metropolis-SemiBold.otf */,
+				97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */,
+				97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */,
+			);
+			path = metropolis;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +196,7 @@
 				0748208729712921004AF547 /* Sources */,
 				0748208829712921004AF547 /* Frameworks */,
 				0748208929712921004AF547 /* Resources */,
+				97C0B6C2298B38B0005DDC73 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -208,7 +254,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97A2FE8E2989D68900405FD6 /* metropolis in Resources */,
 				0748209629712922004AF547 /* Preview Assets.xcassets in Resources */,
 				0748209329712922004AF547 /* Assets.xcassets in Resources */,
 				979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */,
@@ -216,6 +261,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		97C0B6C2298B38B0005DDC73 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0748208729712921004AF547 /* Sources */ = {
@@ -361,6 +426,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ALUM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -390,6 +456,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ALUM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
