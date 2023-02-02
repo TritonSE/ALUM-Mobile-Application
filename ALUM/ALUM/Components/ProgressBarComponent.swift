@@ -9,53 +9,48 @@
 
 import SwiftUI
 
-struct ProgressBarComponent: View{
-    @State var Nodes = 6
+struct ProgressBarComponent: View {
+    @State var nodes = 6
     @State var filledNodes = 4
     @State var activeNode = 1
-    
-    
-    
+
     var body: some View {
-        ZStack{
-            HStack{
-                ForEach(0 ..< Nodes - 1, id:\.self){ index in
-                    if(index < activeNode-1 || index < filledNodes - 1){
+        ZStack {
+            HStack {
+                ForEach(0 ..< nodes - 1, id: \.self) { index in
+                    if index < activeNode-1 || index < filledNodes - 1 {
                         Rectangle()
-                            .frame(width: 350/(Double(Nodes) - 1) - 5, height: 2)
+                            .frame(width: 350/(Double(nodes) - 1) - 5, height: 2)
                             .foregroundColor(Color("ALUM Dark Blue"))
-                    }
-                    else{
+                    } else {
                         Rectangle()
-                            .frame(width: 350/(Double(Nodes) - 1) - 5, height: 2)
+                            .frame(width: 350/(Double(nodes) - 1) - 5, height: 2)
                             .foregroundColor(Color("NeutralGray2"))
                     }
                 }
             }
-            HStack{
-                ForEach(0 ..< Nodes, id:\.self){ index in
-                    if(index == activeNode - 1){
+            HStack {
+                ForEach(0 ..< nodes, id: \.self) { index in
+                    if index == activeNode - 1 {
                         Circle()
-                            .strokeBorder(Color("ALUM Dark Blue"),lineWidth: 3)
+                            .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 3)
                             .background(Circle().foregroundColor(Color("ALUM Light Blue")))
                             .frame(width: 16, height: 16)
-                            .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
-                    }
-                    else if (index < filledNodes){
+                            .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
+                    } else if index < filledNodes {
                         ZStack {
                             Circle()
                                 .foregroundColor(Color("ALUM Dark Blue"))
                                 .frame(width: 16, height: 16)
-                                .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
-                            
+                                .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
+
                             Image("CheckMarkVector")
                         }
-                    }
-                    else{
+                    } else {
                         Circle()
                             .foregroundColor(Color("NeutralGray2"))
                             .frame(width: 16, height: 16)
-                            .padding(.horizontal, 170 / (Double(Nodes - 1)) - (5 + Double(Nodes)))
+                            .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
                     }
                 }
             }
