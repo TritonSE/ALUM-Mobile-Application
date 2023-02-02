@@ -23,7 +23,7 @@ struct Item: View, Hashable {
     @State var content: String = ""
     @State var isChecked: Bool = false
 
-    func toggle () {
+    func toggle() {
         isChecked = !isChecked
 
     }
@@ -43,7 +43,7 @@ struct Item: View, Hashable {
     }
 }
 
-struct Item_tester: View {
+struct ItemTester: View {
 
     @State var itemsList = [Item(content: "")]
 
@@ -77,6 +77,8 @@ struct Item_tester: View {
 
 struct Item_Previews: PreviewProvider {
     static var previews: some View {
-        Item_tester(itemsList: [Item(content: "list item 1", isChecked: false), Item(content: "list item 2", isChecked: true), Item(content: "list item 3", isChecked: true)])
+        ItemTester(itemsList: [Item(content: "list item 1", isChecked: false)
+                                , Item(content: "list item 2", isChecked: true)
+                                , Item(content: "list item 3", isChecked: true)])
     }
 }
