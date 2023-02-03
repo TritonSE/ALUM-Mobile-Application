@@ -14,9 +14,9 @@ const router = express.Router();
  * the users to ensure they follow standard listed below before adding them to
  * mongoDb and Firebase
  * 
- * Mentee: {type: string, name: string, password: string}
+ * Mentee: {type: string, name: string, email: string,password: string}
  * 
- * Mentor: {type: string, name: string, password: string, 
+ * Mentor: {type: string, name: string, password: string, email: string 
  * organization_id: string, personal_access_token: string}
  */
 router.post("/user", [validateUsers], async (req: Request, res: Response) => {
