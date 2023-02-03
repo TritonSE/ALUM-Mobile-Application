@@ -21,6 +21,7 @@ import { ValidationError } from "../errors/validationError";
 const MENTEE = bake({
     type: string,
     name: string,
+    email: string,
     password: string
 })
 
@@ -31,6 +32,7 @@ const MENTEE = bake({
 const MENTOR = bake({
     type: string,
     name: string,
+    email: string,
     password: string,
     organization_id: string,
     personal_access_token: string
