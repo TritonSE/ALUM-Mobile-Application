@@ -7,11 +7,18 @@
 
 import { firebaseAuth } from "./firebase";
 
+/**
+ * This function creates a user in firebase
+ * @param uid: Id for user, note this MUST be the same uid in MongoDb
+ * @param email: email of user, note it must not have **@iusd.org
+ * @param password: password of user
+ * @returns 
+ */
 async function createUser(uid: string, email: string, password: string) {
     const userRecord = firebaseAuth.createUser({
-        uid: uid,
-        email: email,
-        password: password
+        "uid": uid,
+        "email": email,
+        "password": password
     })
     return userRecord
 }

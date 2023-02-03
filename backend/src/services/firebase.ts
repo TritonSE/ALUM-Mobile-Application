@@ -9,7 +9,10 @@ import * as firebase from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { serviceAccountKey } from '../config';
 
-//Initalize firebase app
+/**
+ * This will initialize the firebase app to store
+ * user credentials
+ */
 firebase.initializeApp({
         credential: firebase.cert(JSON.parse(serviceAccountKey))
 })

@@ -10,28 +10,40 @@ dotenv.config({
     path: ".env",
 });
 
-var port: string;
-var mongoURI: string;
-var serviceAccountKey: string;
+
+var portV = '';
+var mongoURIV = '';
+var serviceAccountKeyV = '';
 
 
+/**
+ * Todo: these should throw errors instead of logging messages
+ */
 if(!process.env.APP_PORT) {
     console.log("Could not find app port env variable");
 } else {
-    port = process.env.APP_PORT;
+   portV = process.env.APP_PORT;
 }
 
 if(!process.env.MONGO_URI) {
     console.log("Could not find mongo uri env variable");
 } else {
-    mongoURI = process.env.MONGO_URI;
+    mongoURIV = process.env.MONGO_URI;
 }
 
 if(!process.env.SERVICE_ACCOUNT_KEY) {
     console.log("Could not find service account key env variable");
 } else {
-    serviceAccountKey = process.env.SERVICE_ACCOUNT_KEY;
+    serviceAccountKeyV = process.env.SERVICE_ACCOUNT_KEY;
 }
+
+/**
+ * Have to do this workaround since lint doesn't let
+ * us export vars
+ */
+const port = portV;
+const mongoURI = mongoURIV;
+const serviceAccountKey = serviceAccountKeyV
 
 export { port, mongoURI, serviceAccountKey }
 

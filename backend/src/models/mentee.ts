@@ -15,10 +15,10 @@ interface MenteeModelInterface extends mongoose.Model<MenteeDoc> {
 }
 
 const MenteeSchema = new mongoose.Schema({
-    name:{
+  name:{
         type: String,
         required: true,
-    },
+  },
   status: {
     type: String,
     required: true,
