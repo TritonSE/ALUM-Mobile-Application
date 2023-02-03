@@ -34,7 +34,8 @@ struct LoginPageView: View {
                     .padding(.bottom, 12)
 
                 Group {
-                    InputValidationComponent(text: $password, componentName: Text("Password: ").font(.custom("Metropolis-Regular", size: 16)), labelText: "Password", showCheck: false, functions: [Functions.EnterPassword])
+                    InputValidationComponent(text: $password, componentName: Text("Password: ").font(.custom("Metropolis-Regular",size: 16)),
+                        labelText: "Password", showCheck: false, functions: [Functions.EnterPassword])
                         .padding(.bottom, 0)
 
                     HStack {
