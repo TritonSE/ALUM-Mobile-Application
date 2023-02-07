@@ -10,47 +10,53 @@
 import SwiftUI
 
 struct ProgressBarComponent: View {
-    @State var nodes = 6
+    @State var nodes = 5
     @State var filledNodes = 4
-    @State var activeNode = 1
+    @State var activeNode = 2
 
     var body: some View {
-        ZStack {
-            HStack {
+        GeometryReader { (geometry) in
+            self.makeView(geometry)
+        }
+    }
+
+    func makeView(_ geometry: GeometryProxy) -> some View {
+        let margin = geometry.size.width / CGFloat(self.nodes) - 16
+        return ZStack {
+            HStack(spacing: 0) {
                 ForEach(0 ..< nodes - 1, id: \.self) { index in
                     if index < activeNode-1 || index < filledNodes - 1 {
                         Rectangle()
-                            .frame(width: 350/(Double(nodes) - 1) - 5, height: 2)
+                            .frame(width: .infinity, height: 2)
                             .foregroundColor(Color("ALUM Dark Blue"))
                     } else {
                         Rectangle()
-                            .frame(width: 350/(Double(nodes) - 1) - 5, height: 2)
+                            .frame(width: .infinity, height: 2)
                             .foregroundColor(Color("NeutralGray2"))
                     }
                 }
             }
-            HStack {
+            .frame(width: geometry.size.width - margin)
+
+            HStack(spacing: 0) {
                 ForEach(0 ..< nodes, id: \.self) { index in
                     if index == activeNode - 1 {
                         Circle()
                             .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 3)
                             .background(Circle().foregroundColor(Color("ALUM Light Blue")))
-                            .frame(width: 16, height: 16)
-                            .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
+                            .frame(width: .infinity, height: 16)
                     } else if index < filledNodes {
                         ZStack {
                             Circle()
                                 .foregroundColor(Color("ALUM Dark Blue"))
-                                .frame(width: 16, height: 16)
-                                .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
+                                .frame(width: .infinity, height: 16)
 
                             Image("CheckMarkVector")
                         }
                     } else {
                         Circle()
                             .foregroundColor(Color("NeutralGray2"))
-                            .frame(width: 16, height: 16)
-                            .padding(.horizontal, 170 / (Double(nodes - 1)) - (5 + Double(nodes)))
+                            .frame(width: .infinity, height: 16)
                     }
                 }
             }
@@ -60,6 +66,9 @@ struct ProgressBarComponent: View {
 
 struct ProgressBarComponent_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBarComponent()
+        Group {
+            ProgressBarComponent()
+        }
+
     }
 }
