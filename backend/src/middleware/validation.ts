@@ -40,32 +40,50 @@ const MENTOR = bake({
 
 /**
  * Function to validate whether proper inputs were given
- * in the request when generating users.
+ * in the request when generating mentee.
  * @param req: request
  * @param res: response
  * @param next: next function to be called
  * @returns 
  */
-const validateUsers = (req: Request, res: Response, next: NextFunction) => {
+const validateMentee = (req: Request, res: Response, next: NextFunction) => {
     const requestBody = req.body;
-    if(requestBody.type === "Mentee") {
-        const validateMentee = MENTEE.check(requestBody);
-        if(validateMentee.ok){
-            return next();
-        } 
-        return res.status(400).send(validateMentee.error.toString())
+
+    if(requestBody.type !== "Mentee") {
+        return res.status(ValidationError.TYPE_NOT_FOUND.status).send(ValidationError.TYPE_NOT_FOUND.displayMessage(true));
+    }
+
+    const validateMentee = MENTEE.check(requestBody);
+
+    if(validateMentee.ok){
+        return next();
     } 
-    if (requestBody.type === "Mentor") {
-        const validateMentor = MENTOR.check(requestBody);
-        if(validateMentor.ok){
-            return next();
-        }
-        
-        return res.status(400).send(validateMentor.error.toString())
-    } 
-    
-    return res.status(ValidationError.TYPE_NOT_FOUND.status).send(ValidationError.TYPE_NOT_FOUND.displayMessage(false))   
+
+    return res.status(400).send(validateMentee.error.toString());  
 
 }
 
-export { validateUsers }
+/**
+ * Function to validate whether proper inputs were given
+ * in the request when generating mentor.
+ * @param req: request
+ * @param res: response
+ * @param next: next function to be called
+ * @returns 
+ */
+const validateMentor = (req: Request, res: Response, next: NextFunction) => {
+    const requestBody = req.body;
+
+    if(requestBody.type !== "Mentor") {
+        return res.status(ValidationError.TYPE_NOT_FOUND.status).send(ValidationError.TYPE_NOT_FOUND.displayMessage(true)); 
+    }
+
+    const validateMentor = MENTOR.check(requestBody);
+    if(validateMentor.ok) {
+        return next();
+    }
+
+    return res.status(400).send(validateMentor.error.toString());
+}
+
+export { validateMentee, validateMentor }
