@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct LoginPageView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State var clicked: Bool = false
+    @State var authenticated: Bool = false
     // @State var buttonFilled: Bool = false
 
     var body: some View {
@@ -31,7 +33,7 @@ struct LoginPageView: View {
             if clicked {
                 InputValidationComponent(text: $username, componentName: Text("Email: ").font(.custom("Metropolis-Regular", size: 16)),
                     labelText: "Email", showCheck: false, functions: [Functions.EnterEmail])
-                    .padding(.bottom, 12)
+                    .padding(.bottom, 16)
 
                 Group {
                     InputValidationComponent(text: $password, componentName: Text("Password: ").font(.custom("Metropolis-Regular",size: 16)),
@@ -50,6 +52,7 @@ struct LoginPageView: View {
                     }
                     .padding(.trailing, 16.0)
                     .padding(.bottom, 32)
+                    
                 }
 
             } else {
@@ -77,20 +80,27 @@ struct LoginPageView: View {
 
             if username != "" && password != "" {
                 Button("Login") {
-                    clicked.toggle()
+                    clicked = true
+                    Auth.auth().signIn(withEmail: $username.wrappedValue, password: $password.wrappedValue) { (result, error) in
+                                        if error == nil {
+                                            authenticated = true
+                                        } else {
+                                            authenticated = false
+                                        }
+
+                                    }
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .frame(width: 358)
                 .padding(.bottom, 32)
             } else {
                 Button("Login") {
-                    clicked.toggle()
+                    clicked = true
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .frame(width: 358)
                 .padding(.bottom, 32)
             }
-
         }
     }
 }
