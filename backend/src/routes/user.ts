@@ -25,18 +25,18 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response, nex
    */
   console.log('Creating a new mentee', req.query);
 
-  try{
-    const {name, email, password} = req.body;
+  try {
+    const { name, email, password } = req.body;
     const status = "under review";
     const mentee = new Mentee({ name, status });
     await createUser(mentee._id.toString(), email, password);
     await mentee.save();
     return res.status(201).json({
       message: `Mentee ${name} was succesfully created.`,
-      userID:  mentee._id,
+      userID: mentee._id,
     });
   }
-  catch(e){
+  catch (e) {
     next();
     return;
   }
@@ -57,7 +57,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response, nex
   */
 
   console.info('Creating new mentor', req.query);
-  try{
+  try {
     const { name, email, password, organization_id, personal_access_token } = req.body;
     const status = "under review";
     const mentor = new Mentor({ name, organization_id, personal_access_token, status });
@@ -65,10 +65,10 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response, nex
     await mentor.save();
     return res.status(201).json({
       message: `Mentor ${name} was successfully created.`,
-      userID : mentor._id,
+      userID: mentor._id,
     });
   }
-  catch(e){
+  catch (e) {
     next();
     return;
   }
@@ -79,7 +79,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response, nex
 router.patch("/mentee/:userid", [], async (req: Request, res: Response, next: NextFunction) => {
   const requestBody = req.body;
   const userid = req.params.userid;
-  
+
   if (requestBody.type == "Mentor") {
     const user = await Mentor.find({ _id: userid });
     return res.status(200).send(user);
