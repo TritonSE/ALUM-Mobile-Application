@@ -55,11 +55,16 @@ const validateMentee = (req: Request, res: Response, next: NextFunction) => {
 
     const validateMentee = MENTEE.check(requestBody);
 
-    if(validateMentee.ok){
-        return next();
+    if(!(validateMentee.ok)){
+        return res.status(400).send(validateMentee.error.toString());  
     } 
 
-    return res.status(400).send(validateMentee.error.toString());  
+    const emailValidation = new RegExp('^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$')
+    if(!(emailValidation.test(requestBody.email))) {
+        return res.status(ValidationError.INVALID_EMAIL_ID.status).send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
+    }
+
+    return next();  
 
 }
 
@@ -79,11 +84,12 @@ const validateMentor = (req: Request, res: Response, next: NextFunction) => {
     }
 
     const validateMentor = MENTOR.check(requestBody);
-    if(validateMentor.ok) {
-        return next();
+    if(!(validateMentor.ok)) {
+        return res.status(400).send(validateMentor.error.toString());
     }
 
-    return res.status(400).send(validateMentor.error.toString());
+    return next();
+
 }
 
 export { validateMentee, validateMentor }
