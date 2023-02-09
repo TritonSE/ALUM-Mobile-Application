@@ -13,12 +13,14 @@ struct InputValidationComponent: View {
     @State var componentName: Text = Text("")
     @State var labelText: String = ""
     @State var borderColor: Color = Color("NeutralGray3")
+    @State var isSecured: Bool = false
+    @State var showEye: Bool = false
     @State var showCheck: Bool = false
     var functions: [(String) -> (Bool, String)] = []
 
     var body: some View {
         VStack {
-            TextInputFieldComponent(textFieldText: $text, topLabel: componentName, borderColor: borderColor, labelText: labelText)
+            TextInputFieldComponent(textFieldText: $text, topLabel: componentName, isSecured: isSecured, showEye: showEye, borderColor: borderColor, labelText: labelText)
             VStack(spacing: 0) {
                 ForEach(0..<functions.count, id: \.self) { index in
                     let result: (Bool, String) = (self.functions[index](text))
