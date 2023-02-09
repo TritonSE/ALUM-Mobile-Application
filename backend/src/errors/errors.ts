@@ -5,6 +5,8 @@
  * 
  */
 
+import internal from "stream";
+
 /**
  * This is the base class for all error types. All errors will be divided into
  * different groups based on error type and will have its own respective class
