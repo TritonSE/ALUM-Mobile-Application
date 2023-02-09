@@ -7,7 +7,10 @@
 
 import SwiftUI
 
-struct Item: View, Hashable {
+struct Item: View, Hashable, Identifiable {
+
+    var id = UUID()
+    var name: String = ""
 
     // requirements to make Hashable
     static func == (lhs: Item, rhs: Item) -> Bool {
@@ -23,7 +26,7 @@ struct Item: View, Hashable {
     @State var content: String = ""
     @State var isChecked: Bool = false
 
-    func toggle() {
+    func toggle () {
         isChecked = !isChecked
 
     }
@@ -77,8 +80,9 @@ struct ItemTester: View {
 
 struct Item_Previews: PreviewProvider {
     static var previews: some View {
-        ItemTester(itemsList: [Item(content: "list item 1", isChecked: false)
-                                , Item(content: "list item 2", isChecked: true)
-                                , Item(content: "list item 3", isChecked: true)])
+        ItemTester(itemsList:
+                    [Item(content: "list item 1", isChecked: false),
+                     Item(content: "list item 2", isChecked: true),
+                     Item(content: "list item 3", isChecked: true)])
     }
 }

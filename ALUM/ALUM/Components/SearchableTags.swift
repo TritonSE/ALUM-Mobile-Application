@@ -14,83 +14,45 @@ struct SearchableTags: View {
     @State var isShowing: Bool = true
 
     var body: some View {
-        if isBlue {
-            VStack {
-                ZStack {
-                    HStack {
+        VStack {
+            ZStack {
+                HStack {
 
-                        Text(text)
-                            .foregroundColor(Color(.black))
-                        Spacer()
-                            .frame(width: 10)
+                    Text(text)
+                        .foregroundColor(Color(.black))
+                    Spacer()
+                        .frame(width: 10)
 
-                        Button(action: {
-                            isShowing = false
-                        }) {
-                            Image(systemName: "xmark")
-                        }
-                        .foregroundColor(Color("NeutralGray4"))
-                        .frame(height: 8)
-                        .frame(width: 8)
-    //                    Image(systemName: "xmark")
-    //                        .foregroundColor(Color("NeutralGray4"))
-    //                        .frame(height: 8)
-    //                        .frame(width: 8)
-
-                    }
+                    Button(action: {
+                        isShowing = false
+                    }, label: {
+                        Image(systemName: "xmark")
+                    })
+                    .foregroundColor(Color("NeutralGray4"))
+                    .frame(height: 8)
+                    .frame(width: 8)
+//                    Image(systemName: "xmark")
+//                        .foregroundColor(Color("NeutralGray4"))
+//                        .frame(height: 8)
+//                        .frame(width: 8)
 
                 }
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 100).stroke())
-                .foregroundColor(Color("Alum Light Blue"))
-                .font(.headline)
-                .background(Color("Alum Light Blue"))
-                .cornerRadius(100)
 
-                }
-        } else {
-            VStack {
-                ZStack {
-                    HStack {
-                        Spacer()
-                            .frame(width: 18)
-                        Button(action: {
-                            isShowing = false
-                        }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(Color("ALUM Dark Blue"))
-                        }
-                        .foregroundColor(Color("NeutralGray4"))
-                        .frame(height: 12)
-                        .frame(width: 12)
+            }
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 100).stroke())
+            .foregroundColor(Color("Alum Light Blue"))
+            .font(.headline)
+            .background(Color("Alum Light Blue"))
+            .cornerRadius(100)
 
-                        Spacer()
-                            .frame(width: 14)
-
-                        Text(text)
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                            .frame(width: 12)
-
-                    }
-
-                }
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 100).stroke())
-                .foregroundColor(Color("Alum Light Blue"))
-                .font(.headline)
-                .background(Color(.white))
-                .cornerRadius(100)
-
-                }
-        }
-
+            }
     }
 }
 
 struct SearchableTags_Previews: PreviewProvider {
     static var previews: some View {
-        SearchableTags(text: "Add XXX", isBlue: false)
+        SearchableTags(text: "tag text", isBlue: true)
 
     }
 }
