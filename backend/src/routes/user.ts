@@ -5,21 +5,18 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
-import { validateUsers } from "../middleware/validation";
+import { validateMentee, validateMentor } from "../middleware/validation";
 
 const router = express.Router();
 
 /**
- * This is a post route to create a new user. It will first validate 
- * the users to ensure they follow standard listed below before adding them to
+ * This is a post route to create a new mentee. It will first validate 
+ * the mentee to ensure they follow standard listed below before adding them to
  * mongoDb and Firebase
  * 
  * Mentee: {type: string, name: string, email: string,password: string}
- * 
- * Mentor: {type: string, name: string, password: string, email: string 
- * organization_id: string, personal_access_token: string}
  */
-router.post("/mentee", [validateUsers], async (req: Request, res: Response) => {
+router.post("/mentee", [validateMentee], async (req: Request, res: Response) => {
   /*
    * When registering a mentee
    */
@@ -29,7 +26,16 @@ router.post("/mentee", [validateUsers], async (req: Request, res: Response) => {
   return res.status(201).send(mentee);
 });
 
-router.post("/mentor", [validateUsers], async (req: Request, res: Response) => {
+/**
+ * This is a post route to create a new mentor. It will first validate 
+ * the mentor to ensure they follow standard listed below before adding them to
+ * mongoDb and Firebase
+ * 
+ * Mentor: {type: string, name: string, password: string, email: string 
+ * organization_id: string, personal_access_token: string}
+ */
+
+router.post("/mentor", [validateMentor], async (req: Request, res: Response) => {
   /*
   * When registering a mentor
   */

@@ -10,7 +10,7 @@ import { Error } from "./errors";
  * to validating inputs. 
  */
 const INVALID_EMAIL_ID = 'Invalid email was found, email must not have @iusd.org';
-const TYPE_NOT_FOUND = 'Type of user was not found, please specify the user type'
+const TYPE_NOT_FOUND = 'Type of user was not found or was incorrect, please specify the user type'
 
 export class ValidationError extends Error {
   
