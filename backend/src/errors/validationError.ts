@@ -11,11 +11,14 @@ import { Error } from "./errors";
  */
 const INVALID_EMAIL_ID = 'Invalid email was found, email must not have @iusd.org';
 const TYPE_NOT_FOUND = 'Type of user was not found or was incorrect, please specify the user type'
+const EMAIL_ALREADY_IN_USE = 'E-mail already in use!'
 
 export class ValidationError extends Error {
   
   static INVALID_EMAIL_ID = new ValidationError(0, 400, INVALID_EMAIL_ID);
   
   static TYPE_NOT_FOUND = new ValidationError(1, 400, TYPE_NOT_FOUND);
+
+  static USED_EMAIL = new ValidationError(2, 400, EMAIL_ALREADY_IN_USE);
   
 }

@@ -6,6 +6,9 @@ import express, { NextFunction, Request, Response } from "express";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
+import { createUser } from "../services/auth";
+import { firebaseAuth } from "../services/firebase";
+import { nextTick } from "process";
 
 const router = express.Router();
 
@@ -16,14 +19,27 @@ const router = express.Router();
  * 
  * Mentee: {type: string, name: string, email: string,password: string}
  */
-router.post("/mentee", [validateMentee], async (req: Request, res: Response) => {
+router.post("/mentee", [validateMentee], async (req: Request, res: Response, next: NextFunction) => {
   /*
    * When registering a mentee
    */
-  const { name, status } = req.body;
-  const mentee = new Mentee({ name, status });
-  await mentee.save();
-  return res.status(201).send(mentee);
+  console.log('Creating a new mentee', req.query);
+
+  try{
+    const {name, email, password} = req.body;
+    const status = "under review";
+    const mentee = new Mentee({ name, status });
+    await createUser(mentee._id.toString(), email, password);
+    await mentee.save();
+    return res.status(201).json({
+      message: `Mentee ${name} was succesfully created.`,
+      userID:  mentee._id,
+    });
+  }
+  catch(e){
+    next();
+    return;
+  }
 });
 
 /**
@@ -31,19 +47,34 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
  * the mentor to ensure they follow standard listed below before adding them to
  * mongoDb and Firebase
  * 
- * Mentor: {type: string, name: string, password: string, email: string 
+ * Mentor: {type: string, name: string, email: string, password: string
  * organization_id: string, personal_access_token: string}
  */
 
-router.post("/mentor", [validateMentor], async (req: Request, res: Response) => {
+router.post("/mentor", [validateMentor], async (req: Request, res: Response, next: NextFunction) => {
   /*
   * When registering a mentor
   */
-  const { name, organization_id, access_token, status } = req.body;
-  const mentor = new Mentor({ name, organization_id, access_token, status });
-  await mentor.save();
-  return res.status(201).send(mentor);
+
+  console.info('Creating new mentor', req.query);
+  try{
+    const { name, email, password, organization_id, personal_access_token } = req.body;
+    const status = "under review";
+    const mentor = new Mentor({ name, organization_id, personal_access_token, status });
+    await createUser(mentor._id.toString(), email, password);
+    await mentor.save();
+    return res.status(201).json({
+      message: `Mentor ${name} was successfully created.`,
+      userID : mentor._id,
+    });
+  }
+  catch(e){
+    next();
+    return;
+  }
 });
+
+
 
 router.patch("/mentee/:userid", [], async (req: Request, res: Response, next: NextFunction) => {
   const requestBody = req.body;

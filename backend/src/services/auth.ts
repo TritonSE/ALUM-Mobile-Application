@@ -5,6 +5,7 @@
  * firebase to MongoDB)
  */
 
+import { ValidationError } from "../errors/validationError";
 import { firebaseAuth } from "./firebase";
 
 /**
@@ -15,12 +16,17 @@ import { firebaseAuth } from "./firebase";
  * @returns 
  */
 async function createUser(uid: string, email: string, password: string) {
+    try{
     const userRecord = firebaseAuth.createUser({
         "uid": uid,
         "email": email,
         "password": password
     })
-    return userRecord
+    return userRecord;
+}
+catch(e){
+    throw ValidationError.USED_EMAIL;
+}
 }
 
 
