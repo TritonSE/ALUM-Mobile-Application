@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InputValidationText: View {
 
-    @State var isValid: Bool = true
+    @State var isValid: Bool = false
     @State var message: String = "message"
     @State var showCheck: Bool = true
 

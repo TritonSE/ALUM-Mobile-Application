@@ -16,7 +16,7 @@ struct LoginPageView: View {
     @State private var userIsLoggedIn: Bool = false
     @State var emailFunc: [(String) -> (Bool, String)] = []
     @State var passFunc: [(String) -> (Bool, String)] = []
-    
+
     // @State var buttonFilled: Bool = false
 
     var body: some View {
@@ -26,13 +26,13 @@ struct LoginPageView: View {
             content
         }
     }
-    
+
     var content: some View {
         /*
         emailFunc = (clicked ? [Functions.EnterEmail] : [])
         passFunc = (clicked ? [Functions.EnterPassword] : [])
          */
-        
+
         return
         VStack(spacing: 0) {
             Image("ALUMLogoBlue")
@@ -54,9 +54,17 @@ struct LoginPageView: View {
                 .padding(.bottom, 22)
 
             Group {
-                InputValidationComponent(text: $password, componentName: Text("Password: ").font(.custom("Metropolis-Regular",size: 16)), labelText: "Password",
-                    isSecured: true, showEye: true, showCheck: false, functions: passFunc)
-                    .padding(.bottom, 6)
+                InputValidationComponent(
+                    text: $password,
+                    componentName: Text("Password: ")
+                        .font(.custom("Metropolis-Regular", size: 16)),
+                    labelText: "Password",
+                    isSecured: true,
+                    showEye: true,
+                    showCheck: false,
+                    functions: passFunc
+                )
+                .padding(.bottom, 6)
 
                 HStack {
                     Spacer()
@@ -101,24 +109,24 @@ struct LoginPageView: View {
             }
         }
          */
-        
+
     }
-    
+
     func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if let maybeError = error {
                 let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
-                if (errorCode == .invalidEmail) {
+                if errorCode == .invalidEmail {
                     print("Invalid Email")
                     emailFunc = [Functions.InvalidEmail]
-                } else if (errorCode == .wrongPassword) {
+                } else if errorCode == .wrongPassword {
                     print("wrong password")
                     passFunc = [Functions.IncorrectPassword]
-                } else if (errorCode == .userNotFound) {
+                } else if errorCode == .userNotFound {
                     print("User not found")
                     emailFunc = [Functions.IncorrectEmail]
                 }
-                
+
                 /*
                 let err = maybeError as NSError
                         switch err.code {
@@ -159,15 +167,15 @@ class Functions {
         }
     }
 
-    static let IncorrectPassword: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+    static let IncorrectPassword: (String) -> (Bool, String) = {(_: String) -> (Bool, String) in
         return (false, "Incorrect Password")
     }
 
-    static let IncorrectEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+    static let IncorrectEmail: (String) -> (Bool, String) = {(_: String) -> (Bool, String) in
         return (false, "Account doesn't exist for this email")
     }
 
-    static let InvalidEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+    static let InvalidEmail: (String) -> (Bool, String) = {(_: String) -> (Bool, String) in
         return (false, "Please enter a valid email address")
     }
 
@@ -182,7 +190,7 @@ class Functions {
         }
     }
      */
-     
+
 }
 
 struct LoginPageView_Previews: PreviewProvider {

@@ -20,7 +20,10 @@ struct InputValidationComponent: View {
 
     var body: some View {
         VStack {
-            TextInputFieldComponent(textFieldText: $text, topLabel: componentName, isSecured: isSecured, showEye: showEye, borderColor: borderColor, labelText: labelText)
+            TextInputFieldComponent(
+                textFieldText: $text, topLabel: componentName, isSecured: isSecured,
+                showEye: showEye, borderColor: borderColor, labelText: labelText
+            )
             VStack(spacing: 0) {
                 ForEach(0..<functions.count, id: \.self) { index in
                     let result: (Bool, String) = (self.functions[index](text))
