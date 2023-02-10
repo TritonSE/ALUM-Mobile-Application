@@ -27,7 +27,7 @@ struct InputValidationComponent: View {
                     if result.0 {
                         InputValidationText(isValid: true, message: result.1, showCheck: showCheck)
                     } else if !result.0 && result.1 == "skip" {
-
+                        InputValidationText(message: "", showCheck: showCheck)
                     } else {
                         InputValidationText(isValid: false, message: result.1, showCheck: showCheck)
                         // self.borderColor = Color("FunctionalError")

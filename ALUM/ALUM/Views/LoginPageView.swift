@@ -6,19 +6,34 @@
 //
 
 import SwiftUI
-// import Firebase
+import Firebase
 
 struct LoginPageView: View {
     @State var email: String = ""
     @State var password: String = ""
-    @State var clicked: Bool = false
+    // @State var clicked: Bool = false
+    @State var disabled: Bool = true
+    @State private var userIsLoggedIn: Bool = false
+    @State var emailFunc: [(String) -> (Bool, String)] = []
+    @State var passFunc: [(String) -> (Bool, String)] = []
+    
     // @State var buttonFilled: Bool = false
 
     var body: some View {
-        var emailFunc: [(String) -> (Bool, String)] = (clicked ? [Functions.EnterEmail] : [])
-        var passFunc: [(String) -> (Bool, String)] = (clicked ? [Functions.EnterPassword] : [])
-        var disabled: Bool = ((email == "" || password == "") ? true : false)
-
+        if userIsLoggedIn {
+            ContentView()
+        } else {
+            content
+        }
+    }
+    
+    var content: some View {
+        /*
+        emailFunc = (clicked ? [Functions.EnterEmail] : [])
+        passFunc = (clicked ? [Functions.EnterPassword] : [])
+         */
+        
+        return
         VStack(spacing: 0) {
             Image("ALUMLogoBlue")
                 .resizable()
@@ -41,7 +56,7 @@ struct LoginPageView: View {
             Group {
                 InputValidationComponent(text: $password, componentName: Text("Password: ").font(.custom("Metropolis-Regular",size: 16)), labelText: "Password",
                     isSecured: true, showEye: true, showCheck: false, functions: passFunc)
-                    .padding(.bottom, 0)
+                    .padding(.bottom, 6)
 
                 HStack {
                     Spacer()
@@ -57,32 +72,72 @@ struct LoginPageView: View {
                 .padding(.bottom, 32)
             }
 
-            Button("Login") {
-                clicked = true
-            }
-            .buttonStyle(FilledInButtonStyle(disabled: disabled))
-            .frame(width: 358)
-            .padding(.bottom, 32)
-
-            /*
             if email != "" && password != "" {
                 Button("Login") {
-                    clicked = true
-                    // login()
+                    // clicked = false
+                    emailFunc = []
+                    login()
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .frame(width: 358)
                 .padding(.bottom, 32)
             } else {
                 Button("Login") {
-                    clicked = true
+                    emailFunc = [Functions.EnterEmail]
+                    passFunc = [Functions.EnterPassword]
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .frame(width: 358)
                 .padding(.bottom, 32)
             }
-             */
 
+        }
+        /*
+        .onAppear {
+            Auth.auth().addStateDidChangeListener { auth, user in
+                if user != nil {
+                    userIsLoggedIn.toggle()
+                }
+            }
+        }
+         */
+        
+    }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            if let maybeError = error {
+                let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
+                if (errorCode == .invalidEmail) {
+                    print("Invalid Email")
+                    emailFunc = [Functions.InvalidEmail]
+                } else if (errorCode == .wrongPassword) {
+                    print("wrong password")
+                    passFunc = [Functions.IncorrectPassword]
+                } else if (errorCode == .userNotFound) {
+                    print("User not found")
+                    emailFunc = [Functions.IncorrectEmail]
+                }
+                
+                /*
+                let err = maybeError as NSError
+                        switch err.code {
+                        case AuthErrorCode.wrongPassword.rawValue:
+                            print("wrong password")
+                        case AuthErrorCode.invalidEmail.rawValue:
+                            print("invalid email")
+                        case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
+                            print("accountExistsWithDifferentCredential")
+                        default:
+                            print("unknown error: \(err.localizedDescription)")
+                        }
+                 */
+                // if error != nil {
+                // print(error?.localizedDescription ?? "")
+            } else {
+                print("success")
+                userIsLoggedIn.toggle()
+            }
         }
     }
 }
@@ -104,6 +159,18 @@ class Functions {
         }
     }
 
+    static let IncorrectPassword: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        return (false, "Incorrect Password")
+    }
+
+    static let IncorrectEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        return (false, "Account doesn't exist for this email")
+    }
+
+    static let InvalidEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        return (false, "Please enter a valid email address")
+    }
+
     /*
     func login() {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
@@ -115,6 +182,7 @@ class Functions {
         }
     }
      */
+     
 }
 
 struct LoginPageView_Previews: PreviewProvider {
