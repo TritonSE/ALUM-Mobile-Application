@@ -10,18 +10,19 @@
 import SwiftUI
 
 struct ProgressBarComponent: View {
-    @State var nodes = 5
-    @State var filledNodes = 4
-    @State var activeNode = 2
+    @State var nodes = 6
+    @State var filledNodes = 3
+    @State var activeNode = 3
 
     var body: some View {
         GeometryReader { (geometry) in
             self.makeView(geometry)
-        }
+        }.fixedSize(horizontal: false, vertical: true)
     }
 
     func makeView(_ geometry: GeometryProxy) -> some View {
-        let margin = geometry.size.width / CGFloat(self.nodes) - 16
+        let equalWidth = geometry.size.width / CGFloat(self.nodes)
+
         return ZStack {
             HStack(spacing: 0) {
                 ForEach(0 ..< nodes - 1, id: \.self) { index in
@@ -36,7 +37,7 @@ struct ProgressBarComponent: View {
                     }
                 }
             }
-            .frame(width: geometry.size.width - margin)
+            .padding(.horizontal, equalWidth/2)
 
             HStack(spacing: 0) {
                 ForEach(0 ..< nodes, id: \.self) { index in
@@ -44,19 +45,19 @@ struct ProgressBarComponent: View {
                         Circle()
                             .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 3)
                             .background(Circle().foregroundColor(Color("ALUM Light Blue")))
-                            .frame(width: .infinity, height: 16)
+                            .frame(width: equalWidth, height: 16)
                     } else if index < filledNodes {
                         ZStack {
                             Circle()
                                 .foregroundColor(Color("ALUM Dark Blue"))
-                                .frame(width: .infinity, height: 16)
+                                .frame(width: equalWidth, height: 16)
 
                             Image("CheckMarkVector")
                         }
                     } else {
                         Circle()
                             .foregroundColor(Color("NeutralGray2"))
-                            .frame(width: .infinity, height: 16)
+                            .frame(width: equalWidth, height: 16)
                     }
                 }
             }
