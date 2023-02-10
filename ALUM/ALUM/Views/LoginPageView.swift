@@ -12,7 +12,6 @@ struct LoginPageView: View {
     @State var username: String = ""
     @State var password: String = ""
     @State var clicked: Bool = false
-    @State var authenticated: Bool = false
     // @State var buttonFilled: Bool = false
 
     var body: some View {
@@ -81,14 +80,6 @@ struct LoginPageView: View {
             if username != "" && password != "" {
                 Button("Login") {
                     clicked = true
-                    Auth.auth().signIn(withEmail: $username.wrappedValue, password: $password.wrappedValue) { (result, error) in
-                                        if error == nil {
-                                            authenticated = true
-                                        } else {
-                                            authenticated = false
-                                        }
-
-                                    }
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .frame(width: 358)
