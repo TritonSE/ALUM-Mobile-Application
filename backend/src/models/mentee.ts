@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 interface MenteeInterface {
-    name: string;
-    status: string;
+  name: string;
+  status: string;
 }
 
 interface MenteeDoc extends mongoose.Document {
-  name: string;  
+  name: string;
   status: string;
 }
 
@@ -15,14 +15,14 @@ interface MenteeModelInterface extends mongoose.Model<MenteeDoc> {
 }
 
 const MenteeSchema = new mongoose.Schema({
-  name:{
-        type: String,
-        required: true,
+  name: {
+    type: String,
+    required: true,
   },
   status: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const Mentee = mongoose.model<MenteeDoc, MenteeModelInterface>("Mentee", MenteeSchema);

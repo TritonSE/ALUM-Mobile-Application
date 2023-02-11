@@ -5,20 +5,18 @@
  * firebase to for authentication.
  */
 
-import * as firebase from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import { serviceAccountKey } from '../config';
+import * as firebase from "firebase-admin/app";
+import { getAuth } from "firebase-admin/auth";
+import { serviceAccountKey } from "../config";
 
 /**
  * This will initialize the firebase app to store
  * user credentials
  */
 firebase.initializeApp({
-        credential: firebase.cert(JSON.parse(serviceAccountKey))
-})
+  credential: firebase.cert(JSON.parse(serviceAccountKey)),
+});
 
 const firebaseAuth = getAuth();
 
-export { firebaseAuth }
-
-
+export { firebaseAuth };

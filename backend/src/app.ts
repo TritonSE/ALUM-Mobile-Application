@@ -19,10 +19,8 @@ mongoose.connect(mongoURI, {}, () => {
   console.log("Connected to Database.");
 });
 
-
 server.app.use(json());
 server.app.use(userRouter);
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-

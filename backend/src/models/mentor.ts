@@ -1,5 +1,5 @@
 /**
- * This file contains the model for the mentors. Note 
+ * This file contains the model for the mentors. Note
  * personal information such as email and password will
  * be stored on firebase
  */
@@ -28,18 +28,18 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  organization_id: {
+  organizationId: {
     type: String,
     required: true,
   },
-  access_token: {
+  accessToken: {
     type: String,
     required: true,
   },
   status: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const Mentor = mongoose.model<MentorDoc, MentorModelInterface>("Mentor", mentorSchema);

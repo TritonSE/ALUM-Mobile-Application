@@ -1,5 +1,5 @@
 /**
- * This file consists of functions to be used to add 
+ * This file consists of functions to be used to add
  * users to Firebase. Could potentially be configured to add
  * neccessary user info to Mongo DB (i.e uid linking user from
  * firebase to MongoDB)
@@ -13,21 +13,19 @@ import { firebaseAuth } from "./firebase";
  * @param uid: Id for user, note this MUST be the same uid in MongoDb
  * @param email: email of user, note it must not have **@iusd.org
  * @param password: password of user
- * @returns 
+ * @returns
  */
 async function createUser(uid: string, email: string, password: string) {
-    try {
-        const userRecord = firebaseAuth.createUser({
-            "uid": uid,
-            "email": email,
-            "password": password
-        })
-        return userRecord;
-    }
-    catch (e) {
-        throw ValidationError.USED_EMAIL;
-    }
+  try {
+    const userRecord = firebaseAuth.createUser({
+      uid,
+      email,
+      password,
+    });
+    return await userRecord;
+  } catch (e) {
+    throw new Error(ValidationError.USED_EMAIL.message);
+  }
 }
 
-
-export { createUser }
+export { createUser };
