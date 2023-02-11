@@ -57,7 +57,7 @@ struct ItemTester: View {
             HStack {
                 ForEach(itemsList, id: \.self) { itm in
                     if itm.isChecked {
-                        SearchableTags(text: itm.content, isBlue: true)
+                        Tags(text: itm.content, isBlue: true)
                     }
                 }
             }

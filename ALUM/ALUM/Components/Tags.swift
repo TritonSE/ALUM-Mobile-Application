@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchableTags: View {
+struct Tags: View {
 
     @State var text: String = ""
     @State var isBlue: Bool = true
@@ -79,9 +79,8 @@ struct SearchableTags: View {
     }
 }
 
-struct SearchableTags_Previews: PreviewProvider {
+struct Tags_Previews: PreviewProvider {
     static var previews: some View {
-        SearchableTags(text: "Sample Text @12345", isBlue: true)
-
+        Tags(text: "Sample Text @12345", isBlue: true)
     }
 }
