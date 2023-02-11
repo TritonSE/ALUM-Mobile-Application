@@ -13,6 +13,7 @@
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
+		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
@@ -26,6 +27,7 @@
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
+		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
 				2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */,
 				9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */,
+				80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */,
 				9756DF742982338300A0BCB5 /* InputValidationText.swift */,
 				9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */,
 			);
@@ -132,6 +135,7 @@
 				0748208729712921004AF547 /* Sources */,
 				0748208829712921004AF547 /* Frameworks */,
 				0748208929712921004AF547 /* Resources */,
+				80686032298AF939007DD035 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -187,6 +191,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		80686032298AF939007DD035 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0748208729712921004AF547 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -196,6 +220,7 @@
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
+				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,

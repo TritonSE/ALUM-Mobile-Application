@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct InputValidationText: View {
-    
+
     @State var isValid: Bool = true
     @State var message: String = "message"
     @State var showCheck: Bool = true
-    
+
     var body: some View {
         if isValid {
             HStack {
@@ -20,16 +20,16 @@ struct InputValidationText: View {
                     Image(systemName: "checkmark.circle")
                         .foregroundColor(Color("FunctionalSuccess"))
                 }
-                            
+
                 Text(message)
                     .foregroundColor(Color("FunctionalSuccess"))
                     .font(.subheadline)
                     .frame(height: 18.0)
-                    
+
                 Spacer()
             }
             .padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
-            
+
         } else {
             HStack {
                 if showCheck {
@@ -37,12 +37,12 @@ struct InputValidationText: View {
                         .foregroundColor(Color("FunctionalError"))
                         .frame(width: 16.0, height: 16.0)
                 }
-                
+
                 Text(message)
                     .foregroundColor(Color("FunctionalError"))
                     .font(.subheadline)
                     .frame(height: 18.0)
-                
+
                 Spacer()
             }
             .padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
