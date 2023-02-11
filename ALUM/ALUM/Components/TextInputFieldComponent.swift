@@ -30,8 +30,10 @@ struct TextInputFieldComponent: View {
                 Group {
                     if isSecured {
                         SecureField(labelText, text: $textFieldText)
+                            .textInputAutocapitalization(.never)
                     } else {
                         TextField(labelText, text: $textFieldText)
+                            .textInputAutocapitalization(.never)
                     }
                 }
                 .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
