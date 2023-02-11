@@ -49,20 +49,20 @@ struct TextInputFieldComponent: View {
 }
 
 struct TestView: View {
-    
+
     @State var textInput: String = ""
-    
+
     var body: some View {
         VStack {
             TextInputFieldComponent(textFieldText: $textInput, isSecured: false, showEye: false, labelText: "Username:")
             Text(textInput)
         }
-        
+
     }
 }
 
 struct TextInputFieldView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         TestView()
     }
