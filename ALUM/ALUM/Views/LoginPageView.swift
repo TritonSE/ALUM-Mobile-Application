@@ -84,6 +84,7 @@ struct LoginPageView: View {
                 Button("Login") {
                     // clicked = false
                     emailFunc = []
+                    passFunc = []
                     login()
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
