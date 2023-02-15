@@ -16,9 +16,7 @@ struct LoginPageView: View {
     @State private var userIsLoggedIn: Bool = false
     @State var emailFunc: [(String) -> (Bool, String)] = []
     @State var passFunc: [(String) -> (Bool, String)] = []
-
-    // @State var buttonFilled: Bool = false
-
+    
     var body: some View {
         if userIsLoggedIn {
             ContentView()
@@ -28,11 +26,6 @@ struct LoginPageView: View {
     }
 
     var content: some View {
-        /*
-        emailFunc = (clicked ? [Functions.EnterEmail] : [])
-        passFunc = (clicked ? [Functions.EnterPassword] : [])
-         */
-
         return
         VStack(spacing: 0) {
             Image("ALUMLogoBlue")
@@ -82,7 +75,6 @@ struct LoginPageView: View {
 
             if email != "" && password != "" {
                 Button("Login") {
-                    // clicked = false
                     emailFunc = []
                     passFunc = []
                     login()
@@ -101,16 +93,6 @@ struct LoginPageView: View {
             }
 
         }
-        /*
-        .onAppear {
-            Auth.auth().addStateDidChangeListener { auth, user in
-                if user != nil {
-                    userIsLoggedIn.toggle()
-                }
-            }
-        }
-         */
-
     }
 
     func login() {
@@ -127,22 +109,6 @@ struct LoginPageView: View {
                     print("User not found")
                     emailFunc = [Functions.IncorrectEmail]
                 }
-
-                /*
-                let err = maybeError as NSError
-                        switch err.code {
-                        case AuthErrorCode.wrongPassword.rawValue:
-                            print("wrong password")
-                        case AuthErrorCode.invalidEmail.rawValue:
-                            print("invalid email")
-                        case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
-                            print("accountExistsWithDifferentCredential")
-                        default:
-                            print("unknown error: \(err.localizedDescription)")
-                        }
-                 */
-                // if error != nil {
-                // print(error?.localizedDescription ?? "")
             } else {
                 print("success")
                 userIsLoggedIn.toggle()
@@ -179,19 +145,6 @@ class Functions {
     static let InvalidEmail: (String) -> (Bool, String) = {(_: String) -> (Bool, String) in
         return (false, "Please enter a valid email address")
     }
-
-    /*
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-            } else {
-                print("success")
-            }
-        }
-    }
-     */
-
 }
 
 struct LoginPageView_Previews: PreviewProvider {
