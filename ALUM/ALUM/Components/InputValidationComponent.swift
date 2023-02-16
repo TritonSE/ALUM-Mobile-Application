@@ -41,29 +41,25 @@ struct InputValidationComponent: View {
     }
 }
 
-/*
- struct InputValidationComponent_Previews: PreviewProvider {
- 
- static var textInput: String = ""
- 
- static let testFunction: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
- if (string == "Password") {
- return (true, "good work!")
- } else {
- return (false, "you failed")
- }
- }
- 
- static let testFunction2: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
- if (string == "Password") {
- return (true, "good work!")
- } else {
- return (false, "you failed")
- }
- }
- 
- static var previews: some View {
- // InputValidationComponent(text: $textInput, functions: [testFunction, testFunction2])
- }
- }
- */
+struct InputValidationComponent_Previews: PreviewProvider {
+
+    static let testFunction: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        if string == "Password" {
+            return (true, "good work!")
+        } else {
+            return (false, "you failed")
+        }
+    }
+
+    static let testFunction2: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        if string == "Password" {
+            return (true, "good work!")
+        } else {
+            return (false, "you failed")
+        }
+    }
+
+    static var previews: some View {
+        InputValidationComponent(functions: [testFunction, testFunction2])
+    }
+}
