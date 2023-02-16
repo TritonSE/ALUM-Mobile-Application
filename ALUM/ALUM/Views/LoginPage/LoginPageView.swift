@@ -10,7 +10,7 @@ import Firebase
 
 struct LoginPageView: View {
     @StateObject private var viewModel = LoginPageViewModel()
-    
+
     var body: some View {
         if viewModel.userIsLoggedIn {
             ContentView()
