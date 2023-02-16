@@ -74,6 +74,7 @@
 			);
 			path = ALUM;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		0748209429712922004AF547 /* Preview Content */ = {
 			isa = PBXGroup;

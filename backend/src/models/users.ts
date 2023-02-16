@@ -1,3 +1,8 @@
+/**
+ * This is an example model file to be used as a reference
+ * for creating future models.
+ */
+
 import mongoose from "mongoose";
 
 interface UserInterface {
