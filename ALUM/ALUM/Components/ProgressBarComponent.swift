@@ -5,14 +5,15 @@
 //  Created by Yash Ravipati on 1/25/23.
 //
 
-// nodeList - [completed, not completed, completed...]
-
 import SwiftUI
 
+let circleDiameter = CGFloat(16)
+let borderWidth = CGFloat(3)
+
 struct ProgressBarComponent: View {
-    @State var nodes = 6
-    @State var filledNodes = 3
-    @State var activeNode = 3
+    @State var nodes = 3
+    @State var filledNodes = 1
+    @State var activeNode = 2
 
     var body: some View {
         GeometryReader { (geometry) in
@@ -21,47 +22,89 @@ struct ProgressBarComponent: View {
     }
 
     func makeView(_ geometry: GeometryProxy) -> some View {
-        let equalWidth = geometry.size.width / CGFloat(self.nodes)
-
         return ZStack {
             HStack(spacing: 0) {
                 ForEach(0 ..< nodes - 1, id: \.self) { index in
                     if index < activeNode-1 || index < filledNodes - 1 {
-                        Rectangle()
-                            .frame(width: .infinity, height: 2)
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                        FilledLine()
                     } else {
-                        Rectangle()
-                            .frame(width: .infinity, height: 2)
-                            .foregroundColor(Color("NeutralGray2"))
+                        PendingLine()
                     }
                 }
             }
-            .padding(.horizontal, equalWidth/2)
 
             HStack(spacing: 0) {
                 ForEach(0 ..< nodes, id: \.self) { index in
-                    if index == activeNode - 1 {
-                        Circle()
-                            .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 3)
-                            .background(Circle().foregroundColor(Color("ALUM Light Blue")))
-                            .frame(width: equalWidth, height: 16)
-                    } else if index < filledNodes {
-                        ZStack {
-                            Circle()
-                                .foregroundColor(Color("ALUM Dark Blue"))
-                                .frame(width: equalWidth, height: 16)
-
-                            Image("CheckMarkVector")
+                    Group {
+                        if index > 0 {
+                            Spacer()
                         }
-                    } else {
-                        Circle()
-                            .foregroundColor(Color("NeutralGray2"))
-                            .frame(width: equalWidth, height: 16)
+                    }
+                    Group {
+                        if index == activeNode - 1 {
+                            ActiveCircle()
+                        } else if index < filledNodes {
+                            FilledCircle()
+                        } else {
+                            PendingCircle()
+                        }
+                    }
+                    Group {
+                        if index < (nodes - 1) {
+                            Spacer()
+                        }
                     }
                 }
             }
         }
+    }
+}
+
+struct ActiveCircle: View {
+    var body: some View {
+        Circle()
+            .foregroundColor(Color("ALUM Light Blue"))
+            .frame(width: circleDiameter - borderWidth, height: circleDiameter - borderWidth)
+            .overlay(
+                Circle()
+                    .stroke(Color("ALUM Dark Blue"), lineWidth: borderWidth)
+            )
+            .frame(height: circleDiameter)
+    }
+}
+
+struct FilledCircle: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .foregroundColor(Color("ALUM Dark Blue"))
+                .frame(width: circleDiameter, height: circleDiameter)
+            Image("CheckMarkVector")
+        }
+    }
+}
+
+struct PendingCircle: View {
+    var body: some View {
+        Circle()
+            .foregroundColor(Color("NeutralGray2"))
+            .frame(width: circleDiameter, height: circleDiameter)
+    }
+}
+
+struct FilledLine: View {
+    var body: some View {
+        Rectangle()
+            .frame(width: .infinity, height: 2)
+            .foregroundColor(Color("ALUM Dark Blue"))
+    }
+}
+
+struct PendingLine: View {
+    var body: some View {
+        Rectangle()
+            .frame(width: .infinity, height: 2)
+            .foregroundColor(Color("NeutralGray2"))
     }
 }
 
@@ -70,6 +113,5 @@ struct ProgressBarComponent_Previews: PreviewProvider {
         Group {
             ProgressBarComponent()
         }
-
     }
 }
