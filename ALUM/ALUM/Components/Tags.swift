@@ -82,6 +82,6 @@ struct Tags: View {
 struct Tags_Previews: PreviewProvider {
     static var previews: some View {
         Tags(text: "Sample Text @12345", isBlue: true)
-        Tags(text: "Sample Text Blue @12345", isBlue: false)
+        Tags(text: "Sample Blue Text @12345", isBlue: false)
     }
 }
