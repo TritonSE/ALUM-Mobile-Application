@@ -12,8 +12,8 @@
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
-    74631CBB29A0552D00732776 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74631CBA29A0552D00732776 /* Tags.swift */; };
-    80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
+		74631CBD29A05FAE00732776 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74631CBC29A05FAD00732776 /* Tag.swift */; };
+		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
@@ -34,8 +34,8 @@
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
-    74631CBA29A0552D00732776 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
-    80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
+		74631CBC29A05FAD00732776 /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				74631CBA29A0552D00732776 /* Tags.swift */,
+				74631CBC29A05FAD00732776 /* Tag.swift */,
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
 				2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */,
 				9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */,
@@ -310,8 +310,8 @@
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
-				74631CBB29A0552D00732776 /* Tags.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
+				74631CBD29A05FAE00732776 /* Tag.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  Tags.swift
+//  Tag.swift
 //  ALUM
 //
 //  Created by Jenny Mar on 1/28/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Tags: View {
+struct Tag: View {
 
     @State var text: String = ""
     @State var isBlue: Bool = true
@@ -79,9 +79,9 @@ struct Tags: View {
     }
 }
 
-struct Tags_Previews: PreviewProvider {
+struct Tag_Previews: PreviewProvider {
     static var previews: some View {
-        Tags(text: "Sample Text @12345", isBlue: true)
-        Tags(text: "Sample Blue Text @12345", isBlue: false)
+        Tag(text: "Sample Text @12345", isBlue: true)
+        Tag(text: "Sample Blue Text @12345", isBlue: false)
     }
 }
