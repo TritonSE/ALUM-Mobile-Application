@@ -38,9 +38,9 @@ struct Tags: View {
                 }
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 100).stroke())
-                .foregroundColor(Color("Alum Light Blue"))
+                .foregroundColor(Color("ALUM Light Blue"))
                 .font(.body)
-                .background(Color("Alum Light Blue"))
+                .background(Color("ALUM Light Blue"))
                 .cornerRadius(100)
 
                 }
@@ -68,7 +68,7 @@ struct Tags: View {
                 }
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 100).stroke())
-                .foregroundColor(Color("Alum Light Blue"))
+                .foregroundColor(Color("ALUM Light Blue"))
                 .font(.body)
                 .background(Color(.white))
                 .cornerRadius(100)
