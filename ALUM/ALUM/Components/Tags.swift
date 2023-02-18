@@ -39,7 +39,7 @@ struct Tags: View {
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 100).stroke())
                 .foregroundColor(Color("Alum Light Blue"))
-                .font(.headline)
+                .font(.body)
                 .background(Color("Alum Light Blue"))
                 .cornerRadius(100)
 
@@ -69,7 +69,7 @@ struct Tags: View {
                 .padding(10)
                 .background(RoundedRectangle(cornerRadius: 100).stroke())
                 .foregroundColor(Color("Alum Light Blue"))
-                .font(.headline)
+                .font(.body)
                 .background(Color(.white))
                 .cornerRadius(100)
 
@@ -82,5 +82,6 @@ struct Tags: View {
 struct Tags_Previews: PreviewProvider {
     static var previews: some View {
         Tags(text: "Sample Text @12345", isBlue: true)
+        Tags(text: "Sample Text Blue @12345", isBlue: false)
     }
 }
