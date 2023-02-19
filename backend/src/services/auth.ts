@@ -17,14 +17,14 @@ import { firebaseAuth } from "./firebase";
  */
 async function createUser(uid: string, email: string, password: string) {
   try {
-    const userRecord = firebaseAuth.createUser({
+    const userRecord = await firebaseAuth.createUser({
       uid,
       email,
       password,
     });
-    return await userRecord;
+    return userRecord;
   } catch (e) {
-    throw new Error(ValidationError.USED_EMAIL.message);
+    throw ValidationError.USED_EMAIL
   }
 }
 

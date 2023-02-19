@@ -10,7 +10,7 @@
  * different groups based on error type and will have its own respective class
  * in a seperate file
  */
-export class Error {
+export class CustomError {
   public code: number;
 
   public status: number;
@@ -30,6 +30,7 @@ export class Error {
     this.status = status;
     this.message = message;
     this.context = [];
+    
   }
 
   /**
