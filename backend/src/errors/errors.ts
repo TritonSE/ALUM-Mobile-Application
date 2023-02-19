@@ -10,7 +10,7 @@
  * different groups based on error type and will have its own respective class
  * in a seperate file
  */
-export class CustomError {
+export class CustomError extends Error {
   public code: number;
 
   public status: number;
@@ -26,6 +26,7 @@ export class CustomError {
    * @param message: This is the message that informs users of what went wrong
    */
   constructor(code: number, status: number, message: string) {
+    super(message);
     this.code = code;
     this.status = status;
     this.message = message;

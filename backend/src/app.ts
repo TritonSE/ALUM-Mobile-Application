@@ -1,9 +1,8 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
 import { mongoURI, port } from "./config";
-import { CustomError } from "./errors/errors";
 
 /**
  * Express server application class.

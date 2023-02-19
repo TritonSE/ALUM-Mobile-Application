@@ -37,10 +37,9 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
       });
     } catch (err) {
       if (err instanceof ValidationError){
-        res.status(err.status).send(err.displayMessage(true))
-      } else {
-        res.status(500).send("Unknown Error. Try again")
-      }
+        return res.status(err.status).send(err.displayMessage(true))
+      } 
+      return res.status(500).send("Unknown Error. Try again")
     }
   }
 );
@@ -77,10 +76,9 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
       });
     } catch (err) {
       if (err instanceof ValidationError){
-        res.status(err.status).send(err.displayMessage(true))
-      } else {
-        res.status(500).send("Unknown Error. Try again")
-      }
+        return res.status(err.status).send(err.displayMessage(true))
+      } 
+      return res.status(500).send("Unknown Error. Try again")
       
     }
   }
