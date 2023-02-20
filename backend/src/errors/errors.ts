@@ -31,7 +31,6 @@ export class CustomError extends Error {
     this.status = status;
     this.message = message;
     this.context = [];
-    
   }
 
   /**

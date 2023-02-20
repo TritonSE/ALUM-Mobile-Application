@@ -24,7 +24,7 @@ async function createUser(uid: string, email: string, password: string) {
     });
     return userRecord;
   } catch (e) {
-    throw ValidationError.USED_EMAIL
+    throw ValidationError.USED_EMAIL;
   }
 }
 

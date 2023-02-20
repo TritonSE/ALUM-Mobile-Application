@@ -26,7 +26,7 @@ const MENTEE = bake({
   grade: string,
   topicsOfInterest: array(string),
   careerInterests: array(string),
-  mentorshipGoal: string
+  mentorshipGoal: string,
 });
 
 /**
@@ -72,7 +72,7 @@ const validateMentee = (req: Request, res: Response, next: NextFunction) => {
       .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
   }
 
-  if(requestBody.password.length < 6){
+  if (requestBody.password.length < 6) {
     return res
       .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
       .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));
@@ -105,7 +105,7 @@ const validateMentor = (req: Request, res: Response, next: NextFunction) => {
       .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
   }
 
-  if(requestBody.password.length < 6){
+  if (requestBody.password.length < 6) {
     return res
       .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
       .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));

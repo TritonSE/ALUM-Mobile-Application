@@ -52,15 +52,15 @@ const mentorSchema = new mongoose.Schema({
   },
   imageId: {
     type: String,
-    required: true
+    required: true,
   },
   about: {
     type: String,
-    required: true
+    required: true,
   },
   calendlyLink: {
     type: String,
-    required: true
+    required: true,
   },
   graduationYear: {
     type: String,
@@ -68,35 +68,35 @@ const mentorSchema = new mongoose.Schema({
   },
   college: {
     type: String,
-    required: true
+    required: true,
   },
   major: {
     type: String,
-    required: true
+    required: true,
   },
   minor: {
     type: String,
-    required: true
+    required: true,
   },
   career: {
     type: String,
-    required: true
+    required: true,
   },
   topicsOfExpertise: [
     {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   ],
   mentorMotivation: {
     type: String,
-    required: true
+    required: true,
   },
   menteeIDs: [
     {
       type: mongoose.Types.ObjectId,
       required: false,
-    }
+    },
   ],
   organizationId: {
     type: String,

@@ -32,8 +32,8 @@ const MenteeSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-  }, 
-  imageId:  {
+  },
+  imageId: {
     type: String,
     required: true,
   },
@@ -49,13 +49,13 @@ const MenteeSchema = new mongoose.Schema({
     {
       type: String,
       required: true,
-    }
+    },
   ],
   careerInterests: [
     {
       type: String,
       required: true,
-    }
+    },
   ],
   mentorshipGoal: {
     type: String,
