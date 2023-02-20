@@ -21,6 +21,7 @@ const router = express.Router();
  */
 router.post("/mentee", [validateMentee], async (req: Request, res: Response) => {
     try {
+      console.info("Creating new mentee", req.query);
       const { name, email, password, grade, 
         topicsOfInterest, careerInterests, mentorshipGoal } = req.body;
       const status = "under review";
@@ -59,7 +60,6 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
       console.info("Creating new mentor", req.query);
       const { name, email, password, graduationYear, college, major, minor, 
         career, topicsOfExpertise, mentorMotivation, organizationId, personalAccessToken } = req.body;
-      
       const status = "under review";
       const imageId = "default";
       const about = "N/A";
@@ -67,7 +67,6 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
       const mentor = new Mentor({ name, imageId, about, calendlyLink, organizationId, 
         graduationYear, college, major, minor, career, topicsOfExpertise, 
         mentorMotivation, personalAccessToken, status });
-      
       await createUser(mentor._id.toString(), email, password);
       await mentor.save();
       return res.status(201).json({
