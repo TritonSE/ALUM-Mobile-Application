@@ -112,6 +112,7 @@ struct ProgressBarComponent_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ProgressBarComponent()
+            ProgressBarComponent(nodes: 5, filledNodes: 2, activeNode: 3)
         }
     }
 }
