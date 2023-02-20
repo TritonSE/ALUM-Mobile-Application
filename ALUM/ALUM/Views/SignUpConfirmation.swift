@@ -18,7 +18,7 @@ struct SignUpConfirmation: View {
                             Image(systemName: "chevron.left")
                                 .frame(width: 6, height: 12)
                             Text("Login")
-                                .font(.footnote)
+                                .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
                         }
                         .foregroundColor(Color("ALUM Dark Blue"))
                         Spacer()
@@ -31,14 +31,14 @@ struct SignUpConfirmation: View {
                     Text("Sign-Up")
                         .padding()
                         .frame(alignment: .center)
-                        .font(.headline)
+                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
                     Spacer()
                 }
             }
-            ScrollView{
-                VStack{
-                    HStack{
+            ScrollView {
+                VStack {
+                    HStack {
                         Text("Confirmation")
                             .font(.largeTitle)
                             .foregroundColor(Color("NeutralGray3"))
