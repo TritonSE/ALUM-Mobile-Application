@@ -17,7 +17,6 @@ struct TagDisplay: View {
         VStack {
             ZStack {
                 HStack {
-
                     Spacer()
                         .frame(width: 12)
 
