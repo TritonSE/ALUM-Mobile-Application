@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import FirebaseCore
+import FirebaseAuth
 
 final class SignUpPageViewModel: ObservableObject {
     @Published var email: String = ""
@@ -15,17 +17,52 @@ final class SignUpPageViewModel: ObservableObject {
     @Published var disabled: Bool = true
     @Published var emailFunc: [(String) -> (Bool, String)] = []
     @Published var passFunc: [(String) -> (Bool, String)] = []
+    @Published var passAgainFunc: [(String) -> (Bool, String)] = []
     @Published var isMentee = false
     @Published var isMentor = false
-    @Published var setUpIsValid = false
+    @Published var setUpIsInvalid = false
+    
+    func checkPasswordSame() {
+        if !(self.password == self.passwordAgain) {
+            self.passAgainFunc = [SignUpPageViewModel.Functions.passNotSame]
+        } else {
+            self.passAgainFunc = []
+        }
+    }
+    
+    /*
+    func trySignUp() {
+        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
+            if let maybeError = error {
+                let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
+                if errorCode == .invalidEmail {
+                    print("Invalid Email")
+                    self.emailFunc.append(LoginPageViewModel.Functions.InvalidEmail)
+                } else if !(errorCode == .userNotFound) {
+                    self.setUpIsInvalid = true
+                    return
+                }
+            } else {
+                print("success")
+            }
+        }
+    }
+    */
     
     class Functions {
-
         static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
             if string.contains("iusd.edu") {
                 return (false, "Don't use IUSD email")
             } else {
                 return (true, "Don't use IUSD email")
+            }
+        }
+        
+        static let ValidEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+            if string.contains("@") {
+                return (true, "Valid email")
+            } else {
+                return (false, "Invalid email")
             }
         }
 
@@ -65,6 +102,10 @@ final class SignUpPageViewModel: ObservableObject {
             } else {
                 return (false, "At least 1 special character")
             }
+        }
+        
+        static let passNotSame: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+            return (false, "Passwords do not match")
         }
     }
 }

@@ -97,8 +97,8 @@ struct LoginPageView: View {
                 })
                 .foregroundColor(Color("ALUM Medium Blue"))
             }
-
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

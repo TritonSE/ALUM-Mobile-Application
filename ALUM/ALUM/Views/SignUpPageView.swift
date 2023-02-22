@@ -15,6 +15,7 @@ struct SignUpPageView: View {
         NavigationView {
             SetUp(viewModel: viewModel)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -58,7 +59,8 @@ struct SetUp: View {
                     componentName: Text("Confirm Password: ").font(.custom("Metropolis-Regular", size: 16)),
                     labelText: "Password",
                     isSecured: true,
-                    showEye: true
+                    showEye: true,
+                    functions:viewModel.passAgainFunc
                 )
                 .padding(.bottom, 32)
                 
@@ -72,11 +74,12 @@ struct SetUp: View {
                 {
                     NavigationLink(destination: JoinAs(viewModel: viewModel), label: {Text("Continue")})
                     .buttonStyle(FilledInButtonStyle(disabled: false))
-                    .frame(width: 358)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
                     .padding(.bottom, 32)
                 } else {
                     Button("Continue") {
-                        
+                        viewModel.checkPasswordSame()
                     }
                     .buttonStyle(FilledInButtonStyle(disabled: true))
                     .padding(.leading, 16)
@@ -103,6 +106,11 @@ struct SetUp: View {
             viewModel.emailFunc = [SignUpPageViewModel.Functions.IUSDEmail]
             viewModel.passFunc = [SignUpPageViewModel.Functions.EightChars, SignUpPageViewModel.Functions.OneNumber, SignUpPageViewModel.Functions.SpecialChar]
         }
+        /*
+        .onDisappear {
+            viewModel.trySignUp()
+        }
+         */
     }
 }
 
@@ -166,6 +174,85 @@ struct JoinAs: View {
                     .buttonStyle(FilledInButtonStyle(disabled: false))
                     .padding(.bottom, 32)
 
+                    NavigationLink(destination: MenteeInfo()) {
+                        Text("Continue")
+                    }
+                    .buttonStyle(OutlinedButtonStyle(disabled: false))
+                    .padding(.bottom, 32)
+                }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+            }
+        }
+        .navigationBarItems(leading: NavigationLink(
+            destination: LoginPageView(),
+                label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Login")
+                            .font(.custom("Metropolis-Regular", size: 13))
+                    }
+                }
+            )
+        )
+        .navigationBarTitle("Sign Up", displayMode: .inline)
+        .navigationBarBackButtonHidden()
+        /*
+        .alert("User already exists", isPresented: $viewModel.setUpIsInvalid) {
+            NavigationLink(destination: LoginPageView()) {
+                Text("Try logging in")
+            }
+        }
+        */
+    }
+}
+
+struct MenteeInfo: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        ZStack {
+            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+                .overlay(alignment: .top) {
+                    ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+                        .frame(alignment: .top)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white.ignoresSafeArea(edges: .top))
+                        .frame(maxWidth: .infinity)
+                }
+            
+            VStack {
+                HStack {
+                    Text("Tell us about yourself")
+                        .font(.custom("Metropolis-Regular", size: 34))
+                        .foregroundColor(Color("NeutralGray3"))
+                        .padding(.leading, 16)
+                        .padding(.top, 8)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
+                
+                Text("Grade")
+                    .font(.custom("Metropolis-Regular", size: 17))
+                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .padding(.bottom, 2)
+                
+                HStack {
+                    GradeComponent(grade: 9, isSelected: false)
+                    GradeComponent(grade: 10, isSelected: false)
+                    GradeComponent(grade: 11, isSelected: true)
+                    GradeComponent(grade: 12, isSelected: false)
+                }
+                
+                HStack {
+                    Button("Back") {
+                        dismiss()
+                    }
+                    .buttonStyle(FilledInButtonStyle(disabled: false))
+                    .padding(.bottom, 32)
+
                     Button("Continue") {
                         
                     }
@@ -174,6 +261,7 @@ struct JoinAs: View {
                 }
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
+                
             }
         }
         .navigationBarItems(leading: NavigationLink(
@@ -248,9 +336,55 @@ struct JoinOptionView: View {
     }
 }
 
+struct GradeComponent: View {
+    
+    var grade: Int
+    var isSelected: Bool
+    
+    var body: some View {
+        HStack {
+            ZStack {
+                Circle()
+                    .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 2.0)
+                    .frame(width: 20, height: 20)
+                
+                if isSelected {
+                    Circle()
+                        .fill(Color("ALUM Dark Blue"))
+                        .frame(width: 4, height: 4)
+                }
+            }
+            .padding(.leading, 24)
+            .padding(.trailing, 10)
+            .padding(.top, 14)
+            .padding(.bottom, 14)
+            
+            Text(String(grade))
+                .font(.custom("Metropolis-Regular", size: 17))
+                .padding(.trailing, 11)
+        }
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 12.0)
+                    .fill(isSelected ? Color("ALUM Light Blue") : Color("ALUM White"))
+                    .padding(.trailing, 8)
+                    .padding(.leading, 8)
+                    .frame(height: 48.0)
+                
+                RoundedRectangle(cornerRadius: 12.0)
+                    .stroke(Color("ALUM Light Blue"))
+                    .padding(.trailing, 8)
+                    .padding(.leading, 8)
+                    .frame(height: 48.0)
+            }
+        )
+    }
+}
+
 struct SignUpPageView_Previews: PreviewProvider {
     static var previews: some View {
         SignUpPageView()
+        MenteeInfo()
     }
 }
 
