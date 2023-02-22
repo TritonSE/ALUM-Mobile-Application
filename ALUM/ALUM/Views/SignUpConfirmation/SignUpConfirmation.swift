@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SignUpConfirmation: View {
+    @StateObject private var viewModel = SignUpConfirmationViewModel()
     var body: some View {
-        GeometryReader { gr in
+        GeometryReader { grr in
             VStack {
                 ZStack {
                     VStack {
@@ -34,15 +35,17 @@ struct SignUpConfirmation: View {
                             .frame(alignment: .center)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+                            .padding(.horizontal)
                         Spacer()
                     }
                 }
-                ZStack{
+                ZStack {
                     ScrollView {
                         VStack {
                             HStack {
                                 Text("Confirmation")
-                                    .font(.largeTitle)
+                                    .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
+
                                     .foregroundColor(Color("NeutralGray3"))
                                     .padding(.leading)
                                     .padding(.top)
@@ -53,7 +56,9 @@ struct SignUpConfirmation: View {
                                 Text("Name: ")
                                     .padding(.leading)
                                     .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(.headline)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                Text(viewModel.mentee.name)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 Spacer()
                             }
                             .padding(.bottom, 16)
@@ -61,7 +66,9 @@ struct SignUpConfirmation: View {
                                 Text("Email: ")
                                     .padding(.leading)
                                     .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(.headline)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                Text(viewModel.mentee.email)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 Spacer()
                             }
                             .padding(.bottom, 16)
@@ -69,7 +76,9 @@ struct SignUpConfirmation: View {
                                 Text("Grade: ")
                                     .padding(.leading)
                                     .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(.headline)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                Text(viewModel.mentee.grade)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 Spacer()
                             }
                             .padding(.bottom, 24)
@@ -77,12 +86,38 @@ struct SignUpConfirmation: View {
                                 Text("Topics of Interest:")
                                     .padding(.leading)
                                     .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(.headline)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 Spacer()
                             }
+                            HStack {
+                                Text("Career Interests:")
+                                    .padding(.leading)
+                                    .foregroundColor(Color("ALUM Dark Blue"))
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                Spacer()
+                            }
+                            .padding(.top, 24)
+                            HStack {
+                                Text("What do you hope to get out of mentorship?")
+                                    .padding(.leading)
+                                    .foregroundColor(Color("ALUM Dark Blue"))
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                    .padding(.trailing, 37)
+                                    .lineSpacing(5)
+                                Spacer()
+                            }
+                            .padding(.top, 24)
+                            HStack {
+                                Text(viewModel.mentee.mentorshipGoal)
+                                    .padding(.leading)
+                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                    .lineSpacing(5)
+                                Spacer()
+                            }
+                            .padding(.top, 8)
                         }
                     }
-                    .frame(minHeight: gr.size.height-114)
+                    .frame(minHeight: grr.size.height-114)
                     .background(Color("ALUM White"))
                     .padding(.top)
                     VStack {
@@ -104,7 +139,7 @@ struct SignUpConfirmation: View {
                                 .frame(width: 150)
                                 .padding(8)
                                 Button("Submit") {
-                                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                                    viewModel.submitSignUp()
                                 }
                                 .buttonStyle(FilledInButtonStyle())
                                 .frame(width: 150)

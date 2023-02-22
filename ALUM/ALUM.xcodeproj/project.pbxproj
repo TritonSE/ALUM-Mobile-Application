@@ -13,6 +13,8 @@
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		8001F72F29A39D6E00244E70 /* POST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F72E29A39D6E00244E70 /* POST.swift */; };
+		8001F73129A5AC5600244E70 /* SignUpConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */; };
+		8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
@@ -36,6 +38,8 @@
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		8001F72E29A39D6E00244E70 /* POST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POST.swift; sourceTree = "<group>"; };
+		8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationViewModel.swift; sourceTree = "<group>"; };
+		8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationModel.swift; sourceTree = "<group>"; };
 		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 		07F9A50D297180EA00BC11A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -152,7 +157,7 @@
 			children = (
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
-				80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */,
+				8001F73229A5AC5D00244E70 /* SignUpConfirmation */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +175,15 @@
 				8001F72E29A39D6E00244E70 /* POST.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		8001F73229A5AC5D00244E70 /* SignUpConfirmation */ = {
+			isa = PBXGroup;
+			children = (
+				80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */,
+				8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */,
+			);
+			path = SignUpConfirmation;
 			sourceTree = "<group>";
 		};
 		80274FF1299DAFF500CCB9D0 /* LoginPage */ = {
@@ -314,10 +328,12 @@
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
+				8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				8001F72F29A39D6E00244E70 /* POST.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
+				8001F73129A5AC5600244E70 /* SignUpConfirmationViewModel.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
 				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
 			);
