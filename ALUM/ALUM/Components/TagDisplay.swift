@@ -11,25 +11,33 @@ struct TagDisplay: View {
 
     @State var text: String = ""
     @State var isShowing: Bool = true
+    @State var crossShowing: Bool = false
 
     var body: some View {
         VStack {
             ZStack {
                 HStack {
 
+                    Spacer()
+                        .frame(width: 12)
+
                     Text(text)
                         .foregroundColor(Color(.black))
                     Spacer()
-                        .frame(width: 10)
+                        .frame(width: 12)
 
-                    Button(action: {
-                        isShowing = false
-                    }, label: {
-                        Image(systemName: "xmark")
-                    })
-                    .foregroundColor(Color("NeutralGray4"))
-                    .frame(height: 8)
-                    .frame(width: 8)
+                    if crossShowing {
+                        Button(action: {
+                            isShowing = false
+                        }, label: {
+                            Image(systemName: "xmark")
+                        })
+                        .foregroundColor(Color("NeutralGray4"))
+                        .frame(height: 8)
+                        .frame(width: 8)
+                        Spacer()
+                            .frame(width: 16)
+                    }
 
                 }
 
