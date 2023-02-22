@@ -17,7 +17,8 @@ final class SignUpPageViewModel: ObservableObject {
     @Published var passFunc: [(String) -> (Bool, String)] = []
     @Published var isMentee = false
     @Published var isMentor = false
-
+    @Published var setUpIsValid = false
+    
     class Functions {
 
         static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in

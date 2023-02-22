@@ -70,7 +70,7 @@ struct LoginPageView: View {
                 Button("Login") {
                     viewModel.emailFunc = []
                     viewModel.passFunc = []
-                viewModel.login()
+                    viewModel.login()
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.leading, 16)
@@ -85,6 +85,17 @@ struct LoginPageView: View {
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
                 .padding(.bottom, 32)
+            }
+            
+            HStack {
+                Text("Don't have an account?")
+                    .font(.custom("Metropolis-Regular", size: 16))
+                
+                NavigationLink(destination: SignUpPageView(), label: {
+                    Text("Sign-Up")
+                        .underline()
+                })
+                .foregroundColor(Color("ALUM Medium Blue"))
             }
 
         }

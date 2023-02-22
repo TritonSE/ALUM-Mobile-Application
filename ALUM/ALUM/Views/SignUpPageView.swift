@@ -50,13 +50,26 @@ struct SetUp: View {
                     .padding(.bottom, 32)
 
                 InputValidationComponent(text: $viewModel.password, componentName: Text("Password: ")
-                    .font(.custom("Metropolis-Reegular", size: 16)), labelText: "Password", showCheck: true, functions: viewModel.passFunc)
+                    .font(.custom("Metropolis-Reegular", size: 16)), labelText: "Password", isSecured: true, showEye: true, showCheck: true, functions: viewModel.passFunc)
                     .padding(.bottom, 32)
 
-                InputValidationComponent(text: $viewModel.passwordAgain, componentName: Text("Confirm Password: ").font(.custom("Metropolis-Regular", size: 16)), labelText: "Password")
-                    .padding(.bottom, 32)
-
-                if viewModel.email != "" && viewModel.password != "" {
+                InputValidationComponent(
+                    text: $viewModel.passwordAgain,
+                    componentName: Text("Confirm Password: ").font(.custom("Metropolis-Regular", size: 16)),
+                    labelText: "Password",
+                    isSecured: true,
+                    showEye: true
+                )
+                .padding(.bottom, 32)
+                
+                if viewModel.email != "" && viewModel.password != "" &&
+                    viewModel.name != "" && viewModel.passwordAgain != "" &&
+                    SignUpPageViewModel.Functions.IUSDEmail(viewModel.email).0 &&
+                    SignUpPageViewModel.Functions.EightChars(viewModel.password).0 &&
+                    SignUpPageViewModel.Functions.OneNumber(viewModel.password).0 &&
+                    SignUpPageViewModel.Functions.SpecialChar(viewModel.password).0 &&
+                    viewModel.password == viewModel.passwordAgain
+                {
                     NavigationLink(destination: JoinAs(viewModel: viewModel), label: {Text("Continue")})
                     .buttonStyle(FilledInButtonStyle(disabled: false))
                     .frame(width: 358)
