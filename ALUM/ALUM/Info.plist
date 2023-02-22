@@ -4,9 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>metropolis/Metropolis-Black.otf</string>
-		<string>metropolis/Metropolis-Regular.otf</string>
-		<string>metropolis/Metropolis-ExtraBoldItalic.otf</string>
+		<string>Metropolis-Black.otf</string>
+		<string>Metropolis-Regular.otf</string>
+		<string>Metropolis-ExtraBoldItalic.otf</string>
 	</array>
 </dict>
 </plist>
