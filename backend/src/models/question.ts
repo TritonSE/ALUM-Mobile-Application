@@ -1,22 +1,20 @@
-enum AnswerTypes{
-    TextBox,
-    Bullets,
- }
-
  interface Question{
     readonly question: string;
-    questionType: AnswerTypes;
+    readonly type: string;
     answer: string | Array<String>;
     setAnswer(ans : string): void;
  }
 
+ const postSessionQuestionList: Question[] = require('./postQuestionsList.json');
+ const preSessionQuestionList : Question[] = require('./preQuestionsList.json');
+
  class TextQuestion implements Question{
     readonly question: string;
-    questionType: AnswerTypes.TextBox;
+    readonly type: string;
     answer: string;
-    constructor(question: string){
+    constructor(question: string, type: string){
         this.question=question;
-        this.questionType= AnswerTypes.TextBox;
+        this.type= type;
         this.answer= "";
     }
 
@@ -27,11 +25,11 @@ enum AnswerTypes{
 
  class BulletQuestion implements Question{
     readonly question: string;
-    questionType: AnswerTypes.Bullets;
+    readonly type: string;
     answer: Array<String>;
-    constructor(question: string){
+    constructor(question: string, type: string){
         this.question=question;
-        this.questionType=AnswerTypes.Bullets;
+        this.type=type
         this.answer=new Array<String>;
     }
 
@@ -39,13 +37,26 @@ enum AnswerTypes{
         this.answer.push(ans);
     }
  }
-
- function createTextQuestion(question : string){
-    return new TextQuestion(question);
+ 
+ for(let i=0; i<preSessionQuestionList.length; i++){
+   if(preSessionQuestionList[i].type=="text"){
+      preSessionQuestionList[i]=new TextQuestion(preSessionQuestionList[i].question, "text");
+   }
+   else if(preSessionQuestionList[i].type=="bullet"){
+      preSessionQuestionList[i]=new BulletQuestion(preSessionQuestionList[i].question, "bullet");
+   }
  }
 
- function createBulletQuestion(question : string){
-    return new BulletQuestion(question);
+ for(let i=0; i<postSessionQuestionList.length; i++){
+   if(postSessionQuestionList[i].type=="text"){
+      postSessionQuestionList[i]=new TextQuestion(postSessionQuestionList[i].question, "text");
+   }
+   else if(postSessionQuestionList[i].type=="bullet"){
+      postSessionQuestionList[i]=new BulletQuestion(postSessionQuestionList[i].question, "bullet");
+   }
  }
+ 
 
- export {Question, AnswerTypes, BulletQuestion, TextQuestion, createTextQuestion, createBulletQuestion}
+
+
+ export {Question, preSessionQuestionList, postSessionQuestionList}

@@ -4,21 +4,22 @@
  * be stored on firebase
  */
  import mongoose from "mongoose";
- import {Question} from "./question"
 
 
  interface SessionInterface {
-    preSession: Question[];
-    postSession: Question[];
+    preSession: string;
+    postSession: string;
     menteeId: string;
     mentorId: string;
+    dateTime: Date;
  }
  
  interface SessionDoc extends mongoose.Document {
-    preSession: Question[];
-    postSession: Question[];
+    preSession: string;
+    postSession: string;
     menteeId: string;
     mentorId: string;
+    dateTime: Date;
  }
  
  interface SessionModelInterface extends mongoose.Model<SessionDoc> {
@@ -27,11 +28,11 @@
  
  const SessionSchema = new mongoose.Schema({
    preSession: {
-     type: [],
+     type: String,
      required: true,
    },
    postSession: {
-     type: [],
+     type: String,
      required: true,
    },
    menteeId: {
@@ -42,6 +43,10 @@
      type: String,
      required: true,
    },
+   dateTime: {
+    type: Date,
+    required: true,
+   }
  });
  
  const Session = mongoose.model<SessionDoc, SessionModelInterface>("Session", SessionSchema);
