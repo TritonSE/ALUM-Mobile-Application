@@ -24,7 +24,7 @@ struct SetUp: View {
     
     var body: some View {
         ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 .overlay(alignment: .top) {
                     ProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
                         .frame(alignment: .top)
@@ -43,14 +43,14 @@ struct SetUp: View {
                 }
                 .padding(.bottom, 32)
 
-                InputValidationComponent(text: $viewModel.email, componentName: Text("Email: ")
+                InputValidationComponent(text: $viewModel.account.email, componentName: Text("Email: ")
                     .font(.custom("Metropolis-Regular", size: 16)), labelText: "Email", showCheck: true, functions: viewModel.emailFunc)
                     .padding(.bottom, 32)
 
-                InputValidationComponent(text: $viewModel.name, componentName: Text("Name: ").font(.custom("Metropolis-Regular", size: 16)), labelText: "Name")
+                InputValidationComponent(text: $viewModel.account.name, componentName: Text("Name: ").font(.custom("Metropolis-Regular", size: 16)), labelText: "Name")
                     .padding(.bottom, 32)
 
-                InputValidationComponent(text: $viewModel.password, componentName: Text("Password: ")
+                InputValidationComponent(text: $viewModel.account.password, componentName: Text("Password: ")
                     .font(.custom("Metropolis-Reegular", size: 16)), labelText: "Password", isSecured: true, showEye: true, showCheck: true, functions: viewModel.passFunc)
                     .padding(.bottom, 32)
 
@@ -64,13 +64,13 @@ struct SetUp: View {
                 )
                 .padding(.bottom, 32)
                 
-                if viewModel.email != "" && viewModel.password != "" &&
-                    viewModel.name != "" && viewModel.passwordAgain != "" &&
-                    SignUpPageViewModel.Functions.IUSDEmail(viewModel.email).0 &&
-                    SignUpPageViewModel.Functions.EightChars(viewModel.password).0 &&
-                    SignUpPageViewModel.Functions.OneNumber(viewModel.password).0 &&
-                    SignUpPageViewModel.Functions.SpecialChar(viewModel.password).0 &&
-                    viewModel.password == viewModel.passwordAgain
+                if viewModel.account.email != "" && viewModel.account.password != "" &&
+                    viewModel.account.name != "" && viewModel.passwordAgain != "" &&
+                    SignUpPageViewModel.Functions.IUSDEmail(viewModel.account.email).0 &&
+                    SignUpPageViewModel.Functions.EightChars(viewModel.account.password).0 &&
+                    SignUpPageViewModel.Functions.OneNumber(viewModel.account.password).0 &&
+                    SignUpPageViewModel.Functions.SpecialChar(viewModel.account.password).0 &&
+                    viewModel.account.password == viewModel.passwordAgain
                 {
                     NavigationLink(destination: JoinAs(viewModel: viewModel), label: {Text("Continue")})
                     .buttonStyle(FilledInButtonStyle(disabled: false))
@@ -103,14 +103,10 @@ struct SetUp: View {
         .navigationBarTitle("Sign Up", displayMode: .inline)
         .navigationBarBackButtonHidden()
         .onAppear {
+            print("Hello Sign Up Page")
             viewModel.emailFunc = [SignUpPageViewModel.Functions.IUSDEmail]
             viewModel.passFunc = [SignUpPageViewModel.Functions.EightChars, SignUpPageViewModel.Functions.OneNumber, SignUpPageViewModel.Functions.SpecialChar]
         }
-        /*
-        .onDisappear {
-            viewModel.trySignUp()
-        }
-         */
     }
 }
 
@@ -127,7 +123,7 @@ struct JoinAs: View {
     
     var body: some View {
         ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 .overlay(alignment: .top) {
                     ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
                         .frame(alignment: .top)
@@ -197,13 +193,9 @@ struct JoinAs: View {
         )
         .navigationBarTitle("Sign Up", displayMode: .inline)
         .navigationBarBackButtonHidden()
-        /*
-        .alert("User already exists", isPresented: $viewModel.setUpIsInvalid) {
-            NavigationLink(destination: LoginPageView()) {
-                Text("Try logging in")
-            }
+        .onAppear{
+            print("Hello Sign Up 2")
         }
-        */
     }
 }
 
@@ -213,7 +205,7 @@ struct MenteeInfo: View {
     
     var body: some View {
         ZStack {
-            Color("BackgroundColor").edgesIgnoringSafeArea(.all)
+            Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 .overlay(alignment: .top) {
                     ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                         .frame(alignment: .top)
@@ -277,6 +269,7 @@ struct MenteeInfo: View {
         )
         .navigationBarTitle("Sign Up", displayMode: .inline)
         .navigationBarBackButtonHidden()
+
     }
 }
 

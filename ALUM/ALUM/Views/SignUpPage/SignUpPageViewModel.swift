@@ -10,9 +10,6 @@ import FirebaseCore
 import FirebaseAuth
 
 final class SignUpPageViewModel: ObservableObject {
-    @Published var email: String = ""
-    @Published var name: String = ""
-    @Published var password: String = ""
     @Published var passwordAgain: String = ""
     @Published var disabled: Bool = true
     @Published var emailFunc: [(String) -> (Bool, String)] = []
@@ -22,32 +19,24 @@ final class SignUpPageViewModel: ObservableObject {
     @Published var isMentor = false
     @Published var setUpIsInvalid = false
     
+    @Published var account = Account(name: "", email: "", password: "")
+    @Published var mentee = Mentee(name: "", email: "", password: "")
+    
+    func setUpMentee() {
+        mentee.name = account.name
+        mentee.email = account.email
+        mentee.password = account.password
+        print("Hello World")
+        print(mentee.name)
+    }
+    
     func checkPasswordSame() {
-        if !(self.password == self.passwordAgain) {
+        if !(self.account.password == self.passwordAgain) {
             self.passAgainFunc = [SignUpPageViewModel.Functions.passNotSame]
         } else {
             self.passAgainFunc = []
         }
     }
-    
-    /*
-    func trySignUp() {
-        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-            if let maybeError = error {
-                let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
-                if errorCode == .invalidEmail {
-                    print("Invalid Email")
-                    self.emailFunc.append(LoginPageViewModel.Functions.InvalidEmail)
-                } else if !(errorCode == .userNotFound) {
-                    self.setUpIsInvalid = true
-                    return
-                }
-            } else {
-                print("success")
-            }
-        }
-    }
-    */
     
     class Functions {
         static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
