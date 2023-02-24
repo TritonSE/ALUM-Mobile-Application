@@ -20,7 +20,7 @@ final class SignUpPageViewModel: ObservableObject {
     @Published var setUpIsInvalid = false
     
     @Published var account = Account(name: "", email: "", password: "")
-    @Published var mentee = Mentee(name: "", email: "", password: "")
+    @Published var mentee = Mentee(name: "", email: "", grade: "", mentorshipGoal: "", password: "")
     
     func setUpMentee() {
         mentee.name = account.name
