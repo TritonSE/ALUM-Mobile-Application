@@ -112,6 +112,7 @@ const validateMentor = (req: Request, res: Response, next: NextFunction) => {
   }
 
   return next();
-};
+}
+
 
 export { validateMentee, validateMentor };

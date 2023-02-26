@@ -3,13 +3,18 @@
  * new users
  */
 import express, { Request, Response } from "express";
+import multer from "multer";
+import mongoose  from "mongoose";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
-import { createUser } from "../services/auth";
+import { createUser } from "../services/firebase/auth";
 import { ValidationError } from "../errors/validationError";
+import { validateAuthToken } from "../middleware/auth";
 
 const router = express.Router();
+
+const upload = multer({ storage: multer.memoryStorage() }).array("images");
 
 /**
  * This is a post route to create a new mentee. It will first validate
@@ -111,5 +116,22 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
     return res.status(500).send("Unknown Error. Try again");
   }
 });
+
+/**
+ * This is a patch route to edit a mentee
+ */
+router.patch("/mentee/:userId", [validateAuthToken, upload], 
+async (req: Request, res: Response) => {
+  console.log("Editing a mentee");
+  try {
+    const userId = new mongoose.Types.ObjectId(req.params.userId);
+    for(const property in req.body) {
+      
+    }
+
+  } catch (e) {
+
+  }
+})
 
 export { router as userRouter };
