@@ -1,6 +1,7 @@
 import preSessionQuestions from "../models/preQuestionsList.json"
 import postSessionQuestions from "../models/postQuestionsList.json"
 import { assert } from "console";
+import { Note }from "../models/notes"
 
 class Answer {
     answer: string | Array<String>;
@@ -32,11 +33,6 @@ function hashCode(str: string) {
     return hash;
 }
 
-/*
-* Hash all questions
-*/
-
-
 function createPreAnswerArray(){
     var preAnswerList:Answer[] = new Array(preSessionQuestions.length);
     for(let i=0; i<preAnswerList.length; ++i){
@@ -55,4 +51,31 @@ function createPostAnswerArray(){
      return postAnswerList;
 }
 
-export { createPreAnswerArray, createPostAnswerArray, Answer}
+
+async function createPreSessionNotes() {
+    let preNotes=null;
+    try{
+        const preSessionAnswers= createPreAnswerArray()
+        preNotes = new Note({preSessionAnswers, type : "pre" });
+        const postSessionAnswers= createPostAnswerArray()
+        const postSessionNotes = new Note({postSessionAnswers, type : "post" });
+        return await preNotes.save()    
+    }
+    catch(e) {
+        throw Error;
+    }
+}
+
+async function createPostSessionNotes() {
+    let postNotes=null;
+    try{
+        const postSessionAnswers=createPostAnswerArray()
+        postNotes = new Note({postSessionAnswers, type : "post" });
+        return postNotes.save()
+    }
+    catch(e) {
+        throw Error;
+    }
+}
+
+export {createPreSessionNotes, createPostSessionNotes}

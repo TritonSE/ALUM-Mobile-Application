@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
 import { sessionsRouter } from "./routes/sessions";
-import { notesRouter } from "./routes/notes"
 import { mongoURI, port } from "./config";
 
 /**
@@ -24,7 +23,6 @@ mongoose.connect(mongoURI, {}, () => {
 server.app.use(json());
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
-server.app.use(notesRouter);
 
 
 // make server listen on some port
