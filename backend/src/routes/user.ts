@@ -7,7 +7,6 @@ import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
 import { createUser } from "../services/auth";
-import { create } from "domain";
 
 const router = express.Router();
 
@@ -71,6 +70,5 @@ router.post(
     }
   }
 );
-
 
 export { router as userRouter };

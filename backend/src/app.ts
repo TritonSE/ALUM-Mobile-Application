@@ -24,7 +24,5 @@ server.app.use(json());
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
 
-
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-
