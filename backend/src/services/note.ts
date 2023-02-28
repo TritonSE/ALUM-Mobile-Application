@@ -91,7 +91,7 @@ async function createPreSessionNotes() {
     preNotes = new Note({ preSessionAnswers, type: "pre" });
     return await preNotes.save();
   } catch (e) {
-    throw new Error;
+    throw new Error();
   }
 }
 
@@ -105,7 +105,7 @@ async function createPostSessionNotes() {
     postNotes = new Note({ postSessionAnswers, type: "post" });
     return await postNotes.save();
   } catch (e) {
-    throw new Error;
+    throw new Error();
   }
 }
 
