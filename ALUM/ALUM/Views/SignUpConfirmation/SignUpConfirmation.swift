@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WrappingHStack
 
 struct SignUpConfirmation: View {
     @StateObject private var viewModel = SignUpConfirmationViewModel()
@@ -89,6 +90,11 @@ struct SignUpConfirmation: View {
                                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 Spacer()
                             }
+                            WrappingHStack(0 ..< viewModel.mentee.topicsOfInterest.count, id: \.self) { index in
+                                viewModel.mentee.topicsOfInterest[index]
+                                    .padding(.vertical, 5)
+                            }
+                            .padding(.horizontal)
                             HStack {
                                 Text("Career Interests:")
                                     .padding(.leading)
@@ -97,6 +103,11 @@ struct SignUpConfirmation: View {
                                 Spacer()
                             }
                             .padding(.top, 24)
+                            WrappingHStack(0 ..< viewModel.mentee.careerInterests.count, id: \.self) { index in
+                                viewModel.mentee.careerInterests[index]
+                                    .padding(.vertical, 5)
+                            }
+                            .padding(.horizontal)
                             HStack {
                                 Text("What do you hope to get out of mentorship?")
                                     .padding(.leading)
@@ -118,7 +129,7 @@ struct SignUpConfirmation: View {
                         }
                     }
                     .frame(minHeight: grr.size.height-114)
-                    .background(Color("ALUM White"))
+                    .background(Color("ALUM White2"))
                     .padding(.top)
                     VStack {
                         Spacer()
