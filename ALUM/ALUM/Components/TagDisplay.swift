@@ -47,6 +47,7 @@ struct TagDisplay: View {
             .font(.body)
             .background(Color("ALUM Light Blue"))
             .cornerRadius(100)
+            .frame(height: 40)
 
         }
     }

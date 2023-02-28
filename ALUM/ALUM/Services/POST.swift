@@ -12,9 +12,9 @@ struct PostData: Codable {
     let email: String
     let password: String
     let grade: String
-//    let topicsOfInterest: [String]
-//    let careerInterests: [String]
-    let mentorshipGoal: String
+    let topics: [String]
+    let careers: [String]
+    let mentorship: String
 }
 
 class ApiService {
@@ -23,7 +23,7 @@ class ApiService {
         if isMentor {
             urlString = "localhost:3000/mentor"
         }
-        else{
+        else {
             urlString = "localhost:3000/mentee"
         }
         guard let url = URL(string: urlString) else { return }

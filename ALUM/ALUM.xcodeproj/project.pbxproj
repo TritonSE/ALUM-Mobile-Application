@@ -21,6 +21,25 @@
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
 		80C827C6299CE48D00AE12A9 /* SignUpConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */; };
+		80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
+		80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
+		80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */; };
+		80F5387729A6A80500FB5E66 /* Metropolis-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CB298B400E005DDC73 /* Metropolis-ExtraBold.otf */; };
+		80F5387829A6A80500FB5E66 /* Metropolis-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CC298B400E005DDC73 /* Metropolis-SemiBoldItalic.otf */; };
+		80F5387929A6A80500FB5E66 /* Metropolis-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CD298B400E005DDC73 /* Metropolis-Light.otf */; };
+		80F5387A29A6A80500FB5E66 /* Metropolis-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CE298B400E005DDC73 /* Metropolis-Regular.otf */; };
+		80F5387B29A6A80500FB5E66 /* Metropolis-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CF298B400E005DDC73 /* Metropolis-Black.otf */; };
+		80F5387C29A6A80500FB5E66 /* Metropolis-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D0298B400E005DDC73 /* Metropolis-ExtraLightItalic.otf */; };
+		80F5387D29A6A80500FB5E66 /* Metropolis-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D1298B400E005DDC73 /* Metropolis-Medium.otf */; };
+		80F5387E29A6A80500FB5E66 /* Metropolis-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D2298B400E005DDC73 /* Metropolis-BlackItalic.otf */; };
+		80F5387F29A6A80500FB5E66 /* Metropolis-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D3298B400E005DDC73 /* Metropolis-ThinItalic.otf */; };
+		80F5388029A6A80500FB5E66 /* Metropolis-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D4298B400E005DDC73 /* Metropolis-ExtraLight.otf */; };
+		80F5388129A6A80500FB5E66 /* Metropolis-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D5298B400E005DDC73 /* Metropolis-MediumItalic.otf */; };
+		80F5388229A6A80500FB5E66 /* Metropolis-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D6298B400E005DDC73 /* Metropolis-LightItalic.otf */; };
+		80F5388329A6A80500FB5E66 /* Metropolis-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D7298B400E005DDC73 /* Metropolis-SemiBold.otf */; };
+		80F5388429A6A80500FB5E66 /* Metropolis-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */; };
+		80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
+		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
@@ -85,6 +104,7 @@
 				97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */,
 				97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */,
 				97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */,
+				80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +269,7 @@
 				97A2FE832988EF9900405FD6 /* FirebaseAuth */,
 				97A2FE852988EF9900405FD6 /* FirebaseFirestore */,
 				97A2FE872988EF9900405FD6 /* FirebaseStorage */,
+				80F5388729A80B1D00FB5E66 /* WrappingHStack */,
 			);
 			productName = ALUM;
 			productReference = 0748208B29712921004AF547 /* ALUM.app */;
@@ -280,6 +301,7 @@
 			mainGroup = 0748208229712921004AF547;
 			packageReferences = (
 				97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				80F5388629A80B1C00FB5E66 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 0748208C29712921004AF547 /* Products */;
 			projectDirPath = "";
@@ -295,6 +317,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */,
+				80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */,
+				80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */,
+				80F5387729A6A80500FB5E66 /* Metropolis-ExtraBold.otf in Resources */,
+				80F5387829A6A80500FB5E66 /* Metropolis-SemiBoldItalic.otf in Resources */,
+				80F5387929A6A80500FB5E66 /* Metropolis-Light.otf in Resources */,
+				80F5387A29A6A80500FB5E66 /* Metropolis-Regular.otf in Resources */,
+				80F5387B29A6A80500FB5E66 /* Metropolis-Black.otf in Resources */,
+				80F5387C29A6A80500FB5E66 /* Metropolis-ExtraLightItalic.otf in Resources */,
+				80F5387D29A6A80500FB5E66 /* Metropolis-Medium.otf in Resources */,
+				80F5387E29A6A80500FB5E66 /* Metropolis-BlackItalic.otf in Resources */,
+				80F5387F29A6A80500FB5E66 /* Metropolis-ThinItalic.otf in Resources */,
+				80F5388029A6A80500FB5E66 /* Metropolis-ExtraLight.otf in Resources */,
+				80F5388129A6A80500FB5E66 /* Metropolis-MediumItalic.otf in Resources */,
+				80F5388229A6A80500FB5E66 /* Metropolis-LightItalic.otf in Resources */,
+				80F5388329A6A80500FB5E66 /* Metropolis-SemiBold.otf in Resources */,
+				80F5388429A6A80500FB5E66 /* Metropolis-BoldItalic.otf in Resources */,
+				80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */,
 				0748209629712922004AF547 /* Preview Assets.xcassets in Resources */,
 				0748209329712922004AF547 /* Assets.xcassets in Resources */,
 				979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */,
@@ -548,6 +588,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		80F5388629A80B1C00FB5E66 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -559,6 +607,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		80F5388729A80B1D00FB5E66 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 80F5388629A80B1C00FB5E66 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
 		97A2FE812988EF9900405FD6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
