@@ -6,13 +6,34 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note"; 
-const router=express.Router();
 
+/**
+ * This is a post route to create a new session. 
+ *
+ * Session: {
+ preSession: string;
+ postSession: string;
+ menteeId: string;
+ mentorId: string;
+ dateTime: Date;
+}
+
+IMPORTANT: Date should be passed in with the format:
+"YYYY-MM-DDTHH-MM-SS", where 
+Y=>year
+M=>month
+D=>day
+H=>Hour
+M=>Minute
+S=>Seconds
+For example: "1995-12-17T03:24:00"
+*/
+
+const router=express.Router();
 router.post( 
     "/sessions",
     async (req: Request, res: Response, next: NextFunction) => {
       console.info("Posting new session,", req.query);
-      let notes=null
       try{
         const preNoteId= await createPreSessionNotes()
         const postNoteId= await createPostSessionNotes()
@@ -25,12 +46,8 @@ router.post(
         });
       }
       catch(e){
-
-        console.log(e);
-        // next();
-        // return res.status(400).json({
-        //   message: e.message
-        // });
+        next();
+        return res.status(400);
       }
     }
   );

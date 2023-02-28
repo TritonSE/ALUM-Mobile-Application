@@ -1,10 +1,8 @@
 /**
- * This file contains the model for the Notes. Note
- * personal information such as email and password will
- * be stored on firebase
+ * This file contains the model for the Notes. 
  */
 import mongoose from "mongoose";
-import { Answer } from "../middleware/createNotes"
+import { Answer } from "../services/note"
 
 interface NoteInterface {
     answers: Answer[]
