@@ -3,12 +3,12 @@
  * personal information such as email and password will
  * be stored on firebase
  */
- import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose"
 
 
  interface SessionInterface {
-    preSession: string;
-    postSession: string;
+    preSession: ObjectId;
+    postSession: ObjectId;
     menteeId: string;
     mentorId: string;
     dateTime: Date;
@@ -17,8 +17,8 @@
  interface SessionDoc extends mongoose.Document {
     preSession: string;
     postSession: string;
-    menteeId: string;
-    mentorId: string;
+    menteeId: ObjectId;
+    mentorId: ObjectId;
     dateTime: Date;
  }
  
@@ -28,11 +28,11 @@
  
  const SessionSchema = new mongoose.Schema({
    preSession: {
-     type: String,
+     type: mongoose.Types.ObjectId,
      required: true,
    },
    postSession: {
-     type: String,
+     type: mongoose.Types.ObjectId,
      required: true,
    },
    menteeId: {

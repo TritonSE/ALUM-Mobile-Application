@@ -31,6 +31,7 @@ class Answer {
       }
 }
 
+
 /**
  * Function for hashing questions to link them to their answer.
  * @param str: Question+type of question to be hashed

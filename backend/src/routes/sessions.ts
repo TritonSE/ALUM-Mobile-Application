@@ -6,7 +6,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note"; 
-
 /**
  * This is a post route to create a new session. 
  *
@@ -39,7 +38,7 @@ router.post(
         const postNoteId= await createPostSessionNotes()
         const {menteeId, mentorId} = req.body;
         const meetingTime = new Date(req.body.dateInfo)
-        const session = new Session({preSession : preNoteId._id.toString(), postSession : postNoteId._id.toString(), menteeId, mentorId, dateTime : meetingTime});
+        const session = new Session({preSession : preNoteId._id, postSession : postNoteId._id, menteeId, mentorId, dateTime : meetingTime});
         await session.save();
         return res.status(201).json({
           message: `Session with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
