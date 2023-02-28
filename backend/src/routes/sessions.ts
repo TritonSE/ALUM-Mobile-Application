@@ -4,7 +4,6 @@
  */
 
 import express, { NextFunction, Request, Response } from "express";
-import { postNotes } from "../routes/notes"
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note"; 
 const router=express.Router();
