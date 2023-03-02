@@ -2,10 +2,7 @@
  * This file is used to store functions the validate requests
  * for the various routes. The type checking is done using
  * Justin's caketype library (see github for specifications).
-<<<<<<< HEAD
-=======
  * https://github.com/justinyaodu/caketype
->>>>>>> main
  * All error messages are stored in the errors.ts file.
  *
  *
