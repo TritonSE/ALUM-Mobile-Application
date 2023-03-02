@@ -46,9 +46,9 @@ class ApiService {
 
         do {
             let (postedData, _) = try await URLSession.shared.upload(for: request, from: jsonData)
-//            let decodedData = try JSONDecoder().decode(MenteePostData.self, from: postedData)
-//            let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
-            print("Successful")
+            let decodedData = try JSONDecoder().decode(MenteePostData.self, from: jsonData)
+            let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
+            print(confirmationMessage)
         } catch {
             print("POST failed.")
         }
@@ -66,9 +66,9 @@ class ApiService {
 
         do {
             let (postedData, _) = try await URLSession.shared.upload(for: request, from: jsonData)
-            let decodedData = try JSONDecoder().decode(MentorPostData.self, from: postedData)
+            let decodedData = try JSONDecoder().decode(MentorPostData.self, from: jsonData)
             let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
-            print("Successful")
+            print(confirmationMessage)
         } catch {
             print("POST failed.")
         }
