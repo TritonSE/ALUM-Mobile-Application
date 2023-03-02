@@ -2,6 +2,7 @@ import { assert } from "console";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
+import { createHash } from "crypto";
 
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
@@ -11,9 +12,9 @@ class Answer {
 
   type: string;
 
-  id: number; // hashed from question
+  id: string; // hashed from question
 
-  constructor(type: string, id: number) {
+  constructor(type: string, id: string) {
     this.answer = "";
     this.type = type;
     this.id = id;
@@ -40,13 +41,7 @@ class Answer {
  * @returns: Hash value of the question+type
  */
 function hashCode(str: string) {
-  let hash = 0;
-  for (let i = 0, len = str.length; i < len; i++) {
-    const chr = str.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
+  return createHash('sha256').update(str).digest('hex');
 }
 
 /**
@@ -57,10 +52,9 @@ function hashCode(str: string) {
 function createPreAnswerArray() {
   const preAnswerList: Answer[] = new Array(preSessionQuestions.length);
   for (let i = 0; i < preAnswerList.length; ++i) {
-    preSessionQuestions[i].id = hashCode(
+    preAnswerList[i] = new Answer(preSessionQuestions[i].type, hashCode(
       preSessionQuestions[i].question + preSessionQuestions[i].type
-    );
-    preAnswerList[i] = new Answer(preSessionQuestions[i].type, preSessionQuestions[i].id);
+    ));
   }
   return preAnswerList;
 }
@@ -73,10 +67,9 @@ function createPreAnswerArray() {
 function createPostAnswerArray() {
   const postAnswerList: Answer[] = new Array(postSessionQuestions.length);
   for (let i = 0; i < postAnswerList.length; ++i) {
-    postSessionQuestions[i].id = hashCode(
+    postAnswerList[i] = new Answer(postSessionQuestions[i].type, hashCode(
       postSessionQuestions[i].question + postSessionQuestions[i].type
-    );
-    postAnswerList[i] = new Answer(postSessionQuestions[i].type, postSessionQuestions[i].id);
+    ));
   }
   return postAnswerList;
 }
