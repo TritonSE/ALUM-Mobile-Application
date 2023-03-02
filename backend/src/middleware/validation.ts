@@ -11,7 +11,7 @@
  * are validating (look below for examples).
  */
 
-import { bake, string, array } from "caketype";
+import { bake, string, array, number } from "caketype";
 import { Request, Response, NextFunction } from "express";
 import { ValidationError } from "../errors/validationError";
 
@@ -23,7 +23,7 @@ const MENTEE = bake({
   name: string,
   email: string,
   password: string,
-  grade: string,
+  grade: number,
   topicsOfInterest: array(string),
   careerInterests: array(string),
   mentorshipGoal: string,
@@ -37,7 +37,7 @@ const MENTOR = bake({
   name: string,
   email: string,
   password: string,
-  graduationYear: string,
+  graduationYear: number,
   college: string,
   major: string,
   minor: string,

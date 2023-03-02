@@ -4,7 +4,7 @@ interface MenteeInterface {
   name: string;
   imageId: string;
   about: string;
-  grade: string;
+  grade: Number;
   topicsOfInterest: string[];
   careerInterests: string[];
   mentorshipGoal: string;
@@ -16,7 +16,7 @@ interface MenteeDoc extends mongoose.Document {
   name: string;
   imageId: string;
   about: string;
-  grade: string;
+  grade: Number;
   topicsOfInterest: string[];
   careerInterests: string[];
   mentorshipGoal: string;
@@ -42,7 +42,7 @@ const MenteeSchema = new mongoose.Schema({
     required: true,
   },
   grade: {
-    type: String,
+    type: Number,
     required: true,
   },
   topicsOfInterest: [
