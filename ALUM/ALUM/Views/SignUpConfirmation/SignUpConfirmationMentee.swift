@@ -132,7 +132,7 @@ struct SignUpConfirmationMentee: View {
                     .frame(minHeight: grr.size.height-114)
                     .background(Color("ALUM White2"))
                     .padding(.top)
-                    //rectangle with edit and submit
+                    // rectangle with edit and submit
                     VStack {
                         Spacer()
                         ZStack {
@@ -141,7 +141,7 @@ struct SignUpConfirmationMentee: View {
                                 .foregroundColor(.white)
                             HStack {
                                 Button {
-                                    
+
                                 } label: {
                                     Label(
                                         title: { Text("Edit") },
@@ -152,7 +152,7 @@ struct SignUpConfirmationMentee: View {
                                 .frame(width: 150)
                                 .padding(8)
                                 Button("Submit") {
-                                    Task{
+                                    Task {
                                         await viewModel.submitMenteeSignUp()
                                     }
                                 }

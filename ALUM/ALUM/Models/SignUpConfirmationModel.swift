@@ -26,7 +26,7 @@ struct Mentee {
 struct Mentor {
     var name: String
     var email: String
-    var yearOfGrad : String
+    var yearOfGrad: String
     var university: String
     var major: String
     var minor: String

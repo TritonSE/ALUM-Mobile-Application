@@ -73,7 +73,7 @@ struct SignUpConfirmationMentor: View {
                                 Spacer()
                             }
                             .padding(.bottom, 24)
-                            Group{
+                            Group {
                                 HStack {
                                     Text("School: ")
                                         .padding(.leading)
@@ -90,7 +90,7 @@ struct SignUpConfirmationMentor: View {
                                 }
                                 .padding(.bottom, 24)
                             }
-                            Group{
+                            Group {
                                 HStack {
                                     Text("Major")
                                         .padding(.leading)
@@ -110,7 +110,7 @@ struct SignUpConfirmationMentor: View {
                                 }
                                 .padding(.bottom, 24)
                             }
-                            Group{
+                            Group {
                                 HStack {
                                     Text("Minor")
                                         .padding(.leading)
@@ -130,7 +130,7 @@ struct SignUpConfirmationMentor: View {
                                 }
                                 .padding(.bottom, 24)
                             }
-                            Group{
+                            Group {
                                 HStack {
                                     Text("Intended Career")
                                         .padding(.leading)
@@ -150,7 +150,7 @@ struct SignUpConfirmationMentor: View {
                                 }
                                 .padding(.bottom, 24)
                             }
-                            Group{
+                            Group {
                                 HStack {
                                     Text("Topics of Expertise:")
                                         .padding(.leading)
@@ -165,7 +165,7 @@ struct SignUpConfirmationMentor: View {
                                 .padding(.horizontal)
                                 .padding(.bottom, 24)
                             }
-                            Group{
+                            Group {
                                 HStack {
                                     Text("Mentor Motivation")
                                         .padding(.leading)
@@ -190,7 +190,7 @@ struct SignUpConfirmationMentor: View {
                     .frame(minHeight: grr.size.height-114)
                     .background(Color("ALUM White2"))
                     .padding(.top)
-                    //rectangle with edit and submit
+                    // rectangle with edit and submit
                     VStack {
                         Spacer()
                         ZStack {
@@ -199,7 +199,7 @@ struct SignUpConfirmationMentor: View {
                                 .foregroundColor(.white)
                             HStack {
                                 Button {
-                                    
+
                                 } label: {
                                     Label(
                                         title: { Text("Edit") },
@@ -210,7 +210,7 @@ struct SignUpConfirmationMentor: View {
                                 .frame(width: 150)
                                 .padding(8)
                                 Button("Submit") {
-                                    Task{
+                                    Task {
                                         await viewModel.submitMentorSignUp()
                                     }
                                 }
