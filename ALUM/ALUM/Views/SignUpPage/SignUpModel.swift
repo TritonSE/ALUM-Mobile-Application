@@ -12,6 +12,7 @@ struct Account{
     var email: String
     var password: String
 }
+
 struct Mentee {
     var name: String
     var email: String
@@ -21,6 +22,7 @@ struct Mentee {
     var mentorshipGoal: String
     var password: String
 }
+
 struct Mentor {
     var name: String
     var email: String

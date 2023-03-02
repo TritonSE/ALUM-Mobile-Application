@@ -31,6 +31,7 @@ struct TextInputFieldComponent: View {
                     if isSecured {
                         SecureField(labelText, text: $textFieldText)
                             .textInputAutocapitalization(.never)
+                            .padding(.trailing, 34)
                     } else {
                         TextField(labelText, text: $textFieldText)
                             .textInputAutocapitalization(.never)
@@ -68,7 +69,7 @@ struct TestView: View {
 
     var body: some View {
         VStack {
-            TextInputFieldComponent(textFieldText: $textInput, isSecured: false, showEye: false, labelText: "Username:")
+            TextInputFieldComponent(textFieldText: $textInput, isSecured: true, showEye: true, labelText: "Username:")
             Text(textInput)
         }
 

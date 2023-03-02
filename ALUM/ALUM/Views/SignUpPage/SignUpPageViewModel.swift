@@ -21,14 +21,20 @@ final class SignUpPageViewModel: ObservableObject {
     
     @Published var account = Account(name: "", email: "", password: "")
     @Published var mentee = Mentee(name: "", email: "", grade: "", mentorshipGoal: "", password: "")
+    @Published var mentor = Mentor(name: "", email: "", yearOfGrad: "", university: "", major: "", minor: "", intendedCareer: "", password: "")
     
     func setUpMentee() {
         mentee.name = account.name
         mentee.email = account.email
         mentee.password = account.password
-        print("Hello World")
-        print(mentee.name)
     }
+    
+    func setUpMentor() {
+        mentor.name = account.name
+        mentor.email = account.email
+        mentor.password = account.password
+    }
+    
     
     func checkPasswordSame() {
         if !(self.account.password == self.passwordAgain) {
@@ -40,7 +46,7 @@ final class SignUpPageViewModel: ObservableObject {
     
     class Functions {
         static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
-            if string.contains("iusd.edu") {
+            if string.contains("iusd.edu") || !(string.contains("@")){
                 return (false, "Don't use IUSD email")
             } else {
                 return (true, "Don't use IUSD email")
