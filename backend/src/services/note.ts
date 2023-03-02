@@ -1,8 +1,8 @@
 import { assert } from "console";
+import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
-import { createHash } from "crypto";
 
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
@@ -41,7 +41,7 @@ class Answer {
  * @returns: Hash value of the question+type
  */
 function hashCode(str: string) {
-  return createHash('sha256').update(str).digest('hex');
+  return createHash("sha256").update(str).digest("hex");
 }
 
 /**
@@ -52,9 +52,10 @@ function hashCode(str: string) {
 function createPreAnswerArray() {
   const preAnswerList: Answer[] = new Array(preSessionQuestions.length);
   for (let i = 0; i < preAnswerList.length; ++i) {
-    preAnswerList[i] = new Answer(preSessionQuestions[i].type, hashCode(
-      preSessionQuestions[i].question + preSessionQuestions[i].type
-    ));
+    preAnswerList[i] = new Answer(
+      preSessionQuestions[i].type,
+      hashCode(preSessionQuestions[i].question + preSessionQuestions[i].type)
+    );
   }
   return preAnswerList;
 }
@@ -67,9 +68,10 @@ function createPreAnswerArray() {
 function createPostAnswerArray() {
   const postAnswerList: Answer[] = new Array(postSessionQuestions.length);
   for (let i = 0; i < postAnswerList.length; ++i) {
-    postAnswerList[i] = new Answer(postSessionQuestions[i].type, hashCode(
-      postSessionQuestions[i].question + postSessionQuestions[i].type
-    ));
+    postAnswerList[i] = new Answer(
+      postSessionQuestions[i].type,
+      hashCode(postSessionQuestions[i].question + postSessionQuestions[i].type)
+    );
   }
   return postAnswerList;
 }
