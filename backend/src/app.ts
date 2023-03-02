@@ -2,7 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
+<<<<<<< HEAD
 import { sessionsRouter } from "./routes/sessions";
+=======
+>>>>>>> main
 import { mongoURI, port } from "./config";
 
 /**
