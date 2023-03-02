@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 
 // load the environment variables from the .env file
 dotenv.config({
-  path: ".env",
+  path: "/Users/yashravipati/Documents/GitHub/ALUM-Mobile-Application/backend/env",
 });
 
 let portV = "";

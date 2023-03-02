@@ -8,7 +8,7 @@
 import SwiftUI
 import WrappingHStack
 
-struct SignUpConfirmation: View {
+struct SignUpConfirmationMentee: View {
     @StateObject private var viewModel = SignUpConfirmationViewModel()
     var body: some View {
         GeometryReader { grr in
@@ -126,16 +126,18 @@ struct SignUpConfirmation: View {
                                 Spacer()
                             }
                             .padding(.top, 8)
+                            .padding(.bottom, 100)
                         }
                     }
                     .frame(minHeight: grr.size.height-114)
                     .background(Color("ALUM White2"))
                     .padding(.top)
+                    //rectangle with edit and submit
                     VStack {
                         Spacer()
                         ZStack {
                             Rectangle()
-                                .frame(width: .infinity, height: 114)
+                                .frame(height: 114)
                                 .foregroundColor(.white)
                             HStack {
                                 Button {
@@ -150,7 +152,9 @@ struct SignUpConfirmation: View {
                                 .frame(width: 150)
                                 .padding(8)
                                 Button("Submit") {
-                                    viewModel.submitSignUp()
+                                    Task{
+                                        await viewModel.submitMenteeSignUp()
+                                    }
                                 }
                                 .buttonStyle(FilledInButtonStyle())
                                 .frame(width: 150)
@@ -167,6 +171,6 @@ struct SignUpConfirmation: View {
 
 struct SignUpConfirmation_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpConfirmation()
+        SignUpConfirmationMentee()
     }
 }

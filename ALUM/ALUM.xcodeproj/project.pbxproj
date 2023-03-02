@@ -14,13 +14,12 @@
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
-		8001F72F29A39D6E00244E70 /* POST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F72E29A39D6E00244E70 /* POST.swift */; };
 		8001F73129A5AC5600244E70 /* SignUpConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */; };
 		8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
-		80C827C6299CE48D00AE12A9 /* SignUpConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */; };
+		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */; };
 		80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
 		80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
 		80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */; };
@@ -40,6 +39,8 @@
 		80F5388429A6A80500FB5E66 /* Metropolis-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */; };
 		80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
 		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
+		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */; };
+		80F5388C29B0252F00FB5E66 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* APIService.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
@@ -60,13 +61,14 @@
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
-		8001F72E29A39D6E00244E70 /* POST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POST.swift; sourceTree = "<group>"; };
 		8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationViewModel.swift; sourceTree = "<group>"; };
 		8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationModel.swift; sourceTree = "<group>"; };
 		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
-		80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmation.swift; sourceTree = "<group>"; };
+		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
+		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentor.swift; sourceTree = "<group>"; };
+		80F5388B29B0252F00FB5E66 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
@@ -198,7 +200,7 @@
 		07F9A5102971814900BC11A8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8001F72E29A39D6E00244E70 /* POST.swift */,
+				80F5388B29B0252F00FB5E66 /* APIService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -206,7 +208,8 @@
 		8001F73229A5AC5D00244E70 /* SignUpConfirmation */ = {
 			isa = PBXGroup;
 			children = (
-				80C827C5299CE48D00AE12A9 /* SignUpConfirmation.swift */,
+				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */,
+				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */,
 				8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */,
 			);
 			path = SignUpConfirmation;
@@ -369,7 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
-				80C827C6299CE48D00AE12A9 /* SignUpConfirmation.swift in Sources */,
+				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
 				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
@@ -378,11 +381,12 @@
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
-				8001F72F29A39D6E00244E70 /* POST.swift in Sources */,
+				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				8001F73129A5AC5600244E70 /* SignUpConfirmationViewModel.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
+				80F5388C29B0252F00FB5E66 /* APIService.swift in Sources */,
 				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
