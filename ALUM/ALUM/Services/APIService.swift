@@ -39,16 +39,16 @@ class ApiService {
             print("Failed to encode order")
             return
         }
-        let url = URL(string: "localhost:3000/mentee")!
+        let url = URL(string: "http://localhost:3000/mentee")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
 
         do {
             let (postedData, _) = try await URLSession.shared.upload(for: request, from: jsonData)
-            let decodedData = try JSONDecoder().decode(MenteePostData.self, from: postedData)
-            let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
-            print(confirmationMessage)
+//            let decodedData = try JSONDecoder().decode(MenteePostData.self, from: postedData)
+//            let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
+            print("Successful")
         } catch {
             print("POST failed.")
         }
@@ -59,7 +59,7 @@ class ApiService {
             print("Failed to encode order")
             return
         }
-        let url = URL(string: "localhost:3000/mentor")!
+        let url = URL(string: "http://localhost:3000/mentor")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -68,7 +68,7 @@ class ApiService {
             let (postedData, _) = try await URLSession.shared.upload(for: request, from: jsonData)
             let decodedData = try JSONDecoder().decode(MentorPostData.self, from: postedData)
             let confirmationMessage = "\(decodedData.name), you have succesfully signed up with the email \(decodedData.email)!"
-            print(confirmationMessage)
+            print("Successful")
         } catch {
             print("POST failed.")
         }
