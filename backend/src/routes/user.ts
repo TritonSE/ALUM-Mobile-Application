@@ -11,6 +11,7 @@ import { validateMentee, validateMentor } from "../middleware/validation";
 import { createUser } from "../services/firebase/auth";
 import { ValidationError } from "../errors/validationError";
 import { validateAuthToken } from "../middleware/auth";
+import { updateMentee, updateMentor } from "../services/user";
 
 const router = express.Router();
 
@@ -120,17 +121,36 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
 /**
  * This is a patch route to edit a mentee
  */
-router.patch("/mentee/:userId", [validateAuthToken, upload], 
+router.patch("/mentee/:userId", [ upload ], 
 async (req: Request, res: Response) => {
   console.log("Editing a mentee");
   try {
-    const userId = new mongoose.Types.ObjectId(req.params.userId);
+    const userId = req.params.userId;
+    console.log(userId);
     for(const property in req.body) {
-      
+      updateMentee(userId, property, req.body[property]);
     }
-
+    return res.status(201).send("Mentee updated successfully!");
   } catch (e) {
+    return res.status(500).send("There was an error editing the value");
+  }
+})
 
+/**
+ * This is a patch route to edit a mentor
+ */
+router.patch("/mentor/:userId", [ upload ], 
+async (req: Request, res: Response) => {
+  console.log("Editing a mentor");
+  try {
+    const userId = req.params.userId;
+    console.log(userId);
+    for(const property in req.body) {
+      updateMentor(userId, property, req.body[property]);
+    }
+    return res.status(201).send("Mentee updated successfully!");
+  } catch (e) {
+    return res.status(500).send("There was an error editing the value");
   }
 })
 
