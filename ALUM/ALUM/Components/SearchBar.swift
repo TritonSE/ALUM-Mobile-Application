@@ -12,7 +12,6 @@ struct SearchBar: View {
 
     var body: some View {
         VStack {
-
             TextField("", text: $text)
                 .padding(16)
                 .padding(.horizontal, 25)
@@ -28,6 +27,13 @@ struct SearchBar: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 19)
+                        Button(action: {
+                            text = ""
+                        }, label: {
+                            Image(systemName: "xmark")
+                        })
+                        .padding(.init(top: 0.0, leading: 14.0, bottom: 0.0, trailing: 16.0))
+                        .accentColor(Color("NeutralGray4"))
                     })
         }
     }
@@ -50,7 +56,6 @@ struct Searchable: View {
                 item
             }
         }
-
     }
 }
 

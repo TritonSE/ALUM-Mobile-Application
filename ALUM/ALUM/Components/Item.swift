@@ -24,31 +24,28 @@ struct Item: View, Hashable, Identifiable {
 
     // variables
     @State var content: String = ""
-    @State var isChecked: Bool = false
+    @Binding var isChecked: Bool
 
-    func toggle () {
+    func toggle() {
         isChecked = !isChecked
-
     }
 
     var body: some View {
         HStack {
-            Button(action: toggle) {
+            Button(action: toggle, label: {
                 Image(systemName: isChecked ? "checkmark.square" : "square")
-            }
+            })
             Text(content)
 
         }
 
-//        if (isChecked) {
-//            SearchableTags(text: content, isBlue: true)
-//        }
     }
 }
 
 struct ItemTester: View {
-
-    @State var itemsList = [Item(content: "")]
+    @State var stringList: [String]
+    @State var isChecked: [(String, Bool)] // TagStatus
+    @State var itemsList: [Item]
 
     var body: some View {
 
@@ -57,32 +54,30 @@ struct ItemTester: View {
             HStack {
                 ForEach(itemsList, id: \.self) { itm in
                     if itm.isChecked {
-                        TagDisplay(text: itm.content)
+                        TagDisplay(text: itm.content, crossShowing: true)
                     }
                 }
             }
-
+            .padding(.bottom, 10)
             Divider()
                 .padding(10)
-                .frame(width: 300)
+                .frame(width: 300, height: 0.5)
+                .overlay(Color("ALUM Dark Blue"))
             ForEach(itemsList, id: \.self) { itm in
                 itm
                 Divider()
                     .padding(10)
                     .frame(width: 300)
-
             }
         }
-
     }
-
 }
 
 struct Item_Previews: PreviewProvider {
     static var previews: some View {
         ItemTester(itemsList:
-                    [Item(content: "list item 1", isChecked: false),
+                    [Item(content: "list item 1", isChecked: true),
                      Item(content: "list item 2", isChecked: true),
-                     Item(content: "list item 3", isChecked: true)])
+                     Item(content: "list item 3", isChecked: false)])
     }
 }
