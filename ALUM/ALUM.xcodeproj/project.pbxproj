@@ -17,15 +17,43 @@
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
+		9739652429AEE05900675A27 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
+		9739652529AEE05900675A27 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
+		9739652629AEE05900675A27 /* Metropolis-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */; };
+		9739652729AEE05900675A27 /* Metropolis-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CB298B400E005DDC73 /* Metropolis-ExtraBold.otf */; };
+		9739652829AEE05900675A27 /* Metropolis-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CC298B400E005DDC73 /* Metropolis-SemiBoldItalic.otf */; };
+		9739652929AEE05900675A27 /* Metropolis-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CD298B400E005DDC73 /* Metropolis-Light.otf */; };
+		9739652A29AEE05900675A27 /* Metropolis-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CE298B400E005DDC73 /* Metropolis-Regular.otf */; };
+		9739652B29AEE05900675A27 /* Metropolis-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CF298B400E005DDC73 /* Metropolis-Black.otf */; };
+		9739652C29AEE05900675A27 /* Metropolis-ExtraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D0298B400E005DDC73 /* Metropolis-ExtraLightItalic.otf */; };
+		9739652D29AEE05900675A27 /* Metropolis-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D1298B400E005DDC73 /* Metropolis-Medium.otf */; };
+		9739652E29AEE05900675A27 /* Metropolis-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D2298B400E005DDC73 /* Metropolis-BlackItalic.otf */; };
+		9739652F29AEE05900675A27 /* Metropolis-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D3298B400E005DDC73 /* Metropolis-ThinItalic.otf */; };
+		9739653029AEE05900675A27 /* Metropolis-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D4298B400E005DDC73 /* Metropolis-ExtraLight.otf */; };
+		9739653129AEE05900675A27 /* Metropolis-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D5298B400E005DDC73 /* Metropolis-MediumItalic.otf */; };
+		9739653229AEE05900675A27 /* Metropolis-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D6298B400E005DDC73 /* Metropolis-LightItalic.otf */; };
+		9739653329AEE05900675A27 /* Metropolis-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D7298B400E005DDC73 /* Metropolis-SemiBold.otf */; };
+		9739653429AEE05900675A27 /* Metropolis-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */; };
+		9739653529AEE05900675A27 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
+		9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9760067B299FFCD2000945E2 /* SignUpPageView.swift */; };
+		97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97992B5E29A6E81D00701CC7 /* SignUpModel.swift */; };
 		979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 979F60902991EBC600AC8CDD /* GoogleService-Info.plist */; };
 		97A2FE822988EF9900405FD6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE812988EF9900405FD6 /* FirebaseAnalytics */; };
 		97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE832988EF9900405FD6 /* FirebaseAuth */; };
 		97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE852988EF9900405FD6 /* FirebaseFirestore */; };
 		97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE872988EF9900405FD6 /* FirebaseStorage */; };
 		97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginPageView.swift */; };
+		97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */; };
+		97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */; };
+		97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */; };
+		97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */; };
+		97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */; };
+		97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */; };
+		97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */; };
+		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +71,8 @@
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
+		9760067B299FFCD2000945E2 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
+		97992B5E29A6E81D00701CC7 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		979F60902991EBC600AC8CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		97A2FE8B2989C20900405FD6 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
@@ -66,6 +96,14 @@
 		97C0B6D7298B400E005DDC73 /* Metropolis-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-SemiBold.otf"; sourceTree = "<group>"; };
 		97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-BoldItalic.otf"; sourceTree = "<group>"; };
 		97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
+		97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSetUpScreen.swift; sourceTree = "<group>"; };
+		97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpJoinAsScreen.swift; sourceTree = "<group>"; };
+		97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMenteeInfoScreen.swift; sourceTree = "<group>"; };
+		97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMentorInfoScreen.swift; sourceTree = "<group>"; };
+		97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpJoinOption.swift; sourceTree = "<group>"; };
+		97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpGradeComponent.swift; sourceTree = "<group>"; };
+		97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFlowErrorFunctions.swift; sourceTree = "<group>"; };
+		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +140,7 @@
 		0748208D29712921004AF547 /* ALUM */ = {
 			isa = PBXGroup;
 			children = (
+				97EB2BAD29B59CF5001988D9 /* Constants */,
 				97C0B6C3298B3D04005DDC73 /* Info.plist */,
 				97C0B6C6298B400E005DDC73 /* metropolis */,
 				97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */,
@@ -138,6 +177,8 @@
 				9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */,
 				741D534129A4EDD3004C04E6 /* TagDisplay.swift */,
 				741D534329A4EED0004C04E6 /* AddTagButton.swift */,
+				97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */,
+				97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -145,6 +186,7 @@
 		07F9A50D297180EA00BC11A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				97992B5E29A6E81D00701CC7 /* SignUpModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -152,6 +194,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
 			);
@@ -161,6 +204,8 @@
 		07F9A50F297180F500BC11A8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
+				97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -176,9 +221,20 @@
 			isa = PBXGroup;
 			children = (
 				97A2FE8B2989C20900405FD6 /* LoginPageView.swift */,
-				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
 			);
 			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
+			isa = PBXGroup;
+			children = (
+				9760067B299FFCD2000945E2 /* SignUpPageView.swift */,
+				97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */,
+				97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */,
+				97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */,
+				97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */,
+			);
+			path = SignUpPage;
 			sourceTree = "<group>";
 		};
 		97C0B6C6298B400E005DDC73 /* metropolis */ = {
@@ -205,6 +261,22 @@
 				97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */,
 			);
 			path = metropolis;
+			sourceTree = "<group>";
+		};
+		97EB2BAD29B59CF5001988D9 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				97EB2BAE29B59D08001988D9 /* ErrorFunctions */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		97EB2BAE29B59D08001988D9 /* ErrorFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */,
+			);
+			path = ErrorFunctions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +347,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9739652429AEE05900675A27 /* Metropolis-Bold.otf in Resources */,
+				9739652529AEE05900675A27 /* Metropolis-Thin.otf in Resources */,
+				9739652629AEE05900675A27 /* Metropolis-RegularItalic.otf in Resources */,
+				9739652729AEE05900675A27 /* Metropolis-ExtraBold.otf in Resources */,
+				9739652829AEE05900675A27 /* Metropolis-SemiBoldItalic.otf in Resources */,
+				9739652929AEE05900675A27 /* Metropolis-Light.otf in Resources */,
+				9739652A29AEE05900675A27 /* Metropolis-Regular.otf in Resources */,
+				9739652B29AEE05900675A27 /* Metropolis-Black.otf in Resources */,
+				9739652C29AEE05900675A27 /* Metropolis-ExtraLightItalic.otf in Resources */,
+				9739652D29AEE05900675A27 /* Metropolis-Medium.otf in Resources */,
+				9739652E29AEE05900675A27 /* Metropolis-BlackItalic.otf in Resources */,
+				9739652F29AEE05900675A27 /* Metropolis-ThinItalic.otf in Resources */,
+				9739653029AEE05900675A27 /* Metropolis-ExtraLight.otf in Resources */,
+				9739653129AEE05900675A27 /* Metropolis-MediumItalic.otf in Resources */,
+				9739653229AEE05900675A27 /* Metropolis-LightItalic.otf in Resources */,
+				9739653329AEE05900675A27 /* Metropolis-SemiBold.otf in Resources */,
+				9739653429AEE05900675A27 /* Metropolis-BoldItalic.otf in Resources */,
+				9739653529AEE05900675A27 /* Metropolis-ExtraBoldItalic.otf in Resources */,
 				0748209629712922004AF547 /* Preview Assets.xcassets in Resources */,
 				0748209329712922004AF547 /* Assets.xcassets in Resources */,
 				979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */,
@@ -310,12 +400,22 @@
 			files = (
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
 				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
+				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
+				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
+				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
+				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
+				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
+				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
+				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
+				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
+				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
+				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
