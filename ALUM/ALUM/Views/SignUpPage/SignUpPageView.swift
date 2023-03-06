@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SignUpPageView: View {
 
-    @StateObject private var viewModel = SignUpPageViewModel()
+    @StateObject private var viewModel = SignUpViewModel()
 
     var body: some View {
         NavigationView {
-            SignUpSetUp(viewModel: viewModel)
+            SignUpSetUpScreen(viewModel: viewModel)
         }
         .navigationBarBackButtonHidden()
     }
@@ -25,4 +25,3 @@ struct SignUpPageView_Previews: PreviewProvider {
         // MentorInfo()
     }
 }
-

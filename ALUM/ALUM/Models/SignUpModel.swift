@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Account{
+struct Account {
     var name: String
     var email: String
     var password: String
@@ -26,18 +26,10 @@ struct Mentee {
 struct Mentor {
     var name: String
     var email: String
-    var yearOfGrad : String
+    var yearOfGrad: String
     var university: String
     var major: String
     var minor: String
     var intendedCareer: String
     var password: String
 }
-
-
-
-
-
-
-
-

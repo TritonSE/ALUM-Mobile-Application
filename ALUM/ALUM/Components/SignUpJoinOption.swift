@@ -12,7 +12,7 @@ struct SignUpJoinOption: View {
     var title: String
     var description: String
     var isSelected: Bool
-    
+
     var body: some View {
 
         VStack {
@@ -20,20 +20,19 @@ struct SignUpJoinOption: View {
                 Text(title)
                     .font(.custom("Metropolis-Regular", size: 34))
                 Spacer()
-                
+
                 ZStack {
                     Circle()
                         .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 2.0)
                         .frame(width: 20, height: 20)
-                    
+
                     if isSelected {
                         Circle()
                             .fill(Color("ALUM Dark Blue"))
                             .frame(width: 4, height: 4)
                     }
                 }
-                
-                 
+
             }
             .padding(.leading, 32)
             .padding(.trailing, 32)
@@ -53,7 +52,7 @@ struct SignUpJoinOption: View {
                     .fill(isSelected ? Color("ALUM Light Blue") : Color.white)
                     .padding(.trailing, 16)
                     .padding(.leading, 16)
-                
+
                 RoundedRectangle(cornerRadius: 12.0)
                     .stroke(Color("ALUM Light Blue"))
                     .padding(.trailing, 16)
@@ -63,10 +62,12 @@ struct SignUpJoinOption: View {
     }
 }
 
-/*
  struct SignUpJoinOption_Previews: PreviewProvider {
- static var previews: some View {
- SignUpJoinOption()
+     static var title: String = "Mentee"
+     static var description: String = "abcdefhijklmnopqrstuvwxyz"
+     static var isSelected: Bool = true
+
+     static var previews: some View {
+         SignUpJoinOption(title: title, description: description, isSelected: isSelected)
+     }
  }
- }
- */
