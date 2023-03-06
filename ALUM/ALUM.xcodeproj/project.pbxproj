@@ -17,6 +17,7 @@
 		8001F73129A5AC5600244E70 /* SignUpConfirmationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */; };
 		8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
+		8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileView.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
 		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */; };
@@ -64,6 +65,7 @@
 		8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationViewModel.swift; sourceTree = "<group>"; };
 		8001F73329A5AE2900244E70 /* SignUpConfirmationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationModel.swift; sourceTree = "<group>"; };
 		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
+		8041161D29B21BB800529936 /* MentorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileView.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
 		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8041161C29B21B9B00529936 /* ProfileView */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
 				8001F73229A5AC5D00244E70 /* SignUpConfirmation */,
@@ -222,6 +225,14 @@
 				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
 			);
 			path = LoginPage;
+			sourceTree = "<group>";
+		};
+		8041161C29B21B9B00529936 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				8041161D29B21BB800529936 /* MentorProfileView.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		97C0B6C6298B400E005DDC73 /* metropolis */ = {
@@ -374,6 +385,7 @@
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
 				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
 				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
+				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
