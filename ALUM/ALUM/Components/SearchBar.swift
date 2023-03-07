@@ -39,28 +39,28 @@ struct SearchBar: View {
     }
 }
 
-struct Searchable: View {
-    @State private var searchText = ""
-    private var itemsList = [
-        Item(content: "Hello Sentence"),
-        Item(content: "Goodbye Hello"),
-        Item(content: "List Item 3"),
-        Item(content: "Thing 4"),
-        Item(content: "List Item 5")]
+//struct Searchable: View {
+//    @State private var searchText = ""
+//    private var itemsList = [
+//        Item(content: "Hello Sentence"),
+//        Item(content: "Goodbye Hello"),
+//        Item(content: "List Item 3"),
+//        Item(content: "Thing 4"),
+//        Item(content: "List Item 5")]
+//
+//    var body: some View {
+//        VStack {
+//            SearchBar(text: $searchText)
+//
+//            List(itemsList.filter({ searchText.isEmpty ? true : $0.content.contains(searchText) })) { item in
+//                item
+//            }
+//        }
+//    }
+//}
 
-    var body: some View {
-        VStack {
-            SearchBar(text: $searchText)
-
-            List(itemsList.filter({ searchText.isEmpty ? true : $0.content.contains(searchText) })) { item in
-                item
-            }
-        }
-    }
-}
-
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        Searchable()
-    }
-}
+//struct SearchBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Searchable()
+//    }
+//}

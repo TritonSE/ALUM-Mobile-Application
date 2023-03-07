@@ -41,43 +41,43 @@ struct Item: View, Hashable, Identifiable {
 
     }
 }
+//
+//struct ItemTester: View {
+//    @State var stringList: [String]
+//    @State var isChecked: [(String, Bool)] // TagStatus
+//    @State var itemsList: [Item]
+//
+//    var body: some View {
+//
+//        VStack(alignment: .leading) {
+//
+//            HStack {
+//                ForEach(itemsList, id: \.self) { itm in
+//                    if itm.isChecked {
+//                        TagDisplay(text: itm.content, crossShowing: true)
+//                    }
+//                }
+//            }
+//            .padding(.bottom, 10)
+//            Divider()
+//                .padding(10)
+//                .frame(width: 300, height: 0.5)
+//                .overlay(Color("ALUM Dark Blue"))
+//            ForEach(itemsList, id: \.self) { itm in
+//                itm
+//                Divider()
+//                    .padding(10)
+//                    .frame(width: 300)
+//            }
+//        }
+//    }
+//}
 
-struct ItemTester: View {
-    @State var stringList: [String]
-    @State var isChecked: [(String, Bool)] // TagStatus
-    @State var itemsList: [Item]
-
-    var body: some View {
-
-        VStack(alignment: .leading) {
-
-            HStack {
-                ForEach(itemsList, id: \.self) { itm in
-                    if itm.isChecked {
-                        TagDisplay(text: itm.content, crossShowing: true)
-                    }
-                }
-            }
-            .padding(.bottom, 10)
-            Divider()
-                .padding(10)
-                .frame(width: 300, height: 0.5)
-                .overlay(Color("ALUM Dark Blue"))
-            ForEach(itemsList, id: \.self) { itm in
-                itm
-                Divider()
-                    .padding(10)
-                    .frame(width: 300)
-            }
-        }
-    }
-}
-
-struct Item_Previews: PreviewProvider {
-    static var previews: some View {
-        ItemTester(itemsList:
-                    [Item(content: "list item 1", isChecked: true),
-                     Item(content: "list item 2", isChecked: true),
-                     Item(content: "list item 3", isChecked: false)])
-    }
-}
+//struct Item_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ItemTester(itemsList:
+//                    [Item(content: "list item 1", isChecked: true),
+//                     Item(content: "list item 2", isChecked: true),
+//                     Item(content: "list item 3", isChecked: false)])
+//    }
+//}

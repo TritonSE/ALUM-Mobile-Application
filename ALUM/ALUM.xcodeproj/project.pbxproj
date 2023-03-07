@@ -11,6 +11,7 @@
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
+		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
@@ -36,6 +37,7 @@
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		075379F629B6A9F100A0DD5E /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */,
 				741D534129A4EDD3004C04E6 /* TagDisplay.swift */,
 				741D534329A4EED0004C04E6 /* AddTagButton.swift */,
+				075379F629B6A9F100A0DD5E /* TagEditor.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				74CAA67929A581CC007AB388 /* SearchBar.swift in Sources */,
+				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
 				74CAA67829A581CC007AB388 /* Item.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
