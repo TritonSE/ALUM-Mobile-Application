@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct TagDisplay: View {
-
-    @State var text: String = ""
-    @State var isShowing: Bool = true
-    @State var crossShowing: Bool = false
-
+    var tagString: String = ""
+    let crossShowing: Bool
+    let crossAction: (() -> Void)?
+    
+    init(tagString: String, crossShowing: Bool = false, crossAction: (() -> Void)? = nil) {
+        self.tagString = tagString
+        self.crossShowing = crossShowing
+        self.crossAction = crossAction
+    }
+    
     var body: some View {
         VStack {
             ZStack {
@@ -20,14 +25,14 @@ struct TagDisplay: View {
                     Spacer()
                         .frame(width: 12)
 
-                    Text(text)
+                    Text(tagString)
                         .foregroundColor(Color(.black))
                     Spacer()
                         .frame(width: 12)
 
                     if crossShowing {
                         Button(action: {
-                            isShowing = false
+                            crossAction?()
                         }, label: {
                             Image(systemName: "xmark")
                         })
@@ -54,6 +59,6 @@ struct TagDisplay: View {
 
 struct TagDisplay_Previews: PreviewProvider {
     static var previews: some View {
-        TagDisplay(text: "Sample New Text @12345")
+        TagDisplay(tagString: "Sample New Text @12345")
     }
 }
