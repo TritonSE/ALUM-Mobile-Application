@@ -11,13 +11,13 @@ struct TagDisplay: View {
     var tagString: String = ""
     let crossShowing: Bool
     let crossAction: (() -> Void)?
-    
+
     init(tagString: String, crossShowing: Bool = false, crossAction: (() -> Void)? = nil) {
         self.tagString = tagString
         self.crossShowing = crossShowing
         self.crossAction = crossAction
     }
-    
+
     var body: some View {
         VStack {
             ZStack {

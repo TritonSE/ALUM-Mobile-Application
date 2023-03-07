@@ -42,7 +42,7 @@ struct Item: View, Hashable, Identifiable {
     }
 }
 //
-//struct ItemTester: View {
+// struct ItemTester: View {
 //    @State var stringList: [String]
 //    @State var isChecked: [(String, Bool)] // TagStatus
 //    @State var itemsList: [Item]
@@ -71,13 +71,13 @@ struct Item: View, Hashable, Identifiable {
 //            }
 //        }
 //    }
-//}
+// }
 
-//struct Item_Previews: PreviewProvider {
+// struct Item_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ItemTester(itemsList:
 //                    [Item(content: "list item 1", isChecked: true),
 //                     Item(content: "list item 2", isChecked: true),
 //                     Item(content: "list item 3", isChecked: false)])
 //    }
-//}
+// }
