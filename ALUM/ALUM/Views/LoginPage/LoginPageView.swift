@@ -55,13 +55,12 @@ struct LoginPageView: View {
 
                 HStack {
                     Spacer()
-                    Button(action: {
-                    }, label: {
+                    NavigationLink(destination: SignUpPageView(), label: {
                         Text("Forgot Password")
                             .underline()
-                            .foregroundColor(.black)
-                            .font(.footnote)
                     })
+                    .foregroundColor(.black)
+                    .font(.footnote)
                 }
                 .padding(.trailing, 16.0)
                 .padding(.bottom, 32)
@@ -71,10 +70,11 @@ struct LoginPageView: View {
                 Button("Login") {
                     viewModel.emailFunc = []
                     viewModel.passFunc = []
-                viewModel.login()
+                    viewModel.login()
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
-                .frame(width: 358)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
                 .padding(.bottom, 32)
             } else {
                 Button("Login") {
@@ -82,11 +82,23 @@ struct LoginPageView: View {
                     viewModel.passFunc = [LoginPageViewModel.Functions.EnterPassword]
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: true))
-                .frame(width: 358)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
                 .padding(.bottom, 32)
             }
 
+            HStack {
+                Text("Don't have an account?")
+                    .font(.custom("Metropolis-Regular", size: 16))
+
+                NavigationLink(destination: SignUpPageView(), label: {
+                    Text("Sign-Up")
+                        .underline()
+                })
+                .foregroundColor(Color("ALUM Medium Blue"))
+            }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

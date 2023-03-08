@@ -11,9 +11,8 @@
  * are validating (look below for examples).
  */
 
-import { bake, string } from "caketype";
+import { bake, string, array, number } from "caketype";
 import { Request, Response, NextFunction } from "express";
-import mongoose from "mongoose";
 import { ValidationError } from "../errors/validationError";
 
 /**
@@ -21,10 +20,13 @@ import { ValidationError } from "../errors/validationError";
  * NOTE: proper request will follow this format
  */
 const MENTEE = bake({
-  type: string,
   name: string,
   email: string,
   password: string,
+  grade: number,
+  topicsOfInterest: array(string),
+  careerInterests: array(string),
+  mentorshipGoal: string,
 });
 
 /**
@@ -32,12 +34,18 @@ const MENTEE = bake({
  * NOTE: proper request will follow this format
  */
 const MENTOR = bake({
-  type: string,
   name: string,
   email: string,
   password: string,
-  organization_id: string,
-  personal_access_token: string,
+  graduationYear: number,
+  college: string,
+  major: string,
+  minor: string,
+  career: string,
+  topicsOfExpertise: array(string),
+  mentorMotivation: string,
+  organizationId: string,
+  personalAccessToken: string,
 });
 
 /**
@@ -51,28 +59,23 @@ const MENTOR = bake({
 const validateMentee = (req: Request, res: Response, next: NextFunction) => {
   const requestBody = req.body;
 
-  if (requestBody.type !== "Mentee") {
-    return res
-      .status(ValidationError.TYPE_NOT_FOUND.status)
-      .send(ValidationError.TYPE_NOT_FOUND.displayMessage(true));
-  }
-
   const menteeCheck = MENTEE.check(requestBody);
 
   if (!menteeCheck.ok) {
     return res.status(400).send(menteeCheck.error.toString());
   }
-
-  //   const emailValidation = new RegExp(
-  //     "^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$"
-  //   );
-
   const emailValidation = /^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/;
 
   if (!emailValidation.test(requestBody.email)) {
     return res
       .status(ValidationError.INVALID_EMAIL_ID.status)
       .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
+  }
+
+  if (requestBody.password.length < 6) {
+    return res
+      .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
+      .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));
   }
 
   return next();
@@ -89,25 +92,26 @@ const validateMentee = (req: Request, res: Response, next: NextFunction) => {
 const validateMentor = (req: Request, res: Response, next: NextFunction) => {
   const requestBody = req.body;
 
-  if (requestBody.type !== "Mentor") {
-    return res
-      .status(ValidationError.TYPE_NOT_FOUND.status)
-      .send(ValidationError.TYPE_NOT_FOUND.displayMessage(true));
-  }
-
   const mentorCheck = MENTOR.check(requestBody);
   if (!mentorCheck.ok) {
     return res.status(400).send(mentorCheck.error.toString());
   }
 
+  const emailValidation = /^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/;
+
+  if (!emailValidation.test(requestBody.email)) {
+    return res
+      .status(ValidationError.INVALID_EMAIL_ID.status)
+      .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
+  }
+
+  if (requestBody.password.length < 6) {
+    return res
+      .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
+      .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));
+  }
+
   return next();
 };
 
-const validateID = (uid: string) => {
-  if (!mongoose.Types.ObjectId.isValid(uid)) {
-    throw new Error(ValidationError.INVALID_EMAIL_ID.message);
-  }
-  return uid;
-};
-
-export { validateMentee, validateMentor, validateID };
+export { validateMentee, validateMentor };
