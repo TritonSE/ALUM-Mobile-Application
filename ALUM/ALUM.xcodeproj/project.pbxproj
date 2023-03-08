@@ -41,6 +41,7 @@
 		9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9760067B299FFCD2000945E2 /* SignUpPageView.swift */; };
 		97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97992B5E29A6E81D00701CC7 /* SignUpModel.swift */; };
 		979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 979F60902991EBC600AC8CDD /* GoogleService-Info.plist */; };
+		979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979F811F29B8181400D6E964 /* SelectYearComponent.swift */; };
 		97A2FE822988EF9900405FD6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE812988EF9900405FD6 /* FirebaseAnalytics */; };
 		97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE832988EF9900405FD6 /* FirebaseAuth */; };
 		97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE852988EF9900405FD6 /* FirebaseFirestore */; };
@@ -74,6 +75,7 @@
 		9760067B299FFCD2000945E2 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
 		97992B5E29A6E81D00701CC7 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		979F60902991EBC600AC8CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		979F811F29B8181400D6E964 /* SelectYearComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectYearComponent.swift; sourceTree = "<group>"; };
 		97A2FE8B2989C20900405FD6 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
 		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				741D534329A4EED0004C04E6 /* AddTagButton.swift */,
 				97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */,
 				97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */,
+				979F811F29B8181400D6E964 /* SelectYearComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
+				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,

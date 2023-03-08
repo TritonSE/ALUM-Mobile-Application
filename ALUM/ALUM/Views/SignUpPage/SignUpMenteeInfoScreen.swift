@@ -79,30 +79,32 @@ struct SignUpMenteeInfoScreen: View {
                         }
                         .padding(.bottom, 32)
 
-                        HStack {
-                            Text("What do you hope to get out of \nmentorship?")
-                                .lineSpacing(4.0)
-                                .font(.custom("Metropolis-Regular", size: 17))
-                                .foregroundColor(Color("ALUM Dark Blue"))
+                        Group {
+                            HStack {
+                                Text("What do you hope to get out of \nmentorship?")
+                                    .lineSpacing(4.0)
+                                    .font(.custom("Metropolis-Regular", size: 17))
+                                    .foregroundColor(Color("ALUM Dark Blue"))
 
-                            Spacer()
-                        }
-                        .padding(.leading, 16)
-                        .padding(.bottom, 2)
+                                Spacer()
+                            }
+                            .padding(.leading, 16)
+                            .padding(.bottom, 2)
 
-                        ZStack {
-                            TextField("", text: $viewModel.mentee.mentorshipGoal)
-                                .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                                .frame(height: 48.0)
-                                .background(
-                                    Color("ALUM White")
-                                        .cornerRadius(8.0)
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
-                                )
+                            ZStack {
+                                TextField("", text: $viewModel.mentee.mentorshipGoal)
+                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
+                                    .frame(height: 48.0)
+                                    .background(
+                                        Color("ALUM White")
+                                            .cornerRadius(8.0)
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                                    )
+                            }
+                            .padding(.init(top: 0.0, leading: 16.0, bottom: 67.0, trailing: 16.0))
                         }
-                        .padding(.init(top: 0.0, leading: 16.0, bottom: 67.0, trailing: 16.0))
                     }
                 }
 
@@ -114,19 +116,27 @@ struct SignUpMenteeInfoScreen: View {
                         .ignoresSafeArea(edges: .all)
 
                     HStack {
-                        Button("Back") {
+                        Button{
                             dismiss()
-                        }
-                        .buttonStyle(FilledInButtonStyle(disabled: false))
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 32)
-                        .frame(width: UIScreen.main.bounds.width * 0.3)
-
-                        Button("Continue") {
-
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.left")
+                                Text("Back")
+                            }
                         }
                         .buttonStyle(OutlinedButtonStyle(disabled: false))
-                        .padding(.bottom, 32)
+                        .padding(.trailing, 16)
+                        .frame(width: UIScreen.main.bounds.width * 0.3)
+
+                        Button {
+
+                        } label: {
+                            HStack {
+                                Text("Continue")
+                                Image(systemName: "arrow.right")
+                            }
+                        }
+                        .buttonStyle(FilledInButtonStyle(disabled: false))
                         .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .padding(.leading, 16)

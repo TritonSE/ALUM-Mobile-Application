@@ -68,14 +68,25 @@ struct SignUpSetUpScreen: View {
                     SignUpFlowErrorFunctions.OneNumber(viewModel.account.password).0 &&
                     SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
                     viewModel.account.password == viewModel.passwordAgain {
-                    NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {Text("Continue")})
+                    NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
+                            HStack {
+                                Text("Continue")
+                                Image(systemName: "arrow.right")
+                            }
+                        }
+                    )
                     .buttonStyle(FilledInButtonStyle(disabled: false))
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                     .padding(.bottom, 32)
                 } else {
-                    Button("Continue") {
+                    Button {
                         viewModel.checkPasswordSame()
+                    } label: {
+                        HStack {
+                            Text("Continue")
+                            Image(systemName: "arrow.right")
+                        }
                     }
                     .buttonStyle(FilledInButtonStyle(disabled: true))
                     .padding(.leading, 16)

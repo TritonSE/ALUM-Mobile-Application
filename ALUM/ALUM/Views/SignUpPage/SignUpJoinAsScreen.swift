@@ -68,36 +68,55 @@ struct SignUpJoinAsScreen: View {
                 }
 
                 HStack {
-                    Button("Back") {
+                    Button {
                         dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
                     }
-                    .buttonStyle(FilledInButtonStyle(disabled: false))
+                    .buttonStyle(OutlinedButtonStyle(disabled: false))
                     .padding(.bottom, 32)
+                    .padding(.trailing, 16)
 
                     if selectedType == .mentee {
                         NavigationLink(destination: SignUpMenteeInfoScreen(viewModel: viewModel)) {
                             HStack {
                                 Text("Continue")
-                                Image(systemName: "chevron.right")
+                                Image(systemName: "arrow.right")
                             }
 
                         }
-                        .buttonStyle(OutlinedButtonStyle(disabled: false))
+                        .buttonStyle(FilledInButtonStyle(disabled: false))
                         .padding(.bottom, 32)
                     } else if selectedType == .mentor {
                         NavigationLink(destination: SignUpMentorInfoScreen(viewModel: viewModel)) {
                             HStack {
                                 Text("Continue")
-                                Image(systemName: "chevron.right")
+                                Image(systemName: "arrow.right")
                             }
                         }
-                        .buttonStyle(OutlinedButtonStyle(disabled: false))
+                        .buttonStyle(FilledInButtonStyle(disabled: false))
                         .padding(.bottom, 32)
+                    } else {
+                        Button {
+                            
+                        } label: {
+                            HStack {
+                                Text("Continue")
+                                Image(systemName: "arrow.right")
+                            }
+                        }
+                        .buttonStyle(FilledInButtonStyle(disabled: true))
+                        .padding(.bottom, 32)
+                        
                     }
 
                 }
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
+                .edgesIgnoringSafeArea(.bottom)
             }
         }
         .navigationBarItems(leading: NavigationLink(

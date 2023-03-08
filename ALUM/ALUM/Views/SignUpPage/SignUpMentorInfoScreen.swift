@@ -10,7 +10,7 @@ import SwiftUI
 struct SignUpMentorInfoScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
     @Environment(\.dismiss) var dismiss
-    @State var year: String = ""
+    @State var yearIsShowing: Bool = false
 
     var body: some View {
         ZStack {
@@ -46,31 +46,32 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .padding(.bottom, 2)
                         .padding(.leading, 16)
-
-                        Menu {
-                            Picker(selection: $year, label: Text("Select a year")) {
-                                ForEach(1990...2020, id: \.self) {
-                                    Text(String($0))
-                                }
-                            }
+                        
+                        Button {
+                            yearIsShowing = true
                         } label: {
                             HStack {
-                                Text("Select a year")
-                                Divider()
-                                Text(year)
+                                Text(viewModel.mentor.yearOfGrad)
+                                    .foregroundColor(.black)
+                                Spacer()
                             }
+                            .padding(.leading, 16)
                         }
-                        .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                        .frame(width: 400.0, height: 48.0)
+                        .sheet(isPresented: $yearIsShowing,
+                            content: {
+                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad, yearIsShowing: $yearIsShowing)
+                        })
+                        .frame(height: 48.0)
                         .background(
                             Color("ALUM White")
                                 .cornerRadius(8.0)
                         )
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                            RoundedRectangle(cornerRadius: 8.0)
+                                .stroke(Color("NeutralGray3"), lineWidth: 1.0)
                         )
-                        .padding(.bottom, 32)
-
+                        .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                        
                         Group {
                             HStack {
                                 Text("College/University")
@@ -154,7 +155,8 @@ struct SignUpMentorInfoScreen: View {
 
                         Group {
                             HStack {
-                                Text("Major")
+                                Text("Intended Career")
+                                    .lineSpacing(4.0)
                                     .font(.custom("Metropolis-Regular", size: 17))
                                     .foregroundColor(Color("ALUM Dark Blue"))
 
@@ -164,7 +166,7 @@ struct SignUpMentorInfoScreen: View {
                             .padding(.leading, 16)
 
                             ZStack {
-                                TextField("Career", text: $viewModel.mentor.intendedCareer)
+                                TextField("e.g. Software Engineer, Product Designer", text: $viewModel.mentor.intendedCareer)
                                     .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                                     .frame(height: 48.0)
                                     .background(
@@ -178,6 +180,7 @@ struct SignUpMentorInfoScreen: View {
                             }
                             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         }
+                        
                     }
                 }
 
@@ -189,19 +192,27 @@ struct SignUpMentorInfoScreen: View {
                         .ignoresSafeArea(edges: .all)
 
                     HStack {
-                        Button("Back") {
+                        Button{
                             dismiss()
-                        }
-                        .buttonStyle(FilledInButtonStyle(disabled: false))
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 32)
-                        .frame(width: UIScreen.main.bounds.width * 0.3)
-
-                        Button("Continue") {
-
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.left")
+                                Text("Back")
+                            }
                         }
                         .buttonStyle(OutlinedButtonStyle(disabled: false))
-                        .padding(.bottom, 32)
+                        .padding(.trailing, 16)
+                        .frame(width: UIScreen.main.bounds.width * 0.3)
+
+                        Button {
+
+                        } label: {
+                            HStack {
+                                Text("Continue")
+                                Image(systemName: "arrow.right")
+                            }
+                        }
+                        .buttonStyle(FilledInButtonStyle(disabled: false))
                         .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
                     .padding(.leading, 16)
