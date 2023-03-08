@@ -2,7 +2,7 @@
 //  TagEditor.swift
 //  ALUM
 //
-//  Created by Aman Aggarwal on 3/6/23.
+//  Created by Sidhant Rohatgi on 3/8/23.
 //
 
 import SwiftUI
@@ -82,45 +82,84 @@ struct TagEditor: View {
         VStack {
             SearchBar(text: $searchText)
                 .padding(.bottom, 16)
+            if items.filter({ $0.isChecked }).isEmpty {
             // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
-            HStack(alignment: .firstTextBaseline) {
-                ForEach(items.indices, id: \.self) { idx in
-                    if self.items[idx].isChecked {
-                        TagDisplay(
-                            tagString: self.items[idx].tagString,
-                            crossShowing: true,
-                            crossAction: {
-                                self.items[idx].isChecked = false
-                            }
-                        )
+                HStack(alignment: .firstTextBaseline) {
+                    ForEach(items.indices, id: \.self) { idx in
+                        if self.items[idx].isChecked {
+                            TagDisplay(
+                                tagString: self.items[idx].tagString,
+                                crossShowing: true,
+                                crossAction: {
+                                    self.items[idx].isChecked = false
+                                }
+                            )
+                        }
+                    }
+                    Spacer()
+                }
+                .padding(.leading)
+                Text("Suggestions")
+                    .padding(.leading, 16)
+                    .padding(.trailing, 282)
+                    .foregroundColor(Color("ALUM Dark Blue"))
+
+                Divider()
+                    .padding(.leading, 16)
+                    .frame(width: 350, height: 0.5)
+                    .overlay(Color("ALUM Dark Blue"))
+                    .padding(.bottom, 10)
+
+                VStack(alignment: .leading) {
+                    ForEach(items.filter { searchText.isEmpty ?
+                        true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
+                        ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
+                        Divider()
+                            .padding(10)
+                            .frame(width: 358)
+                    }
+                }
+                Spacer()
+            } else {
+            // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
+                HStack(alignment: .firstTextBaseline) {
+                    ForEach(items.indices, id: \.self) { idx in
+                        if self.items[idx].isChecked {
+                            TagDisplay(
+                                tagString: self.items[idx].tagString,
+                                crossShowing: true,
+                                crossAction: {
+                                    self.items[idx].isChecked = false
+                                }
+                            )
+                        }
+                    }
+                    Spacer()
+                }
+                .padding(.leading)
+                .padding(.bottom, 32)
+                Text("Suggestions")
+                    .padding(.leading, 16)
+                    .padding(.trailing, 282)
+                    .foregroundColor(Color("ALUM Dark Blue"))
+
+                Divider()
+                    .padding(.leading, 16)
+                    .frame(width: 350, height: 0.5)
+                    .overlay(Color("ALUM Dark Blue"))
+                    .padding(.bottom, 10)
+
+                VStack(alignment: .leading) {
+                    ForEach(items.filter { searchText.isEmpty ?
+                        true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
+                        ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
+                        Divider()
+                            .padding(10)
+                            .frame(width: 358)
                     }
                 }
                 Spacer()
             }
-            .padding(.leading)
-            .padding(.bottom, 32)
-
-            Text("Suggestions")
-                .padding(.leading, 16)
-                .padding(.trailing, 282)
-                .foregroundColor(Color("ALUM Dark Blue"))
-
-            Divider()
-                .padding(.leading, 16)
-                .frame(width: 350, height: 0.5)
-                .overlay(Color("ALUM Dark Blue"))
-                .padding(.bottom, 10)
-
-            VStack(alignment: .leading) {
-                ForEach(items.filter { searchText.isEmpty ?
-                    true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
-                    ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
-                    Divider()
-                        .padding(10)
-                        .frame(width: 358)
-                }
-            }
-            Spacer()
         }
     }
 }
