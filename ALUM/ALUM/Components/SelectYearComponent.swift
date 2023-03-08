@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SelectYearComponent: View {
     @Binding var year: String
-    @Binding var yearIsShowing: Bool
     @State var showIsDone: Bool = false
     @Environment(\.dismiss) private var dismiss
     
@@ -34,13 +33,13 @@ struct SelectYearComponent: View {
                 /*
                 if showIsDone {
                     Button {
-                       dismiss()
+                        dismiss()
                     } label: {
                         Text("Done")
                             .font(.custom("Metropolis-Regular", size: 13))
                     }
                 }
-                 */
+                */
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
@@ -50,7 +49,7 @@ struct SelectYearComponent: View {
             ScrollView {
                 VStack (spacing: 0){
                     ForEach(1990..<2023) { graduationYear in
-                        RowView(graduationYear: String(graduationYear),
+                        YearRowView(graduationYear: String(graduationYear),
                                 isSelected: year == String(graduationYear)
                         )
                         .onTapGesture {
@@ -67,7 +66,7 @@ struct SelectYearComponent: View {
     }
 }
 
-struct RowView: View {
+struct YearRowView: View {
     var graduationYear: String
     var isSelected: Bool
     
@@ -95,9 +94,8 @@ struct RowView: View {
 struct SelectYearComponent_Previews: PreviewProvider {
     static private var startYear = "2020"
     static private var year = Binding.constant("2020")
-    static private var yearIsShowing = Binding.constant(false)
     
     static var previews: some View {
-        SelectYearComponent(year: year, yearIsShowing: yearIsShowing)
+        SelectYearComponent(year: year)
     }
 }

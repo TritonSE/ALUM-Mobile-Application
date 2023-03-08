@@ -11,6 +11,7 @@ struct SignUpMentorInfoScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
     @Environment(\.dismiss) var dismiss
     @State var yearIsShowing: Bool = false
+    @State var universityIsShowing: Bool = false
 
     var body: some View {
         ZStack {
@@ -50,16 +51,28 @@ struct SignUpMentorInfoScreen: View {
                         Button {
                             yearIsShowing = true
                         } label: {
-                            HStack {
-                                Text(viewModel.mentor.yearOfGrad)
-                                    .foregroundColor(.black)
-                                Spacer()
+                            ZStack (alignment: .trailing) {
+                                HStack {
+                                    
+                                    if viewModel.mentor.yearOfGrad != "" {
+                                        Text(viewModel.mentor.yearOfGrad)
+                                            .foregroundColor(.black)
+                                    } else {
+                                        Text("Select a year")
+                                            .foregroundColor(Color("NeutralGray3"))
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.leading, 16)
+                                
+                                Image(systemName: "chevron.down")
+                                    .padding(.trailing, 16)
                             }
-                            .padding(.leading, 16)
+                            
                         }
                         .sheet(isPresented: $yearIsShowing,
                             content: {
-                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad, yearIsShowing: $yearIsShowing)
+                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad)
                         })
                         .frame(height: 48.0)
                         .background(
@@ -72,33 +85,46 @@ struct SignUpMentorInfoScreen: View {
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         
-                        Group {
-                            HStack {
-                                Text("College/University")
-                                    .font(.custom("Metropolis-Regular", size: 17))
-                                    .foregroundColor(Color("ALUM Dark Blue"))
+                        HStack {
+                            Text("College/University")
+                                .font(.custom("Metropolis-Regular", size: 17))
+                                .foregroundColor(Color("ALUM Dark Blue"))
 
+                            Spacer()
+                        }
+                        .padding(.bottom, 2)
+                        .padding(.leading, 16)
+                        
+                        Button {
+                            universityIsShowing = true
+                        } label: {
+                            HStack {
+                                if viewModel.mentor.university != "" {
+                                    Text(viewModel.mentor.university)
+                                        .foregroundColor(.black)
+                                } else {
+                                    Text("Search for your school")
+                                        .foregroundColor(Color("NeutralGray3"))
+                                }
                                 Spacer()
                             }
-                            .padding(.bottom, 2)
                             .padding(.leading, 16)
-
-                            ZStack {
-                                TextField("School", text: $viewModel.mentor.university)
-                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                                    .frame(height: 48.0)
-                                    .background(
-                                        Color("ALUM White")
-                                            .cornerRadius(8.0)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8.0)
-                                            .stroke(Color("NeutralGray3"), lineWidth: 1.0)
-                                    )
-                            }
-                            .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         }
-
+                        .sheet(isPresented: $universityIsShowing,
+                            content: {
+                            SelectUniversityComponent(university: $viewModel.mentor.university)
+                        })
+                        .frame(height: 48.0)
+                        .background(
+                            Color("ALUM White")
+                                .cornerRadius(8.0)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8.0)
+                                .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                        )
+                        .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                         
                         Group {
                             HStack {
                                 Text("Major")
