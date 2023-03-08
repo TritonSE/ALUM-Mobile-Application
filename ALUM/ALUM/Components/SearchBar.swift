@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//struct SearchBar: View {
+// struct SearchBar: View {
 //    @Binding var text: String
 //
 //    var body: some View {
@@ -37,7 +37,7 @@ import SwiftUI
 //                    })
 //        }
 //    }
-//}
+// }
 
 // struct Searchable: View {
 //    @State private var searchText = ""
