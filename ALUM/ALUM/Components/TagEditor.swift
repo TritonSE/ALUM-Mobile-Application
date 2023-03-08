@@ -16,52 +16,6 @@ struct TagState: Hashable {
     }
 }
 
-struct TagEditor: View {
-    @Binding var items: [TagState]
-    @State var searchText = ""
-    var body: some View {
-        VStack {
-            SearchBar(text: $searchText)
-                .padding(.bottom, 16)
-            // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
-            HStack(alignment: .firstTextBaseline) {
-                ForEach(items.indices, id: \.self) { idx in
-                    if self.items[idx].isChecked {
-                        TagDisplay(
-                            tagString: self.items[idx].tagString,
-                            crossShowing: true,
-                            crossAction: {
-                                self.items[idx].isChecked = !self.items[idx].isChecked
-                            }
-                        )
-                    }
-                }
-                Spacer()
-            }
-            .padding(.leading)
-            .padding(.bottom)
-            Text("Suggestions")
-                .padding(.leading, 16)
-                .padding(.trailing, 282)
-                .foregroundColor(Color("ALUM Dark Blue"))
-            Divider()
-                .padding(.leading, 16)
-                .frame(width: 350, height: 0.5)
-                .overlay(Color("ALUM Dark Blue"))
-                .padding(.bottom, 10)
-            VStack(alignment: .leading) {
-                ForEach(items.indices, id: \.self) { idx in
-                    ItemDisplay(tagState: self.$items[idx])
-                    Divider()
-                        .padding(10)
-                        .frame(width: 358)
-                }
-            }
-            Spacer()
-        }
-    }
-}
-
 struct ItemDisplay: View {
     @Binding var tagState: TagState
     var body: some View {
@@ -117,6 +71,53 @@ struct PreviewHelper: View {
         TagEditor(items: $tagState)
     }
 }
+
+struct TagEditor: View {
+    @Binding var items: [TagState]
+    @State var searchText = ""
+    var body: some View {
+        VStack {
+            SearchBar(text: $searchText)
+                .padding(.bottom, 16)
+            // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
+            HStack(alignment: .firstTextBaseline) {
+                ForEach(items.indices, id: \.self) { idx in
+                    if self.items[idx].isChecked {
+                        TagDisplay(
+                            tagString: self.items[idx].tagString,
+                            crossShowing: true,
+                            crossAction: {
+                                self.items[idx].isChecked = !self.items[idx].isChecked
+                            }
+                        )
+                    }
+                }
+                Spacer()
+            }
+            .padding(.leading)
+            .padding(.bottom, 32)
+            Text("Suggestions")
+                .padding(.leading, 16)
+                .padding(.trailing, 282)
+                .foregroundColor(Color("ALUM Dark Blue"))
+            Divider()
+                .padding(.leading, 16)
+                .frame(width: 350, height: 0.5)
+                .overlay(Color("ALUM Dark Blue"))
+                .padding(.bottom, 10)
+            VStack(alignment: .leading) {
+                ForEach(items.indices, id: \.self) { idx in
+                    ItemDisplay(tagState: self.$items[idx])
+                    Divider()
+                        .padding(10)
+                        .frame(width: 358)
+                }
+            }
+            Spacer()
+        }
+    }
+}
+
 struct TagEditor_Previews: PreviewProvider {
     static var previews: some View {
         PreviewHelper(tagState: [
