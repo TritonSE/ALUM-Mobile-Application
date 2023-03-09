@@ -8,8 +8,12 @@ import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
 import { createUser } from "../services/auth";
 import { ValidationError } from "../errors/validationError";
+import multer from "multer";
 
 const router = express.Router();
+
+const upload = multer({ storage: multer.memoryStorage() });
+
 
 /**
  * This is a post route to create a new mentee. It will first validate
