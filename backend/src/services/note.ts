@@ -77,7 +77,7 @@ async function createPreSessionNotes() {
   let preNotes = null;
   try {
     const preSessionAnswers = createAnswerArray(preSessionQuestions);
-    preNotes = new Note({ preSessionAnswers, type: "pre" });
+    preNotes = new Note({ answers: preSessionAnswers, type: "pre" });
     return await preNotes.save();
   } catch (e) {
     throw new Error();
@@ -91,7 +91,7 @@ async function createPostSessionNotes() {
   let postNotes = null;
   try {
     const postSessionAnswers = createAnswerArray(postSessionQuestions);
-    postNotes = new Note({ postSessionAnswers, type: "post" });
+    postNotes = new Note({ answers: postSessionAnswers, type: "post" });
     return await postNotes.save();
   } catch (e) {
     throw new Error();
