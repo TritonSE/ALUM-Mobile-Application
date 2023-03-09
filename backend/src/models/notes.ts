@@ -18,7 +18,7 @@ interface NoteModelInterface extends mongoose.Model<NoteDoc> {
 }
 
 const NoteSchema = new mongoose.Schema({
-  answer: {
+  answers: {
     type: [],
     required: true,
   },
