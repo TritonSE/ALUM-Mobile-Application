@@ -81,8 +81,10 @@ struct MentorProfileView: View {
                     Text("NHS '19")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.bottom, 6)
-                    Button("View My Calendly") {
-                        /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+                    Button {
+                    } label: {
+                        Text("View My Calendly")
+                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .buttonStyle(FilledInButtonStyle())
                     .frame(width: 358)
@@ -103,7 +105,7 @@ struct MentorProfileView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 58)
+                    .padding(.bottom, 32)
                     HStack{
                         Text("Topics of Expertise")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -152,7 +154,7 @@ struct MentorProfileView: View {
                         RoundedRectangle(cornerRadius: 8.0)
                             .frame(width: 64, height: 3)
                             .foregroundColor(Color("ALUM Dark Blue"))
-                            .offset(y: -47)
+                            .offset(y: -55)
                             .offset(x: 118)
                         HStack {
                             Button {

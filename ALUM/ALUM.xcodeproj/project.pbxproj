@@ -19,6 +19,10 @@
 		80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EBC29B95D50008B912A /* ProfileModel.swift */; };
 		80210EC129B95F24008B912A /* MenteeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC029B95F24008B912A /* MenteeCard.swift */; };
 		80210EC329BA7E14008B912A /* MentorProfileMenteeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC229BA7E14008B912A /* MentorProfileMenteeView.swift */; };
+		80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC429BA8255008B912A /* MenteeProfileView.swift */; };
+		80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */; };
+		80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ECB29BA9EBC008B912A /* MentorCard.swift */; };
+		80210ECE29BAA613008B912A /* MenteeProfileMentorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ECD29BAA613008B912A /* MenteeProfileMentorView.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileView.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
@@ -71,6 +75,10 @@
 		80210EBC29B95D50008B912A /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		80210EC029B95F24008B912A /* MenteeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeCard.swift; sourceTree = "<group>"; };
 		80210EC229BA7E14008B912A /* MentorProfileMenteeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileMenteeView.swift; sourceTree = "<group>"; };
+		80210EC429BA8255008B912A /* MenteeProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileView.swift; sourceTree = "<group>"; };
+		80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileViewModel.swift; sourceTree = "<group>"; };
+		80210ECB29BA9EBC008B912A /* MentorCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorCard.swift; sourceTree = "<group>"; };
+		80210ECD29BAA613008B912A /* MenteeProfileMentorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileMentorView.swift; sourceTree = "<group>"; };
 		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		8041161D29B21BB800529936 /* MentorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileView.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
@@ -171,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
+				80210ECB29BA9EBC008B912A /* MentorCard.swift */,
 				80210EC029B95F24008B912A /* MenteeCard.swift */,
 				2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */,
 				9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */,
@@ -195,8 +204,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8041161D29B21BB800529936 /* MentorProfileView.swift */,
-				80210EC229BA7E14008B912A /* MentorProfileMenteeView.swift */,
+				80210EC629BA825B008B912A /* ProfileViews */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
 				8001F73229A5AC5D00244E70 /* SignUpConfirmation */,
@@ -208,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */,
+				80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -228,6 +237,17 @@
 				8001F73029A5AC5600244E70 /* SignUpConfirmationViewModel.swift */,
 			);
 			path = SignUpConfirmation;
+			sourceTree = "<group>";
+		};
+		80210EC629BA825B008B912A /* ProfileViews */ = {
+			isa = PBXGroup;
+			children = (
+				8041161D29B21BB800529936 /* MentorProfileView.swift */,
+				80210EC429BA8255008B912A /* MenteeProfileView.swift */,
+				80210ECD29BAA613008B912A /* MenteeProfileMentorView.swift */,
+				80210EC229BA7E14008B912A /* MentorProfileMenteeView.swift */,
+			);
+			path = ProfileViews;
 			sourceTree = "<group>";
 		};
 		80274FF1299DAFF500CCB9D0 /* LoginPage */ = {
@@ -388,12 +408,14 @@
 			files = (
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
 				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
+				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
 				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
 				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */,
+				80210ECE29BAA613008B912A /* MenteeProfileMentorView.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				8001F73429A5AE2900244E70 /* SignUpConfirmationModel.swift in Sources */,
@@ -401,6 +423,8 @@
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
+				80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */,
+				80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */,
 				80210EC329BA7E14008B912A /* MentorProfileMenteeView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
