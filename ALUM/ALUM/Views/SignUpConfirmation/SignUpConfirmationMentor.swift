@@ -21,7 +21,6 @@ struct SignUpConfirmationMentor: View {
                                 Image(systemName: "chevron.left")
                                     .frame(width: 6, height: 12)
                                 Text("Login")
-                                    .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
                             }
                             .foregroundColor(Color("ALUM Dark Blue"))
                             Spacer()

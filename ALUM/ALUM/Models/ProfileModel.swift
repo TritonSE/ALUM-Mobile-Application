@@ -1,29 +1,25 @@
 //
-//  SignUpConfirmationModel.swift
+//  ProfileModel.swift
 //  ALUM
 //
-//  Created by Yash Ravipati on 2/21/23.
+//  Created by Yash Ravipati on 3/8/23.
 //
 
 import Foundation
+import SwiftUI
 
-struct Account {
-    var name: String
-    var email: String
-    var password: String
-}
-
-struct Mentee {
+struct MenteeProfile {
     var name: String
     var email: String
     var grade: String
     var topicsOfInterest: [TagDisplay]
     var careerInterests: [TagDisplay]
     var mentorshipGoal: String
-    var password: String
+    var profilePic: Image
+    var mentor: String
 }
 
-struct Mentor {
+struct MentorProfile {
     var name: String
     var email: String
     var yearOfGrad: String
@@ -35,5 +31,6 @@ struct Mentor {
     var mentorMotivation: String
     var organizationId: String
     var personalAccessToken: String
-    var password: String
+    var mentees: [String]
+    var profilePic: Image
 }
