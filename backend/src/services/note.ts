@@ -3,9 +3,8 @@ import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
-import { FORMERR } from "dns";
 
-interface Question{
+interface Question {
   question: string;
   type: string;
 }
@@ -35,11 +34,10 @@ class Answer {
     if (typeof this.answer === "string") {
       this.answer = input;
     } else {
-      try{
-      assert(Array.isArray(this.answer));
-      this.answer.push(input);
-      }
-      catch(e){
+      try {
+        assert(Array.isArray(this.answer));
+        this.answer.push(input);
+      } catch (e) {
         throw new Error();
       }
     }
@@ -57,7 +55,7 @@ function hashCode(str: string) {
 
 /**
  * Creates an array of Answer objects from a list of questions and their types.
- * @param questions List of questions (in JSON form) to generate answer array from 
+ * @param questions List of questions (in JSON form) to generate answer array from
  * @returns The created answer array.
  */
 
