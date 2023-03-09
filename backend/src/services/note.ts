@@ -3,6 +3,12 @@ import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
+import { FORMERR } from "dns";
+
+interface Question{
+  question: string;
+  type: string;
+}
 
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
@@ -29,8 +35,13 @@ class Answer {
     if (typeof this.answer === "string") {
       this.answer = input;
     } else {
+      try{
       assert(Array.isArray(this.answer));
       this.answer.push(input);
+      }
+      catch(e){
+        throw new Error();
+      }
     }
   }
 }
@@ -45,35 +56,20 @@ function hashCode(str: string) {
 }
 
 /**
- * Create an array of Answer objects from the pre-session question .json.
- * @returns: List of Answer objects with empty answer fields. Each answer has an id that links it to
- * its question.
+ * Creates an array of Answer objects from a list of questions and their types.
+ * @param questions List of questions (in JSON form) to generate answer array from 
+ * @returns The created answer array.
  */
-function createPreAnswerArray() {
-  const preAnswerList: Answer[] = new Array(preSessionQuestions.length);
-  for (let i = 0; i < preAnswerList.length; ++i) {
-    preAnswerList[i] = new Answer(
-      preSessionQuestions[i].type,
-      hashCode(preSessionQuestions[i].question + preSessionQuestions[i].type)
-    );
-  }
-  return preAnswerList;
-}
 
-/**
- * Create an array of Answer objects from the post-session question .json.
- * @returns: List of Answer objects with empty answer fields. Each answer has an id that links it to
- * its question.
- */
-function createPostAnswerArray() {
-  const postAnswerList: Answer[] = new Array(postSessionQuestions.length);
-  for (let i = 0; i < postAnswerList.length; ++i) {
-    postAnswerList[i] = new Answer(
-      postSessionQuestions[i].type,
-      hashCode(postSessionQuestions[i].question + postSessionQuestions[i].type)
+function createAnswerArray(questions: Question[]): Answer[] {
+  const answerList: Answer[] = new Array(questions.length);
+  for (let i = 0; i < answerList.length; ++i) {
+    answerList[i] = new Answer(
+      questions[i].type,
+      hashCode(questions[i].question + questions[i].type)
     );
   }
-  return postAnswerList;
+  return answerList;
 }
 
 /**
@@ -82,7 +78,7 @@ function createPostAnswerArray() {
 async function createPreSessionNotes() {
   let preNotes = null;
   try {
-    const preSessionAnswers = createPreAnswerArray();
+    const preSessionAnswers = createAnswerArray(preSessionQuestions);
     preNotes = new Note({ preSessionAnswers, type: "pre" });
     return await preNotes.save();
   } catch (e) {
@@ -96,7 +92,7 @@ async function createPreSessionNotes() {
 async function createPostSessionNotes() {
   let postNotes = null;
   try {
-    const postSessionAnswers = createPostAnswerArray();
+    const postSessionAnswers = createAnswerArray(postSessionQuestions);
     postNotes = new Note({ postSessionAnswers, type: "post" });
     return await postNotes.save();
   } catch (e) {
