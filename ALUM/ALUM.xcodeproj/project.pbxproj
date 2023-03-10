@@ -11,7 +11,9 @@
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
+		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
+		741A2B0C29BAC82C007AF942 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 741A2B0B29BAC82C007AF942 /* WrappingHStack */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
@@ -62,6 +64,7 @@
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		075379F629B6A9F100A0DD5E /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 				97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */,
 				97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */,
 				97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */,
+				741A2B0C29BAC82C007AF942 /* WrappingHStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +181,7 @@
 				9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */,
 				741D534129A4EDD3004C04E6 /* TagDisplay.swift */,
 				741D534329A4EED0004C04E6 /* AddTagButton.swift */,
+				075379F629B6A9F100A0DD5E /* TagEditor.swift */,
 				97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */,
 				97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */,
 			);
@@ -301,6 +306,7 @@
 				97A2FE832988EF9900405FD6 /* FirebaseAuth */,
 				97A2FE852988EF9900405FD6 /* FirebaseFirestore */,
 				97A2FE872988EF9900405FD6 /* FirebaseStorage */,
+				741A2B0B29BAC82C007AF942 /* WrappingHStack */,
 			);
 			productName = ALUM;
 			productReference = 0748208B29712921004AF547 /* ALUM.app */;
@@ -332,6 +338,7 @@
 			mainGroup = 0748208229712921004AF547;
 			packageReferences = (
 				97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				741A2B0A29BAC82C007AF942 /* XCRemoteSwiftPackageReference "WrappingHStack" */,
 			);
 			productRefGroup = 0748208C29712921004AF547 /* Products */;
 			projectDirPath = "";
@@ -414,6 +421,7 @@
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
+				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
@@ -624,6 +632,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		741A2B0A29BAC82C007AF942 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dkk/WrappingHStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -635,6 +651,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		741A2B0B29BAC82C007AF942 /* WrappingHStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 741A2B0A29BAC82C007AF942 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
+			productName = WrappingHStack;
+		};
 		97A2FE812988EF9900405FD6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
