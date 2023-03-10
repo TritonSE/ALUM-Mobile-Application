@@ -14,6 +14,7 @@ struct DrawerContainer<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
+        
         ZStack(alignment: .top) {
             RoundedRectangle(cornerRadius: 16)
                 .frame(height: UIScreen.main.bounds.height * 0.9)
@@ -25,7 +26,6 @@ struct DrawerContainer<Content: View>: View {
                             cancelFunc()
                         }
                     }
-                    .padding(.init(top: 26, leading: 0, bottom: 29, trailing: 16.0))
                     .foregroundColor(Color("ALUM Dark Blue"))
                     .font(.system(size: 13))
                     Spacer()
@@ -34,13 +34,13 @@ struct DrawerContainer<Content: View>: View {
                             doneFunc(text)
                         }
                     }
-                    .padding(.init(top: 26, leading: 0, bottom: 29, trailing: 0))
                     .foregroundColor(Color("ALUM Dark Blue"))
                     .font(.system(size: 13))
                 }
+                .padding(.bottom, 20)
                 .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
                 content
-            }
+            }.padding(20)
         }.transition(.move(edge: .bottom))
     }
 }
@@ -57,7 +57,6 @@ struct DrawerTester: View {
                     showingSheet.toggle()
                 }
                 .padding(120)
-                .frame(width: 358, height: 120)
                 .background(Color("ALUM White"))
                 .foregroundColor(Color.black)
                 .cornerRadius(12)

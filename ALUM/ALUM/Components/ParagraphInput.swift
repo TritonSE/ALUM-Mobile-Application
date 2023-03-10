@@ -23,10 +23,9 @@ struct ParagraphInput: View {
                 .font(.system(size: 17))
                 .foregroundColor(Color("ALUM Dark Blue"))
             Spacer()
-        }.padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
+        }
         TextEditor(text: $text)
-            .padding(10)
-            .frame(width: 358, height: 362)
+            .padding(20)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
@@ -46,7 +45,7 @@ struct ParagraphInput: View {
             Text("\(totalChars) / 1000")
                 .font(.system(size: 13))
                 .foregroundColor(Color("NeutralGray3"))
-        }.padding(.init(top: 2.0, leading: 16.0, bottom: 2.0, trailing: 16.0))
+        }
     }
 }
 
