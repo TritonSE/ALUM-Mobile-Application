@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SelectYearComponent: View {
     @Binding var year: String
+    @State var yearChoice: String = ""
     @State var showIsDone: Bool = false
     @Environment(\.dismiss) private var dismiss
     
@@ -16,6 +17,7 @@ struct SelectYearComponent: View {
         VStack {
             HStack {
                 Button {
+                    yearChoice = year
                     dismiss()
                 } label: {
                     Text("Cancel")
@@ -30,16 +32,14 @@ struct SelectYearComponent: View {
 
                 Spacer()
                 
-                /*
-                if showIsDone {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Done")
-                            .font(.custom("Metropolis-Regular", size: 13))
-                    }
+                
+                Button {
+                    year = yearChoice
+                    dismiss()
+                } label: {
+                    Text("Done")
+                        .font(.custom("Metropolis-Regular", size: 13))
                 }
-                */
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
@@ -50,10 +50,10 @@ struct SelectYearComponent: View {
                 VStack (spacing: 0){
                     ForEach(1990..<2023) { graduationYear in
                         YearRowView(graduationYear: String(graduationYear),
-                                isSelected: year == String(graduationYear)
+                                isSelected: yearChoice == String(graduationYear)
                         )
                         .onTapGesture {
-                            year = String(graduationYear)
+                            yearChoice = String(graduationYear)
                             showIsDone = true
                         }
 
@@ -63,6 +63,9 @@ struct SelectYearComponent: View {
             }
         }
         .padding(.top, 22)
+        .onDisappear {
+            year = yearChoice
+        }
     }
 }
 

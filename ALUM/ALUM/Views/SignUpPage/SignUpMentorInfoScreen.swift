@@ -72,7 +72,7 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .sheet(isPresented: $yearIsShowing,
                             content: {
-                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad)
+                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad, yearChoice: viewModel.mentor.yearOfGrad)
                         })
                         .frame(height: 48.0)
                         .background(
@@ -112,7 +112,7 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .sheet(isPresented: $universityIsShowing,
                             content: {
-                            SelectUniversityComponent(university: $viewModel.mentor.university)
+                            SelectUniversityComponent(universityChoice: viewModel.mentor.university, university: $viewModel.mentor.university)
                         })
                         .frame(height: 48.0)
                         .background(

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SelectUniversityComponent: View {
     @State var searchText = ""
+    @State var universityChoice: String = ""
     @Binding var university: String
     @Environment(\.dismiss) private var dismiss
     
@@ -16,6 +17,7 @@ struct SelectUniversityComponent: View {
         VStack {
             HStack {
                 Button {
+                    universityChoice = university
                     dismiss()
                 } label: {
                     Text("Cancel")
@@ -31,6 +33,7 @@ struct SelectUniversityComponent: View {
                 Spacer()
                 
                 Button {
+                    university = universityChoice
                     dismiss()
                 } label: {
                     Text("Done")
@@ -65,10 +68,10 @@ struct SelectUniversityComponent: View {
                     ForEach(UniversityNames.universityNames, id: \.self) { universityName in
                         if (universityName.contains(searchText) || searchText == "") {
                             UniversityRowView(universityName: universityName,
-                                              isSelected: university == universityName
+                                              isSelected: universityChoice == universityName
                             )
                             .onTapGesture {
-                                university = universityName
+                                universityChoice = universityName
                             }
                             
                             Divider()
@@ -78,6 +81,9 @@ struct SelectUniversityComponent: View {
             }
         }
         .padding(.top, 22)
+        .onDisappear {
+            university = universityChoice
+        }
     }
 }
 
