@@ -3,19 +3,27 @@
  */
 import { Image } from '../models/image';
 import { Request } from 'express';
-import fileType from 'file-type'
 import mongoose from 'mongoose';
 
 
-async function saveImage(rawImage: Buffer, req: Request): Promise<mongoose.Types.ObjectId> {
+async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
     console.info("Adding an image to the datatbase");
-    const fileResult = await fileType.fileTypeFromBuffer(rawImage);
+    console.log(req.file?.mimetype); 
     const image = new Image({
-        buffer: rawImage.buffer,
+        buffer: req.file?.buffer,
         originalname: req.file?.originalname,
-        mimetype: fileResult?.mime,
-        encoding: fileResult?.ext,
-        size: 
-
+        mimetype: req.file?.mimetype,
+        encoding: req.file?.encoding,
+        size: req.file?.size,
     })
+    try {
+        const newImage = await image.save();
+        return newImage._id;
+    } catch (e) {
+        console.error(e);
+        throw Error("There was some error");
+    }
+
 }
+
+export { saveImage };

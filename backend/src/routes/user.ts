@@ -8,11 +8,14 @@ import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
 import { createUser } from "../services/auth";
 import { ValidationError } from "../errors/validationError";
+import { saveImage }  from "../services/user";
 import multer from "multer";
+import fs from 'fs';
+import path from 'path';
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ storage: multer.memoryStorage()}).single('image');
 
 
 /**
@@ -114,6 +117,23 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
     }
     return res.status(500).send("Unknown Error. Try again");
   }
+});
+
+/**
+ * This is a get route for a mentee. Note that the response is dependant on 
+ * the person calling the method
+ * 
+ * Mentee calling: gain all info about the mentee
+ * 
+ * Mentor calling: mentee name, image, grade, about, career interests, topics of interest
+ */
+router.get("/mentee", [upload], async (req: Request, res: Response) => {
+  if(req.file) {
+    const image_id = await saveImage(req);
+    console.log(image_id);
+    return res.status(201).send(image_id);
+  }
+
 });
 
 export { router as userRouter };

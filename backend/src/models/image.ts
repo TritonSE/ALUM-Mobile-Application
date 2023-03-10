@@ -34,7 +34,7 @@ const imageSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  mimtetype: {
+ mimetype: {
     type: String,
     required: true
   },
