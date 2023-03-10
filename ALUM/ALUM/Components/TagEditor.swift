@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WrappingHStack
 
 struct TagState: Hashable, Identifiable {
     var id = UUID()
@@ -83,7 +84,6 @@ struct TagEditor: View {
             SearchBar(text: $searchText)
                 .padding(.bottom, 16)
             if items.filter({ $0.isChecked }).isEmpty {
-            // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
                 HStack(alignment: .firstTextBaseline) {
                     ForEach(items.indices, id: \.self) { idx in
                         if self.items[idx].isChecked {
@@ -100,23 +100,21 @@ struct TagEditor: View {
                 }
                 .padding(.leading)
             } else {
-            // CHANGE TO WRAPPING HSTACK AND ADD MORE BUTTON
-                HStack(alignment: .firstTextBaseline) {
-                    ForEach(items.indices, id: \.self) { idx in
-                        if self.items[idx].isChecked {
-                            TagDisplay(
-                                tagString: self.items[idx].tagString,
-                                crossShowing: true,
-                                crossAction: {
-                                    self.items[idx].isChecked = false
-                                }
-                            )
-                        }
+                WrappingHStack(items.indices, id: \.self) { idx in
+                    if self.items[idx].isChecked {
+                        TagDisplay(
+                            tagString: self.items[idx].tagString,
+                            crossShowing: true,
+                            crossAction: {
+                                self.items[idx].isChecked = false
+                            }
+                        )
+                        .padding(.bottom, 16)
                     }
-                    Spacer()
                 }
                 .padding(.leading)
-                .padding(.bottom, 32)
+                .padding(.trailing)
+                .padding(.bottom, 16)
             }
             Text("Suggestions")
                 .padding(.leading, 16)
@@ -147,9 +145,11 @@ struct TagEditor_Previews: PreviewProvider {
     static var previews: some View {
         PreviewHelper(tagState: [
             TagState(tagString: "Tag 1", isChecked: true),
-            TagState(tagString: "Tag 2", isChecked: false),
-            TagState(tagString: "Tag 3", isChecked: false),
-            TagState(tagString: "Overflow text 12345", isChecked: true)
+            TagState(tagString: "Tag Text 1", isChecked: true),
+            TagState(tagString: "Overflow text 12345", isChecked: true),
+            TagState(tagString: "Tag 2", isChecked: true),
+            TagState(tagString: "Tag Text 2", isChecked: false),
+            TagState(tagString: "Tag 3", isChecked: true)
         ])
     }
 }
