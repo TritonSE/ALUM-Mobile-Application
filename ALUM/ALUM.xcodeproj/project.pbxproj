@@ -48,6 +48,9 @@
 		97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginPageView.swift */; };
 		97A31AC929BAFAAF00B79D30 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AC829BAFAAF00B79D30 /* QuestionModel.swift */; };
 		97A31ACB29BAFB2000B79D30 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31ACA29BAFB2000B79D30 /* QuestionViewModel.swift */; };
+		97A31ACD29BB0B9C00B79D30 /* PreSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */; };
+		97A31AD129BB0C4000B79D30 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AD029BB0C4000B79D30 /* QuestionView.swift */; };
+		97A31AD329BB0CB800B79D30 /* PreSessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */; };
 		97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */; };
 		97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */; };
 		97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */; };
@@ -80,6 +83,9 @@
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
 		97A31AC829BAFAAF00B79D30 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		97A31ACA29BAFB2000B79D30 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
+		97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionView.swift; sourceTree = "<group>"; };
+		97A31AD029BB0C4000B79D30 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
+		97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionConfirmationScreen.swift; sourceTree = "<group>"; };
 		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
 		97C0B6C8298B400E005DDC73 /* SIL Open Font License.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "SIL Open Font License.txt"; sourceTree = "<group>"; };
@@ -247,6 +253,9 @@
 		97A31AC729BAFA7600B79D30 /* PreSessionForm */ = {
 			isa = PBXGroup;
 			children = (
+				97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */,
+				97A31AD029BB0C4000B79D30 /* QuestionView.swift */,
+				97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */,
 			);
 			path = PreSessionForm;
 			sourceTree = "<group>";
@@ -418,6 +427,7 @@
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
 				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
+				97A31AD129BB0C4000B79D30 /* QuestionView.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
@@ -430,7 +440,9 @@
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
+				97A31ACD29BB0B9C00B79D30 /* PreSessionView.swift in Sources */,
 				97A31AC929BAFAAF00B79D30 /* QuestionModel.swift in Sources */,
+				97A31AD329BB0CB800B79D30 /* PreSessionConfirmationScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,

@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Question: Codable {
+struct Question: Codable, Hashable, Identifiable {
     var question: String
+    var type: String
     var id: String
     var answerBullet: [String]
     var answerParagraph: String
