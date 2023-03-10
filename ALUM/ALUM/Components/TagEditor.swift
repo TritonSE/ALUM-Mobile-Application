@@ -20,17 +20,17 @@ struct TagState: Hashable, Identifiable {
 }
 
 struct ItemDisplay: View {
-    @Binding var tagState: TagState
+    var tagString: String
+    let tagIsChecked: Bool
+    let itemToggle: () -> Void
     var body: some View {
         HStack {
-            Button(action: {
-                tagState.isChecked = !tagState.isChecked
-            }, label: {
-                Image(systemName: tagState.isChecked ? "checkmark.square" : "square")
+            Button(action: itemToggle, label: {
+                Image(systemName: tagIsChecked ? "checkmark.square" : "square")
                     .padding(.leading, 31)
                     .foregroundColor(Color("ALUM Dark Blue"))
             })
-            Text(tagState.tagString)
+            Text(tagString)
         }
 
     }
@@ -68,54 +68,28 @@ struct SearchBar: View {
     }
 }
 
-struct PreviewHelper: View {
-    @State var tagState: [TagState]
-    var body: some View {
-        TagEditor(items: $tagState)
-    }
-}
-
 struct TagEditor: View {
-    @Binding var items: [TagState]
+    @Binding var selectedTags: Set<String>
     @State var searchText = ""
-
+    let predefinedTags =
+    ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7", "Overflow Wrapping"]
     var body: some View {
         VStack {
             SearchBar(text: $searchText)
                 .padding(.bottom, 16)
-            if items.filter({ $0.isChecked }).isEmpty {
-                HStack(alignment: .firstTextBaseline) {
-                    ForEach(items.indices, id: \.self) { idx in
-                        if self.items[idx].isChecked {
-                            TagDisplay(
-                                tagString: self.items[idx].tagString,
-                                crossShowing: true,
-                                crossAction: {
-                                    self.items[idx].isChecked = false
-                                }
-                            )
-                        }
+            WrappingHStack(selectedTags.sorted(), id: \.self) { tag in
+                TagDisplay(
+                    tagString: tag,
+                    crossShowing: true,
+                    crossAction: {
+                        self.selectedTags.remove(tag)
                     }
-                    Spacer()
-                }
-                .padding(.leading)
-            } else {
-                WrappingHStack(items.indices, id: \.self) { idx in
-                    if self.items[idx].isChecked {
-                        TagDisplay(
-                            tagString: self.items[idx].tagString,
-                            crossShowing: true,
-                            crossAction: {
-                                self.items[idx].isChecked = false
-                            }
-                        )
-                        .padding(.bottom, 16)
-                    }
-                }
-                .padding(.leading)
-                .padding(.trailing)
+                )
                 .padding(.bottom, 16)
             }
+            .padding(.leading)
+            .padding(.trailing)
+            .padding(.bottom, 16)
             Text("Suggestions")
                 .padding(.leading, 16)
                 .padding(.trailing, 282)
@@ -128,9 +102,18 @@ struct TagEditor: View {
                 .padding(.bottom, 10)
 
             VStack(alignment: .leading) {
-                ForEach(items.filter { searchText.isEmpty ?
-                    true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
-                    ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
+                ForEach(predefinedTags.filter { searchText.isEmpty ?
+                    true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
+                        ItemDisplay(
+                            tagString: item,
+                            tagIsChecked: self.selectedTags.contains(item),
+                            itemToggle: {
+                                if self.selectedTags.contains(item) {
+                                    self.selectedTags.remove(item)
+                                } else {
+                                    self.selectedTags.insert(item)
+                                }
+                            })
                     Divider()
                         .padding(10)
                         .frame(width: 358)
@@ -141,15 +124,15 @@ struct TagEditor: View {
     }
 }
 
+struct PreviewHelper: View {
+    @State var selectedTags: Set<String>
+    var body: some View {
+        TagEditor(selectedTags: $selectedTags)
+    }
+}
+
 struct TagEditor_Previews: PreviewProvider {
     static var previews: some View {
-        PreviewHelper(tagState: [
-            TagState(tagString: "Tag 1", isChecked: true),
-            TagState(tagString: "Tag Text 1", isChecked: true),
-            TagState(tagString: "Overflow text 12345", isChecked: true),
-            TagState(tagString: "Tag 2", isChecked: true),
-            TagState(tagString: "Tag Text 2", isChecked: false),
-            TagState(tagString: "Tag 3", isChecked: true)
-        ])
+        PreviewHelper(selectedTags: Set<String>())
     }
 }
