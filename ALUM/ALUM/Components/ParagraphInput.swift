@@ -26,6 +26,7 @@ struct ParagraphInput: View {
         }
         TextEditor(text: $text)
             .padding(20)
+            .frame(height: 410)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

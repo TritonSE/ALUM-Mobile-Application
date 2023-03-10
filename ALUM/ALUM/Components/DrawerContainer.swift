@@ -14,34 +14,35 @@ struct DrawerContainer<Content: View>: View {
     @ViewBuilder var content: Content
 
     var body: some View {
-        
-        ZStack(alignment: .top) {
-            RoundedRectangle(cornerRadius: 16)
-                .frame(height: UIScreen.main.bounds.height * 0.9)
-                .foregroundColor(Color.white)
-            VStack {
-                HStack {
-                    Button("Cancel") {
-                        withAnimation(.spring()) {
-                            cancelFunc()
+        ScrollView {
+            ZStack(alignment: .top) {
+                RoundedRectangle(cornerRadius: 16)
+                    .frame(height: UIScreen.main.bounds.height * 0.9)
+                    .foregroundColor(Color.white)
+                VStack {
+                    HStack {
+                        Button("Cancel") {
+                            withAnimation(.spring()) {
+                                cancelFunc()
+                            }
                         }
-                    }
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(.system(size: 13))
-                    Spacer()
-                    Button("Done") {
-                        withAnimation(.spring()) {
-                            doneFunc(text)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(.system(size: 13))
+                        Spacer()
+                        Button("Done") {
+                            withAnimation(.spring()) {
+                                doneFunc(text)
+                            }
                         }
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(.system(size: 13))
                     }
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(.system(size: 13))
-                }
-                .padding(.bottom, 20)
-                .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
-                content
-            }.padding(20)
-        }.transition(.move(edge: .bottom))
+                    .padding(.bottom, 20)
+                    .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
+                    content
+                }.padding(20)
+            }.transition(.move(edge: .bottom))
+        }
     }
 }
 
