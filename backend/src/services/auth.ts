@@ -13,19 +13,31 @@ import { firebaseAuth } from "./firebase";
  * @param uid: Id for user, note this MUST be the same uid in MongoDb
  * @param email: email of user, note it must not have **@iusd.org
  * @param password: password of user
+ * @param type: mentee, mentor, or admin
  * @returns
  */
-async function createUser(uid: string, email: string, password: string) {
+async function createUser(uid: string, email: string, password: string, type: string) {
   try {
     const userRecord = await firebaseAuth.createUser({
       uid,
       email,
       password,
     });
+    const customClaims = { role: type };
+    await firebaseAuth.setCustomUserClaims(uid, customClaims);
     return userRecord;
   } catch (e) {
     throw ValidationError.USED_EMAIL;
   }
 }
 
-export { createUser };
+async function decodeAuthToken(token: string) {
+  try{
+    const userInfo = await firebaseAuth.verifyIdToken(token);
+    return userInfo;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export { createUser, decodeAuthToken };

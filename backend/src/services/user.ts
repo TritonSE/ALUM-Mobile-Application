@@ -26,4 +26,13 @@ async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
 
 }
 
-export { saveImage };
+async function getImage(imageId: string): Promise<Object> {
+    console.info("Getting an image");
+    const image = await Image.findById(imageId);
+    if(!image) {
+        throw Error("Could not find image");
+    }
+    return image;
+}
+
+export { saveImage, getImage };

@@ -13,6 +13,7 @@ dotenv.config({
 let portV = "";
 let mongoURIV = "";
 let serviceAccountKeyV = "";
+let defaultImageIdV = "";
 
 /**
  * Todo: these should throw errors instead of logging messages
@@ -35,6 +36,12 @@ if (!process.env.SERVICE_ACCOUNT_KEY) {
   serviceAccountKeyV = process.env.SERVICE_ACCOUNT_KEY;
 }
 
+if (!process.env.DEFAULT_IMAGE_ID) {
+  console.log("Could not find the default image id");
+} else {
+  defaultImageIdV = process.env.DEFAULT_IMAGE_ID;
+}
+
 /**
  * Have to do this workaround since lint doesn't let
  * us export vars
@@ -42,5 +49,6 @@ if (!process.env.SERVICE_ACCOUNT_KEY) {
 const port = portV;
 const mongoURI = mongoURIV;
 const serviceAccountKey = serviceAccountKeyV;
+const defaultImageID = defaultImageIdV
 
-export { port, mongoURI, serviceAccountKey };
+export { port, mongoURI, serviceAccountKey, defaultImageID };
