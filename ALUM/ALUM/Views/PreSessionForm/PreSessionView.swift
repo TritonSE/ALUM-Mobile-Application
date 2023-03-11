@@ -13,7 +13,7 @@ struct PreSessionView: View {
     
     var body: some View {
         NavigationView {
-            QuestionView()
+            PreSessionConfirmationScreen(viewModel: viewModel)
         }
         .navigationBarBackButtonHidden()
     }
