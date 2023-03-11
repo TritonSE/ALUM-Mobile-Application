@@ -72,7 +72,7 @@ struct TagEditor: View {
     @Binding var selectedTags: Set<String>
     @State var searchText = ""
     let predefinedTags =
-    ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7", "Overflow Wrapping"]
+    ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7", "Overflow Wrapping", "Tag 8"]
     var body: some View {
         VStack {
             SearchBar(text: $searchText)
@@ -101,25 +101,27 @@ struct TagEditor: View {
                 .overlay(Color("ALUM Dark Blue"))
                 .padding(.bottom, 10)
 
-            VStack(alignment: .leading) {
-                ForEach(predefinedTags.filter { searchText.isEmpty ?
-                    true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
-                        ItemDisplay(
-                            tagString: item,
-                            tagIsChecked: self.selectedTags.contains(item),
-                            itemToggle: {
-                                if self.selectedTags.contains(item) {
-                                    self.selectedTags.remove(item)
-                                } else {
-                                    self.selectedTags.insert(item)
-                                }
-                            })
-                    Divider()
-                        .padding(10)
-                        .frame(width: 358)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(predefinedTags.filter { searchText.isEmpty ?
+                        true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
+                            ItemDisplay(
+                                tagString: item,
+                                tagIsChecked: self.selectedTags.contains(item),
+                                itemToggle: {
+                                    if self.selectedTags.contains(item) {
+                                        self.selectedTags.remove(item)
+                                    } else {
+                                        self.selectedTags.insert(item)
+                                    }
+                                })
+                        Divider()
+                            .padding(10)
+                            .frame(width: 358)
+                    }
                 }
             }
-            Spacer()
+//            Spacer()
         }
     }
 }
