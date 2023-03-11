@@ -14,8 +14,6 @@ import SwiftUI
 struct ParagraphInput: View {
     @State var question: String
     @Binding var text: String
-    @State private var totalChars = 0
-    @State private var lastText = ""
 
     var body: some View {
         HStack {
@@ -34,16 +32,13 @@ struct ParagraphInput: View {
             .colorMultiply(Color("ALUM White"))
             .background(Color("ALUM White"))
             .onChange(of: text, perform: { text in
-                totalChars = text.count
-                if totalChars <= 1000 {
-                        lastText = text
-                    } else {
-                        self.text = lastText
-                    }
+                if text.count > 1000 {
+                    self.text = String(text.prefix(1000))
+                }
             })
         HStack {
             Spacer()
-            Text("\(totalChars) / 1000")
+            Text("\(text.count) / 1000")
                 .font(.system(size: 13))
                 .foregroundColor(Color("NeutralGray3"))
         }
