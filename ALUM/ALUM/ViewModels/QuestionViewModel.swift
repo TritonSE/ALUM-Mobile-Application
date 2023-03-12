@@ -9,7 +9,8 @@ import Foundation
 
 final class QuestionViewModel: ObservableObject {
     @Published var questionList: [Question] = []
-    private var currentIndex: Int = 0
+    @Published var currentIndex: Int = 0
+    @Published var lastQuestion: Bool = true
     
     func loadTestData() -> [Question] {
         var questions: [Question] = []
@@ -31,5 +32,9 @@ final class QuestionViewModel: ObservableObject {
         let decoder = JSONDecoder()
         let questions = try decoder.decode( [Question].self, from: data)
         return questions
+    }
+    
+    func nextQuestion() {
+        self.currentIndex += 1
     }
 }
