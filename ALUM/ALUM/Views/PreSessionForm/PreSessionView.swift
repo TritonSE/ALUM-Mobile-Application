@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PreSessionView: View {
-    
+
     @StateObject private var viewModel = QuestionViewModel()
-    
+
     var body: some View {
         NavigationView {
             PreSessionConfirmationScreen(viewModel: viewModel)

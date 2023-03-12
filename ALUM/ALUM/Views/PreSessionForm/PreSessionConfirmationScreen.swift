@@ -12,11 +12,11 @@ import SwiftUI
 struct PreSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         ZStack {
             Color("ALUM White 2").edgesIgnoringSafeArea(.all)
-            
+
             VStack {
                 ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
                     .frame(alignment: .top)
@@ -24,7 +24,7 @@ struct PreSessionConfirmationScreen: View {
                     .padding()
                     .background(Color.white.ignoresSafeArea(edges: .top))
                     .frame(maxWidth: .infinity)
-                
+
                 ScrollView {
                     VStack {
                         HStack {
@@ -37,37 +37,37 @@ struct PreSessionConfirmationScreen: View {
                         .padding(.trailing, 16)
                         .padding(.bottom, 32)
                         .padding(.top, 8)
-                        
+
                         ForEach(viewModel.questionList, id: \.self) { currQuestion in
-                            
+
                             HStack {
                                 Text(currQuestion.question)
                                     .foregroundColor(Color("ALUM Dark Blue"))
                                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                
+
                                 Spacer()
                             }
                             .padding(.leading, 16)
                             .padding(.trailing, 16)
                             .padding(.bottom, 8)
-                            
+
                             if currQuestion.type == "text" {
                                 HStack {
                                     Text(currQuestion.answerParagraph)
                                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                    
+
                                     Spacer()
                                 }
                                 .padding(.leading, 16)
                                 .padding(.trailing, 16)
                                 .padding(.bottom, 32)
                             } else if currQuestion.type == "bullet" {
-                                
+
                             }
                         }
                     }
                 }
-                
+
                 ZStack {
                     Rectangle()
                         .frame(maxWidth: .infinity)
@@ -118,7 +118,8 @@ struct PreSessionConfirmationScreen: View {
                 }
             )
         )
-        .navigationBarTitle(Text("Pre-Session Notes").font(.custom("Metropolis-Regular", size: 17)), displayMode: .inline)
+        .navigationBarTitle(Text("Pre-Session Notes").font(.custom("Metropolis-Regular", size: 17)),
+                            displayMode: .inline)
         .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.questionList = viewModel.loadTestData()
@@ -128,7 +129,7 @@ struct PreSessionConfirmationScreen: View {
 
 struct PreSessionConfirmationScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
-    
+
     static var previews: some View {
         PreSessionConfirmationScreen(viewModel: viewModel)
     }
