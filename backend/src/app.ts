@@ -1,13 +1,8 @@
-import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
-import { userRouter } from "./routes/routes";
-
-// load the environment variables from the .env file
-dotenv.config({
-  path: ".env",
-});
+import { userRouter } from "./routes/user";
+import { mongoURI, port } from "./config";
 
 /**
  * Express server application class.
@@ -20,16 +15,12 @@ class Server {
 // initialize server app
 const server = new Server();
 
-if (process.env.MONGO_URI) {
-  mongoose.connect(process.env.MONGO_URI, {}, () => {
-    console.log("Connected to Database.");
-  });
-}
+mongoose.connect(mongoURI, {}, () => {
+  console.log("Connected to Database.");
+});
 
 server.app.use(json());
 server.app.use(userRouter);
 
 // make server listen on some port
-((port = process.env.APP_PORT || 3000) => {
-  server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-})();
+server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console

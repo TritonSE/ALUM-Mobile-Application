@@ -27,7 +27,6 @@ struct FilledInButtonStyle: ButtonStyle {
                     .font(.headline)
                     .background(Color("NeutralGray1"))
                     .cornerRadius(8)
-                    .disabled(true)
             }
         }
 }
