@@ -70,17 +70,47 @@ struct SearchBar: View {
 
 struct PreviewHelper: View {
     @State var tagState: [TagState]
+    @State var screenTitle: String = "Interests"
     var body: some View {
-        TagEditor(items: $tagState)
+        TagEditor(items: $tagState, screenTitle: screenTitle)
     }
 }
 
 struct TagEditor: View {
     @Binding var items: [TagState]
     @State var searchText = ""
+    @Environment(\.dismiss) private var dismiss
+    var screenTitle: String = ""
 
     var body: some View {
         VStack {
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Cancel")
+                        .font(.custom("Metropolis-Regular", size: 13))
+                }
+
+                Spacer()
+
+                Text(screenTitle)
+                    .font(.custom("Metropolis-Regular", size: 17))
+                    .padding(.trailing, 16)
+
+                Spacer()
+
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Done")
+                        .font(.custom("Metropolis-Regular", size: 13))
+                }
+            }
+            .padding(.leading, 16)
+            .padding(.trailing, 16)
+            .padding(.bottom, 13)
+
             SearchBar(text: $searchText)
                 .padding(.bottom, 16)
             if items.filter({ $0.isChecked }).isEmpty {
@@ -127,16 +157,17 @@ struct TagEditor: View {
                 .overlay(Color("ALUM Dark Blue"))
                 .padding(.bottom, 10)
 
-            VStack(alignment: .leading) {
-                ForEach(items.filter { searchText.isEmpty ?
-                    true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
-                    ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
-                    Divider()
-                        .padding(10)
-                        .frame(width: 358)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(items.filter { searchText.isEmpty ?
+                        true : $0.tagString.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
+                        ItemDisplay(tagState: self.$items.first(where: { $0.id == item.id })!)
+                        Divider()
+                            .padding(10)
+                            .frame(width: 358)
+                    }
                 }
             }
-            Spacer()
         }
     }
 }

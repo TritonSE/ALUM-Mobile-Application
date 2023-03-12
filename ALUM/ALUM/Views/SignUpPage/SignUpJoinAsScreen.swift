@@ -101,7 +101,7 @@ struct SignUpJoinAsScreen: View {
                         .padding(.bottom, 32)
                     } else {
                         Button {
-                            
+
                         } label: {
                             HStack {
                                 Text("Continue")
@@ -110,7 +110,7 @@ struct SignUpJoinAsScreen: View {
                         }
                         .buttonStyle(FilledInButtonStyle(disabled: true))
                         .padding(.bottom, 32)
-                        
+
                     }
 
                 }

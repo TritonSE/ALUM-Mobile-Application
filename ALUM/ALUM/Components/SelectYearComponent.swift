@@ -12,7 +12,7 @@ struct SelectYearComponent: View {
     @State var yearChoice: String = ""
     @State var showIsDone: Bool = false
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -31,8 +31,7 @@ struct SelectYearComponent: View {
                     .padding(.trailing, 16)
 
                 Spacer()
-                
-                
+
                 Button {
                     year = yearChoice
                     dismiss()
@@ -47,7 +46,7 @@ struct SelectYearComponent: View {
             Divider()
 
             ScrollView {
-                VStack (spacing: 0){
+                VStack(spacing: 0) {
                     ForEach(1990..<2023) { graduationYear in
                         YearRowView(graduationYear: String(graduationYear),
                                 isSelected: yearChoice == String(graduationYear)
@@ -72,7 +71,7 @@ struct SelectYearComponent: View {
 struct YearRowView: View {
     var graduationYear: String
     var isSelected: Bool
-    
+
     var body: some View {
         HStack {
             Text(graduationYear)
@@ -97,7 +96,7 @@ struct YearRowView: View {
 struct SelectYearComponent_Previews: PreviewProvider {
     static private var startYear = "2020"
     static private var year = Binding.constant("2020")
-    
+
     static var previews: some View {
         SelectYearComponent(year: year)
     }

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseCore
 import FirebaseAuth
+import SwiftUI
 
 final class SignUpViewModel: ObservableObject {
     @Published var passwordAgain: String = ""
@@ -19,7 +20,8 @@ final class SignUpViewModel: ObservableObject {
     @Published var setUpIsInvalid = false
 
     @Published var account = Account(name: "", email: "", password: "")
-    @Published var mentee = Mentee(name: "", email: "", grade: "", mentorshipGoal: "", password: "")
+    @Published var mentee = Mentee(name: "", email: "", grade: "", topicsOfInterest: [], careerInterests: [],
+                                   mentorshipGoal: "", password: "")
     @Published var mentor = Mentor(name: "", email: "", yearOfGrad: "", university: "", major: "", minor: "",
                                    intendedCareer: "", password: "")
 
@@ -41,5 +43,17 @@ final class SignUpViewModel: ObservableObject {
         } else {
             self.passAgainFunc = []
         }
+    }
+
+    func loadMenteeInterests(allInterests: [TagState]) -> [TagState] {
+        var menteeInterests: [TagState] = []
+
+        for idx in allInterests.indices {
+            if allInterests[idx].isChecked {
+                menteeInterests.append(allInterests[idx])
+            }
+        }
+
+        return menteeInterests
     }
 }

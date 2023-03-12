@@ -12,7 +12,7 @@ struct SelectUniversityComponent: View {
     @State var universityChoice: String = ""
     @Binding var university: String
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -31,7 +31,7 @@ struct SelectUniversityComponent: View {
                     .padding(.trailing, 16)
 
                 Spacer()
-                
+
                 Button {
                     university = universityChoice
                     dismiss()
@@ -43,37 +43,37 @@ struct SelectUniversityComponent: View {
             .padding(.leading, 16)
             .padding(.trailing, 16)
             .padding(.bottom, 13)
-            
+
             SearchBar(text: $searchText)
                 .padding(.top, 16)
                 .padding(.bottom, 16)
-            
+
             HStack {
                 Text("Search Results")
                     .font(.custom("Metropolis-Regular", size: 13))
                     .foregroundColor(Color("ALUM Dark Blue"))
-                
+
                 Spacer()
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
-            
+
             Divider()
                 .overlay(Color("ALUM Dark Blue"))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
-            
+
             ScrollView {
                 VStack {
                     ForEach(UniversityNames.universityNames, id: \.self) { universityName in
-                        if (universityName.contains(searchText) || searchText == "") {
+                        if universityName.contains(searchText) || searchText == "" {
                             UniversityRowView(universityName: universityName,
                                               isSelected: universityChoice == universityName
                             )
                             .onTapGesture {
                                 universityChoice = universityName
                             }
-                            
+
                             Divider()
                         }
                     }
@@ -87,6 +87,7 @@ struct SelectUniversityComponent: View {
     }
 }
 
+/*
 struct SearchBar: View {
     @Binding var text: String
     
@@ -123,20 +124,21 @@ struct SearchBar: View {
         .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
     }
 }
+ */
 
 struct UniversityRowView: View {
     var universityName: String = ""
     var isSelected: Bool = false
-    
+
     var body: some View {
         HStack {
             Text(universityName)
                 .font(.custom("Metropolis-Regular", size: 17))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
-            
+
             Spacer()
-            
+
             if isSelected {
                 Image(systemName: "checkmark")
                     .foregroundColor(Color("ALUM Dark Blue"))
@@ -155,7 +157,7 @@ struct UniversityRowView: View {
 
 struct SelectUniversityComponent_Previews: PreviewProvider {
     static private var university = Binding.constant("University of California - San Diego")
-    
+
     static var previews: some View {
         SelectUniversityComponent(university: university)
     }

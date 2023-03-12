@@ -47,13 +47,13 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .padding(.bottom, 2)
                         .padding(.leading, 16)
-                        
+
                         Button {
                             yearIsShowing = true
                         } label: {
-                            ZStack (alignment: .trailing) {
+                            ZStack(alignment: .trailing) {
                                 HStack {
-                                    
+
                                     if viewModel.mentor.yearOfGrad != "" {
                                         Text(viewModel.mentor.yearOfGrad)
                                             .foregroundColor(.black)
@@ -64,11 +64,11 @@ struct SignUpMentorInfoScreen: View {
                                     Spacer()
                                 }
                                 .padding(.leading, 16)
-                                
+
                                 Image(systemName: "chevron.down")
                                     .padding(.trailing, 16)
                             }
-                            
+
                         }
                         .sheet(isPresented: $yearIsShowing,
                             content: {
@@ -84,7 +84,7 @@ struct SignUpMentorInfoScreen: View {
                                 .stroke(Color("NeutralGray3"), lineWidth: 1.0)
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-                        
+
                         HStack {
                             Text("College/University")
                                 .font(.custom("Metropolis-Regular", size: 17))
@@ -94,7 +94,7 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .padding(.bottom, 2)
                         .padding(.leading, 16)
-                        
+
                         Button {
                             universityIsShowing = true
                         } label: {
@@ -124,7 +124,7 @@ struct SignUpMentorInfoScreen: View {
                                 .stroke(Color("NeutralGray3"), lineWidth: 1.0)
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-                         
+
                         Group {
                             HStack {
                                 Text("Major")
@@ -206,7 +206,7 @@ struct SignUpMentorInfoScreen: View {
                             }
                             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         }
-                        
+
                     }
                 }
 
@@ -218,7 +218,7 @@ struct SignUpMentorInfoScreen: View {
                         .ignoresSafeArea(edges: .all)
 
                     HStack {
-                        Button{
+                        Button {
                             dismiss()
                         } label: {
                             HStack {
