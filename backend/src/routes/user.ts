@@ -3,6 +3,8 @@
  * new users
  */
 import express, { Request, Response } from "express";
+import multer from "multer";
+import mongoose from "mongoose";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
@@ -10,15 +12,12 @@ import { createUser } from "../services/auth";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
-import { verifyAuthToken }  from "../middleware/auth";
-import multer from "multer";
+import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
-import mongoose from "mongoose";
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage()}).single('image');
-
+const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 /**
  * This is a post route to create a new mentee. It will first validate
@@ -46,7 +45,7 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
       mentorshipGoal,
       status,
     });
-    await createUser(mentee._id.toString(), email, password, 'mentee');
+    await createUser(mentee._id.toString(), email, password, "mentee");
     await mentee.save();
     return res.status(201).json({
       message: `Mentee ${name} was succesfully created.`,
@@ -107,7 +106,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
       personalAccessToken,
       status,
     });
-    await createUser(mentor._id.toString(), email, password, 'mentor');
+    await createUser(mentor._id.toString(), email, password, "mentor");
     await mentor.save();
     return res.status(201).json({
       message: `Mentor ${name} was successfully created.`,
@@ -122,154 +121,159 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
 });
 
 /**
- * This is a get route for a mentee. Note that the response is dependant on 
+ * This is a get route for a mentee. Note that the response is dependant on
  * the person calling the method
- * 
+ *
  * Mentee calling: gain all info about the mentee
- * 
+ *
  * Mentor calling: mentee name, image, grade, about, career interests, topics of interest
  */
 router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
   const userId = req.params.userId;
-  if(!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(ServiceError.INVALID_MONGO_ID.status).send(ServiceError.INVALID_MONGO_ID.message);
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res
+      .status(ServiceError.INVALID_MONGO_ID.status)
+      .send(ServiceError.INVALID_MONGO_ID.message);
   }
   const role = req.body.role;
 
-  if(role === "mentee") {
+  if (role === "mentee") {
     try {
       const mentee = await Mentee.findById(userId);
-      if(!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND
+      if (!mentee) {
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
-      return res.status(201).send(
-        {
-          message: `Here is mentee ${mentee.name}`,
-          mentee: mentee
-        }
-      );
+      return res.status(201).send({
+        message: `Here is mentee ${mentee.name}`,
+        mentee,
+      });
     } catch (e) {
       console.log(e);
       if (e instanceof ServiceError) {
         return res.status(e.status).send(e.displayMessage(true));
       }
-      return res.status(InternalError.ERROR_GETTING_MENTEE.status)
-      .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
+      return res
+        .status(InternalError.ERROR_GETTING_MENTEE.status)
+        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
     }
-  } 
+  }
 
-  if(role === "mentor") {
+  if (role === "mentor") {
     try {
       const mentee = await Mentee.findById(userId);
-      if(!mentee) {
+      if (!mentee) {
         throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
       const { name, imageId, about, grade, topicsOfInterest, careerInterests } = mentee;
-      return res.status(201).send(
-        {
-          message: `Here is mentee ${mentee.name}`,
-          mentee: {
-            name: name,
-            imageId: imageId,
-            about: about,
-            grade: grade,
-            topicsOfInterest: topicsOfInterest,
-            careerInterests: careerInterests
-          }
-        }
-      );
+      return res.status(201).send({
+        message: `Here is mentee ${mentee.name}`,
+        mentee: {
+          name,
+          imageId,
+          about,
+          grade,
+          topicsOfInterest,
+          careerInterests,
+        },
+      });
     } catch (e) {
       console.log(e);
       if (e instanceof ServiceError) {
         return res.status(e.status).send(e.displayMessage(true));
       }
-      return res.status(InternalError.ERROR_GETTING_MENTEE.status)
-      .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
+      return res
+        .status(InternalError.ERROR_GETTING_MENTEE.status)
+        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
     }
   }
-  
+
+  return res.status(405).send("Mentee or Mentor not accessing data");
 });
 
 /**
  * This is a get route for a mentor. Note that the response is dependant on the person
  * calling the method
- * 
+ *
  * Mentee calling: mentor name, image, major, minor, college, career, graduation year, calendlyLink,
  * why were you paired?, about, topics of experties
- * 
+ *
  * Mentor calling: gain all info about the mentor
  */
 router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
   const userId = req.params.userId;
-  if(!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(ServiceError.INVALID_MONGO_ID.status).send(ServiceError.INVALID_MONGO_ID.message);
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res
+      .status(ServiceError.INVALID_MONGO_ID.status)
+      .send(ServiceError.INVALID_MONGO_ID.message);
   }
   const role = req.body.role;
 
-  if(role === "mentee") {
+  if (role === "mentee") {
     try {
       const mentor = await Mentor.findById(userId);
-      if(!mentor) {
+      if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
-      const { name, 
+      const {
+        name,
         imageId,
-        about, 
-        major, 
-        minor, 
-        college, 
-        career, 
-        graduationYear, 
+        about,
+        major,
+        minor,
+        college,
+        career,
+        graduationYear,
         calendlyLink,
-        topicsOfExpertise } = mentor;
-      return res.status(201).send(
-        {
-          message: `Here is mentor ${mentor.name}`,
-          mentor: {
-            name: name,
-            about: about,
-            imageId: imageId,
-            major: major,
-            minor: minor,
-            college: college,
-            career: career,
-            graduationYear: graduationYear,
-            calendlyLink: calendlyLink,
-            topicsOfExpertise: topicsOfExpertise
-          }
-        }
-      );
+        topicsOfExpertise,
+      } = mentor;
+      return res.status(201).send({
+        message: `Here is mentor ${mentor.name}`,
+        mentor: {
+          name,
+          about,
+          imageId,
+          major,
+          minor,
+          college,
+          career,
+          graduationYear,
+          calendlyLink,
+          topicsOfExpertise,
+        },
+      });
     } catch (e) {
       console.log(e);
       if (e instanceof ServiceError) {
         return res.status(e.status).send(e.displayMessage(true));
       }
-      return res.status(InternalError.ERROR_GETTING_MENTOR.status)
-      .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
-    }
-  } 
-
-  if(role === "mentor") {
-    try {
-      const mentor = await Mentor.findById(userId);
-      if(!mentor) {
-        throw ServiceError.MENTOR_WAS_NOT_FOUND;
-      }
-      return res.status(201).send(
-        {
-          message: `Here is mentor ${mentor.name}`,
-          mentor: mentor
-        }
-      );
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res.status(InternalError.ERROR_GETTING_MENTOR.status)
-      .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
+      return res
+        .status(InternalError.ERROR_GETTING_MENTOR.status)
+        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
     }
   }
+
+  if (role === "mentor") {
+    try {
+      const mentor = await Mentor.findById(userId);
+      if (!mentor) {
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
+      }
+      return res.status(201).send({
+        message: `Here is mentor ${mentor.name}`,
+        mentor,
+      });
+    } catch (e) {
+      console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res
+        .status(InternalError.ERROR_GETTING_MENTOR.status)
+        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
+    }
+  }
+
+  return res.status(405).send("Mentee or Mentor not accessing data");
 });
 
 export { router as userRouter };

@@ -33,7 +33,7 @@ async function createUser(uid: string, email: string, password: string, type: st
 }
 
 async function decodeAuthToken(token: string) {
-  try{
+  try {
     const userInfo = await firebaseAuth.verifyIdToken(token);
     return userInfo;
   } catch (e) {

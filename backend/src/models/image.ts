@@ -10,7 +10,7 @@ interface ImageInterface {
   originalname: string;
   mimetype: string;
   encoding: string;
-  size: Number;
+  size: number;
 }
 
 interface ImageDoc extends mongoose.Document {
@@ -18,7 +18,7 @@ interface ImageDoc extends mongoose.Document {
   originalname: string;
   mimetype: string;
   encoding: string;
-  size: Number;
+  size: number;
 }
 
 interface ImageModelInterface extends mongoose.Model<ImageDoc> {
@@ -28,24 +28,24 @@ interface ImageModelInterface extends mongoose.Model<ImageDoc> {
 const imageSchema = new mongoose.Schema({
   buffer: {
     type: Buffer,
-    requried: true
+    requried: true,
   },
   originalname: {
     type: String,
-    required: true
+    required: true,
   },
- mimetype: {
+  mimetype: {
     type: String,
-    required: true
+    required: true,
   },
   encoding: {
     type: String,
     required: true,
-  }, 
+  },
   size: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const Image = mongoose.model<ImageDoc, ImageModelInterface>("Image", imageSchema);

@@ -50,6 +50,6 @@ if (!process.env.DEFAULT_IMAGE_ID) {
 const port = portV;
 const mongoURI = mongoURIV;
 const serviceAccountKey = serviceAccountKeyV;
-const defaultImageID = defaultImageIdV
+const defaultImageID = defaultImageIdV;
 
 export { port, mongoURI, serviceAccountKey, defaultImageID };
