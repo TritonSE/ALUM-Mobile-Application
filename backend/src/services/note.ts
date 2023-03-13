@@ -1,5 +1,6 @@
 import { assert } from "console";
 import { createHash } from "crypto";
+import { patchNote } from "../routes/notes"
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
@@ -20,7 +21,12 @@ class Answer {
   id: string; // hashed from question
 
   constructor(type: string, id: string) {
-    this.answer = "";
+    if (type === "text") {
+      this.answer = "";
+    }
+    else {
+      this.answer = new Array<string>;
+    }
     this.type = type;
     this.id = id;
   }
@@ -30,13 +36,16 @@ class Answer {
    * Otherwise, the text will be added to the answer ArrayList.
    * @param input: Text of answer to input
    */
-  setAnswer(input: string): void {
+  setAnswer(input: string | string[]): void {
+    console.log("setting");
     if (typeof this.answer === "string") {
       this.answer = input;
     } else {
       try {
         assert(Array.isArray(this.answer));
-        this.answer.push(input);
+        for (var newAnswers of input) {
+          this.answer.push(newAnswers);
+        }
       } catch (e) {
         throw new Error();
       }
@@ -98,4 +107,28 @@ async function createPostSessionNotes() {
   }
 }
 
-export { createPreSessionNotes, createPostSessionNotes, Answer };
+async function updateNotes(updatedNotes: patchNote[], documentId: string) {
+  const noteDoc = await Note.findById(documentId);
+  if (noteDoc == null) {
+    throw new Error(); //If document not found
+  }
+  else {
+    for (let i = 0; i < noteDoc.answers.length; ++i) {
+      const currentNote: Answer = noteDoc.answers[i] as Answer;
+      for (var newNote of updatedNotes) {
+        if (currentNote.id === newNote.question_id) {
+          if (Array.isArray(currentNote.answer)) {
+            for (var bullet of newNote.answer) {
+              currentNote.answer.push(bullet);
+            }
+          }
+          else {
+            currentNote.answer = newNote.answer;
+          }
+        }
+      }
+    }
+  }
+}
+
+export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, };
