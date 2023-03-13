@@ -4,9 +4,10 @@
 
 import express, { Request, Response } from "express";
 import { Image } from "../models/image";
-import { saveImage, getImage }  from "../services/user";
 import { verifyAuthToken }  from "../middleware/auth";
 import mongoose from "mongoose";
+import { ServiceError } from "../errors/service";
+import { InternalError } from "../errors/internal";
 
 const router = express.Router();
 
@@ -18,18 +19,22 @@ const router = express.Router();
 router.get("image/:imageId", [verifyAuthToken], async (req: Request, res: Response) => {
     const imageId = req.params.imageId;
     if(!mongoose.Types.ObjectId.isValid(imageId)){
-        return res.status(401).send("Invalid image id");
+        return res.status(ServiceError.INVALID_MONGO_ID.status).send(ServiceError.INVALID_MONGO_ID.message);
     }
 
     try {
         const image = await Image.findById(imageId);
         if(!image) {
-            throw Error("Image was not found");
+            throw ServiceError.IMAGE_NOT_FOUND;
         }
         return res.status(201).set('Content-type', image.mimetype).send(image.buffer);
     } catch (e) {
-        console.log("Error obtaining image");
         console.log(e);
+        if (e instanceof ServiceError) {
+            return res.status(e.status).send(e.displayMessage(true));
+          }
+        return res.status(InternalError.ERROR_GETTING_IMAGE.status)
+          .send(InternalError.ERROR_GETTING_IMAGE.displayMessage(true));
     }
 });
 

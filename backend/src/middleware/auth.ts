@@ -5,6 +5,7 @@
 
 import { decodeAuthToken } from "../services/auth";
 import {Request, Response, NextFunction} from "express";
+import { AuthError } from "../errors/auth";
 
 /**
  * Middleware to verify Auth token and calls next function based on user role
@@ -14,7 +15,7 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
     console.log(authHeader?.split(" ")[0]);
     let token = authHeader && authHeader.split(" ")[0] === "Bearer" ? authHeader.split(" ")[1] : null;
     if(!token) {
-        return res.status(401).send("Please provide auth token in header");
+        return res.status(AuthError.TOKEN_NOT_IN_HEADER.status).send(AuthError.TOKEN_NOT_IN_HEADER.message);
     }
 
     const userInfo = await decodeAuthToken(token);
@@ -24,7 +25,7 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
         return next();
     }
 
-    return res.status(401).send("Invalid auth token.");
+    return res.status(AuthError.INVALID_AUTH_TOKEN.status).send(AuthError.INVALID_AUTH_TOKEN.message);
 }
 
 export { verifyAuthToken };

@@ -6,13 +6,13 @@ import express, { Request, Response } from "express";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { validateMentee, validateMentor } from "../middleware/validation";
-import { createUser, decodeAuthToken } from "../services/auth";
+import { createUser } from "../services/auth";
 import { ValidationError } from "../errors/validationError";
-import { saveImage, getImage }  from "../services/user";
+import { InternalError } from "../errors/internal";
+import { ServiceError } from "../errors/service";
 import { verifyAuthToken }  from "../middleware/auth";
 import multer from "multer";
 import { defaultImageID } from "../config";
-import { Image } from "../models/image";
 import mongoose from "mongoose";
 
 const router = express.Router();
@@ -132,7 +132,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
 router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
   const userId = req.params.userId;
   if(!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(401).send("Invalid id");
+    return res.status(ServiceError.INVALID_MONGO_ID.status).send(ServiceError.INVALID_MONGO_ID.message);
   }
   const role = req.body.role;
 
@@ -140,7 +140,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
     try {
       const mentee = await Mentee.findById(userId);
       if(!mentee) {
-        throw Error("Mentee was not found");
+        throw ServiceError.MENTEE_WAS_NOT_FOUND
       }
       return res.status(201).send(
         {
@@ -149,8 +149,12 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
         }
       );
     } catch (e) {
-      console.log("Error getting mentee")
       console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res.status(InternalError.ERROR_GETTING_MENTEE.status)
+      .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
     }
   } 
 
@@ -158,7 +162,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
     try {
       const mentee = await Mentee.findById(userId);
       if(!mentee) {
-        throw Error("Mentee was not found");
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
       const { name, imageId, about, grade, topicsOfInterest, careerInterests } = mentee;
       return res.status(201).send(
@@ -175,8 +179,12 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
         }
       );
     } catch (e) {
-      console.log("Error getting mentee");
       console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res.status(InternalError.ERROR_GETTING_MENTEE.status)
+      .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
     }
   }
   
@@ -194,7 +202,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
 router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
   const userId = req.params.userId;
   if(!mongoose.Types.ObjectId.isValid(userId)) {
-    return res.status(401).send("Invalid id");
+    return res.status(ServiceError.INVALID_MONGO_ID.status).send(ServiceError.INVALID_MONGO_ID.message);
   }
   const role = req.body.role;
 
@@ -202,7 +210,7 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
     try {
       const mentor = await Mentor.findById(userId);
       if(!mentor) {
-        throw Error("Mentee was not found");
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
       const { name, 
         imageId,
@@ -219,6 +227,7 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
           message: `Here is mentor ${mentor.name}`,
           mentor: {
             name: name,
+            about: about,
             imageId: imageId,
             major: major,
             minor: minor,
@@ -231,8 +240,12 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
         }
       );
     } catch (e) {
-      console.log("Error getting mentee")
       console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res.status(InternalError.ERROR_GETTING_MENTOR.status)
+      .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
     }
   } 
 
@@ -240,7 +253,7 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
     try {
       const mentor = await Mentor.findById(userId);
       if(!mentor) {
-        throw Error("Mentee was not found");
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
       return res.status(201).send(
         {
@@ -249,8 +262,12 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
         }
       );
     } catch (e) {
-      console.log("Error getting mentee");
       console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res.status(InternalError.ERROR_GETTING_MENTOR.status)
+      .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
     }
   }
 });

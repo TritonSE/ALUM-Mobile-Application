@@ -4,6 +4,7 @@
 import { Image } from '../models/image';
 import { Request } from 'express';
 import mongoose from 'mongoose';
+import { ServiceError } from '../errors/service';
 
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
@@ -20,19 +21,9 @@ async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
         const newImage = await image.save();
         return newImage._id;
     } catch (e) {
-        console.error(e);
-        throw Error("There was some error");
+        throw ServiceError.IMAGE_NOT_SAVED;
     }
 
 }
 
-async function getImage(imageId: string): Promise<Object> {
-    console.info("Getting an image");
-    const image = await Image.findById(imageId);
-    if(!image) {
-        throw Error("Could not find image");
-    }
-    return image;
-}
-
-export { saveImage, getImage };
+export { saveImage };

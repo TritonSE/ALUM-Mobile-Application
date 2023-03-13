@@ -7,6 +7,7 @@
 
 import { ValidationError } from "../errors/validationError";
 import { firebaseAuth } from "./firebase";
+import { AuthError } from "../errors/auth";
 
 /**
  * This function creates a user in firebase
@@ -36,7 +37,7 @@ async function decodeAuthToken(token: string) {
     const userInfo = await firebaseAuth.verifyIdToken(token);
     return userInfo;
   } catch (e) {
-    console.log(e);
+    throw AuthError.DECODE_ERROR;
   }
 }
 
