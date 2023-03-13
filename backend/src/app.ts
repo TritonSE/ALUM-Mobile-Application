@@ -1,4 +1,5 @@
 import express from "express";
+import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
 import {notesRouter} from "./routes/notes"
