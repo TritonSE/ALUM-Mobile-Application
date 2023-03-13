@@ -9,7 +9,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     const id = req.params.id;
     const note = await Note.findById(id);
     if (note == null) {
-      throw new Error(); 
+      throw new Error();
     }
     return res.status(200).json(note.answers);
   } catch (e) {
