@@ -109,26 +109,30 @@ async function createPostSessionNotes() {
 
 async function updateNotes(updatedNotes: patchNote[], documentId: string) {
   const noteDoc = await Note.findById(documentId);
-  if (noteDoc == null) {
-    throw new Error(); //If document not found
-  }
-  else {
-    for (let i = 0; i < noteDoc.answers.length; ++i) {
-      const currentNote: Answer = noteDoc.answers[i] as Answer;
-      for (var newNote of updatedNotes) {
-        if (currentNote.id === newNote.question_id) {
-          if (Array.isArray(currentNote.answer)) {
-            for (var bullet of newNote.answer) {
-              currentNote.answer.push(bullet);
-            }
-          }
-          else {
-            currentNote.answer = newNote.answer;
-          }
-        }
+  if (!noteDoc) {
+    throw new Error("Document not found");
+  } else {
+    noteDoc.answers.forEach(answer => {
+      const updatedNote = updatedNotes.find(
+        updatedNote => updatedNote.question_id === answer.id
+      );
+      if (updatedNote) {
+        answer.answer = updatedNote.answer;
       }
+    });
+    try {
+      console.log(noteDoc.answers);
+      await noteDoc.save();
+      return noteDoc;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Save error");
     }
   }
 }
+
+
+
+
 
 export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, };
