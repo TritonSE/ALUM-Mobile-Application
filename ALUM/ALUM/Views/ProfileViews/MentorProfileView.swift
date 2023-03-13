@@ -155,7 +155,7 @@ struct MentorProfileView: View {
                             .frame(width: 64, height: 3)
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .offset(y: -55)
-                            .offset(x: 118)
+                            .offset(x: 80)
                         HStack {
                             Button {
                             } label: {
@@ -170,31 +170,14 @@ struct MentorProfileView: View {
                                 .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
                             }
                             .foregroundColor(Color("ALUM Dark Blue"))
+                            .padding(.trailing, 126)
                             Button {
                             } label: {
-                                VStack{
-                                    Image("ALUM Calendar")
+                                VStack {
+                                    viewModel.mentor.profilePic
                                         .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 27)
-                                    Text("Sessions")
-                                }
-                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .padding(.leading, 82)
-                            .padding(.trailing, 75)
-                            Button {
-                            } label: {
-                                VStack{
-                                    ZStack{
-                                        Image("GrayCircle")
-                                            .padding(.trailing, 12)
-                                        Image("ALUM Logo 2")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 25, height: 27)
-                                    }
+                                        .clipShape(Circle())
+                                        .frame(width: 27, height: 27)
                                     Text("Profile")
                                 }
                                 .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
