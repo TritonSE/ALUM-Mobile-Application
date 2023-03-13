@@ -8,19 +8,14 @@
 import SwiftUI
 
 struct Bullet: View {
-    @State var editText: (Int) -> Void
-    @State var remove: (Int) -> Void
-    @State var data: String
+    var remove: () -> Void
+    var data: String
 
     var body: some View {
         ZStack {
-            Button {
-                editText(0)
-            } label: {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(.white)
-                    .frame(width: 358, height: 42)
-            }
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.white)
+                .frame(width: 358, height: 42)
             HStack {
                 Image(systemName: "circle.fill")
                     .foregroundColor(Color("ALUM Dark Blue"))
@@ -31,7 +26,7 @@ struct Bullet: View {
                     .lineLimit(4)
                 Spacer()
                 Button {
-                    remove(0)
+                    remove()
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundColor(Color("NeutralGray3"))
@@ -43,22 +38,22 @@ struct Bullet: View {
     }
 }
 
-struct BulletView: View {
+struct BulletsView: View {
     @State var bullets: [String] = ["hi", "hello"]
     @State var showingSheet = false
     @State var newText = ""
-    @State var idx = 0
+    @State var editingBulletIndex = 0
 
     func cancel() {
         showingSheet = false
     }
-    func done(str: String) {
-        bullets[idx] = newText
+    func done() {
+        bullets[editingBulletIndex] = newText
         showingSheet = false
     }
     func editText(index: Int) {
-        idx = index
-        newText = bullets[index]
+        editingBulletIndex = index
+        newText = bullets[editingBulletIndex]
         showingSheet = true
     }
     func removeBullet(index: Int) {
@@ -66,6 +61,7 @@ struct BulletView: View {
     }
     func addBullet() {
         bullets.append("")
+        editingBulletIndex = bullets.count - 1
         newText = ""
         showingSheet = true
     }
@@ -75,8 +71,14 @@ struct BulletView: View {
             ZStack {
                 Color("ALUM White2")
                 VStack {
-                    ForEach(bullets, id: \.self) { str in
-                        Bullet(editText: editText, remove: removeBullet, data: str)
+                    ForEach(bullets.indices, id: \.self) { idx in
+                        Bullet(
+                            remove: {self.removeBullet(index: idx)},
+                            data: bullets[idx]
+                        )
+                        .onTapGesture {
+                            self.editText(index: idx)
+                        }
                     }
                     CircleAddButton(add: addBullet)
                 }.sheet(isPresented: $showingSheet) {
@@ -86,12 +88,11 @@ struct BulletView: View {
                 }
             }
         }
-        
     }
 }
 
 struct Bullet_Previews: PreviewProvider {
     static var previews: some View {
-        BulletView()
+        BulletsView()
     }
 }

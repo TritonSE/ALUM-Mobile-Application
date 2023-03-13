@@ -8,8 +8,7 @@ import SwiftUI
 
 struct DrawerContainer<Content: View>: View {
     var cancelFunc: () -> Void
-    var doneFunc: (String) -> Void
-    @State var text: String = "hi"
+    var doneFunc: () -> Void
     @ViewBuilder var content: Content
 
     var body: some View {
@@ -30,7 +29,7 @@ struct DrawerContainer<Content: View>: View {
                         Spacer()
                         Button("Done") {
                             withAnimation(.spring()) {
-                                doneFunc(text)
+                                doneFunc()
                             }
                         }
                         .foregroundColor(Color("ALUM Dark Blue"))
@@ -74,7 +73,7 @@ struct DrawerTester: View {
         }
     }
 
-    func done(textfield: String) {
+    func done() {
         oldText = data
         showingSheet = false
     }
