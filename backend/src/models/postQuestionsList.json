@@ -1,0 +1,18 @@
+[
+  {
+    "question": "What topics did you discuss?",
+    "type": "bullet"
+  },
+  {
+    "question": "Key takeaways from the session:",
+    "type": "bullet"
+  },
+  {
+    "question": "Next step(s):",
+    "type": "bullet"
+  },
+  {
+    "question": "Other notes:",
+    "type": "text"
+  }
+]
