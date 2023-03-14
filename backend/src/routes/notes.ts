@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Note } from "../models/notes";
 import bodyParser from 'body-parser';
-import { updateNotes, Answer } from "../services/note";
+import { updateNotes } from "../services/note";
 
 interface patchNote {
     question_id: string;
@@ -29,7 +29,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     }
   });
 
-router.put("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
+router.patch("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
     try {
         console.log("Patching...");
         const documentId = req.params.id;

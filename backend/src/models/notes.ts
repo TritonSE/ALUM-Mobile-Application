@@ -2,15 +2,15 @@
  * This file contains the model for the Notes.
  */
 import mongoose from "mongoose";
-import {Answer} from "../services/note"
+import {AnswerType} from "../services/note"
 
 interface NoteInterface {
-  answers: Answer[];
+  answers: AnswerType[];
   type: string;
 }
 
 interface NoteDoc extends mongoose.Document {
-  answers: Answer[];
+  answers: AnswerType[];
   type: string;
 }
 

@@ -10,15 +10,23 @@ interface Question {
   type: string;
 }
 
+type AnswerType = {
+  answer: string | Array<string>;
+  type: string;
+  id: string
+}
+
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
  */
-class Answer {
+class Answer implements AnswerType {
   answer: string | Array<string>;
-
   type: string;
+  id: string
 
-  id: string; // hashed from question
+  toObject(): AnswerType {
+    return { answer: this.answer, type: this.type, id: this.id };
+  }
 
   constructor(type: string, id: string) {
     if (type === "text") {
@@ -68,13 +76,13 @@ function hashCode(str: string) {
  * @returns The created answer array.
  */
 
-function createAnswerArray(questions: Question[]): Answer[] {
-  const answerList: Answer[] = new Array(questions.length);
+function createAnswerArray(questions: Question[]): AnswerType[] {
+  const answerList: AnswerType[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
     answerList[i] = new Answer(
       questions[i].type,
       hashCode(questions[i].question + questions[i].type)
-    );
+    ).toObject();
   }
   return answerList;
 }
@@ -108,22 +116,23 @@ async function createPostSessionNotes() {
 }
 
 async function updateNotes(updatedNotes: patchNote[], documentId: string) {
+  console.log('updatedNotes', updatedNotes)
   const noteDoc = await Note.findById(documentId);
   if (!noteDoc) {
     throw new Error("Document not found");
   } else {
-    noteDoc.answers.forEach(answer => {
+    // Can improve this in future if needed by creating a hashmap
+    noteDoc.answers.forEach((_, answerIndex) => {
       const updatedNote = updatedNotes.find(
-        updatedNote => updatedNote.question_id === answer.id
+        updatedNote => updatedNote.question_id === noteDoc.answers[answerIndex].id
       );
       if (updatedNote) {
-        answer.answer = updatedNote.answer;
+        noteDoc.answers[answerIndex].answer = updatedNote.answer;
       }
     });
     try {
-      console.log(noteDoc.answers);
-      await noteDoc.save();
-      return noteDoc;
+      noteDoc.markModified('answers');
+      return await noteDoc.save();
     } catch (error) {
       console.error(error);
       throw new Error("Save error");
@@ -135,4 +144,4 @@ async function updateNotes(updatedNotes: patchNote[], documentId: string) {
 
 
 
-export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, };
+export { createPreSessionNotes, createPostSessionNotes, updateNotes, AnswerType };
