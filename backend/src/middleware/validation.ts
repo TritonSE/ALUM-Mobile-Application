@@ -10,8 +10,8 @@
  * Moreover, be sure to add cake types of each type of request you
  * are validating (look below for examples).
  */
-
-import { bake, string, array, number } from "caketype";
+import mongoose from "mongoose" 
+import { bake, Cake, string, array, number } from "caketype";
 import { Request, Response, NextFunction } from "express";
 import { ValidationError } from "../errors/validationError";
 
@@ -114,4 +114,20 @@ const validateMentor = (req: Request, res: Response, next: NextFunction) => {
   return next();
 };
 
-export { validateMentee, validateMentor };
+const validateID = (uid: string) => {
+  if (!mongoose.Types.ObjectId.isValid(uid)) {
+    throw new Error(ValidationError.INVALID_EMAIL_ID.message);
+  }
+  return uid;
+};
+
+const validateReqBodyWithCake = (cake: Cake) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    const result = cake.check(req.body);
+    if (!result.ok) {
+      return res.status(400).send(result.error.toString());
+    }
+    return next();
+  }
+}
+export { validateMentee, validateMentor, validateID, validateReqBodyWithCake };

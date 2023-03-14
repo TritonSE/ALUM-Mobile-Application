@@ -6,6 +6,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import { validateReqBodyWithCake } from "../middleware/validation";
+import { CreateSessionRequestBodyCake } from "../types/cakes";
 /**
  * This is a post route to create a new session. 
  *
@@ -29,7 +31,11 @@ For example: "1995-12-17T03:24:00"
 */
 
 const router = express.Router();
-router.post("/sessions", async (req: Request, res: Response, next: NextFunction) => {
+
+router.post(
+  "/sessions", 
+  validateReqBodyWithCake(CreateSessionRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
   console.info("Posting new session,", req.query);
   try {
     const preNoteId = await createPreSessionNotes();

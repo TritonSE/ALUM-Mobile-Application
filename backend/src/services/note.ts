@@ -1,20 +1,9 @@
 import { assert } from "console";
 import { createHash } from "crypto";
-import { patchNote } from "../routes/notes"
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
-
-interface Question {
-  question: string;
-  type: string;
-}
-
-type AnswerType = {
-  answer: string | Array<string>;
-  type: string;
-  id: string
-}
+import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
 
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
@@ -76,7 +65,7 @@ function hashCode(str: string) {
  * @returns The created answer array.
  */
 
-function createAnswerArray(questions: Question[]): AnswerType[] {
+function createAnswerArray(questions: QuestionType[]): AnswerType[] {
   const answerList: AnswerType[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
     answerList[i] = new Answer(
@@ -115,7 +104,7 @@ async function createPostSessionNotes() {
   }
 }
 
-async function updateNotes(updatedNotes: patchNote[], documentId: string) {
+async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
   console.log('updatedNotes', updatedNotes)
   const noteDoc = await Note.findById(documentId);
   if (!noteDoc) {
@@ -140,8 +129,4 @@ async function updateNotes(updatedNotes: patchNote[], documentId: string) {
   }
 }
 
-
-
-
-
-export { createPreSessionNotes, createPostSessionNotes, updateNotes, AnswerType };
+export { createPreSessionNotes, createPostSessionNotes, updateNotes };

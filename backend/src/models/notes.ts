@@ -2,7 +2,7 @@
  * This file contains the model for the Notes.
  */
 import mongoose from "mongoose";
-import {AnswerType} from "../services/note"
+import { AnswerType } from "../types/notes";
 
 interface NoteInterface {
   answers: AnswerType[];

@@ -1,16 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Note } from "../models/notes";
-import bodyParser from 'body-parser';
 import { updateNotes } from "../services/note";
-
-interface patchNote {
-    question_id: string;
-    type: string;
-    answer: string | string[];
-}
-
+import { validateReqBodyWithCake } from "../middleware/validation";
+import { UpdateNoteRequestBodyCake } from "../types/cakes";
+import { Infer } from "caketype";
 const router = express.Router();
-router.use(bodyParser.json());
 
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -29,11 +23,15 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     }
   });
 
-router.patch("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
+type UpdateNoteRequestBodyType = Infer<typeof UpdateNoteRequestBodyCake>
+router.patch(
+  "/notes/:id", 
+  validateReqBodyWithCake(UpdateNoteRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
         console.log("Patching...");
         const documentId = req.params.id;
-        const updatedNotes: patchNote[] = req.body;
+        const updatedNotes: UpdateNoteRequestBodyType = req.body;
         await updateNotes(updatedNotes, documentId);
         console.log("##################");
         const noteDoc = await Note.findById(documentId);
@@ -52,4 +50,4 @@ router.patch("/notes/:id", async (req: Request, res: Response, next: NextFunctio
     }
 })
 
-export { router as notesRouter, patchNote };
+export { router as notesRouter };
