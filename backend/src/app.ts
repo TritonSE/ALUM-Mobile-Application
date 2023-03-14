@@ -2,8 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
-
 import { imageRouter } from "./routes/image";
+
 import { mongoURI, port } from "./config";
 
 /**
