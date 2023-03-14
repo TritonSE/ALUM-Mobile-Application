@@ -16,7 +16,7 @@ const router = express.Router();
  * to ensure the person using the route is a proper user and no check to make sure
  * the image requested belongs to a certain person
  */
-router.get("image/:imageId", [verifyAuthToken], async (req: Request, res: Response) => {
+router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Response) => {
   const imageId = req.params.imageId;
   if (!mongoose.Types.ObjectId.isValid(imageId)) {
     return res
