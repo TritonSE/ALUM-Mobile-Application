@@ -13,26 +13,32 @@ struct Bullet: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.white)
-                .frame(width: 358, height: 42)
+            Text(data)
+                .font(.system(size: 17))
+                .lineLimit(5)
+                .padding(.init(top: 8.0, leading: 40, bottom: 8.0, trailing: 32))
+                .frame(width: 358, alignment: .leading)
+                .background(Color.white)
+                .cornerRadius(8)
+                .fixedSize(horizontal: false, vertical: true)
+                .padding(.init(top: 4.0, leading: 0, bottom: 4.0, trailing: 0))
             HStack {
                 Image(systemName: "circle.fill")
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .frame(width: 8, height: 8)
                     .font(.system(size: 8.0))
-                    .padding(.init(top: 0.0, leading: 32, bottom: 0.0, trailing: 16.0))
-                Text(data)
-                    .font(.system(size: 17))
-                    .lineLimit(4)
+                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .padding(.init(top: 0.0, leading: 32, bottom: 0.0, trailing: 157))
                 Spacer()
                 Button {
                     remove()
                 } label: {
                     Image(systemName: "xmark")
+                        .frame(width: 8, height: 8)
                         .foregroundColor(Color("NeutralGray3"))
                         .font(.system(size: 12))
-                        .padding(.init(top: 0.0, leading: 12, bottom: 0.0, trailing: 28))
-                }
+
+                    }
+                .padding(.init(top: 0.0, leading: 157, bottom: 0.0, trailing: 28))
             }
         }
     }
@@ -67,7 +73,7 @@ struct BulletsView: View {
     }
 
     var body: some View {
-        NavigationView {
+       NavigationView {
             ZStack {
                 Color("ALUM White2")
                 VStack {
@@ -81,13 +87,14 @@ struct BulletsView: View {
                         }
                     }
                     CircleAddButton(add: addBullet)
+                        .padding(32)
                 }.sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
                         ParagraphInput(question: "What topic(s) would you like to discuss?", text: $newText)
                     }
                 }
-            }
-        }
+           }
+       }
     }
 }
 
