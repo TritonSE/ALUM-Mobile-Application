@@ -70,7 +70,9 @@ struct PreSessionConfirmationScreen: View {
                                                     .foregroundColor(Color.black)
                                                     .font(.system(size: 5.0))
                                                 Text(item)
-                                                    .font(Font.custom("Metropolis-Regular",size: 17, relativeTo:.headline))
+                                                    .font(Font.custom("Metropolis-Regular",
+                                                                      size: 17,
+                                                                      relativeTo: .headline))
                                                     .foregroundColor(.black)
                                                     .padding(.bottom, 2)
                                                     .lineSpacing(4.0)
