@@ -19,8 +19,13 @@ final class QuestionViewModel: ObservableObject {
                                  answerParagraph: "Testing Answer 1")
         var question2 = Question(question: "Testing Question 2", type: "text", id: "2", answerBullet: [],
                                  answerParagraph: "Testing Answer 2")
-        var question3 = Question(question: "Testing Question 3", type: "text", id: "3", answerBullet: [],
-                                 answerParagraph: "Testing Answer 3")
+        var question3 = Question(question: "Testing Question 3",
+                                 type: "bullet",
+                                 id: "3",
+                                 answerBullet:
+                                    ["Testing a really long line so I can make sure it wraps around as it should",
+                                     "Answer", "3"],
+                                 answerParagraph: "")
 
         questions.append(question1)
         questions.append(question2)
