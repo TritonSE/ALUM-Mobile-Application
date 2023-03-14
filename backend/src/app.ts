@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
-import {notesRouter} from "./routes/notes"
+import { notesRouter } from "./routes/notes";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
 import { imageRouter } from "./routes/image";

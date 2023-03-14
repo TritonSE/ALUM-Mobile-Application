@@ -121,13 +121,12 @@ const validateID = (uid: string) => {
   return uid;
 };
 
-const validateReqBodyWithCake = (cake: Cake) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+const validateReqBodyWithCake =
+  (cake: Cake) => async (req: Request, res: Response, next: NextFunction) => {
     const result = cake.check(req.body);
     if (!result.ok) {
       return res.status(400).send(result.error.toString());
     }
     return next();
-  }
-}
+  };
 export { validateMentee, validateMentor, validateID, validateReqBodyWithCake };

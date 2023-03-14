@@ -10,8 +10,10 @@ import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes"
  */
 class Answer implements AnswerType {
   answer: string | Array<string>;
+
   type: string;
-  id: string
+
+  id: string;
 
   toObject(): AnswerType {
     return { answer: this.answer, type: this.type, id: this.id };
@@ -20,9 +22,8 @@ class Answer implements AnswerType {
   constructor(type: string, id: string) {
     if (type === "text") {
       this.answer = "";
-    }
-    else {
-      this.answer = new Array<string>;
+    } else {
+      this.answer = new Array<string>();
     }
     this.type = type;
     this.id = id;
@@ -40,7 +41,7 @@ class Answer implements AnswerType {
     } else {
       try {
         assert(Array.isArray(this.answer));
-        for (var newAnswers of input) {
+        for (const newAnswers of input) {
           this.answer.push(newAnswers);
         }
       } catch (e) {
@@ -105,7 +106,7 @@ async function createPostSessionNotes() {
 }
 
 async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
-  console.log('updatedNotes', updatedNotes)
+  console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
   if (!noteDoc) {
     throw new Error("Document not found");
@@ -113,14 +114,16 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
     // Can improve this in future if needed by creating a hashmap
     noteDoc.answers.forEach((_, answerIndex) => {
       const updatedNote = updatedNotes.find(
-        updatedNote => updatedNote.question_id === noteDoc.answers[answerIndex].id
+        (note) => note.question_id === noteDoc.answers[answerIndex].id
       );
       if (updatedNote) {
         noteDoc.answers[answerIndex].answer = updatedNote.answer;
       }
     });
     try {
-      noteDoc.markModified('answers');
+      // Since we are modifying noteDoc.answers[index].answer directly,
+      // mongoose does not notice the change so ignores saving it unless we manually mark
+      noteDoc.markModified("answers");
       return await noteDoc.save();
     } catch (error) {
       console.error(error);
