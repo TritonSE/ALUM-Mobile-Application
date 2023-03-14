@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
+
 import { imageRouter } from "./routes/image";
 import { mongoURI, port } from "./config";
 
@@ -22,6 +23,7 @@ mongoose.connect(mongoURI, {}, () => {
 
 server.app.use(json());
 server.app.use(userRouter);
+
 server.app.use(imageRouter);
 
 // make server listen on some port
