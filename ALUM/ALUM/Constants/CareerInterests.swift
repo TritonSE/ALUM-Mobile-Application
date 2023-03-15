@@ -8,6 +8,13 @@
 import Foundation
 
 class CareerInterests {
+    static var menteeCareerInterests: [String] =
+        [
+            "Statistics",
+            "Computer Science",
+            "Product Management"
+        ]
+    
     static var menteeCareerInterestsTags: [TagState] =
         [
             TagState(tagString: "Statistics", isChecked: false),

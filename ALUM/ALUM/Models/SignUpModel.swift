@@ -17,8 +17,8 @@ struct Mentee {
     var name: String
     var email: String
     var grade: String
-    var topicsOfInterest: [TagState]
-    var careerInterests: [TagState]
+    var topicsOfInterest: Set<String>
+    var careerInterests: Set<String>
     var mentorshipGoal: String
     var password: String
 }
@@ -31,5 +31,6 @@ struct Mentor {
     var major: String
     var minor: String
     var intendedCareer: String
+    var whyMentor: String
     var password: String
 }

@@ -22,11 +22,10 @@ struct SignUpMenteeInfoScreen: View {
 
     @State var interestsIsShowing: Bool = false
     @State var careerIsShowing: Bool = false
+    @State var goalIsShowing: Bool = false
 
     @State var selectedGrade: GradeType?
-    @State var allMenteeInterests: [TagState] = TopicsOfInterest.topicsOfInterestTags
-    @State var allCareerInterests: [TagState] = CareerInterests.menteeCareerInterestsTags
-
+    
     var body: some View {
         ZStack {
             Color("ALUM White 2").edgesIgnoringSafeArea(.all)
@@ -121,38 +120,36 @@ struct SignUpMenteeInfoScreen: View {
                                 .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                             } else {
                                 VStack {
-                                    WrappingHStack(viewModel.mentee.topicsOfInterest.indices, id: \.self) { idx in
-                                        if viewModel.mentee.topicsOfInterest[idx].isChecked {
-                                            TagDisplay(
-                                                tagString: viewModel.mentee.topicsOfInterest[idx].tagString,
-                                                crossShowing: false,
-                                                crossAction: {
-                                                    viewModel.mentee.topicsOfInterest[idx].isChecked = false
-                                                }
-                                            )
+                                    WrappingHStack(viewModel.mentee.topicsOfInterest.sorted(), id: \.self) { interest in
+                                        TagDisplay(
+                                            tagString: interest,
+                                            crossShowing: true,
+                                            crossAction: {
+                                                viewModel.mentee.topicsOfInterest.remove(interest)
+                                            }
+                                        )
+                                        .padding(.bottom, 16)
+                                    }
+
+                                    HStack {
+                                        AddTagButton(text: "Add Topic", isShowing: $interestsIsShowing)
                                             .padding(.bottom, 16)
-                                        }
+                                        
+                                        Spacer()
                                     }
                                 }
-                                .padding(.leading)
-                                .padding(.trailing)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 16)
                                 .padding(.bottom, 32)
                                 .padding(.top, 14)
                             }
                         }
                         .sheet(isPresented: $interestsIsShowing,
-                               onDismiss: {
-                                    viewModel.mentee.topicsOfInterest = []
-                                    for idx in allMenteeInterests.indices {
-                                        if allMenteeInterests[idx].isChecked {
-                                            viewModel.mentee.topicsOfInterest.append(allMenteeInterests[idx])
-                                        }
-                                    }
-                                    interestsIsShowing = false
-                                },
                                content: {
-                                    TagEditor(items: $allMenteeInterests, screenTitle: "Topics of Interest")
-                                        .padding(.top, 22)
+                                    TagEditor(selectedTags: $viewModel.mentee.topicsOfInterest,
+                                              tempTags: viewModel.mentee.topicsOfInterest,
+                                              screenTitle: "Topics of Interest", predefinedTags: TopicsOfInterest.topicsOfInterest)
+                                                .padding(.top, 22)
                                 }
                         )
 
@@ -191,17 +188,22 @@ struct SignUpMenteeInfoScreen: View {
                                 .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                             } else {
                                 VStack {
-                                    WrappingHStack(viewModel.mentee.careerInterests.indices, id: \.self) { idx in
-                                        if viewModel.mentee.careerInterests[idx].isChecked {
-                                            TagDisplay(
-                                                tagString: viewModel.mentee.careerInterests[idx].tagString,
-                                                crossShowing: false,
-                                                crossAction: {
-                                                    viewModel.mentee.topicsOfInterest[idx].isChecked = false
-                                                }
-                                            )
+                                    WrappingHStack(viewModel.mentee.careerInterests.sorted(), id: \.self) { interest in
+                                        TagDisplay(
+                                            tagString: interest,
+                                            crossShowing: true,
+                                            crossAction: {
+                                                viewModel.mentee.careerInterests.remove(interest)
+                                            }
+                                        )
+                                        .padding(.bottom, 16)
+                                    }
+                                    
+                                    HStack {
+                                        AddTagButton(text: "Add Career", isShowing: $careerIsShowing)
                                             .padding(.bottom, 16)
-                                        }
+                                        
+                                        Spacer()
                                     }
                                 }
                                 .padding(.leading)
@@ -211,47 +213,26 @@ struct SignUpMenteeInfoScreen: View {
                             }
                         }
                         .sheet(isPresented: $careerIsShowing,
-                               onDismiss: {
-                                    viewModel.mentee.careerInterests = []
-                                    for idx in allCareerInterests.indices {
-                                        if allCareerInterests[idx].isChecked {
-                                            viewModel.mentee.careerInterests.append(allCareerInterests[idx])
-                                        }
-                                    }
-                                    careerIsShowing = false
-                                },
                                content: {
-                                    TagEditor(items: $allCareerInterests, screenTitle: "Career Interests")
-                                        .padding(.top, 22)
+                                    TagEditor(selectedTags: $viewModel.mentee.careerInterests,
+                                              tempTags: viewModel.mentee.careerInterests,
+                                              screenTitle: "Career Interests", predefinedTags: CareerInterests.menteeCareerInterests)
+                                                .padding(.top, 22)
                                 }
                         )
 
-                        Group {
-                            HStack {
-                                Text("What do you hope to get out of \nmentorship?")
-                                    .lineSpacing(4.0)
-                                    .font(.custom("Metropolis-Regular", size: 17))
-                                    .foregroundColor(Color("ALUM Dark Blue"))
+                        HStack {
+                            Text("What do you hope to get out of \nmentorship?")
+                                .lineSpacing(4.0)
+                                .font(.custom("Metropolis-Regular", size: 17))
+                                .foregroundColor(Color("ALUM Dark Blue"))
 
-                                Spacer()
-                            }
-                            .padding(.leading, 16)
-                            .padding(.bottom, 2)
-
-                            ZStack {
-                                TextField("", text: $viewModel.mentee.mentorshipGoal)
-                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                                    .frame(height: 48.0)
-                                    .background(
-                                        Color("ALUM White")
-                                            .cornerRadius(8.0)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
-                                    )
-                            }
-                            .padding(.init(top: 0.0, leading: 16.0, bottom: 67.0, trailing: 16.0))
+                            Spacer()
                         }
+                        .padding(.leading, 16)
+                        .padding(.bottom, 2)
+                        
+                        MentorshipGoal(goalIsShowing: $goalIsShowing, mentorshipGoal: $viewModel.mentee.mentorshipGoal, tempGoal: viewModel.mentee.mentorshipGoal)
                     }
                 }
 
@@ -320,6 +301,37 @@ struct SignUpMenteeInfoScreen: View {
                 selectedGrade = .twelve
             }
         }
+    }
+}
+
+struct MentorshipGoal: View {
+    @Binding var goalIsShowing: Bool
+    @Binding var mentorshipGoal: String
+    @State var tempGoal: String = ""
+    
+    func cancel() {
+        tempGoal = mentorshipGoal
+        goalIsShowing = false
+    }
+    
+    func done(textfield: String) {
+        mentorshipGoal = tempGoal
+        goalIsShowing = false
+    }
+    
+    var body: some View {
+        Button {
+            goalIsShowing = true
+        } label: {
+            ResizingTextBox(text: $tempGoal)
+        }
+        .sheet(isPresented: $goalIsShowing,
+               content: {
+                    DrawerContainer(cancelFunc: cancel, doneFunc: done) {
+                        ParagraphInput(question: "What do you hope to get out of mentorship?", text: $tempGoal)
+                    }
+                }
+        )
     }
 }
 
