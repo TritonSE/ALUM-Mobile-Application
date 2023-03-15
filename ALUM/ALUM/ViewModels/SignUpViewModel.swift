@@ -23,7 +23,7 @@ final class SignUpViewModel: ObservableObject {
     @Published var mentee = Mentee(name: "", email: "", grade: "", topicsOfInterest: [], careerInterests: [],
                                    mentorshipGoal: "", password: "")
     @Published var mentor = Mentor(name: "", email: "", yearOfGrad: "", university: "", major: "", minor: "",
-                                   intendedCareer: "", whyMentor: "", password: "")
+                                   intendedCareer: "", whyMentor: "", topicsOfExpertise: [], password: "")
 
     func setUpMentee() {
         mentee.name = account.name

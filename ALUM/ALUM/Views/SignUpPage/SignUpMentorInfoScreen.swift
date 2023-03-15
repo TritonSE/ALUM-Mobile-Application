@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WrappingHStack
 
 struct SignUpMentorInfoScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
@@ -14,6 +15,7 @@ struct SignUpMentorInfoScreen: View {
     @State var yearIsShowing: Bool = false
     @State var universityIsShowing: Bool = false
     @State var whyMentorIsShowing: Bool = false
+    @State var expertiseIsShowing: Bool = false
 
     var body: some View {
         ZStack {
@@ -22,33 +24,26 @@ struct SignUpMentorInfoScreen: View {
             VStack {
 
                 ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
-                    .frame(alignment: .top)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white.ignoresSafeArea(edges: .top))
-                    .frame(maxWidth: .infinity)
+                    .frame(alignment: .top).frame(maxWidth: .infinity)
+                    .padding().background(Color.white.ignoresSafeArea(edges: .top)).frame(maxWidth: .infinity)
 
                 ScrollView {
                     VStack {
                         HStack {
-                            Text("Tell us about yourself")
-                                .font(.custom("Metropolis-Regular", size: 34))
+                            Text("Tell us about yourself").font(.custom("Metropolis-Regular", size: 34))
                                 .foregroundColor(Color("NeutralGray3"))
                             Spacer()
                         }
-                        .padding(.bottom, 32)
-                        .padding(.leading, 16)
-                        .padding(.top, 8)
+                        .padding(.bottom, 32).padding(.leading, 16).padding(.top, 8)
 
                         HStack {
                             Text("Year of Graduation from Northwood")
-                                .font(.custom("Metropolis-Regular", size: 17))
+                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 .foregroundColor(Color("ALUM Dark Blue"))
 
                             Spacer()
                         }
-                        .padding(.bottom, 2)
-                        .padding(.leading, 16)
+                        .padding(.bottom, 2).padding(.leading, 16)
 
                         Button {
                             yearIsShowing = true
@@ -57,18 +52,15 @@ struct SignUpMentorInfoScreen: View {
                                 HStack {
 
                                     if viewModel.mentor.yearOfGrad != "" {
-                                        Text(viewModel.mentor.yearOfGrad)
-                                            .foregroundColor(.black)
+                                        Text(viewModel.mentor.yearOfGrad).foregroundColor(.black)
                                     } else {
-                                        Text("Select a year")
-                                            .foregroundColor(Color("NeutralGray3"))
+                                        Text("Select a year").foregroundColor(Color("NeutralGray3"))
                                     }
                                     Spacer()
                                 }
                                 .padding(.leading, 16)
 
-                                Image(systemName: "chevron.down")
-                                    .padding(.trailing, 16)
+                                Image(systemName: "chevron.down").padding(.trailing, 16)
                             }
 
                         }
@@ -78,162 +70,141 @@ struct SignUpMentorInfoScreen: View {
                                                 yearChoice: viewModel.mentor.yearOfGrad)
                         })
                         .frame(height: 48.0)
-                        .background(
-                            Color("ALUM White")
-                                .cornerRadius(8.0)
-                        )
+                        .background(Color("ALUM White").cornerRadius(8.0))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8.0)
-                                .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                            RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
 
                         HStack {
                             Text("College/University")
-                                .font(.custom("Metropolis-Regular", size: 17))
+                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 .foregroundColor(Color("ALUM Dark Blue"))
 
                             Spacer()
                         }
-                        .padding(.bottom, 2)
-                        .padding(.leading, 16)
+                        .padding(.bottom, 2).padding(.leading, 16)
 
                         Button {
                             universityIsShowing = true
                         } label: {
                             HStack {
                                 if viewModel.mentor.university != "" {
-                                    Text(viewModel.mentor.university)
-                                        .foregroundColor(.black)
+                                    Text(viewModel.mentor.university).foregroundColor(.black)
                                 } else {
-                                    Text("Search for your school")
-                                        .foregroundColor(Color("NeutralGray3"))
+                                    Text("Search for your school").foregroundColor(Color("NeutralGray3"))
                                 }
                                 Spacer()
                             }
                             .padding(.leading, 16)
                         }
-                        .sheet(isPresented: $universityIsShowing,
-                            content: {
+                        .sheet(isPresented: $universityIsShowing, content: {
                             SelectUniversityComponent(universityChoice: viewModel.mentor.university,
                                                       university: $viewModel.mentor.university)
                         })
                         .frame(height: 48.0)
-                        .background(
-                            Color("ALUM White")
-                                .cornerRadius(8.0)
-                        )
+                        .background(Color("ALUM White").cornerRadius(8.0))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 8.0)
-                                .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                            RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
 
-                        Group {
-                            HStack {
-                                Text("Major")
-                                    .font(.custom("Metropolis-Regular", size: 17))
-                                    .foregroundColor(Color("ALUM Dark Blue"))
+                        ALUMTextFieldComponent(title: "Major",
+                                               suggestion: "e.g. Economics, Statistics",
+                                               text: $viewModel.mentor.major)
 
-                                Spacer()
-                            }
-                            .padding(.bottom, 2)
-                            .padding(.leading, 16)
+                        ALUMTextFieldComponent(title: "Minor",
+                                               suggestion: "e.g. Literature, Psychology",
+                                               text: $viewModel.mentor.minor)
 
-                            ZStack {
-                                TextField("e.g. Economics, Statistics", text: $viewModel.mentor.major)
-                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                                    .frame(height: 48.0)
-                                    .background(
-                                        Color("ALUM White")
-                                            .cornerRadius(8.0)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8.0)
-                                            .stroke(Color("NeutralGray3"), lineWidth: 1.0)
-                                    )
-                            }
-                            .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-                        }
+                        ALUMTextFieldComponent(title: "Intended Career",
+                                               suggestion: "e.g. Software Engineer, Product Designer",
+                                               text: $viewModel.mentor.intendedCareer)
 
                         Group {
                             HStack {
-                                Text("Minor")
-                                    .font(.custom("Metropolis-Regular", size: 17))
-                                    .foregroundColor(Color("ALUM Dark Blue"))
-
-                                Spacer()
-                            }
-                            .padding(.bottom, 2)
-                            .padding(.leading, 16)
-
-                            ZStack {
-                                TextField("e.g. Literature, Psychology", text: $viewModel.mentor.minor)
-                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-                                    .frame(height: 48.0)
-                                    .background(
-                                        Color("ALUM White")
-                                            .cornerRadius(8.0)
-                                    )
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8.0)
-                                            .stroke(Color("NeutralGray3"), lineWidth: 1.0)
-                                    )
-                            }
-                            .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-                        }
-
-                        Group {
-                            HStack {
-                                Text("Intended Career")
+                                Text("Topics of Expertise")
                                     .lineSpacing(4.0)
                                     .font(.custom("Metropolis-Regular", size: 17))
                                     .foregroundColor(Color("ALUM Dark Blue"))
 
                                 Spacer()
                             }
-                            .padding(.bottom, 2)
                             .padding(.leading, 16)
+                            .padding(.bottom, 2)
 
-                            ZStack {
-                                TextField("e.g. Software Engineer, Product Designer",
-                                          text: $viewModel.mentor.intendedCareer)
-                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
+                            Button {
+                                expertiseIsShowing = true
+                            }  label: {
+                                if viewModel.mentor.topicsOfExpertise.isEmpty {
+                                    HStack {
+                                        Text("Search to add topics").font(.custom("Metropolis-Regular", size: 17))
+                                            .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
+
+                                        Spacer()
+                                    }
                                     .frame(height: 48.0)
-                                    .background(
-                                        Color("ALUM White")
-                                            .cornerRadius(8.0)
-                                    )
+                                    .background(Color("ALUM White").cornerRadius(8.0))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 8.0)
                                             .stroke(Color("NeutralGray3"), lineWidth: 1.0)
                                     )
+                                    .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                                } else {
+                                    VStack {
+                                        WrappingHStack(viewModel.mentor.topicsOfExpertise.sorted(),
+                                                       id: \.self) { topic in
+                                            TagDisplay(
+                                                tagString: topic,
+                                                crossShowing: true,
+                                                crossAction: {
+                                                    viewModel.mentor.topicsOfExpertise.remove(topic)
+                                                }
+                                            )
+                                            .padding(.bottom, 16)
+                                        }
+
+                                        HStack {
+                                            AddTagButton(text: "Add Topic", isShowing: $expertiseIsShowing)
+                                                .padding(.bottom, 16)
+
+                                            Spacer()
+                                        }
+                                    }
+                                    .padding(.leading, 16).padding(.trailing, 16)
+                                    .padding(.bottom, 32).padding(.top, 14)
+                                }
                             }
-                            .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                            .sheet(isPresented: $expertiseIsShowing,
+                                   content: {
+                                        TagEditor(selectedTags: $viewModel.mentor.topicsOfExpertise,
+                                                  tempTags: viewModel.mentor.topicsOfExpertise,
+                                                  screenTitle: "Topics of Expertise",
+                                                  predefinedTags: TopicsOfInterest.topicsOfInterest)
+                                                    .padding(.top, 22)
+                                    }
+                            )
                         }
 
-                        HStack {
-                            Text("Why do you want to be a mentor?")
-                                .lineSpacing(4.0)
-                                .font(.custom("Metropolis-Regular", size: 17))
-                                .foregroundColor(Color("ALUM Dark Blue"))
+                        Group {
+                            HStack {
+                                Text("Why do you want to be a mentor?").lineSpacing(4.0)
+                                    .font(.custom("Metropolis-Regular", size: 17))
+                                    .foregroundColor(Color("ALUM Dark Blue"))
 
-                            Spacer()
+                                Spacer()
+                            }
+                            .padding(.leading, 16).padding(.bottom, 2)
+
+                            WhyMentor(whyMentorIsShowing: $whyMentorIsShowing,
+                                      whyMentor: $viewModel.mentor.whyMentor,
+                                      tempGoal: viewModel.mentor.whyMentor)
                         }
-                        .padding(.leading, 16)
-                        .padding(.bottom, 2)
-
-                        WhyMentor(whyMentorIsShowing: $whyMentorIsShowing,
-                                  whyMentor: $viewModel.mentor.whyMentor,
-                                  tempGoal: viewModel.mentor.whyMentor)
                     }
                 }
 
                 ZStack {
-                    Rectangle()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 114)
-                        .foregroundColor(Color.white)
+                    Rectangle().frame(maxWidth: .infinity).frame(height: 114).foregroundColor(Color.white)
                         .ignoresSafeArea(edges: .all)
 
                     HStack {
@@ -245,8 +216,7 @@ struct SignUpMentorInfoScreen: View {
                                 Text("Back")
                             }
                         }
-                        .buttonStyle(OutlinedButtonStyle(disabled: false))
-                        .padding(.trailing, 16)
+                        .buttonStyle(OutlinedButtonStyle(disabled: false)).padding(.trailing, 16)
                         .frame(width: UIScreen.main.bounds.width * 0.3)
 
                         Button {
@@ -260,13 +230,10 @@ struct SignUpMentorInfoScreen: View {
                         .buttonStyle(FilledInButtonStyle(disabled: false))
                         .frame(width: UIScreen.main.bounds.width * 0.6)
                     }
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
+                    .padding(.leading, 16).padding(.trailing, 16)
                 }
-                .frame(alignment: .bottom)
-                .frame(maxWidth: .infinity)
-                .background(Color.white.ignoresSafeArea(edges: .bottom))
-                .frame(maxWidth: .infinity)
+                .frame(alignment: .bottom).frame(maxWidth: .infinity)
+                .background(Color.white.ignoresSafeArea(edges: .bottom)).frame(maxWidth: .infinity)
             }
         }
         .navigationBarItems(leading: NavigationLink(

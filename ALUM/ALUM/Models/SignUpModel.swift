@@ -32,5 +32,6 @@ struct Mentor {
     var minor: String
     var intendedCareer: String
     var whyMentor: String
+    var topicsOfExpertise: Set<String>
     var password: String
 }
