@@ -10,7 +10,7 @@ import SwiftUI
 struct SignUpMentorInfoScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     @State var yearIsShowing: Bool = false
     @State var universityIsShowing: Bool = false
     @State var whyMentorIsShowing: Bool = false
@@ -74,7 +74,8 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .sheet(isPresented: $yearIsShowing,
                             content: {
-                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad, yearChoice: viewModel.mentor.yearOfGrad)
+                            SelectYearComponent(year: $viewModel.mentor.yearOfGrad,
+                                                yearChoice: viewModel.mentor.yearOfGrad)
                         })
                         .frame(height: 48.0)
                         .background(
@@ -114,7 +115,8 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .sheet(isPresented: $universityIsShowing,
                             content: {
-                            SelectUniversityComponent(universityChoice: viewModel.mentor.university, university: $viewModel.mentor.university)
+                            SelectUniversityComponent(universityChoice: viewModel.mentor.university,
+                                                      university: $viewModel.mentor.university)
                         })
                         .frame(height: 48.0)
                         .background(
@@ -194,7 +196,8 @@ struct SignUpMentorInfoScreen: View {
                             .padding(.leading, 16)
 
                             ZStack {
-                                TextField("e.g. Software Engineer, Product Designer", text: $viewModel.mentor.intendedCareer)
+                                TextField("e.g. Software Engineer, Product Designer",
+                                          text: $viewModel.mentor.intendedCareer)
                                     .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                                     .frame(height: 48.0)
                                     .background(
@@ -208,7 +211,7 @@ struct SignUpMentorInfoScreen: View {
                             }
                             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         }
-                        
+
                         HStack {
                             Text("Why do you want to be a mentor?")
                                 .lineSpacing(4.0)
@@ -219,8 +222,10 @@ struct SignUpMentorInfoScreen: View {
                         }
                         .padding(.leading, 16)
                         .padding(.bottom, 2)
-                        
-                        WhyMentor(whyMentorIsShowing: $whyMentorIsShowing, whyMentor: $viewModel.mentor.whyMentor, tempGoal: viewModel.mentor.whyMentor)
+
+                        WhyMentor(whyMentorIsShowing: $whyMentorIsShowing,
+                                  whyMentor: $viewModel.mentor.whyMentor,
+                                  tempGoal: viewModel.mentor.whyMentor)
                     }
                 }
 
@@ -287,17 +292,17 @@ struct WhyMentor: View {
     @Binding var whyMentorIsShowing: Bool
     @Binding var whyMentor: String
     @State var tempGoal: String = ""
-    
+
     func cancel() {
         tempGoal = whyMentor
         whyMentorIsShowing = false
     }
-    
+
     func done(textfield: String) {
         whyMentor = tempGoal
         whyMentorIsShowing = false
     }
-    
+
     var body: some View {
         Button {
             whyMentorIsShowing = true

@@ -25,7 +25,7 @@ struct SignUpMenteeInfoScreen: View {
     @State var goalIsShowing: Bool = false
 
     @State var selectedGrade: GradeType?
-    
+
     var body: some View {
         ZStack {
             Color("ALUM White 2").edgesIgnoringSafeArea(.all)
@@ -33,11 +33,8 @@ struct SignUpMenteeInfoScreen: View {
             VStack {
 
                 ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
-                    .frame(alignment: .top)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white.ignoresSafeArea(edges: .top))
-                    .frame(maxWidth: .infinity)
+                    .frame(alignment: .top).frame(maxWidth: .infinity)
+                    .padding().background(Color.white.ignoresSafeArea(edges: .top)).frame(maxWidth: .infinity)
 
                 ScrollView {
                     VStack {
@@ -63,32 +60,18 @@ struct SignUpMenteeInfoScreen: View {
 
                         HStack {
                             SignUpGradeComponent(grade: "9", isSelected: selectedGrade == .nine)
-                                .onTapGesture {
-                                    selectedGrade = .nine
-                                    viewModel.mentee.grade = "9"
-                                }
+                                .onTapGesture {selectedGrade = .nine; viewModel.mentee.grade = "9"}
                             SignUpGradeComponent(grade: "10", isSelected: selectedGrade == .ten)
-                                .onTapGesture {
-                                    selectedGrade = .ten
-                                    viewModel.mentee.grade = "10"
-                                }
+                                .onTapGesture {selectedGrade = .ten; viewModel.mentee.grade = "10"}
                             SignUpGradeComponent(grade: "11", isSelected: selectedGrade == .eleven)
-                                .onTapGesture {
-                                    selectedGrade = .eleven
-                                    viewModel.mentee.grade = "11"
-                                }
+                                .onTapGesture {selectedGrade = .eleven; viewModel.mentee.grade = "11"}
                             SignUpGradeComponent(grade: "12", isSelected: selectedGrade == .twelve)
-                                .onTapGesture {
-                                    selectedGrade = .twelve
-                                    viewModel.mentee.grade = "12"
-                                }
+                                .onTapGesture {selectedGrade = .twelve; viewModel.mentee.grade = "12"}
                         }
                         .padding(.bottom, 32)
 
                         HStack {
-                            Text("Topics of Interest")
-                                .lineSpacing(4.0)
-                                .font(.custom("Metropolis-Regular", size: 17))
+                            Text("Topics of Interest").lineSpacing(4.0).font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(Color("ALUM Dark Blue"))
 
                             Spacer()
@@ -101,21 +84,15 @@ struct SignUpMenteeInfoScreen: View {
                         }  label: {
                             if viewModel.mentee.topicsOfInterest.isEmpty {
                                 HStack {
-                                    Text("Search to add topics")
-                                        .font(.custom("Metropolis-Regular", size: 17))
-                                        .foregroundColor(Color("NeutralGray3"))
-                                        .padding(.leading, 16)
+                                    Text("Search to add topics").font(.custom("Metropolis-Regular", size: 17))
+                                        .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
 
                                     Spacer()
                                 }
                                 .frame(height: 48.0)
-                                .background(
-                                    Color("ALUM White")
-                                        .cornerRadius(8.0)
-                                )
+                                .background(Color("ALUM White").cornerRadius(8.0))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 8.0)
-                                        .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                                    RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
                                 )
                                 .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                             } else {
@@ -134,7 +111,7 @@ struct SignUpMenteeInfoScreen: View {
                                     HStack {
                                         AddTagButton(text: "Add Topic", isShowing: $interestsIsShowing)
                                             .padding(.bottom, 16)
-                                        
+
                                         Spacer()
                                     }
                                 }
@@ -148,7 +125,8 @@ struct SignUpMenteeInfoScreen: View {
                                content: {
                                     TagEditor(selectedTags: $viewModel.mentee.topicsOfInterest,
                                               tempTags: viewModel.mentee.topicsOfInterest,
-                                              screenTitle: "Topics of Interest", predefinedTags: TopicsOfInterest.topicsOfInterest)
+                                              screenTitle: "Topics of Interest",
+                                              predefinedTags: TopicsOfInterest.topicsOfInterest)
                                                 .padding(.top, 22)
                                 }
                         )
@@ -198,11 +176,11 @@ struct SignUpMenteeInfoScreen: View {
                                         )
                                         .padding(.bottom, 16)
                                     }
-                                    
+
                                     HStack {
                                         AddTagButton(text: "Add Career", isShowing: $careerIsShowing)
                                             .padding(.bottom, 16)
-                                        
+
                                         Spacer()
                                     }
                                 }
@@ -216,7 +194,8 @@ struct SignUpMenteeInfoScreen: View {
                                content: {
                                     TagEditor(selectedTags: $viewModel.mentee.careerInterests,
                                               tempTags: viewModel.mentee.careerInterests,
-                                              screenTitle: "Career Interests", predefinedTags: CareerInterests.menteeCareerInterests)
+                                              screenTitle: "Career Interests",
+                                              predefinedTags: CareerInterests.menteeCareerInterests)
                                                 .padding(.top, 22)
                                 }
                         )
@@ -231,8 +210,10 @@ struct SignUpMenteeInfoScreen: View {
                         }
                         .padding(.leading, 16)
                         .padding(.bottom, 2)
-                        
-                        MentorshipGoal(goalIsShowing: $goalIsShowing, mentorshipGoal: $viewModel.mentee.mentorshipGoal, tempGoal: viewModel.mentee.mentorshipGoal)
+
+                        MentorshipGoal(goalIsShowing: $goalIsShowing,
+                                       mentorshipGoal: $viewModel.mentee.mentorshipGoal,
+                                       tempGoal: viewModel.mentee.mentorshipGoal)
                     }
                 }
 
@@ -308,17 +289,17 @@ struct MentorshipGoal: View {
     @Binding var goalIsShowing: Bool
     @Binding var mentorshipGoal: String
     @State var tempGoal: String = ""
-    
+
     func cancel() {
         tempGoal = mentorshipGoal
         goalIsShowing = false
     }
-    
+
     func done(textfield: String) {
         mentorshipGoal = tempGoal
         goalIsShowing = false
     }
-    
+
     var body: some View {
         Button {
             goalIsShowing = true

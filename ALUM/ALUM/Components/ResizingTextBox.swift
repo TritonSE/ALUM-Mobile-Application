@@ -14,7 +14,7 @@ struct ResizingTextBox: View {
         VStack {
             if text.count <= 150 {
                 HStack {
-                    VStack (alignment: .leading) {
+                    VStack(alignment: .leading) {
                         Text(text)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.black)
@@ -24,7 +24,7 @@ struct ResizingTextBox: View {
 
                         Spacer()
                     }
-                    
+
                     Spacer()
                 }
                 .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
@@ -38,7 +38,7 @@ struct ResizingTextBox: View {
                 )
             } else {
                 HStack {
-                    VStack (alignment: .leading){
+                    VStack(alignment: .leading) {
                         Text(text)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.black)
@@ -46,10 +46,10 @@ struct ResizingTextBox: View {
                             .lineSpacing(4.0)
                             .padding(.top, 16)
                             .padding(.bottom, 8)
-                        
+
                         Spacer()
                     }
-                    
+
                     Spacer()
                 }
                 .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
@@ -70,7 +70,7 @@ struct ResizingTextBox: View {
 
 struct ResizingTextBox_Previews: PreviewProvider {
     static var text = Binding.constant("Hello World")
-    
+
     static var previews: some View {
         ResizingTextBox(text: text)
     }

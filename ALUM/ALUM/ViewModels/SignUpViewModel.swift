@@ -44,16 +44,4 @@ final class SignUpViewModel: ObservableObject {
             self.passAgainFunc = []
         }
     }
-
-    func loadMenteeInterests(allInterests: [TagState]) -> [TagState] {
-        var menteeInterests: [TagState] = []
-
-        for idx in allInterests.indices {
-            if allInterests[idx].isChecked {
-                menteeInterests.append(allInterests[idx])
-            }
-        }
-
-        return menteeInterests
-    }
 }
