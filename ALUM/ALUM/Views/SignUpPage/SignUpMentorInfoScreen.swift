@@ -10,8 +10,10 @@ import SwiftUI
 struct SignUpMentorInfoScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
     @Environment(\.dismiss) var dismiss
+    
     @State var yearIsShowing: Bool = false
     @State var universityIsShowing: Bool = false
+    @State var whyMentorIsShowing: Bool = false
 
     var body: some View {
         ZStack {
@@ -206,7 +208,19 @@ struct SignUpMentorInfoScreen: View {
                             }
                             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                         }
+                        
+                        HStack {
+                            Text("Why do you want to be a mentor?")
+                                .lineSpacing(4.0)
+                                .font(.custom("Metropolis-Regular", size: 17))
+                                .foregroundColor(Color("ALUM Dark Blue"))
 
+                            Spacer()
+                        }
+                        .padding(.leading, 16)
+                        .padding(.bottom, 2)
+                        
+                        WhyMentor(whyMentorIsShowing: $whyMentorIsShowing, whyMentor: $viewModel.mentor.whyMentor, tempGoal: viewModel.mentor.whyMentor)
                     }
                 }
 
@@ -266,6 +280,37 @@ struct SignUpMentorInfoScreen: View {
         .onAppear {
             viewModel.setUpMentor()
         }
+    }
+}
+
+struct WhyMentor: View {
+    @Binding var whyMentorIsShowing: Bool
+    @Binding var whyMentor: String
+    @State var tempGoal: String = ""
+    
+    func cancel() {
+        tempGoal = whyMentor
+        whyMentorIsShowing = false
+    }
+    
+    func done(textfield: String) {
+        whyMentor = tempGoal
+        whyMentorIsShowing = false
+    }
+    
+    var body: some View {
+        Button {
+            whyMentorIsShowing = true
+        } label: {
+            ResizingTextBox(text: $tempGoal)
+        }
+        .sheet(isPresented: $whyMentorIsShowing,
+               content: {
+                    DrawerContainer(cancelFunc: cancel, doneFunc: done) {
+                        ParagraphInput(question: "Why do you want to be a mentor?", text: $tempGoal)
+                    }
+                }
+        )
     }
 }
 
