@@ -14,6 +14,7 @@ import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
+import { string } from "caketype";
 
 const router = express.Router();
 
@@ -35,6 +36,7 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
     const status = "under review";
     const imageId = defaultImageID;
     const about = "N/A";
+    const mentorID = "";
     const mentee = new Mentee({
       name,
       imageId,
@@ -43,6 +45,7 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
       topicsOfInterest,
       careerInterests,
       mentorshipGoal,
+      mentorID,
       status,
     });
     await createUser(mentee._id.toString(), email, password, "mentee");
@@ -90,6 +93,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
     const imageId = defaultImageID;
     const about = "N/A";
     const calendlyLink = "N/A";
+    const menteeIDs: string[] = [];
     const mentor = new Mentor({
       name,
       imageId,
@@ -103,6 +107,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
       career,
       topicsOfExpertise,
       mentorMotivation,
+      menteeIDs,
       personalAccessToken,
       status,
     });
