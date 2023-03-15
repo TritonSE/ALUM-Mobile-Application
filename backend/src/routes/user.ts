@@ -14,7 +14,6 @@ import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
-import { string } from "caketype";
 
 const router = express.Router();
 
@@ -36,7 +35,7 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
     const status = "under review";
     const imageId = defaultImageID;
     const about = "N/A";
-    const mentorID = "";
+    const mentorID = "N/A";
     const mentee = new Mentee({
       name,
       imageId,
