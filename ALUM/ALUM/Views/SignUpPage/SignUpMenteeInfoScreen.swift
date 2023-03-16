@@ -237,14 +237,12 @@ struct SignUpMenteeInfoScreen: View {
                         .padding(.trailing, 16)
                         .frame(width: UIScreen.main.bounds.width * 0.3)
 
-                        Button {
-
-                        } label: {
+                        NavigationLink(destination: SignUpConfirmationMentee(viewModel: viewModel), label: {
                             HStack {
                                 Text("Continue")
                                 Image(systemName: "arrow.right")
                             }
-                        }
+                        })
                         .buttonStyle(FilledInButtonStyle(disabled: false))
                         .frame(width: UIScreen.main.bounds.width * 0.6)
                     }

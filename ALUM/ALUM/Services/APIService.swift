@@ -12,8 +12,8 @@ struct MenteePostData: Codable {
     var email: String
     var password: String
     var grade: String
-    var topicsOfInterest: [String]
-    var careerInterests: [String]
+    var topicsOfInterest: Set<String>
+    var careerInterests: Set<String>
     var mentorshipGoal: String
 }
 
@@ -26,7 +26,7 @@ struct MentorPostData: Codable {
     var major: String
     var minor: String
     var career: String
-    var topicsOfExpertise: [String]
+    var topicsOfExpertise: Set<String>
     var mentorMotivation: String
     var organizationId: String
     var personalAccessToken: String

@@ -197,8 +197,8 @@ struct SignUpMentorInfoScreen: View {
                             .padding(.leading, 16).padding(.bottom, 2)
 
                             WhyMentor(whyMentorIsShowing: $whyMentorIsShowing,
-                                      whyMentor: $viewModel.mentor.whyMentor,
-                                      tempGoal: viewModel.mentor.whyMentor)
+                                      whyMentor: $viewModel.mentor.mentorMotivation,
+                                      tempGoal: viewModel.mentor.mentorMotivation)
                         }
                     }
                 }
@@ -219,14 +219,12 @@ struct SignUpMentorInfoScreen: View {
                         .buttonStyle(OutlinedButtonStyle(disabled: false)).padding(.trailing, 16)
                         .frame(width: UIScreen.main.bounds.width * 0.3)
 
-                        Button {
-
-                        } label: {
+                        NavigationLink(destination: SignUpConfirmationMentor(viewModel: viewModel), label: {
                             HStack {
                                 Text("Continue")
                                 Image(systemName: "arrow.right")
                             }
-                        }
+                        })
                         .buttonStyle(FilledInButtonStyle(disabled: false))
                         .frame(width: UIScreen.main.bounds.width * 0.6)
                     }

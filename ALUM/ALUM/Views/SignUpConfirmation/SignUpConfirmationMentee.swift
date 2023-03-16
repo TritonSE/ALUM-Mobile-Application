@@ -9,7 +9,9 @@ import SwiftUI
 import WrappingHStack
 
 struct SignUpConfirmationMentee: View {
-    @StateObject private var viewModel = SignUpConfirmationViewModel()
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: SignUpViewModel
+    
     var body: some View {
         GeometryReader { grr in
             VStack {
@@ -83,31 +85,56 @@ struct SignUpConfirmationMentee: View {
                                 Spacer()
                             }
                             .padding(.bottom, 24)
-                            HStack {
-                                Text("Topics of Interest:")
-                                    .padding(.leading)
-                                    .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                Spacer()
+                            VStack {
+                                HStack {
+                                    Text("Topics of Interest:")
+                                        .padding(.leading)
+                                        .foregroundColor(Color("ALUM Dark Blue"))
+                                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                        .padding(.bottom, 8)
+                                    Spacer()
+                                }
+                                
+                                WrappingHStack(viewModel.mentee.topicsOfInterest.sorted(), id: \.self) { interest in
+                                    TagDisplay(
+                                        tagString: interest,
+                                        crossShowing: true,
+                                        crossAction: {
+                                            viewModel.mentee.topicsOfInterest.remove(interest)
+                                        }
+                                    )
+                                    .padding(.bottom, 8)
+                                }
+                                .padding(.trailing, 16)
+                                .padding(.leading, 16)
                             }
-                            WrappingHStack(0 ..< viewModel.mentee.topicsOfInterest.count, id: \.self) { index in
-                                viewModel.mentee.topicsOfInterest[index]
-                                    .padding(.vertical, 5)
+                            .padding(.bottom, 32)
+                            
+                            VStack {
+                                HStack {
+                                    Text("Career Interests:")
+                                        .padding(.leading)
+                                        .foregroundColor(Color("ALUM Dark Blue"))
+                                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                    Spacer()
+                                }
+                                .padding(.bottom, 8)
+                                
+                                WrappingHStack(viewModel.mentee.careerInterests.sorted(), id: \.self) { interest in
+                                    TagDisplay(
+                                        tagString: interest,
+                                        crossShowing: true,
+                                        crossAction: {
+                                            viewModel.mentee.careerInterests.remove(interest)
+                                        }
+                                    )
+                                    .padding(.bottom, 16)
+                                }
+                                .padding(.trailing, 16)
+                                .padding(.leading, 16)
                             }
-                            .padding(.horizontal)
-                            HStack {
-                                Text("Career Interests:")
-                                    .padding(.leading)
-                                    .foregroundColor(Color("ALUM Dark Blue"))
-                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                Spacer()
-                            }
-                            .padding(.top, 24)
-                            WrappingHStack(0 ..< viewModel.mentee.careerInterests.count, id: \.self) { index in
-                                viewModel.mentee.careerInterests[index]
-                                    .padding(.vertical, 5)
-                            }
-                            .padding(.horizontal)
+                            .padding(.bottom, 32)
+                            
                             HStack {
                                 Text("What do you hope to get out of mentorship?")
                                     .padding(.leading)
@@ -117,15 +144,15 @@ struct SignUpConfirmationMentee: View {
                                     .lineSpacing(5)
                                 Spacer()
                             }
-                            .padding(.top, 24)
+                            .padding(.bottom, 8)
                             HStack {
                                 Text(viewModel.mentee.mentorshipGoal)
-                                    .padding(.leading)
                                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                     .lineSpacing(5)
+                                    .padding(.leading, 16)
+                                    .padding(.trailing, 16)
                                 Spacer()
                             }
-                            .padding(.top, 8)
                             .padding(.bottom, 100)
                         }
                     }
@@ -141,7 +168,7 @@ struct SignUpConfirmationMentee: View {
                                 .foregroundColor(.white)
                             HStack {
                                 Button {
-
+                                    dismiss()
                                 } label: {
                                     Label(
                                         title: { Text("Edit") },
@@ -166,11 +193,15 @@ struct SignUpConfirmationMentee: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 struct SignUpConfirmation_Previews: PreviewProvider {
+    
+    static private var viewModel = SignUpViewModel()
+    
     static var previews: some View {
-        SignUpConfirmationMentee()
+        SignUpConfirmationMentee(viewModel: viewModel)
     }
 }

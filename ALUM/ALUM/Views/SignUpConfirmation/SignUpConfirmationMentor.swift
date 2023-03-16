@@ -9,7 +9,9 @@ import SwiftUI
 import WrappingHStack
 
 struct SignUpConfirmationMentor: View {
-    @StateObject private var viewModel = SignUpConfirmationViewModel()
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var viewModel: SignUpViewModel
+    
     var body: some View {
         GeometryReader { grr in
             VStack {
@@ -76,7 +78,7 @@ struct SignUpConfirmationMentor: View {
                             Group {
                                 HStack {
                                     Text("School: ")
-                                        .padding(.leading)
+                                        .padding(.leading, 16)
                                         .foregroundColor(Color("ALUM Dark Blue"))
                                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                     Spacer()
@@ -88,7 +90,7 @@ struct SignUpConfirmationMentor: View {
                                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                     Spacer()
                                 }
-                                .padding(.bottom, 24)
+                                .padding(.bottom, 32)
                             }
                             Group {
                                 HStack {
@@ -108,7 +110,7 @@ struct SignUpConfirmationMentor: View {
                                         .lineSpacing(5)
                                     Spacer()
                                 }
-                                .padding(.bottom, 24)
+                                .padding(.bottom, 32)
                             }
                             Group {
                                 HStack {
@@ -128,7 +130,7 @@ struct SignUpConfirmationMentor: View {
                                         .lineSpacing(5)
                                     Spacer()
                                 }
-                                .padding(.bottom, 24)
+                                .padding(.bottom, 32)
                             }
                             Group {
                                 HStack {
@@ -148,23 +150,31 @@ struct SignUpConfirmationMentor: View {
                                         .lineSpacing(5)
                                     Spacer()
                                 }
-                                .padding(.bottom, 24)
+                                .padding(.bottom, 32)
                             }
-                            Group {
+                            VStack {
                                 HStack {
                                     Text("Topics of Expertise:")
                                         .padding(.leading)
+                                        .padding(.bottom, 8)
                                         .foregroundColor(Color("ALUM Dark Blue"))
                                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                     Spacer()
                                 }
-                                WrappingHStack(0 ..< viewModel.mentor.topicsOfExpertise.count, id: \.self) { index in
-                                    viewModel.mentor.topicsOfExpertise[index]
-                                        .padding(.vertical, 5)
+                                WrappingHStack(viewModel.mentor.topicsOfExpertise.sorted(), id: \.self) { topic in
+                                    TagDisplay(
+                                        tagString: topic,
+                                        crossShowing: true,
+                                        crossAction: {
+                                            viewModel.mentor.topicsOfExpertise.remove(topic)
+                                        }
+                                    )
+                                    .padding(.bottom, 8)
                                 }
-                                .padding(.horizontal)
-                                .padding(.bottom, 24)
+                               .padding(.trailing, 16)
+                               .padding(.leading, 16)
                             }
+                            .padding(.bottom, 32)
                             Group {
                                 HStack {
                                     Text("Mentor Motivation")
@@ -199,7 +209,7 @@ struct SignUpConfirmationMentor: View {
                                 .foregroundColor(.white)
                             HStack {
                                 Button {
-
+                                    dismiss()
                                 } label: {
                                     Label(
                                         title: { Text("Edit") },
@@ -224,11 +234,15 @@ struct SignUpConfirmationMentor: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
 struct SignUpConfirmationMentor_Previews: PreviewProvider {
+    
+    static private var viewModel = SignUpViewModel()
+    
     static var previews: some View {
-        SignUpConfirmationMentor()
+        SignUpConfirmationMentor(viewModel: viewModel)
     }
 }
