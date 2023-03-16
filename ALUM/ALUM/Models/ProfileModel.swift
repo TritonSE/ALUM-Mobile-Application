@@ -12,8 +12,8 @@ struct MenteeProfile {
     var name: String
     var email: String
     var grade: String
-    var topicsOfInterest: [TagDisplay]
-    var careerInterests: [TagDisplay]
+    var topicsOfInterest: [String]
+    var careerInterests: [String]
     var mentorshipGoal: String
     var profilePic: Image
     var mentor: String
@@ -27,7 +27,7 @@ struct MentorProfile {
     var major: String
     var minor: String
     var intendedCareer: String
-    var topicsOfExpertise: [TagDisplay]
+    var topicsOfExpertise: [String]
     var mentorMotivation: String
     var organizationId: String
     var personalAccessToken: String
