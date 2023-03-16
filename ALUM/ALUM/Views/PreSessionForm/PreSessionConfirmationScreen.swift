@@ -141,9 +141,7 @@ struct PreSessionConfirmationScreen: View {
             .navigationBarTitle(Text("Pre-Session Notes").font(.custom("Metropolis-Regular", size: 17)),
                                 displayMode: .inline)
             .navigationBarBackButtonHidden()
-            .onAppear {
-                viewModel.questionList = viewModel.loadTestData()
-        }
+            
         }
     }
 }

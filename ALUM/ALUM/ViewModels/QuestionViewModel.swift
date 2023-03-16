@@ -10,11 +10,10 @@ import Foundation
 final class QuestionViewModel: ObservableObject {
     @Published var questionList: [Question] = []
     @Published var currentIndex: Int = 0
-    @Published var lastQuestion: Bool = true
-
-    func loadTestData() -> [Question] {
-        var questions: [Question] = []
-
+    @Published var lastQuestion: Bool = false
+    @Published var isLoading: Bool = true
+    
+    func loadTestData() {
         var question1 = Question(question: "Testing Question 1", type: "text", id: "1", answerBullet: [],
                                  answerParagraph: "Testing Answer 1")
         var question2 = Question(question: "Testing Question 2", type: "text", id: "2", answerBullet: [],
@@ -26,12 +25,19 @@ final class QuestionViewModel: ObservableObject {
                                     ["Testing a really long line so I can make sure it wraps around as it should",
                                      "Answer", "3"],
                                  answerParagraph: "")
+        var question4 = Question(question: "Testing Question 4",
+                                 type: "bullet",
+                                 id: "4",
+                                 answerBullet:
+                                    ["Some other possible answers",
+                                     "Blah Blah Blah", "Longer answer to make this look long Longer answer to make this look long"],
+                                 answerParagraph: "")
 
-        questions.append(question1)
-        questions.append(question2)
-        questions.append(question3)
-
-        return questions
+        self.questionList.append(question1)
+        self.questionList.append(question2)
+        self.questionList.append(question3)
+        self.questionList.append(question4)
+        self.isLoading = false
     }
 
     func fetchQuestions() async throws -> [Question] {
@@ -44,5 +50,15 @@ final class QuestionViewModel: ObservableObject {
 
     func nextQuestion() {
         self.currentIndex += 1
+        if (self.currentIndex == self.questionList.count - 1) {
+            self.lastQuestion = true
+        }
+    }
+    
+    func prevQuestion() {
+        self.currentIndex -= 1
+        if (self.currentIndex != self.questionList.count - 1) {
+            self.lastQuestion = false
+        }
     }
 }

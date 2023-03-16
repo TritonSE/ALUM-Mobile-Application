@@ -12,10 +12,18 @@ struct PreSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     var body: some View {
+        
         NavigationView {
-            PreSessionConfirmationScreen(viewModel: viewModel)
+            if !viewModel.isLoading {
+                PreSessionQuestionScreen(viewModel: viewModel)
+            } else {
+                Text("Loading...")
+            }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            viewModel.loadTestData()
+        }
     }
 }
 

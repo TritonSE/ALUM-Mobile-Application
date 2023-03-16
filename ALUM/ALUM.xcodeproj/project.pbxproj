@@ -11,6 +11,11 @@
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
+		2A287A1C29C257F800D69D9F /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A287A1B29C257F800D69D9F /* DrawerContainer.swift */; };
+		2A287A1E29C2581800D69D9F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A287A1D29C2581800D69D9F /* ParagraphInput.swift */; };
+		2A287A2029C2582800D69D9F /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A287A1F29C2582800D69D9F /* Bullet.swift */; };
+		2A287A2229C2585400D69D9F /* CircleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A287A2129C2585400D69D9F /* CircleAddButton.swift */; };
+		2A287A2429C258DE00D69D9F /* PreSessionQuestionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A287A2329C258DE00D69D9F /* PreSessionQuestionScreen.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
@@ -49,7 +54,6 @@
 		97A31AC929BAFAAF00B79D30 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AC829BAFAAF00B79D30 /* QuestionModel.swift */; };
 		97A31ACB29BAFB2000B79D30 /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31ACA29BAFB2000B79D30 /* QuestionViewModel.swift */; };
 		97A31ACD29BB0B9C00B79D30 /* PreSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */; };
-		97A31AD129BB0C4000B79D30 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AD029BB0C4000B79D30 /* QuestionView.swift */; };
 		97A31AD329BB0CB800B79D30 /* PreSessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */; };
 		97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */; };
 		97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */; };
@@ -67,6 +71,11 @@
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2A287A1B29C257F800D69D9F /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
+		2A287A1D29C2581800D69D9F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
+		2A287A1F29C2582800D69D9F /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		2A287A2129C2585400D69D9F /* CircleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleAddButton.swift; sourceTree = "<group>"; };
+		2A287A2329C258DE00D69D9F /* PreSessionQuestionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionQuestionScreen.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
@@ -84,7 +93,6 @@
 		97A31AC829BAFAAF00B79D30 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		97A31ACA29BAFB2000B79D30 /* QuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionView.swift; sourceTree = "<group>"; };
-		97A31AD029BB0C4000B79D30 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionConfirmationScreen.swift; sourceTree = "<group>"; };
 		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
@@ -189,6 +197,10 @@
 				741D534329A4EED0004C04E6 /* AddTagButton.swift */,
 				97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */,
 				97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */,
+				2A287A1B29C257F800D69D9F /* DrawerContainer.swift */,
+				2A287A1D29C2581800D69D9F /* ParagraphInput.swift */,
+				2A287A1F29C2582800D69D9F /* Bullet.swift */,
+				2A287A2129C2585400D69D9F /* CircleAddButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -254,8 +266,8 @@
 			isa = PBXGroup;
 			children = (
 				97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */,
-				97A31AD029BB0C4000B79D30 /* QuestionView.swift */,
 				97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */,
+				2A287A2329C258DE00D69D9F /* PreSessionQuestionScreen.swift */,
 			);
 			path = PreSessionForm;
 			sourceTree = "<group>";
@@ -427,24 +439,28 @@
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
 				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
-				97A31AD129BB0C4000B79D30 /* QuestionView.swift in Sources */,
+				2A287A1E29C2581800D69D9F /* ParagraphInput.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
+				2A287A1C29C257F800D69D9F /* DrawerContainer.swift in Sources */,
 				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
 				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
+				2A287A2029C2582800D69D9F /* Bullet.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				97A31ACD29BB0B9C00B79D30 /* PreSessionView.swift in Sources */,
 				97A31AC929BAFAAF00B79D30 /* QuestionModel.swift in Sources */,
+				2A287A2229C2585400D69D9F /* CircleAddButton.swift in Sources */,
 				97A31AD329BB0CB800B79D30 /* PreSessionConfirmationScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
+				2A287A2429C258DE00D69D9F /* PreSessionQuestionScreen.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
 				97A31ACB29BAFB2000B79D30 /* QuestionViewModel.swift in Sources */,
 				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
