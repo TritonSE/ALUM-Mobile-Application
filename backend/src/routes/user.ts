@@ -57,6 +57,7 @@ router.post("/mentee", [validateMentee], async (req: Request, res: Response) => 
     if (err instanceof ValidationError) {
       return res.status(err.status).send(err.displayMessage(true));
     }
+    console.log(err);
     return res.status(500).send("Unknown Error. Try again");
   }
 });
