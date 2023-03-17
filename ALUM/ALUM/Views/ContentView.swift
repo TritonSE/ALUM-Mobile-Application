@@ -8,15 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var toShow: String = "sign up"
+
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("Hello World")
-                NavigationLink(destination: LoginPageView()) {
-                    Text("Login Page")
-                }
-            }
-        }
+        Text("Hello World")
     }
 }
 
