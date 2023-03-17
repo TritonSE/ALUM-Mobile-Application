@@ -1,6 +1,5 @@
 /**
- * This file contains routes that will create and get
- * sessions
+ * This file contains the route that will create a session
  */
 
 import express, { NextFunction, Request, Response } from "express";

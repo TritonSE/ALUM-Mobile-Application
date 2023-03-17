@@ -1,4 +1,3 @@
-import { assert } from "console";
 import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
@@ -27,27 +26,6 @@ class Answer implements AnswerType {
     }
     this.type = type;
     this.id = id;
-  }
-
-  /**
-   * Sets the text answer of an answer object. If the answer is a textbox, the text will be set to the input.
-   * Otherwise, the text will be added to the answer ArrayList.
-   * @param input: Text of answer to input
-   */
-  setAnswer(input: string | string[]): void {
-    console.log("setting");
-    if (typeof this.answer === "string") {
-      this.answer = input;
-    } else {
-      try {
-        assert(Array.isArray(this.answer));
-        for (const newAnswers of input) {
-          this.answer.push(newAnswers);
-        }
-      } catch (e) {
-        throw new Error();
-      }
-    }
   }
 }
 
@@ -87,7 +65,7 @@ async function createPreSessionNotes() {
     preNotes = new Note({ answers: preSessionAnswers, type: "pre" });
     return await preNotes.save();
   } catch (e) {
-    throw new Error();
+    throw new Error("Unable to create notes!");
   }
 }
 
@@ -101,10 +79,17 @@ async function createPostSessionNotes() {
     postNotes = new Note({ answers: postSessionAnswers, type: "post" });
     return await postNotes.save();
   } catch (e) {
-    throw new Error();
+    throw new Error("Unable to create notes!");
   }
 }
 
+/**
+ * Updates notes document inside of MongoDB
+ * @param updatedNotes New notes document with new answers to replace original document
+ * @param documentId ObjectID of the document to be updated
+ * @returns Updated note document w/ new answers
+ * @throws Error if there was a problem saving the notes
+ */
 async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
   console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
