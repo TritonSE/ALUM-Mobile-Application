@@ -23,7 +23,7 @@ struct SignUpJoinAsScreen: View {
             Color("ALUM White 2").edgesIgnoringSafeArea(.all)
 
             VStack {
-                ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
+                StaticProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
                     .frame(alignment: .top)
                     .frame(maxWidth: .infinity)
                     .padding()

@@ -16,7 +16,7 @@ struct SignUpSetUpScreen: View {
 
             VStack {
 
-                ProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
+                StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
                     .frame(alignment: .top)
                     .frame(maxWidth: .infinity)
                     .padding()

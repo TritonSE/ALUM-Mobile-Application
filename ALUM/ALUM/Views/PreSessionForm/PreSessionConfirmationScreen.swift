@@ -13,13 +13,14 @@ struct PreSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
 
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 Color("ALUM White 2").edgesIgnoringSafeArea(.all)
 
                 VStack {
-                    ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+                    StaticProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.questionList.count, activeNode: 0)
                         .frame(alignment: .top)
                         .frame(maxWidth: .infinity)
                         .padding()

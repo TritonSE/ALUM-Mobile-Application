@@ -26,7 +26,7 @@ struct SignUpMenteeInfoScreen: View {
 
             VStack {
 
-                ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+                StaticProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                     .frame(alignment: .top)
                     .frame(maxWidth: .infinity)
                     .padding()

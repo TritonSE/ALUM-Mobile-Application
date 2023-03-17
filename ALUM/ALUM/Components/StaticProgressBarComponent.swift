@@ -10,7 +10,7 @@ import SwiftUI
 let circleDiameter = CGFloat(16)
 let borderWidth = CGFloat(3)
 
-struct ProgressBarComponent: View {
+struct StaticProgressBarComponent: View {
     @State var nodes = 3
     @State var filledNodes = 1
     @State var activeNode = 2
@@ -111,8 +111,8 @@ struct PendingLine: View {
 struct ProgressBarComponent_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ProgressBarComponent()
-            ProgressBarComponent(nodes: 5, filledNodes: 2, activeNode: 3)
+            StaticProgressBarComponent()
+            StaticProgressBarComponent(nodes: 5, filledNodes: 5, activeNode: 0)
         }
     }
 }

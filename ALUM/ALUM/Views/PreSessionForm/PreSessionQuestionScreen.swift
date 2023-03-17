@@ -12,14 +12,14 @@ struct PreSessionQuestionScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
 
-    // viewModel.questionList[index].answerBullet
     
+    // viewModel.questionList[index].answerBullet
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 VStack {
-                    ProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.currentIndex+1, activeNode: viewModel.currentIndex+1)
+                    DynamicProgressBarComponent(nodes: $viewModel.questionList.count, filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
                         .frame(alignment: .top)
                         .frame(maxWidth: .infinity)
                         .padding()
