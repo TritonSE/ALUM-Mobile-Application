@@ -12,7 +12,6 @@ struct PreSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     var body: some View {
-        
         NavigationView {
             if !viewModel.isLoading {
                 PreSessionQuestionScreen(viewModel: viewModel)

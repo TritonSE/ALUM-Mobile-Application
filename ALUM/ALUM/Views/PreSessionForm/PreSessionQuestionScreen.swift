@@ -19,13 +19,12 @@ struct PreSessionQuestionScreen: View {
             ZStack {
                 Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 VStack {
-                    ProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.currentIndex+1, activeNode: -1)
+                    ProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.currentIndex+1, activeNode: viewModel.currentIndex+1)
                         .frame(alignment: .top)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.white.ignoresSafeArea(edges: .top))
                         .frame(maxWidth: .infinity)
-
                     ScrollView {
                         VStack {
                             if viewModel.currentIndex == 0 {
@@ -42,42 +41,21 @@ struct PreSessionQuestionScreen: View {
                                 .padding(.bottom, 32)
                                 .padding(.top, 8)
                             }
-                            
-                            Text(viewModel.questionList[viewModel.currentIndex].question)
-                                .foregroundColor(Color("ALUM Dark Blue"))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 16)
-                                .padding(.bottom, 16)
-                                .padding(.top, 8)
-                            
+
                             if viewModel.questionList[viewModel.currentIndex].type == "text" {
-//                                ParagraphInput(question: viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
-//                                    .padding(.leading, 16)
-//                                    .padding(.trailing, 16)
-                                TextEditor(text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
-                                    .font(Font.custom("Metropolis-Regular", size: 17))
-                                    .lineSpacing(6)
-                                    .lineLimit(13)
-                                    .padding(20)
-                                    .frame(width: 358, alignment: .leading)
-                                    .frame(height: 94)
-                                    .cornerRadius(12)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .stroke(Color("NeutralGray3"), lineWidth: 1))
-                                    .colorMultiply(Color("ALUM White"))
-                                    .background(Color("ALUM White"))
+                                ParagraphInput(question: $viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
                                     .padding(.leading, 16)
                                     .padding(.trailing, 16)
-                                
-//                                    .onChange(of: text, perform: { text in
-//                                        if text.count > 1000 {
-//                                            self.text = String(text.prefix(1000))
-//                                        }
-//                                    })
+                                    .padding(.top, 8)
                             } else if viewModel.questionList[viewModel.currentIndex].type == "bullet" {
-                                BulletsView(bullets: viewModel.questionList[viewModel.currentIndex].answerBullet)
+                                Text(viewModel.questionList[viewModel.currentIndex].question)
+                                    .foregroundColor(Color("ALUM Dark Blue"))
+                                    .font(Font.custom("Metropolis-Regular", size: 17))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.leading, 16)
+                                    .padding(.bottom, 16)
+                                    .padding(.top, 8)
+                                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet, question: $viewModel.questionList[viewModel.currentIndex].question)
                             }
                         }
                     }

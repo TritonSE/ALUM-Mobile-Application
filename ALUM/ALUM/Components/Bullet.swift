@@ -45,7 +45,8 @@ struct Bullet: View {
 }
 
 struct BulletsView: View {
-    @State var bullets: [String] = []
+    @Binding var bullets: [String]
+    @Binding var question: String
     @State var showingSheet = false
     @State var newText = ""
     @State var editingBulletIndex = 0
@@ -73,7 +74,7 @@ struct BulletsView: View {
     }
 
     var body: some View {
-      // NavigationView {
+       NavigationView {
             ZStack {
                 Color("ALUM White 2")
                 VStack {
@@ -88,7 +89,7 @@ struct BulletsView: View {
                     }
                     CircleAddButton(add: addBullet)
                         .padding(.top, 32)
-                    if (bullets.count == 0) {
+                    if bullets.count == 0 {
                         Text("Add topic")
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .font(Font.custom("Metropolis-Regular", size: 17))
@@ -96,16 +97,24 @@ struct BulletsView: View {
                     Spacer()
                 }.sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                        ParagraphInput(question: "What topic(s) would you like to discuss?", text: $newText)
+                        ParagraphInput(question: $question, text: $newText)
                     }
                 }
-     //      }
+           }
        }
+    }
+}
+
+struct BulletsViewTester: View {
+    @State var bulletsList: [String] = []
+    @State var question: String = "Why do you want to be a mentor?"
+    var body: some View {
+        BulletsView(bullets: $bulletsList, question: $question)
     }
 }
 
 struct Bullet_Previews: PreviewProvider {
     static var previews: some View {
-        BulletsView()
+        BulletsViewTester()
     }
 }

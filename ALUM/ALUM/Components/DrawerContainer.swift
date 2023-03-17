@@ -48,6 +48,7 @@ struct DrawerTester: View {
     @State private var showingSheet = false
     @State var data: String = "previous text"
     @State var oldText: String = "previous text"
+    @State var question: String = "Why do you want to be a mentor?"
 
     var body: some View {
         NavigationView {
@@ -64,7 +65,7 @@ struct DrawerTester: View {
                         .stroke(Color("NeutralGray3"), lineWidth: 1))
                 .sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                        ParagraphInput(question: "Why do you want to be a mentor?", text: $data)
+                        ParagraphInput(question: $question, text: $data)
                     }
                 }
 
