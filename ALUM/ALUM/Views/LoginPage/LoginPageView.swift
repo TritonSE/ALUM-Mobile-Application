@@ -71,7 +71,6 @@ struct LoginPageView: View {
                     viewModel.emailFunc = []
                     viewModel.passFunc = []
                     viewModel.login()
-                    getIdToken()
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.leading, 16)

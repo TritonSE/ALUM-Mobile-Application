@@ -9,9 +9,34 @@ import SwiftUI
 
 struct ContentView: View {
     @State var toShow: String = "sign up"
+    @EnvironmentObject private var authModel: FirebaseAuthenticationService
 
     var body: some View {
-        Text("Hello World")
+        if authModel.user != nil {
+            authModel.user?.getIDToken { (token, error) in
+                    if let error = error {
+                        // Handle error
+                        print("Error getting ID token: \(error.localizedDescription)")
+                    } else {
+                        // Use the ID token
+                        print("ID token: \(token ?? "")")
+                    }
+                }
+        }
+        return
+        Group {
+            if authModel.user != nil {
+                VStack {
+                    Button("Signout") {
+                        authModel.signOut()
+                    }
+                }
+            } else {
+                LoginPageView()
+            }
+            }.onAppear {
+                authModel.listenToAuthState()
+            }
     }
 }
 
