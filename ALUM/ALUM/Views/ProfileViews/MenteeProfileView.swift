@@ -97,7 +97,7 @@ struct MenteeProfileView: View {
                         .padding(.leading, 16)
                         .padding(.bottom, 4)
                         WrappingHStack(0 ..< viewModel.mentee.careerInterests.count, id: \.self) { index in
-                            TagDisplay(text: viewModel.mentee.careerInterests[index])
+                            TagDisplay(tagString: viewModel.mentee.careerInterests[index])
                                 .padding(.vertical, 5)
                         }
                         .padding(.leading, 16)
@@ -113,7 +113,7 @@ struct MenteeProfileView: View {
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                     WrappingHStack(0 ..< viewModel.mentee.topicsOfInterest.count, id: \.self) { index in
-                        TagDisplay(text: viewModel.mentee.topicsOfInterest[index])
+                        TagDisplay(tagString: viewModel.mentee.topicsOfInterest[index])
                             .padding(.vertical, 5)
                     }
                     .padding(.leading, 16)

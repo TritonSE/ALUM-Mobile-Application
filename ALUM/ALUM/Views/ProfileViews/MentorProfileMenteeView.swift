@@ -107,7 +107,7 @@ struct MentorProfileMenteeView: View {
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                     WrappingHStack(0 ..< viewModel.mentor.topicsOfExpertise.count, id: \.self) { index in
-                        TagDisplay(text: viewModel.mentor.topicsOfExpertise[index])
+                        TagDisplay(tagString: viewModel.mentor.topicsOfExpertise[index])
                             .padding(.vertical, 5)
                     }
                     .padding(.leading, 16)
