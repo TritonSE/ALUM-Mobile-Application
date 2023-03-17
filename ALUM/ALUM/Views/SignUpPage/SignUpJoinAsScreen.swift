@@ -19,17 +19,17 @@ struct SignUpJoinAsScreen: View {
     @State var selectedType: JoinType?
 
     var body: some View {
+        VStack {
+            ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
+                .background(Color.white)
+            content
+        }
+        .applySignUpScreenHeaderModifier()
+    }
+    
+    var content: some View {
         ZStack {
-            Color("ALUM White 2").edgesIgnoringSafeArea(.all)
-
             VStack {
-                ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
-                    .frame(alignment: .top)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.white.ignoresSafeArea(edges: .top))
-                    .frame(maxWidth: .infinity)
-
                 ScrollView {
                     VStack {
                         HStack {
@@ -119,19 +119,6 @@ struct SignUpJoinAsScreen: View {
                 .edgesIgnoringSafeArea(.bottom)
             }
         }
-        .navigationBarItems(leading: NavigationLink(
-            destination: LoginPageView(),
-                label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Login")
-                            .font(.custom("Metropolis-Regular", size: 13))
-                    }
-                }
-            )
-        )
-        .navigationBarTitle(Text("Sign-Up").font(.custom("Metropolis-Regular", size: 17)), displayMode: .inline)
-        .navigationBarBackButtonHidden()
         .onAppear {
             if viewModel.isMentee {
                 selectedType = .mentee

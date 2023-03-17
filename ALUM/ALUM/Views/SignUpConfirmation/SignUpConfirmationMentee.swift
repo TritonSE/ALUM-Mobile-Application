@@ -11,37 +11,16 @@ import WrappingHStack
 struct SignUpConfirmationMentee: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
-    
     var body: some View {
         GeometryReader { grr in
             VStack {
-                ZStack {
-                    VStack {
-                        HStack {
-                            Button {
-                            } label: {
-                                Image(systemName: "chevron.left")
-                                    .frame(width: 6, height: 12)
-                                Text("Login")
-                                    .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            Spacer()
-                        }
-                        .padding(.leading, 25)
-                        .padding(.top)
-                        Spacer()
-                    }
-                    VStack {
-                        Text("Sign-Up")
-                            .padding()
-                            .frame(alignment: .center)
-                            .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
-                            .padding(.horizontal)
-                        Spacer()
-                    }
-                }
+                NavigationHeaderComponent(
+                    backText: "Login",
+                    backDestination: LoginPageView(),
+                    title: "Signup"
+                )
+                ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+                    .padding(.horizontal, 10)
                 ZStack {
                     ScrollView {
                         VStack {

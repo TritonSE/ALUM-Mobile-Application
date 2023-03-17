@@ -11,6 +11,7 @@
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
+		0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752D3BB29C4823900E6EEFF /* NavigationHeaderComponent.swift */; };
 		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
@@ -76,6 +77,7 @@
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0752D3BB29C4823900E6EEFF /* NavigationHeaderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationHeaderComponent.swift; sourceTree = "<group>"; };
 		075379F629B6A9F100A0DD5E /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				979F812329B85DF800D6E964 /* SelectUniversityComponent.swift */,
 				97886D0E29C1964B00548A12 /* ResizingTextBox.swift */,
 				97886D1029C27F4A00548A12 /* ALUMTextFieldComponent.swift */,
+				0752D3BB29C4823900E6EEFF /* NavigationHeaderComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
+				0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,

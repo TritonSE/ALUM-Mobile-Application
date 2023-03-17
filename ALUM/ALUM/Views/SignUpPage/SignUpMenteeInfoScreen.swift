@@ -27,15 +27,17 @@ struct SignUpMenteeInfoScreen: View {
     @State var selectedGrade: GradeType?
 
     var body: some View {
+        VStack {
+            ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+                .background(Color.white)
+            content
+        }
+            .applySignUpScreenHeaderModifier()
+    }
+    
+    var content: some View {
         ZStack {
-            Color("ALUM White 2").edgesIgnoringSafeArea(.all)
-
             VStack {
-
-                ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
-                    .frame(alignment: .top).frame(maxWidth: .infinity)
-                    .padding().background(Color.white.ignoresSafeArea(edges: .top)).frame(maxWidth: .infinity)
-
                 ScrollView {
                     VStack {
                         HStack {
@@ -255,19 +257,6 @@ struct SignUpMenteeInfoScreen: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .navigationBarItems(leading: NavigationLink(
-            destination: LoginPageView(),
-                label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Login")
-                            .font(.custom("Metropolis-Regular", size: 13))
-                    }
-                }
-            )
-        )
-        .navigationBarTitle(Text("Sign-Up").font(.custom("Metropolis-Regular", size: 17)), displayMode: .inline)
-        .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.setUpMentee()
             if viewModel.mentee.grade == "9" {
