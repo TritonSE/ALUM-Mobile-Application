@@ -17,8 +17,12 @@ func getIdToken() {
                 print("Error getting ID token: \(error.localizedDescription)")
             } else if let idToken = idToken {
                 print(idToken)
+                print("Hello")
                 return
             }
         }
+    }
+    else {
+        print("No one signed in")
     }
 }
