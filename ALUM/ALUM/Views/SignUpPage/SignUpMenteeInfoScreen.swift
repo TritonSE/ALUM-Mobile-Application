@@ -123,15 +123,15 @@ struct SignUpMenteeInfoScreen: View {
                                 .padding(.top, 14)
                             }
                         }
-                        .sheet(isPresented: $interestsIsShowing,
-                               content: {
-                                    TagEditor(selectedTags: $viewModel.mentee.topicsOfInterest,
-                                              tempTags: viewModel.mentee.topicsOfInterest,
-                                              screenTitle: "Topics of Interest",
-                                              predefinedTags: TopicsOfInterest.topicsOfInterest)
-                                                .padding(.top, 22)
-                                }
-                        )
+                        .sheet(isPresented: $interestsIsShowing, onDismiss: {
+                            interestsIsShowing = false
+                        }, content: {
+                            TagEditor(selectedTags: $viewModel.mentee.topicsOfInterest,
+                                      tempTags: viewModel.mentee.topicsOfInterest,
+                                      screenTitle: "Topics of Interest",
+                                      predefinedTags: TopicsOfInterest.topicsOfInterest)
+                                        .padding(.top, 22)
+                        })
 
                         HStack {
                             Text("Career Interests")
