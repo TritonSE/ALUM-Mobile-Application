@@ -18,8 +18,6 @@ interface MentorInterface {
   topicsOfExpertise: string[];
   mentorMotivation: string;
   menteeIDs: mongoose.Types.ObjectId[];
-  organizationId: string;
-  personalAccessToken: string;
   status: string;
 }
 
@@ -36,8 +34,6 @@ interface MentorDoc extends mongoose.Document {
   topicsOfExpertise: string[];
   mentorMotivation: string;
   menteeIDs: mongoose.Types.ObjectId[];
-  organizationId: string;
-  personalAccessToken: string;
   status: string;
 }
 
@@ -98,14 +94,6 @@ const mentorSchema = new mongoose.Schema({
       required: false,
     },
   ],
-  organizationId: {
-    type: String,
-    required: true,
-  },
-  personalAccessToken: {
-    type: String,
-    required: true,
-  },
   status: {
     type: String,
     required: true,

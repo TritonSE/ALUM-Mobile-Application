@@ -28,6 +28,4 @@ export const CreateMentorRequestBodyCake = bake({
   career: string,
   topicsOfExpertise: array(string),
   mentorMotivation: string,
-  organizationId: string,
-  personalAccessToken: string,
 });

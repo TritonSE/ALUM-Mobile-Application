@@ -70,9 +70,7 @@ final class SignUpViewModel: ObservableObject {
             minor: mentor.minor,
             career: mentor.intendedCareer,
             topicsOfExpertise: mentor.topicsOfExpertise,
-            mentorMotivation: mentor.mentorMotivation,
-            organizationId: mentor.organizationId,
-            personalAccessToken: mentor.personalAccessToken
+            mentorMotivation: mentor.mentorMotivation
         )
         try await UserService().createMentor(data: mentorData)
     }

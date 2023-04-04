@@ -28,8 +28,6 @@ struct MentorPostData: Codable {
     var career: String
     var topicsOfExpertise: Set<String>
     var mentorMotivation: String
-    var organizationId: String
-    var personalAccessToken: String
 }
 
 class UserService {

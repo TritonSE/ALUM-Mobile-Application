@@ -98,7 +98,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.info("POST /mentor", req.body);
-      const { name, email, password, personalAccessToken, ...args }: CreateMentorRequestBodyType =
+      const { name, email, password, ...args }: CreateMentorRequestBodyType =
         req.body;
 
       if (!validateUserEmail(email)) {
@@ -119,7 +119,6 @@ router.post(
         about,
         calendlyLink,
         status,
-        personalAccessToken,
         ...args,
       });
       await createUser(mentor._id.toString(), email, password);
