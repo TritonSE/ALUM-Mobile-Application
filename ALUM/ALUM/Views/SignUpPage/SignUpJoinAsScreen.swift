@@ -22,102 +22,96 @@ struct SignUpJoinAsScreen: View {
         VStack {
             ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
                 .background(Color.white)
-            content
+            ScrollView {
+                content
+            }
+            footer
+                .padding(.horizontal, 16)
+                .padding(.top, 32)
+                .padding(.bottom, 40)
         }
+        .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
     }
-    
-    var content: some View {
-        ZStack {
-            VStack {
-                ScrollView {
-                    VStack {
-                        HStack {
-                            Text("I want to join as a...")
-                                .font(.custom("Metropolis-Regular", size: 34))
-                                .foregroundColor(Color("NeutralGray3"))
-                                .frame(width: 306, height: 41)
-                                .padding(.top, 8)
-                            Spacer()
-                        }
-                        .padding(.bottom, 32)
 
-                        SignUpJoinOption(title: "Mentee",
-                                       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
-                                         "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                       isSelected: selectedType == .mentee)
-                            .onTapGesture {
-                                selectedType = .mentee
-                                viewModel.isMentee = true
-                                viewModel.isMentor = false
-                            }
-                            .padding(.bottom, 32)
-
-                        SignUpJoinOption(title: "Mentor",
-                                       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
-                                         "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                                       isSelected: selectedType == .mentor)
-                            .onTapGesture {
-                                selectedType = .mentor
-                                viewModel.isMentee = false
-                                viewModel.isMentor = true
-                            }
-                            .padding(.bottom, 137)
-
-                    }
-                }
-
+    var footer: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
                 HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        HStack {
-                            Image(systemName: "arrow.left")
-                            Text("Back")
-                        }
-                    }
-                    .buttonStyle(OutlinedButtonStyle(disabled: false))
-                    .padding(.bottom, 32)
-                    .padding(.trailing, 16)
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+            }
+            .buttonStyle(OutlinedButtonStyle(disabled: false))
+            .padding(.trailing, 16)
 
-                    if selectedType == .mentee {
-                        NavigationLink(destination: SignUpMenteeInfoScreen(viewModel: viewModel)) {
-                            HStack {
-                                Text("Continue")
-                                Image(systemName: "arrow.right")
-                            }
-
-                        }
-                        .buttonStyle(FilledInButtonStyle(disabled: false))
-                        .padding(.bottom, 32)
-                    } else if selectedType == .mentor {
-                        NavigationLink(destination: SignUpMentorInfoScreen(viewModel: viewModel)) {
-                            HStack {
-                                Text("Continue")
-                                Image(systemName: "arrow.right")
-                            }
-                        }
-                        .buttonStyle(FilledInButtonStyle(disabled: false))
-                        .padding(.bottom, 32)
-                    } else {
-                        Button {
-
-                        } label: {
-                            HStack {
-                                Text("Continue")
-                                Image(systemName: "arrow.right")
-                            }
-                        }
-                        .buttonStyle(FilledInButtonStyle(disabled: true))
-                        .padding(.bottom, 32)
-
+            if selectedType == .mentee {
+                NavigationLink(destination: SignUpMenteeInfoScreen(viewModel: viewModel)) {
+                    HStack {
+                        Text("Continue")
+                        Image(systemName: "arrow.right")
                     }
 
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .edgesIgnoringSafeArea(.bottom)
+                .buttonStyle(FilledInButtonStyle(disabled: false))
+            } else if selectedType == .mentor {
+                NavigationLink(destination: SignUpMentorInfoScreen(viewModel: viewModel)) {
+                    HStack {
+                        Text("Continue")
+                        Image(systemName: "arrow.right")
+                    }
+                }
+                .buttonStyle(FilledInButtonStyle(disabled: false))
+            } else {
+                Button {
+
+                } label: {
+                    HStack {
+                        Text("Continue")
+                        Image(systemName: "arrow.right")
+                    }
+                }
+                .buttonStyle(FilledInButtonStyle(disabled: true))
             }
+        }
+
+    }
+    var content: some View {
+        VStack {
+            HStack {
+                Text("I want to join as a...")
+                    .font(.custom("Metropolis-Regular", size: 34))
+                    .foregroundColor(Color("NeutralGray3"))
+                    .frame(width: 306, height: 41)
+                    .padding(.top, 8)
+                Spacer()
+            }
+            .padding(.bottom, 32)
+
+            SignUpJoinOption(title: "Mentee",
+                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
+                             "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                             isSelected: selectedType == .mentee)
+            .onTapGesture {
+                selectedType = .mentee
+                viewModel.isMentee = true
+                viewModel.isMentor = false
+            }
+            .padding(.bottom, 32)
+
+            SignUpJoinOption(title: "Mentor",
+                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
+                             "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                             isSelected: selectedType == .mentor)
+            .onTapGesture {
+                selectedType = .mentor
+                viewModel.isMentee = false
+                viewModel.isMentor = true
+            }
+            .padding(.bottom, 137)
+
         }
         .onAppear {
             if viewModel.isMentee {

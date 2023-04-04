@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0726C9EE29DC4B120042A486 /* CustomErrors.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752D3BB29C4823900E6EEFF /* NavigationHeaderComponent.swift */; };
 		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
+		0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
@@ -42,10 +44,9 @@
 		80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
 		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
 		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */; };
-		80F5388C29B0252F00FB5E66 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* APIService.swift */; };
+		80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* UserService.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
-		9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
 		9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9760067B299FFCD2000945E2 /* SignUpPageView.swift */; };
 		97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97886D0E29C1964B00548A12 /* ResizingTextBox.swift */; };
 		97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97886D1029C27F4A00548A12 /* ALUMTextFieldComponent.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0726C9EE29DC4B120042A486 /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -89,7 +91,7 @@
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
 		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
 		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentor.swift; sourceTree = "<group>"; };
-		80F5388B29B0252F00FB5E66 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		80F5388B29B0252F00FB5E66 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
@@ -151,6 +153,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0726C9ED29DC4AE20042A486 /* UserApplicationConstants */ = {
+			isa = PBXGroup;
+			children = (
+				979F812129B842E200D6E964 /* UniversityNames.swift */,
+				97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */,
+				97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */,
+			);
+			path = UserApplicationConstants;
+			sourceTree = "<group>";
+		};
 		0748208229712921004AF547 = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +195,7 @@
 				979F60902991EBC600AC8CDD /* GoogleService-Info.plist */,
 				0748209229712922004AF547 /* Assets.xcassets */,
 				0748209429712922004AF547 /* Preview Content */,
+				0726C9EE29DC4B120042A486 /* CustomErrors.swift */,
 			);
 			path = ALUM;
 			sourceTree = "<group>";
@@ -252,7 +265,7 @@
 		07F9A5102971814900BC11A8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				80F5388B29B0252F00FB5E66 /* APIService.swift */,
+				80F5388B29B0252F00FB5E66 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -260,8 +273,6 @@
 		8001F73229A5AC5D00244E70 /* SignUpConfirmation */ = {
 			isa = PBXGroup;
 			children = (
-				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */,
-				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */,
 			);
 			path = SignUpConfirmation;
 			sourceTree = "<group>";
@@ -282,6 +293,8 @@
 				97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */,
 				97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */,
 				97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */,
+				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */,
+				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */,
 			);
 			path = SignUpPage;
 			sourceTree = "<group>";
@@ -315,10 +328,8 @@
 		97EB2BAD29B59CF5001988D9 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				0726C9ED29DC4AE20042A486 /* UserApplicationConstants */,
 				97EB2BAE29B59D08001988D9 /* ErrorFunctions */,
-				979F812129B842E200D6E964 /* UniversityNames.swift */,
-				97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */,
-				97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -452,12 +463,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
-				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
 				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
-				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
 				97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
@@ -466,6 +476,7 @@
 				97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
+				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
@@ -487,7 +498,7 @@
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
-				80F5388C29B0252F00FB5E66 /* APIService.swift in Sources */,
+				80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */,
 				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

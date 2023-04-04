@@ -17,6 +17,10 @@ struct SignUpSetUpScreen: View {
                 content
             }
             footer
+                .padding(.horizontal, 16)
+                .padding(.top, 32)
+                .padding(.bottom, 40)
+                .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
             .applySignUpScreenHeaderModifier()
             .onAppear {
@@ -25,44 +29,40 @@ struct SignUpSetUpScreen: View {
                                       SignUpFlowErrorFunctions.OneNumber,
                                       SignUpFlowErrorFunctions.SpecialChar]
             }
+            .edgesIgnoringSafeArea(.bottom)
     }
     var footer: some View {
-        Group {
-            if viewModel.account.email != "" && viewModel.account.password != "" &&
-                viewModel.account.name != "" && viewModel.passwordAgain != "" &&
-                SignUpFlowErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
-                SignUpFlowErrorFunctions.EightChars(viewModel.account.password).0 &&
-                SignUpFlowErrorFunctions.OneNumber(viewModel.account.password).0 &&
-                SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
-                viewModel.account.password == viewModel.passwordAgain {
-                NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
+        HStack {
+            Group {
+                if viewModel.account.email != "" && viewModel.account.password != "" &&
+                    viewModel.account.name != "" && viewModel.passwordAgain != "" &&
+                    SignUpFlowErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
+                    SignUpFlowErrorFunctions.EightChars(viewModel.account.password).0 &&
+                    SignUpFlowErrorFunctions.OneNumber(viewModel.account.password).0 &&
+                    SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
+                    viewModel.account.password == viewModel.passwordAgain {
+                    NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
+                            HStack {
+                                Text("Continue")
+                                Image(systemName: "arrow.right")
+                            }
+                        }
+                    )
+                    .buttonStyle(FilledInButtonStyle(disabled: false))
+                } else {
+                    Button {
+                        viewModel.checkPasswordSame()
+                    } label: {
                         HStack {
                             Text("Continue")
                             Image(systemName: "arrow.right")
                         }
                     }
-                )
-                .buttonStyle(FilledInButtonStyle(disabled: false))
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .padding(.bottom, 32)
-            } else {
-                Button {
-                    viewModel.checkPasswordSame()
-                } label: {
-                    HStack {
-                        Text("Continue")
-                        Image(systemName: "arrow.right")
-                    }
+                    .buttonStyle(FilledInButtonStyle(disabled: true))
                 }
-                .buttonStyle(FilledInButtonStyle(disabled: true))
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .padding(.bottom, 32)
             }
         }
     }
-    
     var content: some View {
         VStack {
             HStack {

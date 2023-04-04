@@ -16,17 +16,27 @@ struct Account {
 struct Mentee {
     var name: String
     var email: String
-    var grade: String
+    var grade: Int
     var topicsOfInterest: Set<String>
     var careerInterests: Set<String>
     var mentorshipGoal: String
     var password: String
+
+    init(name: String = "", email: String = "", grade: Int = 0, topicsOfInterest: Set<String> = [], careerInterests: Set<String> = [], mentorshipGoal: String = "", password: String = "") {
+        self.name = name
+        self.email = email
+        self.grade = grade
+        self.topicsOfInterest = topicsOfInterest
+        self.careerInterests = careerInterests
+        self.mentorshipGoal = mentorshipGoal
+        self.password = password
+    }
 }
 
 struct Mentor {
     var name: String
     var email: String
-    var yearOfGrad: String
+    var yearOfGrad: Int
     var university: String
     var major: String
     var minor: String
@@ -36,4 +46,23 @@ struct Mentor {
     var organizationId: String
     var personalAccessToken: String
     var password: String
+    init(name: String = "", email: String = "", yearOfGrad: Int = 0,
+         university: String = "", major: String = "", minor: String = "",
+         intendedCareer: String = "", mentorMotivation: String = "",
+         topicsOfExpertise: Set<String> = [], organizationId: String = "X",
+         personalAccessToken: String = "X",
+         password: String = "") {
+        self.name = name
+        self.email = email
+        self.yearOfGrad = yearOfGrad
+        self.university = university
+        self.major = major
+        self.minor = minor
+        self.intendedCareer = intendedCareer
+        self.mentorMotivation = mentorMotivation
+        self.topicsOfExpertise = topicsOfExpertise
+        self.organizationId = organizationId
+        self.personalAccessToken = personalAccessToken
+        self.password = password
+    }
 }

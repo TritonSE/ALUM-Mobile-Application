@@ -18,21 +18,21 @@ final class SignUpViewModel: ObservableObject {
     @Published var isMentee = false
     @Published var isMentor = false
     @Published var setUpIsInvalid = false
+    @Published var submitSuccess = false
 
     @Published var account = Account(name: "", email: "", password: "")
-    @Published var mentee = Mentee(name: "", email: "", grade: "", topicsOfInterest: [], careerInterests: [],
-                                   mentorshipGoal: "", password: "")
-    @Published var mentor = Mentor(name: "", email: "", yearOfGrad: "", university: "", major: "", minor: "",
-                                   intendedCareer: "", mentorMotivation: "", topicsOfExpertise: [],
-                                   organizationId: "", personalAccessToken: "", password: "")
+    @Published var mentee = Mentee()
+    @Published var mentor = Mentor()
 
     func setUpMentee() {
+        submitSuccess = false
         mentee.name = account.name
         mentee.email = account.email
         mentee.password = account.password
     }
 
     func setUpMentor() {
+        submitSuccess = false
         mentor.name = account.name
         mentor.email = account.email
         mentor.password = account.password
@@ -45,18 +45,35 @@ final class SignUpViewModel: ObservableObject {
             self.passAgainFunc = []
         }
     }
-    
-    func submitMenteeSignUp() async {
-        let apiService = ApiService()
-        // swiftlint:disable:next line_length
-        let postData = MenteePostData(name: mentee.name, email: mentee.email, password: mentee.password, grade: mentee.grade, topicsOfInterest: mentee.topicsOfInterest, careerInterests: mentee.careerInterests, mentorshipGoal: mentee.mentorshipGoal)
-        await apiService.postMenteeData(data: postData)
+
+    func submitMenteeSignUp() async throws {
+        let menteeData = MenteePostData(
+            name: mentee.name,
+            email: mentee.email,
+            password: mentee.password,
+            grade: mentee.grade,
+            topicsOfInterest: mentee.topicsOfInterest,
+            careerInterests: mentee.careerInterests,
+            mentorshipGoal: mentee.mentorshipGoal
+        )
+        try await UserService().createMentee(data: menteeData)
     }
-    
-    func submitMentorSignUp() async {
-        let apiService = ApiService()
-        // swiftlint:disable:next line_length
-        let postData = MentorPostData(name: mentor.name, email: mentor.email, password: mentor.password, graduationYear: mentor.yearOfGrad, college: mentor.university, major: mentor.major, minor: mentor.minor, career: mentor.intendedCareer, topicsOfExpertise: mentor.topicsOfExpertise, mentorMotivation: mentor.mentorMotivation, organizationId: mentor.organizationId, personalAccessToken: mentor.personalAccessToken)
-        await apiService.postMentorData(data: postData)
+
+    func submitMentorSignUp() async throws {
+        let mentorData = MentorPostData(
+            name: mentor.name,
+            email: mentor.email,
+            password: mentor.password,
+            graduationYear: mentor.yearOfGrad,
+            college: mentor.university,
+            major: mentor.major,
+            minor: mentor.minor,
+            career: mentor.intendedCareer,
+            topicsOfExpertise: mentor.topicsOfExpertise,
+            mentorMotivation: mentor.mentorMotivation,
+            organizationId: mentor.organizationId,
+            personalAccessToken: mentor.personalAccessToken
+        )
+        try await UserService().createMentor(data: mentorData)
     }
 }

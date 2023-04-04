@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct SelectYearComponent: View {
-    @Binding var year: String
-    @State var yearChoice: String = ""
+    @Binding var year: Int
+    @State var yearChoice: Int = 0
     @State var showIsDone: Bool = false
     @Environment(\.dismiss) private var dismiss
 
@@ -48,11 +48,11 @@ struct SelectYearComponent: View {
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(1990..<2023) { graduationYear in
-                        YearRowView(graduationYear: String(graduationYear),
-                                isSelected: yearChoice == String(graduationYear)
+                        YearRowView(graduationYear: graduationYear,
+                                isSelected: yearChoice == graduationYear
                         )
                         .onTapGesture {
-                            yearChoice = String(graduationYear)
+                            yearChoice = graduationYear
                             showIsDone = true
                         }
 
@@ -69,12 +69,12 @@ struct SelectYearComponent: View {
 }
 
 struct YearRowView: View {
-    var graduationYear: String
+    var graduationYear: Int
     var isSelected: Bool
 
     var body: some View {
         HStack {
-            Text(graduationYear)
+            Text(String(graduationYear))
                 .font(.custom("Metropolis-Regular", size: 17))
             Spacer()
             if isSelected {
@@ -94,8 +94,8 @@ struct YearRowView: View {
 }
 
 struct SelectYearComponent_Previews: PreviewProvider {
-    static private var startYear = "2020"
-    static private var year = Binding.constant("2020")
+    static private var startYear = 2020
+    static private var year = Binding.constant(2020)
 
     static var previews: some View {
         SelectYearComponent(year: year)

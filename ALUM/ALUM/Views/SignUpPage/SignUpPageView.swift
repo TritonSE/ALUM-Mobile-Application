@@ -36,6 +36,7 @@ struct SignUpPageView: View {
         NavigationView {
              SignUpSetUpScreen(viewModel: viewModel)
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
