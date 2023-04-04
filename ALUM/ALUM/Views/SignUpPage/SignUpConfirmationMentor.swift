@@ -27,7 +27,7 @@ struct SignUpConfirmationMentor: View {
         .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
     }
-    
+
     var footer: some View {
         HStack {
             Button {
@@ -39,7 +39,7 @@ struct SignUpConfirmationMentor: View {
                 )
             }
             .buttonStyle(OutlinedButtonStyle())
-            
+
             Spacer()
             Button("Submit") {
                 Task {
@@ -52,19 +52,19 @@ struct SignUpConfirmationMentor: View {
                 }
             }
             .buttonStyle(FilledInButtonStyle())
-            
+
             NavigationLink(destination: LoginPageView(), isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }
         }
     }
-    
+
     var content: some View {
         VStack {
             HStack {
                 Text("Confirmation")
                     .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
-                
+
                     .foregroundColor(Color("NeutralGray3"))
                     .padding(.leading)
                     .padding(.top)

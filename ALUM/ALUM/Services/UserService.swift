@@ -51,7 +51,9 @@ class UserService {
 
             if httpResponse.statusCode != 201 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }")
+                throw APIError.invalidRequest(
+                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
+                )
             } else {
                 print("POST \(url) was successful.")
             }
@@ -60,7 +62,7 @@ class UserService {
             throw error
         }
     }
-    
+
     func createMentee(data: MenteePostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")
@@ -68,7 +70,7 @@ class UserService {
         }
         return try await self.createUser(url: "http://localhost:3000/mentee", jsonData: jsonData)
     }
-    
+
     func createMentor(data: MentorPostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")

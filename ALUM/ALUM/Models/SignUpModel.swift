@@ -22,7 +22,10 @@ struct Mentee {
     var mentorshipGoal: String
     var password: String
 
-    init(name: String = "", email: String = "", grade: Int = 0, topicsOfInterest: Set<String> = [], careerInterests: Set<String> = [], mentorshipGoal: String = "", password: String = "") {
+    init(name: String = "", email: String = "",
+         grade: Int = 0, topicsOfInterest: Set<String> = [],
+         careerInterests: Set<String> = [], mentorshipGoal: String = "",
+         password: String = "") {
         self.name = name
         self.email = email
         self.grade = grade
