@@ -13,7 +13,7 @@ struct SignUpConfirmationMentor: View {
     @ObservedObject var viewModel: SignUpViewModel
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
+            ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
                 .background(Color.white)
             ScrollView {
                 content
