@@ -90,8 +90,8 @@ const mentorSchema = new mongoose.Schema({
   ],
   mentorMotivation: {
     type: String,
-    required: true,
-  },
+    required: false,
+  }, // TODO Revisit this field
   menteeIDs: [
     {
       type: mongoose.Types.ObjectId,
