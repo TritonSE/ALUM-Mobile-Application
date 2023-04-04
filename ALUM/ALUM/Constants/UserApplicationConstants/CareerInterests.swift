@@ -14,11 +14,4 @@ class CareerInterests {
             "Computer Science",
             "Product Management"
         ]
-
-    static var menteeCareerInterestsTags: [TagState] =
-        [
-            TagState(tagString: "Statistics", isChecked: false),
-            TagState(tagString: "Computer Science", isChecked: false),
-            TagState(tagString: "Product Management", isChecked: false)
-        ]
 }
