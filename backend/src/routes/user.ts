@@ -26,7 +26,7 @@ const validateUserEmail = (email: string): boolean => {
 };
 
 const validatePasswordLength = (password: string): boolean => {
-  const REQUIRED_PASSWORD_LENGTH = 6;
+  const REQUIRED_PASSWORD_LENGTH = 8;
   return password.length >= REQUIRED_PASSWORD_LENGTH;
 };
 
