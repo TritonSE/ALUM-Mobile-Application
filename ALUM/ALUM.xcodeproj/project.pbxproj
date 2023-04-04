@@ -248,7 +248,6 @@
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
-				8001F73229A5AC5D00244E70 /* SignUpConfirmation */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,13 +267,6 @@
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		8001F73229A5AC5D00244E70 /* SignUpConfirmation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SignUpConfirmation;
 			sourceTree = "<group>";
 		};
 		80274FF1299DAFF500CCB9D0 /* LoginPage */ = {
