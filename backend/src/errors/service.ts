@@ -14,15 +14,15 @@ const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
 
 export class ServiceError extends CustomError {
-  static IMAGE_NOT_SAVED = new ServiceError(0, 402, IMAGE_NOT_SAVED);
+  static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
 
-  static IMAGE_NOT_FOUND = new ServiceError(1, 402, IMAGE_NOT_FOUND);
+  static IMAGE_NOT_FOUND = new ServiceError(1, 404, IMAGE_NOT_FOUND);
 
-  static INVALID_MONGO_ID = new ServiceError(2, 402, INVALID_MONGO_ID);
+  static INVALID_MONGO_ID = new ServiceError(2, 404, INVALID_MONGO_ID);
 
-  static MENTEE_WAS_NOT_FOUND = new ServiceError(3, 402, MENTEE_WAS_NOT_FOUND);
+  static MENTEE_WAS_NOT_FOUND = new ServiceError(3, 404, MENTEE_WAS_NOT_FOUND);
 
-  static MENTOR_WAS_NOT_FOUND = new ServiceError(4, 402, MENTOR_WAS_NOT_FOUND);
+  static MENTOR_WAS_NOT_FOUND = new ServiceError(4, 404, MENTOR_WAS_NOT_FOUND);
 
-  static IMAGE_WAS_NOT_FOUND = new ServiceError(5, 402, IMAGE_WAS_NOT_FOUND);
+  static IMAGE_WAS_NOT_FOUND = new ServiceError(5, 404, IMAGE_WAS_NOT_FOUND);
 }

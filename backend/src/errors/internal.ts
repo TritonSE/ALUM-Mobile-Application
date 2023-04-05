@@ -13,17 +13,17 @@ const NO_SERVICE_ACCOUNT_KEY = "Could not find service account key env variable"
 const NO_DEFAULT_IMAGE_ID = "Could not find default image id env variable";
 
 export class InternalError extends CustomError {
-  static ERROR_GETTING_MENTEE = new InternalError(0, 403, ERROR_GETTING_MENTEE);
+  static ERROR_GETTING_MENTEE = new InternalError(0, 500, ERROR_GETTING_MENTEE);
 
-  static ERROR_GETTING_MENTOR = new InternalError(1, 403, ERROR_GETTING_MENTOR);
+  static ERROR_GETTING_MENTOR = new InternalError(1, 500, ERROR_GETTING_MENTOR);
 
-  static ERROR_GETTING_IMAGE = new InternalError(2, 403, ERROR_GETTING_IMAGE);
+  static ERROR_GETTING_IMAGE = new InternalError(2, 500, ERROR_GETTING_IMAGE);
 
-  static NO_APP_PORT = new InternalError(3, 403, NO_APP_PORT);
+  static NO_APP_PORT = new InternalError(3, 500, NO_APP_PORT);
 
-  static NO_MONGO_URI = new InternalError(4, 403, NO_MONGO_URI);
+  static NO_MONGO_URI = new InternalError(4, 500, NO_MONGO_URI);
 
-  static NO_SERVICE_ACCOUNT_KEY = new InternalError(5, 403, NO_SERVICE_ACCOUNT_KEY);
+  static NO_SERVICE_ACCOUNT_KEY = new InternalError(5, 500, NO_SERVICE_ACCOUNT_KEY);
 
-  static NO_DEFAULT_IMAGE_ID = new InternalError(6, 403, NO_DEFAULT_IMAGE_ID);
+  static NO_DEFAULT_IMAGE_ID = new InternalError(6, 500, NO_DEFAULT_IMAGE_ID);
 }

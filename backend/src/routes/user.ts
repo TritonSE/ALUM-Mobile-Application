@@ -133,7 +133,7 @@ router.post("/mentor", [validateMentor], async (req: Request, res: Response) => 
  *
  * Mentor calling: mentee name, image, grade, about, career interests, topics of interest
  */
-router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
+router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
   const userId = req.params.userId;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res
@@ -148,9 +148,10 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
       if (!mentee) {
         throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
-      return res.status(201).send({
+      return res.status(200).send({
         message: `Here is mentee ${mentee.name}`,
         mentee,
+        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       });
     } catch (e) {
       console.log(e);
@@ -170,7 +171,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
         throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
       const { name, imageId, about, grade, topicsOfInterest, careerInterests } = mentee;
-      return res.status(201).send({
+      return res.status(200).send({
         message: `Here is mentee ${mentee.name}`,
         mentee: {
           name,
@@ -179,6 +180,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
           grade,
           topicsOfInterest,
           careerInterests,
+          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         },
       });
     } catch (e) {
@@ -204,7 +206,7 @@ router.get("/mentee/:userId", [verifyAuthToken, upload], async (req: Request, re
  *
  * Mentor calling: gain all info about the mentor
  */
-router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, res: Response) => {
+router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
   const userId = req.params.userId;
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res
@@ -231,7 +233,7 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
         calendlyLink,
         topicsOfExpertise,
       } = mentor;
-      return res.status(201).send({
+      return res.status(200).send({
         message: `Here is mentor ${mentor.name}`,
         mentor: {
           name,
@@ -244,6 +246,7 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
           graduationYear,
           calendlyLink,
           topicsOfExpertise,
+          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         },
       });
     } catch (e) {
@@ -263,9 +266,10 @@ router.get("/mentor/:userId", [verifyAuthToken, upload], async (req: Request, re
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
-      return res.status(201).send({
+      return res.status(200).send({
         message: `Here is mentor ${mentor.name}`,
         mentor,
+        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       });
     } catch (e) {
       console.log(e);

@@ -29,7 +29,7 @@ router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Respo
     if (!image) {
       throw ServiceError.IMAGE_NOT_FOUND;
     }
-    return res.status(201).set("Content-type", image.mimetype).send(image.buffer);
+    return res.status(200).set("Content-type", image.mimetype).send(image.buffer);
   } catch (e) {
     console.log(e);
     if (e instanceof ServiceError) {
