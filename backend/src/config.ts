@@ -4,6 +4,7 @@
  */
 
 import dotenv from "dotenv";
+import { InternalError } from "./errors/internal";
 
 // load the environment variables from the .env file
 dotenv.config({
@@ -13,26 +14,33 @@ dotenv.config({
 let portV = "";
 let mongoURIV = "";
 let serviceAccountKeyV = "";
+let defaultImageIdV = "";
 
 /**
  * Todo: these should throw errors instead of logging messages
  */
 if (!process.env.APP_PORT) {
-  console.log("Could not find app port env variable");
+  throw InternalError.NO_APP_PORT;
 } else {
   portV = process.env.APP_PORT;
 }
 
 if (!process.env.MONGO_URI) {
-  console.log("Could not find mongo uri env variable");
+  throw InternalError.NO_MONGO_URI;
 } else {
   mongoURIV = process.env.MONGO_URI;
 }
 
 if (!process.env.SERVICE_ACCOUNT_KEY) {
-  console.log("Could not find service account key env variable");
+  throw InternalError.NO_SERVICE_ACCOUNT_KEY;
 } else {
   serviceAccountKeyV = process.env.SERVICE_ACCOUNT_KEY;
+}
+
+if (!process.env.DEFAULT_IMAGE_ID) {
+  throw InternalError.NO_DEFAULT_IMAGE_ID;
+} else {
+  defaultImageIdV = process.env.DEFAULT_IMAGE_ID;
 }
 
 /**
@@ -42,5 +50,6 @@ if (!process.env.SERVICE_ACCOUNT_KEY) {
 const port = portV;
 const mongoURI = mongoURIV;
 const serviceAccountKey = serviceAccountKeyV;
+const defaultImageID = defaultImageIdV;
 
-export { port, mongoURI, serviceAccountKey };
+export { port, mongoURI, serviceAccountKey, defaultImageID };
