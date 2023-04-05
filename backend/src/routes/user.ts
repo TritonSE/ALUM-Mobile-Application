@@ -17,7 +17,7 @@ import { defaultImageID } from "../config";
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() }).single("image");
+// const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 /**
  * This is a post route to create a new mentee. It will first validate
