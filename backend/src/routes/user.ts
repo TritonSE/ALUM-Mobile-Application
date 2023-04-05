@@ -3,7 +3,7 @@
  * new users
  */
 import express, { Request, Response } from "express";
-import multer from "multer";
+// import multer from "multer";
 import mongoose from "mongoose";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
@@ -151,7 +151,7 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
       return res.status(200).send({
         message: `Here is mentee ${mentee.name}`,
         mentee,
-        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       });
     } catch (e) {
       console.log(e);
@@ -180,7 +180,7 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
           grade,
           topicsOfInterest,
           careerInterests,
-          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         },
       });
     } catch (e) {
@@ -246,7 +246,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
           graduationYear,
           calendlyLink,
           topicsOfExpertise,
-          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         },
       });
     } catch (e) {
@@ -269,7 +269,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
       return res.status(200).send({
         message: `Here is mentor ${mentor.name}`,
         mentor,
-        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       });
     } catch (e) {
       console.log(e);
