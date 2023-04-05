@@ -16,7 +16,7 @@ final class MenteeProfileViewmodel: ObservableObject {
         grade: "9",
         topicsOfInterest: ["AP Classes", "Interest 2"],
         careerInterests: ["Career1", "Career2"],
-        mentorshipGoal: "I want to learn",
+        mentorshipGoal: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
         profilePic: Image("ALUMLogoBlue"),
         mentor: "u3491237981"
     )

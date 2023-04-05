@@ -25,7 +25,7 @@ extension View {
 }
 
 struct MenteeCard: View {
-    @State var name = "MMM Monkey"
+    @State var name = "Timby Wolf"
     @State var profilePic = Image("TestMenteePFP")
     @State var isEmpty = false
     var body: some View {
@@ -33,11 +33,11 @@ struct MenteeCard: View {
         } label: {
             ZStack{
                 RoundedRectangle(cornerRadius: 12.0)
-                    .frame(width: 107, height: 136.91)
+                    .frame(width: 110, height: 135)
                     .offset(y: 32)
                     .foregroundColor(Color("ALUM Dark Blue"))
                 if isEmpty{
-                    Rectangle()                .frame(width: 107, height: 75.94)
+                    Rectangle()                .frame(width: 110, height: 75)
                         .cornerRadius(12.0, corners: .topLeft)
                         .cornerRadius(12.0, corners: .topRight)
                         .foregroundColor(Color("NeutralGray1"))
@@ -45,7 +45,7 @@ struct MenteeCard: View {
                 else{
                     profilePic
                         .resizable()
-                        .frame(width: 107, height: 75.94)
+                        .frame(width: 110, height: 75)
                         .cornerRadius(12.0, corners: .topLeft)
                         .cornerRadius(12.0, corners: .topRight)
                 }
@@ -53,10 +53,10 @@ struct MenteeCard: View {
                     .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
                     .foregroundColor(.white)
                     .offset(y: 65)
-                    .offset(x: -5)
+                    .offset(x: -8)
                     .multilineTextAlignment(.leading)
                     .lineSpacing(5)
-                    .frame(width: 77.09, height: 41.42, alignment: .leading)
+                    .frame(width: 75, height: 40, alignment: .leading)
             }
         }
     }

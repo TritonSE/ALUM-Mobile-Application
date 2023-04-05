@@ -54,8 +54,9 @@ struct MentorProfileView: View {
                                     .foregroundColor(Color("ALUM White2"))
                                 viewModel.mentor.profilePic
                                     .resizable()
-                                    .scaledToFit()
                                     .frame(width: 135, height: 135)
+                                    .clipShape(Circle())
+                                    .scaledToFit()
                             }
                             .padding(.top, 57)
                         }
@@ -89,31 +90,25 @@ struct MentorProfileView: View {
                     .buttonStyle(FilledInButtonStyle())
                     .frame(width: 358)
                     .padding(.bottom, 26)
-                    HStack{
-                        Text("About")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                    }
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
+                    Text("About")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                        .padding(.bottom, 8)
                     // swiftlint:disable:next line_length
-                    HStack{
-                        Text(viewModel.mentor.mentorMotivation)
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .lineSpacing(5)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 32)
-                    HStack{
-                        Text("Topics of Expertise")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                    }
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
+                    Text(viewModel.mentor.mentorMotivation)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 32)
+                    Text("Topics of Expertise")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                        .padding(.bottom, 4)
                     WrappingHStack(0 ..< viewModel.mentor.topicsOfExpertise.count, id: \.self) { index in
                         TagDisplay(tagString: viewModel.mentor.topicsOfExpertise[index])
                             .padding(.vertical, 5)
@@ -121,24 +116,19 @@ struct MentorProfileView: View {
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                     Group{
-                        HStack{
-                            Text("My Mentees")
-                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                .foregroundColor(Color("ALUM Dark Blue"))
-                            Spacer()
-                        }
-                        .padding(.leading, 16)
-                        .padding(.top, 27)
-                        HStack(spacing: 18.5) {
-                            ForEach(0 ..< viewModel.mentor.mentees.count - 1, id: \.self) { index in
-                                if index < 3 {
-                                    MenteeCard(name: viewModel.mentor.mentees[index])
-                                } else {
-                                    
-                                }
-                            }
+                        Text("My Mentees")
+                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 16)
+                            .padding(.top, 27)
+                        WrappingHStack(0 ..< viewModel.mentor.mentees.count, id: \.self) { index in
+                            MenteeCard(name: viewModel.mentor.mentees[index])
+                                .padding(.bottom, 15)
+                                .padding(.trailing, 10)
                         }
                         .padding(.bottom , 30)
+                        .padding(.leading, 16)
                         .offset(y: -20)
                     }
                 }

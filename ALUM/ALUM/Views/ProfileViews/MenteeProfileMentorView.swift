@@ -46,6 +46,7 @@ struct MenteeProfileMentorView: View {
                                 viewModel.mentee.profilePic
                                     .resizable()
                                     .scaledToFit()
+                                
                                     .frame(width: 135, height: 135)
                             }
                             .padding(.top, 57)

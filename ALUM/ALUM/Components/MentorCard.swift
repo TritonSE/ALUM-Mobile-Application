@@ -46,7 +46,7 @@ struct MentorCard: View {
                     HStack{
                         Image(systemName: "graduationcap")
                             .resizable()
-                            .frame(width: 18.94, height: 18)
+                            .frame(width: 19, height: 18)
                             .foregroundColor(.white)
                         Text(major + " @ " + university)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -54,16 +54,16 @@ struct MentorCard: View {
                             .frame(width: 200, alignment: .leading)
                         Spacer()
                     }
-                    .offset(x: 149)
+                    .offset(x: 150)
                     .padding(.bottom, 4)
                     HStack{
                         Image(systemName: "suitcase")
                             .resizable()
-                            .frame(width: 18.94, height: 15)
+                            .frame(width: 19, height: 15)
                         Text(career)
                         Spacer()
                     }
-                    .offset(x: 149)
+                    .offset(x: 150)
                     .foregroundColor(.white)
                 }
             }

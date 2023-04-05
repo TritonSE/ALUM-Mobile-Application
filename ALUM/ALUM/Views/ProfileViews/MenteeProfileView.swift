@@ -54,8 +54,9 @@ struct MenteeProfileView: View {
                                     .foregroundColor(Color("ALUM White2"))
                                 viewModel.mentee.profilePic
                                     .resizable()
-                                    .scaledToFit()
                                     .frame(width: 135, height: 135)
+                                    .clipShape(Circle())
+                                    .scaledToFit()
                             }
                             .padding(.top, 57)
                         }
@@ -70,32 +71,26 @@ struct MenteeProfileView: View {
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .padding(.bottom, 24)
-                    HStack{
-                        Text("About")
+                    Text("About")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                        .padding(.bottom, 8)
+                    // swiftlint:disable:next line_length
+                    Text(viewModel.mentee.mentorshipGoal)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 32)
+                    Group{
+                        Text("Career Interests")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                    }
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
-                    // swiftlint:disable:next line_length
-                    HStack{
-                        Text(viewModel.mentee.mentorshipGoal)
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .lineSpacing(5)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 32)
-                    Group{
-                        HStack{
-                            Text("Career Interests")
-                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                                .foregroundColor(Color("ALUM Dark Blue"))
-                            Spacer()
-                        }
-                        .padding(.leading, 16)
-                        .padding(.bottom, 4)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 16)
+                            .padding(.bottom, 4)
                         WrappingHStack(0 ..< viewModel.mentee.careerInterests.count, id: \.self) { index in
                             TagDisplay(tagString: viewModel.mentee.careerInterests[index])
                                 .padding(.vertical, 5)
@@ -103,32 +98,29 @@ struct MenteeProfileView: View {
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
                     }
-                    HStack{
-                        Text("Topics of Interest")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                    }
-                    .padding(.top, 16)
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
+                    Text("Topics of Interest")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 16)
+                        .padding(.leading, 16)
+                        .padding(.bottom, 4)
                     WrappingHStack(0 ..< viewModel.mentee.topicsOfInterest.count, id: \.self) { index in
                         TagDisplay(tagString: viewModel.mentee.topicsOfInterest[index])
                             .padding(.vertical, 5)
                     }
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
-                    HStack{
-                        Text("My Mentor")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        Spacer()
-                    }
-                    .padding(.top, 16)
-                    .padding(.leading, 16)
-                    .padding(.bottom, 8)
+                    Text("My Mentor")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 16)
+                        .padding(.leading, 16)
+                        .padding(.bottom, 8)
                     MentorCard(name: viewModel.mentee.mentor, major: "CS", university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
                         .padding(.bottom, 10)
+                        .padding(.trailing, 25)
                 }
                 .frame(minHeight: grr.size.height-105)
                 .background(Color("ALUM White2"))
