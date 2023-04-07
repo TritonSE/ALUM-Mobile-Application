@@ -120,7 +120,7 @@ struct MenteeProfileView: View {
                         .padding(.bottom, 8)
                     MentorCard(name: viewModel.mentee.mentor, major: "CS", university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
                         .padding(.bottom, 10)
-                        .padding(.trailing, 25)
+                        .padding(.trailing, 10)
                 }
                 .frame(minHeight: grr.size.height-105)
                 .background(Color("ALUM White2"))
