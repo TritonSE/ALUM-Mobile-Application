@@ -84,7 +84,7 @@ struct SignUpMentorInfoScreen: View {
                     HStack {
 
                         if viewModel.mentor.yearOfGrad != 0 {
-                            Text("\(viewModel.mentor.yearOfGrad)").foregroundColor(.black)
+                            Text(String(viewModel.mentor.yearOfGrad)).foregroundColor(.black)
                         } else {
                             Text("Select a year").foregroundColor(Color("NeutralGray3"))
                         }
