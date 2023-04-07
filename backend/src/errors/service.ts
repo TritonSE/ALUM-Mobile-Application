@@ -12,6 +12,7 @@ const INVALID_MONGO_ID = "Mongo Id was invalid. Please ensure that the id is cor
 const MENTEE_WAS_NOT_FOUND = "Mentee was not found";
 const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
+const SESSION_WAS_NOT_FOUND = "Session was not found"
 
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
@@ -25,4 +26,6 @@ export class ServiceError extends CustomError {
   static MENTOR_WAS_NOT_FOUND = new ServiceError(4, 404, MENTOR_WAS_NOT_FOUND);
 
   static IMAGE_WAS_NOT_FOUND = new ServiceError(5, 404, IMAGE_WAS_NOT_FOUND);
+
+  static SESSION_WAS_NOT_FOUND = new ServiceError(6, 404, SESSION_WAS_NOT_FOUND);
 }
