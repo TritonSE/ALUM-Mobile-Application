@@ -103,16 +103,7 @@ struct MentorProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 32)
-                    Text("Topics of Expertise")
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                        .padding(.bottom, 4)
-                    WrappingHStack(0 ..< viewModel.mentor.topicsOfExpertise.count, id: \.self) { index in
-                        TagDisplay(tagString: viewModel.mentor.topicsOfExpertise[index])
-                            .padding(.vertical, 5)
-                    }
+                    RenderTags(tags: viewModel.mentor.topicsOfExpertise, title: "Topics of Expertise")
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                     Group{
