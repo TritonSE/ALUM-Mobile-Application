@@ -7,7 +7,7 @@
 import SwiftUI
 
 struct CircleAddButton: View {
-    @State var add: () -> Void
+    var add: () -> Void
     var body: some View {
         ZStack {
             Circle()
