@@ -2,7 +2,7 @@
 ### Tools needed
 - **Xcode** - Install from App Store
 
-### Organisation
+### Organization
 ```bash
 src/
 ├── Components/*
@@ -67,7 +67,7 @@ npm run lint-fix
 ```
 If your PR is failing lint check, use these commands!
 
-### Organisation
+### Organization
 ```bash
 src/
 ├── models/* (DB models to interact with the database)
@@ -75,3 +75,6 @@ src/
 ├── routes/* (Exposes the various services to the clients using endpoints)
 └── app.ts (Main script to run the server and use routes)
 ```
+
+### Auth Layer and Roles
+The backend uses the firebase authentication and custom user claims to protect routes. Custom user claims are essentially roles and we use three: mentor, mentee, and admin. Outside of protecting the routes, the auth layer can also be used to determine who is accessing the route (mentor, mentee, admin, etc.). Reference the [Firebase API](https://firebase.google.com/docs/reference/rest/auth) for more information on how the auth layer works.

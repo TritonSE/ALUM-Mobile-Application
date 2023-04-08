@@ -2,8 +2,10 @@ import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
+import { notesRouter } from "./routes/notes";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
+import { imageRouter } from "./routes/image";
 import { ValidationError, CustomError } from "./errors/index";
 
 /**
@@ -13,7 +15,7 @@ const errorHandler = (err: CustomError, _req: Request, res: Response) => {
   if (!err) return;
   if (err instanceof ValidationError) {
     console.log(err.displayMessage(true));
-    res.status(err.status).send(err.displayMessage(true));
+    res.status(err.status).send("err.displayMessage(true)");
     return;
   }
   console.log("Unknown Error. Try again", err);
@@ -38,7 +40,10 @@ mongoose.connect(mongoURI, {}, () => {
 server.app.use(json());
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
+server.app.use(notesRouter);
+server.app.use(imageRouter);
 server.app.use(errorHandler);
+
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
