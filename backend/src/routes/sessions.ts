@@ -4,10 +4,10 @@
  */
 
 import express, { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
-import mongoose from "mongoose";
 import { ServiceError } from "../errors/service";
 import { InternalError } from "../errors/internal";
 /**
@@ -57,7 +57,7 @@ router.post("/sessions", async (req: Request, res: Response, next: NextFunction)
   }
 });
 
-router.get("/sessions/:sessionId", [verifyAuthToken], async(req: Request, res: Response) => {
+router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
   const sessionId = req.params.sessionId;
   if (!mongoose.Types.ObjectId.isValid(sessionId)) {
     return res
@@ -70,31 +70,25 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async(req: Request, res: R
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
     }
-    const {
-      preSession, 
-      postSession,
-      menteeId,
-      mentorId,
-      dateTime
-    } = session;
+    const { preSession, postSession, menteeId, mentorId, dateTime } = session;
     return res.status(200).send({
       message: `Here is session ${sessionId}`,
       session: {
-        preSession, 
+        preSession,
         postSession,
         menteeId,
         mentorId,
-        dateTime
+        dateTime,
       },
     });
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     if (e instanceof ServiceError) {
       return res.status(e.status).send(e.displayMessage(true));
     }
     return res
-        .status(InternalError.ERROR_GETTING_SESSION.status)
-        .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
+      .status(InternalError.ERROR_GETTING_SESSION.status)
+      .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
   }
 });
 
