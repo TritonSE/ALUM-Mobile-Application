@@ -17,23 +17,33 @@ interface NoteItem {
   id: string;
   question: string;
 }
+    if (note.type==="post"){
+      const temp = await Session.findOne({postSession : id});
+      if(temp == null){
+        return res.status(ServiceError.SESSION_WAS_NOT_FOUND.status)
+            .send(ServiceError.SESSION_WAS_NOT_FOUND);
+      }
+      else {
+        const preSessionNotes = await Note.findById(temp.preSession);
+        if(preSessionNotes==null){
+          return res.status(ServiceError.NOTE_WAS_NOT_FOUND.status)
+              .send(ServiceError.NOTE_WAS_NOT_FOUND.message);
 
-/**
- * @param id: ObjectID of the notes document to be retreived.
- * This route will get a note document and return it as a JSON in the form
- * [
-    {
-        question: "Question?",
-        type: "text",
-        id: "the hashed ID 1",
-        answer: "",
-    }, 
-    {
-        question: "Question?",
-        type: "bullet",
-        id: "the hashed ID 2",
-        answer: []
-     }
+        }
+        else{
+          const topicsToDiscuss = preSessionNotes.answers[0].answer;
+          if(topicsToDiscuss instanceof Array){
+            note.answers[0].type="CheckboxBullet";
+            const topicsArray: CheckboxBullet[] = [];
+            topicsToDiscuss.forEach((topic) => {
+              if(typeof topic === "string") {
+                let tempTopic: CheckboxBullet =
+                {
+                  content: topic,
+                  status: "unchecked"
+                };
+               topicsArray.push(tempTopic);
+              }
 ]
  */
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
@@ -82,6 +92,13 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
     return res.status(200).json(note.answers);
+=======
+    if (note == null) {
+      throw new Error();
+    }    
+    return res.status(200).json(
+      note.answers);
+>>>>>>> 54f7dc7 (temp edit)
   } catch (e) {
     next(e);
     return res.status(400).json({
@@ -90,6 +107,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
   }
 });
 
+<<<<<<< HEAD
 /**
  * * This route will update the answers of a single note document.
  * @param id: ObjectID of the notes document to be retreived.
