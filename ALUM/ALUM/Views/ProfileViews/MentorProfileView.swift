@@ -82,14 +82,26 @@ struct MentorProfileView: View {
                     Text("NHS '19")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.bottom, 6)
-                    Button {
-                    } label: {
-                        Text("View My Calendly")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    if viewModel.selfView {
+                        Button {
+                        } label: {
+                            Text("View My Calendly")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        }
+                        .buttonStyle(FilledInButtonStyle())
+                        .frame(width: 358)
+                        .padding(.bottom, 26)
                     }
-                    .buttonStyle(FilledInButtonStyle())
-                    .frame(width: 358)
-                    .padding(.bottom, 26)
+                    else {
+                        Button {
+                        } label: {
+                            Text("Book Session via Calendly")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        }
+                        .buttonStyle(FilledInButtonStyle())
+                        .frame(width: 358)
+                        .padding(.bottom, 26)
+                    }
                     Text("About")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(Color("ALUM Dark Blue"))
@@ -106,69 +118,31 @@ struct MentorProfileView: View {
                     RenderTags(tags: viewModel.mentor.topicsOfExpertise, title: "Topics of Expertise")
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
-                    Group{
-                        Text("My Mentees")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                    if viewModel.selfView {
+                        Group {
+                            Text("My Mentees")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                .foregroundColor(Color("ALUM Dark Blue"))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 16)
+                                .padding(.top, 27)
+                            WrappingHStack(0 ..< viewModel.mentor.mentees.count, id: \.self) { index in
+                                MenteeCard(name: viewModel.mentor.mentees[index])
+                                    .padding(.bottom, 15)
+                                    .padding(.trailing, 10)
+                            }
+                            .padding(.bottom , 30)
                             .padding(.leading, 16)
-                            .padding(.top, 27)
-                        WrappingHStack(0 ..< viewModel.mentor.mentees.count, id: \.self) { index in
-                            MenteeCard(name: viewModel.mentor.mentees[index])
-                                .padding(.bottom, 15)
-                                .padding(.trailing, 10)
+                            .offset(y: -20)
                         }
-                        .padding(.bottom , 30)
-                        .padding(.leading, 16)
-                        .offset(y: -20)
                     }
                 }
                 .frame(minHeight: grr.size.height-105)
                 .background(Color("ALUM White2"))
                 .padding(.top)
-                VStack {
-                    Spacer()
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 82)
-                            .foregroundColor(.white)
-                        RoundedRectangle(cornerRadius: 8.0)
-                            .frame(width: 64, height: 3)
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .offset(y: -55)
-                            .offset(x: 80)
-                        HStack {
-                            Button {
-                            } label: {
-                                VStack{
-                                    Image("ALUM Home")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 27)
-                                        .foregroundColor(Color("ALUM Dark Blue"))
-                                    Text("Home")
-                                }
-                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .padding(.trailing, 126)
-                            Button {
-                            } label: {
-                                VStack {
-                                    viewModel.mentor.profilePic
-                                        .resizable()
-                                        .clipShape(Circle())
-                                        .frame(width: 27, height: 27)
-                                    Text("Profile")
-                                }
-                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        }
-                        .padding(.bottom, 25)
-                    }
+                if viewModel.selfView {
+                    NavigationFooter(page: "Profile")
                 }
-                .edgesIgnoringSafeArea(.bottom)
             }
         }
     }

@@ -20,4 +20,6 @@ final class MenteeProfileViewmodel: ObservableObject {
         profilePic: Image("ALUMLogoBlue"),
         mentor: "u3491237981"
     )
+    
+    @Published var selfView = true
 }

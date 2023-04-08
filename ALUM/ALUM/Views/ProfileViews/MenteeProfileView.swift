@@ -90,62 +90,24 @@ struct MenteeProfileView: View {
                     RenderTags(tags: viewModel.mentee.topicsOfInterest, title: "Topics of Interest")
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
-                    Text("My Mentor")
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 16)
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
-                    MentorCard(name: viewModel.mentee.mentor, major: "CS", university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
-                        .padding(.bottom, 10)
+                    if viewModel.selfView {
+                        Text("My Mentor")
+                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 16)
+                            .padding(.leading, 16)
+                            .padding(.bottom, 8)
+                        MentorCard(name: viewModel.mentee.mentor, major: "CS", university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
+                            .padding(.bottom, 10)
+                    }
                 }
                 .frame(minHeight: grr.size.height-105)
                 .background(Color("ALUM White2"))
                 .padding(.top)
-                VStack {
-                    Spacer()
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 82)
-                            .foregroundColor(.white)
-                        RoundedRectangle(cornerRadius: 8.0)
-                            .frame(width: 64, height: 3)
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .offset(y: -55)
-                            .offset(x: 80)
-                        HStack {
-                            Button {
-                            } label: {
-                                VStack{
-                                    Image("ALUM Home")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 27)
-                                        .foregroundColor(Color("ALUM Dark Blue"))
-                                    Text("Home")
-                                }
-                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                            .padding(.trailing, 126)
-                            Button {
-                            } label: {
-                                VStack {
-                                    viewModel.mentee.profilePic
-                                        .resizable()
-                                        .clipShape(Circle())
-                                        .frame(width: 27, height: 27)
-                                    Text("Profile")
-                                }
-                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .caption2))
-                            }
-                            .foregroundColor(Color("ALUM Dark Blue"))
-                        }
-                        .padding(.bottom, 25)
-                    }
+                if viewModel.selfView {
+                    NavigationFooter(page: "Profile")
                 }
-                .edgesIgnoringSafeArea(.bottom)
             }
         }
     }
