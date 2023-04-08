@@ -97,6 +97,8 @@ struct SignUpMenteeInfoScreen: View {
                 SignUpGradeComponent(grade: "12", isSelected: selectedGrade == .twelve)
                     .onTapGesture {selectedGrade = .twelve; viewModel.mentee.grade = 12}
             }
+            .padding(.leading, 16)
+            .padding(.trailing, 16)
             .padding(.bottom, 32)
 
             HStack {
