@@ -8,7 +8,7 @@ interface MenteeInterface {
   topicsOfInterest: string[];
   careerInterests: string[];
   mentorshipGoal: string;
-  mentorID: mongoose.Types.ObjectId;
+  mentorID: string;
   status: string;
 }
 
@@ -20,7 +20,7 @@ interface MenteeDoc extends mongoose.Document {
   topicsOfInterest: string[];
   careerInterests: string[];
   mentorshipGoal: string;
-  mentorID: mongoose.Types.ObjectId;
+  mentorID: string;
   status: string;
 }
 
@@ -62,7 +62,7 @@ const MenteeSchema = new mongoose.Schema({
     required: true,
   },
   mentorID: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: false,
   },
   status: {
