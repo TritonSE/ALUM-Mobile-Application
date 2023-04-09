@@ -32,9 +32,12 @@ Documentation - https://documenter.getpostman.com/view/18831621/2s93XsXm5B
 [Postman](https://www.postman.com/) - Used to test API endpoints manually. 
 
 ### Postman setup
-We have a Postman collection setup for all our routes. Just click on this button and either "Fork Collection" (recommended) OR "View collection". 
+We have a Postman collection setup for all our routes. 
+
+Just click on this button and either "Fork Collection" (recommended) OR "View collection". 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/18831621-b16db8a4-a9c6-4d09-9b34-9a3434a4e212?action=collection%2Ffork&collection-url=entityId%3D18831621-b16db8a4-a9c6-4d09-9b34-9a3434a4e212%26entityType%3Dcollection%26workspaceId%3Db962d7f5-c39d-4b7a-90ff-51c554da3711#?env%5BALUM%5D=W3sia2V5IjoiQVBJX1VSTCIsInZhbHVlIjoiaHR0cDovLzEyNy4wLjAuMTozMDAwIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJodHRwOi8vMTI3LjAuMC4xOjMwMDAiLCJzZXNzaW9uSW5kZXgiOjB9LHsia2V5IjoiTUVOVE9SX0JFQVJFUl9UT0tFTiIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InNlY3JldCIsInNlc3Npb25WYWx1ZSI6ImV5SmhiR2NpT2lKU1V6STFOaUlzSW10cFpDSTZJamczWXpGbE4yWTRNREF6TkdKaVl6Z3hZamhtTW1SaU9ETTNPVEl4WmpSaVpESTROMll4WkdZaUxDSjBlWEFpT2lKS1YxUWlmUS5leUp5YjJ4bElqb2liV1Z1ZEc5eUlpd2lhWE56SWpvaWFILi4uIiwic2Vzc2lvbkluZGV4IjoxfSx7ImtleSI6Ik1FTlRFRV9CRUFSRVJfVE9LRU4iLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJzZWNyZXQiLCJzZXNzaW9uVmFsdWUiOiJleUpoYkdjaU9pSlNVekkxTmlJc0ltdHBaQ0k2SWpnM1l6RmxOMlk0TURBek5HSmlZemd4WWpobU1tUmlPRE0zT1RJeFpqUmlaREk0TjJZeFpHWWlMQ0owZVhBaU9pSktWMVFpZlEuZXlKeWIyeGxJam9pYldWdWRHVmxJaXdpYVhOeklqb2lhSC4uLiIsInNlc3Npb25JbmRleCI6Mn0seyJrZXkiOiJHT09HTEVfQVBJX0tFWSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJBSXphU3lCaTNRYkdMOFVrVEI1dHhtSHl2c05aUHRmQV9vaV9qMVEiLCJzZXNzaW9uSW5kZXgiOjN9XQ==)
 
+Next, setup the variable environment using the video tutorial provided by Aman over slack (sensitive info in video). 
 ### Setup
 To get started, open a terminal and cd into the `backend/` directory using 
 ```
