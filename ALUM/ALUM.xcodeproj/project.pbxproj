@@ -30,6 +30,7 @@
 		805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */; };
 		8083E73329E0D08400033F22 /* RenderTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083E73229E0D08400033F22 /* RenderTags.swift */; };
 		8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6D29E1F968006AA63C /* NavigationFooter.swift */; };
+		8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */; };
 		80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */; };
 		80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
 		80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
@@ -96,6 +97,7 @@
 		805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewmodel.swift; sourceTree = "<group>"; };
 		8083E73229E0D08400033F22 /* RenderTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTags.swift; sourceTree = "<group>"; };
 		8095FE6D29E1F968006AA63C /* NavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFooter.swift; sourceTree = "<group>"; };
+		8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyPairedComponent.swift; sourceTree = "<group>"; };
 		80BD53682981F72D005B4CCD /* ProgressBarComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarComponent.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
+				8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */,
 				8095FE6D29E1F968006AA63C /* NavigationFooter.swift */,
 				80210ECB29BA9EBC008B912A /* MentorCard.swift */,
 				80210EC029B95F24008B912A /* MenteeCard.swift */,
@@ -459,6 +462,7 @@
 				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
 				9756DF77298233B500A0BCB5 /* InputValidationComponent.swift in Sources */,
 				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
+				8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
 				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
