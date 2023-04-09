@@ -3,9 +3,9 @@
  * new users
  */
 import express, { NextFunction, Request, Response } from "express";
+import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 // import multer from "multer";
-import mongoose from "mongoose";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
 import { createUser } from "../services/auth";
@@ -128,7 +128,7 @@ router.post(
         status,
         ...args,
       });
-      await createUser(mentor._id.toString(), email, password,  "mentor");
+      await createUser(mentor._id.toString(), email, password, "mentor");
       await mentor.save();
       res.status(201).json({
         message: `Mentor ${name} was successfully created.`,
