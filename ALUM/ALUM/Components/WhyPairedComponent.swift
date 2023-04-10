@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WhyPairedComponent: View {
-    @State var active = true
+    @State var active = false
     @State var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     var body: some View {
         VStack(spacing: 0) {

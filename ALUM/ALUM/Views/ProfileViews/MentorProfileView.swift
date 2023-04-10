@@ -42,7 +42,7 @@ struct MentorProfileView: View {
                         Text(viewModel.mentor.name)
                             .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                     }
-                    HStack{
+                    HStack {
                         Image(systemName: "graduationcap")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Dark Blue"))
@@ -79,7 +79,9 @@ struct MentorProfileView: View {
                         }
                         .buttonStyle(FilledInButtonStyle())
                         .frame(width: 358)
-                        .padding(.bottom, 26)
+                        .padding(.bottom, 10)
+                        WhyPairedComponent()
+                            .padding(.bottom, 16)
                     }
                     Text("About")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))

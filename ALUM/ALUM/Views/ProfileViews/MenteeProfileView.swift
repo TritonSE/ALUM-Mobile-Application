@@ -49,7 +49,11 @@ struct MenteeProfileView: View {
                         Text(viewModel.mentee.grade + "th Grade @ NHS")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
-                    .padding(.bottom, 24)
+                    .padding(.bottom, 18)
+                    if !viewModel.selfView {
+                        WhyPairedComponent()
+                            .padding(.bottom, 16)
+                    }
                     Text("About")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(Color("ALUM Dark Blue"))
