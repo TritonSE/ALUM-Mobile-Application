@@ -14,7 +14,7 @@ struct MenteeProfileView: View {
         GeometryReader { grr in
             VStack {
                 if !viewModel.selfView {
-                    //params currently placeholders for later navigation
+                    // params currently placeholders for later navigation
                     NavigationHeaderComponent(backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile")
                 } else {
                     ProfileHeaderComponent(profile: true, title: "Mentee Profile")
@@ -42,7 +42,7 @@ struct MenteeProfileView: View {
                         Text(viewModel.mentee.name)
                             .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                     }
-                    HStack{
+                    HStack {
                         Image(systemName: "graduationcap")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Dark Blue"))
@@ -60,7 +60,6 @@ struct MenteeProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
-                    // swiftlint:disable:next line_length
                     Text(viewModel.mentee.mentorshipGoal)
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
@@ -94,7 +93,6 @@ struct MenteeProfileView: View {
         }
     }
 }
-
 
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {

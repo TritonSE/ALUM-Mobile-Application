@@ -32,8 +32,7 @@ struct WhyPairedComponent: View {
                             .cornerRadius(12.0, corners: .topLeft)
                             .cornerRadius(12.0, corners: .topRight)
                             .foregroundColor(.white)
-                    }
-                    else {
+                    } else {
                         Image(systemName: "chevron.down")
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .frame(width: 12, height: 6)

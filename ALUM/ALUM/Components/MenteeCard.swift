@@ -31,18 +31,17 @@ struct MenteeCard: View {
     var body: some View {
         Button {
         } label: {
-            ZStack{
+            ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
                     .frame(width: 110, height: 135)
                     .offset(y: 32)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                if isEmpty{
+                if isEmpty {
                     Rectangle()                .frame(width: 110, height: 75)
                         .cornerRadius(12.0, corners: .topLeft)
                         .cornerRadius(12.0, corners: .topRight)
                         .foregroundColor(Color("NeutralGray1"))
-                }
-                else{
+                } else {
                     profilePic
                         .resizable()
                         .frame(width: 110, height: 75)

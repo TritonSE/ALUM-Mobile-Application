@@ -17,7 +17,7 @@ struct NavigationFooter: View {
                     .frame(height: 82)
                     .foregroundColor(.white)
                 HStack {
-                    ZStack{
+                    ZStack {
                         if page == "Home"{
                             RoundedRectangle(cornerRadius: 8.0)
                                 .frame(width: 64, height: 3)
@@ -26,7 +26,7 @@ struct NavigationFooter: View {
                         }
                         Button {
                         } label: {
-                            VStack{
+                            VStack {
                                 Image("ALUM Home")
                                     .resizable()
                                     .scaledToFit()

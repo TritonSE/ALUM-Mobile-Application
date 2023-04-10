@@ -14,7 +14,7 @@ struct MentorProfileView: View {
         GeometryReader { grr in
             VStack {
                 if !viewModel.selfView {
-                    //params currently placeholders for later navigation
+                    // params currently placeholders for later navigation
                     NavigationHeaderComponent(backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile")
                 } else {
                     ProfileHeaderComponent(profile: true, title: "Mentor Profile")
@@ -50,7 +50,7 @@ struct MentorProfileView: View {
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .padding(.bottom, 6)
-                    HStack{
+                    HStack {
                         Image(systemName: "suitcase")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Dark Blue"))
@@ -70,8 +70,7 @@ struct MentorProfileView: View {
                         .buttonStyle(FilledInButtonStyle())
                         .frame(width: 358)
                         .padding(.bottom, 26)
-                    }
-                    else {
+                    } else {
                         Button {
                         } label: {
                             Text("Book Session via Calendly")
@@ -89,7 +88,6 @@ struct MentorProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
-                    // swiftlint:disable:next line_length
                     Text(viewModel.mentor.mentorMotivation)
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
@@ -112,7 +110,7 @@ struct MentorProfileView: View {
                                     .padding(.bottom, 15)
                                     .padding(.trailing, 10)
                             }
-                            .padding(.bottom , 30)
+                            .padding(.bottom, 30)
                             .padding(.leading, 16)
                             .offset(y: -20)
                         }

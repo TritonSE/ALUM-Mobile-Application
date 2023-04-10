@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 final class MenteeProfileViewmodel: ObservableObject {
-    // swiftlint:disable:next line_length
     @Published var mentee = MenteeProfile(
         name: "Timby Twolf",
         email: "tbtwolf@gmail.com",
@@ -20,6 +19,6 @@ final class MenteeProfileViewmodel: ObservableObject {
         profilePic: Image("ALUMLogoBlue"),
         mentor: "u3491237981"
     )
-    
+
     @Published var selfView = false
 }

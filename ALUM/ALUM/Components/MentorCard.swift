@@ -17,25 +17,24 @@ struct MentorCard: View {
     var body: some View {
         Button {
         } label: {
-            ZStack{
+            ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
                     .frame(width: 358, height: 118)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                if isEmpty{
+                if isEmpty {
                     Circle()
                         .frame(width: 85)
                         .foregroundColor(Color("NeutralGray1"))
                         .offset(x: -112.5)
-                }
-                else{
+                } else {
                     profilePic
                         .resizable()
                         .clipShape(Circle())
                         .frame(width: 85, height: 85)
                         .offset(x: -112.5)
                 }
-                VStack{
-                    HStack{
+                VStack {
+                    HStack {
                         Text("Mentor Name")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.white)
@@ -43,7 +42,7 @@ struct MentorCard: View {
                     }
                     .padding(.bottom, 4)
                     .offset(x: 149)
-                    HStack{
+                    HStack {
                         Image(systemName: "graduationcap")
                             .resizable()
                             .frame(width: 19, height: 18)
@@ -56,7 +55,7 @@ struct MentorCard: View {
                     }
                     .offset(x: 150)
                     .padding(.bottom, 4)
-                    HStack{
+                    HStack {
                         Image(systemName: "suitcase")
                             .resizable()
                             .frame(width: 19, height: 15)

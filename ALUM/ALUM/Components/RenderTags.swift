@@ -12,7 +12,7 @@ struct RenderTags: View {
     @State var tags: [String]
     @State var title: String
     var body: some View {
-        VStack{
+        VStack {
             Text(title)
                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .foregroundColor(Color("ALUM Dark Blue"))
