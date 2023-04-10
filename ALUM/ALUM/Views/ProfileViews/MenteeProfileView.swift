@@ -83,7 +83,8 @@ struct MenteeProfileView: View {
                             .padding(.bottom, 8)
                         MentorCard(
                             name: viewModel.mentee.mentor, major: "CS",
-                        university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
+                        university: "UCSD", career: "Software Engineer",
+                        profilePic: Image("TestMenteePFP"), isEmpty: false)
                             .padding(.bottom, 10)
                     }
                 }
