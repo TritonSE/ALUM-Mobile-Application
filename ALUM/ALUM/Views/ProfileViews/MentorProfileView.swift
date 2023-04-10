@@ -15,7 +15,8 @@ struct MentorProfileView: View {
             VStack {
                 if !viewModel.selfView {
                     // params currently placeholders for later navigation
-                    NavigationHeaderComponent(backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile")
+                    NavigationHeaderComponent(
+                        backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile")
                 } else {
                     ProfileHeaderComponent(profile: true, title: "Mentor Profile")
                         .padding(.bottom)

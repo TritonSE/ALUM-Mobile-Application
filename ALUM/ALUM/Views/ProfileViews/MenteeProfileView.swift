@@ -15,7 +15,8 @@ struct MenteeProfileView: View {
             VStack {
                 if !viewModel.selfView {
                     // params currently placeholders for later navigation
-                    NavigationHeaderComponent(backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile")
+                    NavigationHeaderComponent(
+                        backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile")
                 } else {
                     ProfileHeaderComponent(profile: true, title: "Mentee Profile")
                         .padding(.bottom)
@@ -80,7 +81,9 @@ struct MenteeProfileView: View {
                             .padding(.top, 16)
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        MentorCard(name: viewModel.mentee.mentor, major: "CS", university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
+                        MentorCard(
+                            name: viewModel.mentee.mentor, major: "CS",
+                        university: "UCSD", career: "Software Engineer", profilePic: Image("TestMenteePFP"), isEmpty: false)
                             .padding(.bottom, 10)
                     }
                 }

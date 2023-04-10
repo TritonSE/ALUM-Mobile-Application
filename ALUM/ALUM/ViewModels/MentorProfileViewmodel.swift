@@ -18,12 +18,15 @@ final class MentorProfileViewmodel: ObservableObject {
         minor: "N/A",
         intendedCareer: "Software Engineer",
         topicsOfExpertise: ["Topic1", "Topic2"],
-        mentorMotivation: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        mentorMotivation: """
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        """,
         organizationId: "TSE",
         personalAccessToken: "123",
         mentees: ["u12321312", "u12321334", "u123213765", "u1232131342"],
         profilePic: Image("ALUMLogoBlue")
     )
 
-    @Published var selfView = false
+    @Published var selfView = true
 }
