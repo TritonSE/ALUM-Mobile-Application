@@ -13,33 +13,12 @@ struct MenteeProfileView: View {
     var body: some View {
         GeometryReader { grr in
             VStack {
-                HStack {
-                    Button {
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.top)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                    Text("My Profile")
-                        .frame(width: 240)
-                        .padding(.top)
-                        .padding(.leading, 25)
-                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    Button {
-                    } label: {
-                        Image("ALUM Pencil")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 19.83, height: 19.83)
-                            .padding(.trailing, 18.17)
-                    }
-                    .padding(.leading, 25)
-                    .padding(.top, 8)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                if !viewModel.selfView {
+                    //params currently placeholders for later navigation
+                    NavigationHeaderComponent(backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile")
+                } else {
+                    ProfileHeaderComponent(profile: true, title: "Mentee Profile")
+                        .padding(.bottom)
                 }
                 ScrollView {
                     VStack {
@@ -102,9 +81,8 @@ struct MenteeProfileView: View {
                             .padding(.bottom, 10)
                     }
                 }
-                .frame(minHeight: grr.size.height-105)
+                .frame(minHeight: grr.size.height-120)
                 .background(Color("ALUM White2"))
-                .padding(.top)
                 if viewModel.selfView {
                     NavigationFooter(page: "Profile")
                 }

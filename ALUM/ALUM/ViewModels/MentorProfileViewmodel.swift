@@ -26,5 +26,5 @@ final class MentorProfileViewmodel: ObservableObject {
         profilePic: Image("ALUMLogoBlue")
     )
     
-    @Published var selfView = true
+    @Published var selfView = false
 }
