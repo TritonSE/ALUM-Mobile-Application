@@ -13,6 +13,7 @@
 
 import { Cake } from "caketype";
 import { Request, Response, NextFunction } from "express";
+import { ValidationError } from "../errors";
 
 /**
  * This is a high-order function which returns a function that can be
@@ -26,7 +27,7 @@ const validateReqBodyWithCake =
   (cake: Cake) => async (req: Request, res: Response, next: NextFunction) => {
     const result = cake.check(req.body);
     if (!result.ok) {
-      return res.status(400).send(result.error.toString());
+      return next(new ValidationError(4, 400, result.error.toString()))
     }
     return next();
   };
