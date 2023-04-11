@@ -44,5 +44,6 @@ struct FirebaseContentView: View {
 struct FirebaseContentView_Previews: PreviewProvider {
     static var previews: some View {
         FirebaseContentView()
+            .environmentObject(FirebaseAuthenticationService())
     }
 }
