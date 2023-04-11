@@ -12,7 +12,7 @@ struct FirebaseContentView: View {
     @EnvironmentObject private var authModel: FirebaseAuthenticationService
 
     var body: some View {
-        //how to get IDToken to send to backend
+        // how to get IDToken to send to backend
         if authModel.user != nil {
             authModel.user?.getIDToken { (token, error) in
                     if let error = error {
