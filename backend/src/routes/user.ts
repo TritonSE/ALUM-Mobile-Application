@@ -2,13 +2,19 @@
  * This file contains routes that will create and get
  * new users
  */
-import express, { Request, Response } from "express";
-// import multer from "multer";
+import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
+import { validateReqBodyWithCake } from "../middleware/validation";
+// import multer from "multer";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
-import { validateMentee, validateMentor } from "../middleware/validation";
 import { createUser } from "../services/auth";
+import {
+  CreateMenteeRequestBodyCake,
+  CreateMentorRequestBodyCake,
+  CreateMenteeRequestBodyType,
+  CreateMentorRequestBodyType,
+} from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
@@ -20,110 +26,119 @@ const router = express.Router();
 // const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 /**
- * This is a post route to create a new mentee. It will first validate
- * the mentee to ensure they follow standard listed below before adding them to
- * mongoDB and Firebase
- *
- * Mentee: {name: string, email: string, password: string, grade: string,
- * topicsOfInterest: string[], careerInterests: string[], mentorshipGoal: string}
+ * Validators used for routes
  */
-router.post("/mentee", [validateMentee], async (req: Request, res: Response) => {
-  try {
-    console.info("Creating new mentee", req.query);
-    const { name, email, password, grade, topicsOfInterest, careerInterests, mentorshipGoal } =
-      req.body;
-    const status = "under review";
-    const imageId = defaultImageID;
-    const about = "N/A";
-    const mentorID = "N/A";
-    const mentee = new Mentee({
-      name,
-      imageId,
-      about,
-      grade,
-      topicsOfInterest,
-      careerInterests,
-      mentorshipGoal,
-      mentorID,
-      status,
-    });
-    await createUser(mentee._id.toString(), email, password, "mentee");
-    await mentee.save();
-    return res.status(201).json({
-      message: `Mentee ${name} was succesfully created.`,
-      userID: mentee._id,
-    });
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      return res.status(err.status).send(err.displayMessage(true));
-    }
-    console.log(err);
-    return res.status(500).send("Unknown Error. Try again");
-  }
-});
+const validateUserEmail = (email: string): boolean => {
+  const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/;
+  return EMAIL_REGEX.test(email);
+};
+
+const validatePasswordLength = (password: string): boolean => {
+  const REQUIRED_PASSWORD_LENGTH = 8;
+  return password.length >= REQUIRED_PASSWORD_LENGTH;
+};
 
 /**
- * This is a post route to create a new mentor. It will first validate
- * the mentor to ensure they follow standard listed below before adding them to
- * mongoDB and Firebase
+ * This is a post route to create a new mentee.
+ * Given the following checks pass, a new mentee is created
  *
- * Mentor: {name: string, email: string, password: string, graduationYear; string
- * college: string, major: string, minor: string, career: string,
- * topicsOfExpertise: string[], mentorMotivation: string, organizationId: string,
- * personalAccessToken: string}
+ * Request Body is validated to match CreateMenteeRequestBodyCake.
+ * Checks are also added to enforce the following -
+ *     - Email does not end with @iusd.org
+ *     - Password is greater than REQUIRED_PASSWORD_LENGTH
+ *
+ * @returns String
+ * Validation Error messages from type check or the other checks OR success message
  */
-router.post("/mentor", [validateMentor], async (req: Request, res: Response) => {
-  try {
-    console.info("Creating new mentor", req.query);
-    const {
-      name,
-      email,
-      password,
-      graduationYear,
-      college,
-      major,
-      minor,
-      career,
-      topicsOfExpertise,
-      mentorMotivation,
-      organizationId,
-      personalAccessToken,
-    } = req.body;
-    const status = "under review";
-    const imageId = defaultImageID;
-    const about = "N/A";
-    const calendlyLink = "N/A";
-    const menteeIDs: string[] = [];
-    const mentor = new Mentor({
-      name,
-      imageId,
-      about,
-      calendlyLink,
-      organizationId,
-      graduationYear,
-      college,
-      major,
-      minor,
-      career,
-      topicsOfExpertise,
-      mentorMotivation,
-      menteeIDs,
-      personalAccessToken,
-      status,
-    });
-    await createUser(mentor._id.toString(), email, password, "mentor");
-    await mentor.save();
-    return res.status(201).json({
-      message: `Mentor ${name} was successfully created.`,
-      userID: mentor._id,
-    });
-  } catch (err) {
-    if (err instanceof ValidationError) {
-      return res.status(err.status).send(err.displayMessage(true));
+router.post(
+  "/mentee",
+  validateReqBodyWithCake(CreateMenteeRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log("POST /mentee", req.query);
+      const { name, email, password, ...args }: CreateMenteeRequestBodyType = req.body;
+
+      if (!validateUserEmail(email)) {
+        throw ValidationError.INVALID_EMAIL_ID;
+      }
+
+      if (!validatePasswordLength(password)) {
+        throw ValidationError.INVALID_PASSWORD_LENGTH;
+      }
+
+      const status = "under review";
+      const imageId = defaultImageID;
+      const about = "N/A";
+      const mentee = new Mentee({
+        name,
+        imageId,
+        about,
+        status,
+        ...args,
+      });
+      await createUser(mentee._id.toString(), email, password, "mentee");
+      await mentee.save();
+      res.status(201).json({
+        message: `Mentee ${name} was succesfully created.`,
+        userID: mentee._id,
+      });
+    } catch (err) {
+      next(err);
     }
-    return res.status(500).send("Unknown Error. Try again");
   }
-});
+);
+
+/**
+ * This is a post route to create a new mentee.
+ * Given the following checks pass, a new mentor is created
+ *
+ * Request Body is validated to match CreateMentorRequestBodyCake.
+ * Checks are also added to enforce the following -
+ *     - Email does not end with @iusd.org
+ *     - Password is greater than REQUIRED_PASSWORD_LENGTH
+ *
+ * @returns String
+ * Validation Error messages from type check or the other checks OR success message
+ */
+router.post(
+  "/mentor",
+  validateReqBodyWithCake(CreateMentorRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.info("POST /mentor", req.body);
+      const { name, email, password, ...args }: CreateMentorRequestBodyType = req.body;
+
+      if (!validateUserEmail(email)) {
+        throw ValidationError.INVALID_EMAIL_ID;
+      }
+
+      if (!validatePasswordLength(password)) {
+        throw ValidationError.INVALID_PASSWORD_LENGTH;
+      }
+
+      const status = "under review";
+      const imageId = defaultImageID;
+      const about = "N/A";
+      const calendlyLink = "N/A";
+      const mentor = new Mentor({
+        name,
+        imageId,
+        about,
+        calendlyLink,
+        status,
+        ...args,
+      });
+      await createUser(mentor._id.toString(), email, password, "mentor");
+      await mentor.save();
+      res.status(201).json({
+        message: `Mentor ${name} was successfully created.`,
+        userID: mentor._id,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 /**
  * This is a get route for a mentee. Note that the response is dependant on

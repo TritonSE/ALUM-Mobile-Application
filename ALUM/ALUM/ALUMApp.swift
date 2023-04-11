@@ -26,9 +26,7 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-      NavigationView {
-        LoginPageView()
-      }
+        SignUpPageView()
     }
   }
 }
