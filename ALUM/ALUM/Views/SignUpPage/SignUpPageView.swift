@@ -7,13 +7,34 @@
 
 import SwiftUI
 
-struct SignUpPageView: View {
+struct SignUpScreenHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "Login",
+                    backDestination: LoginPageView(),
+                    title: "Signup"
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
 
+extension View {
+    func applySignUpScreenHeaderModifier() -> some View {
+        self.modifier(SignUpScreenHeaderModifier())
+    }
+}
+
+struct SignUpPageView: View {
     @StateObject private var viewModel = SignUpViewModel()
 
     var body: some View {
         NavigationView {
-            SignUpSetUpScreen(viewModel: viewModel)
+             SignUpSetUpScreen(viewModel: viewModel)
         }
         .navigationBarBackButtonHidden()
     }

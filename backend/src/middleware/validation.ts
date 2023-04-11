@@ -11,107 +11,25 @@
  * are validating (look below for examples).
  */
 
-import { bake, string, array, number } from "caketype";
+import { Cake } from "caketype";
 import { Request, Response, NextFunction } from "express";
-import { ValidationError } from "../errors/validationError";
+import { ValidationError } from "../errors";
 
 /**
- * mentee cake type to be used to validate mentee
- * NOTE: proper request will follow this format
- */
-const MENTEE = bake({
-  name: string,
-  email: string,
-  password: string,
-  grade: number,
-  topicsOfInterest: array(string),
-  careerInterests: array(string),
-  mentorshipGoal: string,
-});
-
-/**
- * mentor cake type to be used to validate mentor
- * NOTE: proper request will follow this format
- */
-const MENTOR = bake({
-  name: string,
-  email: string,
-  password: string,
-  graduationYear: number,
-  college: string,
-  major: string,
-  minor: string,
-  career: string,
-  topicsOfExpertise: array(string),
-  mentorMotivation: string,
-  organizationId: string,
-  personalAccessToken: string,
-});
-
-/**
- * Function to validate whether proper inputs were given
- * in the request when generating mentee.
- * @param req: request
- * @param res: response
- * @param next: next function to be called
+ * This is a high-order function which returns a function that can be
+ * used as a middleware to enforce that a request follows cake type
+ * @param cake
  * @returns
+ * Returns a 400 response with the error message if any error is found.
+ * Otherwise, passes control to the next function in line
  */
-const validateMentee = (req: Request, res: Response, next: NextFunction) => {
-  const requestBody = req.body;
+const validateReqBodyWithCake =
+  (cake: Cake) => async (req: Request, res: Response, next: NextFunction) => {
+    const result = cake.check(req.body);
+    if (!result.ok) {
+      return next(new ValidationError(4, 400, result.error.toString()));
+    }
+    return next();
+  };
 
-  const menteeCheck = MENTEE.check(requestBody);
-
-  if (!menteeCheck.ok) {
-    return res.status(400).send(menteeCheck.error.toString());
-  }
-  const emailValidation = /^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/;
-
-  if (!emailValidation.test(requestBody.email)) {
-    return res
-      .status(ValidationError.INVALID_EMAIL_ID.status)
-      .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
-  }
-
-  if (requestBody.password.length < 6) {
-    return res
-      .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
-      .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));
-  }
-
-  return next();
-};
-
-/**
- * Function to validate whether proper inputs were given
- * in the request when generating mentor.
- * @param req: request
- * @param res: response
- * @param next: next function to be called
- * @returns
- */
-const validateMentor = (req: Request, res: Response, next: NextFunction) => {
-  const requestBody = req.body;
-
-  const mentorCheck = MENTOR.check(requestBody);
-  if (!mentorCheck.ok) {
-    return res.status(400).send(mentorCheck.error.toString());
-  }
-
-  const emailValidation = /^[A-Za-z0-9._%+-]+@(?!iusd.org)[A-Za-z0-9.-]+.[A-Za-z]{2,4}$/;
-
-  if (!emailValidation.test(requestBody.email)) {
-    return res
-      .status(ValidationError.INVALID_EMAIL_ID.status)
-      .send(ValidationError.INVALID_EMAIL_ID.displayMessage(true));
-  }
-
-  if (requestBody.password.length < 6) {
-    return res
-      .status(ValidationError.INVALID_PASSWORD_LENGTH.status)
-      .send(ValidationError.INVALID_PASSWORD_LENGTH.displayMessage(true));
-  }
-
-  return next();
-};
-
-export { validateMentee, validateMentor };
+export { validateReqBodyWithCake };
