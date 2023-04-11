@@ -12,6 +12,7 @@ final class QuestionViewModel: ObservableObject {
     @Published var currentIndex: Int = 0
     @Published var lastQuestion: Bool = false
     @Published var isLoading: Bool = true
+    @Published var submitSuccess: Bool = false
     
     func loadTestData() {
         var question1 = Question(question: "Testing Question 1", type: "text", id: "1", answerBullet: [],
@@ -32,6 +33,7 @@ final class QuestionViewModel: ObservableObject {
                                     ["Some other possible answers",
                                      "Blah Blah Blah", "Longer answer to make this look long Longer answer to make this look long"],
                                  answerParagraph: "")
+        let question5 = Question()
 
         self.questionList.append(question1)
         self.questionList.append(question2)
@@ -46,6 +48,18 @@ final class QuestionViewModel: ObservableObject {
         let decoder = JSONDecoder()
         let questions = try decoder.decode( [Question].self, from: data)
         return questions
+    }
+    
+    func submitNotesPatch() async throws {
+        var notesData: [QuestionPatchData] = []
+        for question in questionList {
+            if question.answerBullet.isEmpty && question.answerParagraph != "" {
+                notesData.append(QuestionPatchData(answer: PatchAnswer.string(question.answerParagraph), type: question.type, id: question.id))
+            } else if question.answerParagraph == "" && !question.answerBullet.isEmpty {
+                notesData.append(QuestionPatchData(answer: PatchAnswer.listString(question.answerBullet), type: question.type, id: question.id))
+            }
+        }
+        try await NotesService().patchNotesHelper(data: notesData)
     }
 
     func nextQuestion() {

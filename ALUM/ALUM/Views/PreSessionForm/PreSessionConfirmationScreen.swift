@@ -111,7 +111,14 @@ struct PreSessionConfirmationScreen: View {
                             .frame(width: geometry.size.width * 0.3025)
 
                             Button {
-
+                                Task {
+                                    do {
+                                        try await viewModel.submitNotesPatch()
+                                        self.viewModel.submitSuccess = true
+                                    } catch {
+                                        print("Error")
+                                    }
+                                }
                             } label: {
                                 Text("Save")
                             }
@@ -142,7 +149,6 @@ struct PreSessionConfirmationScreen: View {
             .navigationBarTitle(Text("Pre-Session Notes").font(.custom("Metropolis-Regular", size: 17)),
                                 displayMode: .inline)
             .navigationBarBackButtonHidden()
-            
         }
     }
 }

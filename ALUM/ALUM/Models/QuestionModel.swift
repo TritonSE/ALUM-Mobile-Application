@@ -13,4 +13,12 @@ struct Question: Codable, Hashable, Identifiable {
     var id: String
     var answerBullet: [String]
     var answerParagraph: String
+    
+    init(question: String = "", type: String = "", id: String = "", answerBullet: [String] = [], answerParagraph: String = "") {
+        self.question = question
+        self.type = type
+        self.id = id
+        self.answerBullet = answerBullet
+        self.answerParagraph = answerParagraph
+    }
 }
