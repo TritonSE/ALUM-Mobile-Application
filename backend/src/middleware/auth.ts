@@ -16,19 +16,18 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
     const token =
       authHeader && authHeader.split(" ")[0] === "Bearer" ? authHeader.split(" ")[1] : null;
     if (!token) {
-      throw AuthError.TOKEN_NOT_IN_HEADER
+      throw AuthError.TOKEN_NOT_IN_HEADER;
     }
 
-    let userInfo = await decodeAuthToken(token);
-    
+    const userInfo = await decodeAuthToken(token);
+
     if (userInfo) {
       req.body.role = userInfo.role;
       return next();
-    } else {
-      throw AuthError.INVALID_AUTH_TOKEN
     }
+    throw AuthError.INVALID_AUTH_TOKEN;
   } catch (e) {
-    next(e)
+    return next(e);
   }
 };
 

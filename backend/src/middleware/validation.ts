@@ -27,7 +27,7 @@ const validateReqBodyWithCake =
   (cake: Cake) => async (req: Request, res: Response, next: NextFunction) => {
     const result = cake.check(req.body);
     if (!result.ok) {
-      return next(new ValidationError(4, 400, result.error.toString()))
+      return next(new ValidationError(4, 400, result.error.toString()));
     }
     return next();
   };
