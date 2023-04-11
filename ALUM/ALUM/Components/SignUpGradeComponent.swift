@@ -25,15 +25,15 @@ struct SignUpGradeComponent: View {
                         .frame(width: 4, height: 4)
                 }
             }
-            .padding(.leading, 24)
-            .padding(.trailing, 10)
             .padding(.top, 14)
             .padding(.bottom, 14)
 
             Text(grade)
                 .font(.custom("Metropolis-Regular", size: 17))
-                .padding(.trailing, 20)
+                .fixedSize()
         }
+        .padding(.leading, 24)
+        .padding(.trailing, 20)
         .background(
             ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
@@ -54,7 +54,7 @@ struct SignUpGradeComponent: View {
 
 struct SignUpGradeComponent_Previews: PreviewProvider {
 
-    static var grade: String = "9"
+    static var grade: String = "10"
     static var isSelected: Bool = true
 
     static var previews: some View {

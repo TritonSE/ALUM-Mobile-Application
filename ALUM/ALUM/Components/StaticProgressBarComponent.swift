@@ -18,7 +18,9 @@ struct StaticProgressBarComponent: View {
     var body: some View {
         GeometryReader { (geometry) in
             self.makeView(geometry)
-        }.fixedSize(horizontal: false, vertical: true)
+        }
+        .fixedSize(horizontal: false, vertical: true)
+        .padding()
     }
 
     func makeView(_ geometry: GeometryProxy) -> some View {

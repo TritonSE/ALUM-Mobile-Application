@@ -70,19 +70,52 @@ struct SearchBar: View {
 
 struct TagEditor: View {
     @Binding var selectedTags: Set<String>
+    @State var tempTags: Set<String> = []
     @State var searchText = ""
-    let predefinedTags =
+    @Environment(\.dismiss) var dismiss
+    var screenTitle: String = ""
+    var predefinedTags =
     ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6", "Tag 7", "Overflow Wrapping", "Tag 8"]
+
     var body: some View {
         VStack {
+            HStack {
+                Button {
+                    tempTags = selectedTags
+                    dismiss()
+                } label: {
+                    Text("Cancel")
+                        .font(.custom("Metropolis-Regular", size: 13))
+                }
+
+                Spacer()
+
+                Text(screenTitle)
+                    .font(.custom("Metropolis-Regular", size: 17))
+                    .padding(.trailing, 16)
+
+                Spacer()
+
+                Button {
+                    selectedTags = tempTags
+                    dismiss()
+                } label: {
+                    Text("Done")
+                        .font(.custom("Metropolis-Regular", size: 13))
+                }
+            }
+            .padding(.leading, 16)
+            .padding(.trailing, 16)
+            .padding(.bottom, 13)
+
             SearchBar(text: $searchText)
                 .padding(.bottom, 16)
-            WrappingHStack(selectedTags.sorted(), id: \.self) { tag in
+            WrappingHStack(tempTags.sorted(), id: \.self) { tag in
                 TagDisplay(
                     tagString: tag,
                     crossShowing: true,
                     crossAction: {
-                        self.selectedTags.remove(tag)
+                        self.tempTags.remove(tag)
                     }
                 )
                 .padding(.bottom, 16)
@@ -107,12 +140,12 @@ struct TagEditor: View {
                         true : $0.localizedCaseInsensitiveContains(searchText) }, id: \.self) { item in
                             ItemDisplay(
                                 tagString: item,
-                                tagIsChecked: self.selectedTags.contains(item),
+                                tagIsChecked: self.tempTags.contains(item),
                                 itemToggle: {
-                                    if self.selectedTags.contains(item) {
-                                        self.selectedTags.remove(item)
+                                    if self.tempTags.contains(item) {
+                                        self.tempTags.remove(item)
                                     } else {
-                                        self.selectedTags.insert(item)
+                                        self.tempTags.insert(item)
                                     }
                                 })
                         Divider()
@@ -122,6 +155,9 @@ struct TagEditor: View {
                 }
             }
 //            Spacer()
+        }
+        .onDisappear {
+            selectedTags = tempTags
         }
     }
 }

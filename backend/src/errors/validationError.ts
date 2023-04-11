@@ -12,7 +12,7 @@ import { CustomError } from "./errors";
 const INVALID_EMAIL_ID = "Invalid email was found, email must not have @iusd.org.";
 const EMAIL_ALREADY_IN_USE = "E-mail already in use!";
 const INVALID_USER_ID = "Invalid user ID, cannot find user.";
-const INVALID_PASSWORD_LENGTH = "Password must be at least 6 characters long";
+const INVALID_PASSWORD_LENGTH = "Password must be at least 8 characters long";
 
 export class ValidationError extends CustomError {
   static INVALID_EMAIL_ID = new ValidationError(0, 400, INVALID_EMAIL_ID);

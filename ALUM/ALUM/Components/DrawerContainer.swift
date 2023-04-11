@@ -65,7 +65,7 @@ struct DrawerTester: View {
                         .stroke(Color("NeutralGray3"), lineWidth: 1))
                 .sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                        ParagraphInput(question: $question, text: $data)
+                        ParagraphInput(question: question, text: $data)
                     }
                 }
 

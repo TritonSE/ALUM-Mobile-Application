@@ -46,7 +46,7 @@ struct Bullet: View {
 
 struct BulletsView: View {
     @Binding var bullets: [String]
-    @Binding var question: String
+    @State var question: String
     @State var showingSheet = false
     @State var newText = ""
     @State var editingBulletIndex = 0
@@ -97,7 +97,7 @@ struct BulletsView: View {
                     Spacer()
                 }.sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                        ParagraphInput(question: $question, text: $newText)
+                        ParagraphInput(question: question, text: $newText)
                     }
                 }
            }
@@ -109,7 +109,7 @@ struct BulletsViewTester: View {
     @State var bulletsList: [String] = []
     @State var question: String = "Why do you want to be a mentor?"
     var body: some View {
-        BulletsView(bullets: $bulletsList, question: $question)
+        BulletsView(bullets: $bulletsList, question: question)
     }
 }
 

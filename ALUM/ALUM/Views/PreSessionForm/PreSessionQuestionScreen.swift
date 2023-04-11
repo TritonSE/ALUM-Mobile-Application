@@ -43,7 +43,7 @@ struct PreSessionQuestionScreen: View {
                             }
 
                             if viewModel.questionList[viewModel.currentIndex].type == "text" {
-                                ParagraphInput(question: $viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
+                                ParagraphInput(question: viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
                                     .padding(.leading, 16)
                                     .padding(.trailing, 16)
                                     .padding(.top, 8)
@@ -55,7 +55,7 @@ struct PreSessionQuestionScreen: View {
                                     .padding(.leading, 16)
                                     .padding(.bottom, 16)
                                     .padding(.top, 8)
-                                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet, question: $viewModel.questionList[viewModel.currentIndex].question)
+                                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet, question: viewModel.questionList[viewModel.currentIndex].question)
                             }
                         }
                     }

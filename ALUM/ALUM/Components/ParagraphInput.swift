@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct ParagraphInput: View {
-    @Binding var question: String
+    @State var question: String
     @Binding var text: String
     @State var fixedHeight: Bool = false
 
@@ -75,7 +75,7 @@ struct ParagraphInputScreen: View {
 
     var body: some View {
         VStack {
-            ParagraphInput(question: $question, text: $textFieldText)
+            ParagraphInput(question: question, text: $textFieldText)
             // Text(data)
         }
     }
