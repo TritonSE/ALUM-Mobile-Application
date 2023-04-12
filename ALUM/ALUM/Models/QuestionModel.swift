@@ -15,11 +15,12 @@ struct Question: Codable, Hashable, Identifiable {
     var answerCheckboxBullet: [String: String]
     var answerParagraph: String
     
-    init(question: String = "", type: String = "", id: String = "", answerBullet: [String] = [], answerParagraph: String = "") {
+    init(question: String = "", type: String = "", id: String = "", answerBullet: [String] = [], answerCheckboxBullet: [String: String] = [:], answerParagraph: String = "") {
         self.question = question
         self.type = type
         self.id = id
         self.answerBullet = answerBullet
+        self.answerCheckboxBullet = answerCheckboxBullet
         self.answerParagraph = answerParagraph
     }
 }

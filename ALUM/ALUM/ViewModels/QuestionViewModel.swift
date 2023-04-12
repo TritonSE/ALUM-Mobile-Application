@@ -52,7 +52,6 @@ final class QuestionViewModel: ObservableObject {
                                  answerBullet: ["bullet 1", "bullet 2"],
                                  answerCheckboxBullet: [:],
                                  answerParagraph: "")
-        let question5 = Question()
 
         self.questionList.append(question5)
         self.questionList.append(question6)
