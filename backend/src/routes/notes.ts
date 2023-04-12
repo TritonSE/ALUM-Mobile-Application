@@ -1,6 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
+import { Infer } from "caketype";
 import { Note } from "../models/notes";
-import  {questionIDs } from "../app";
+import { questionIDs } from "../config";
+import { updateNotes } from "../services/note";
+import { validateReqBodyWithCake } from "../middleware/validation";
+import { UpdateNoteRequestBodyCake } from "../types/cakes";
 
 const router = express.Router();
 
@@ -10,12 +14,6 @@ interface NoteItem {
   id: string;
   question: string;
 }
-
-
-import { Infer } from "caketype";
-import { updateNotes } from "../services/note";
-import { validateReqBodyWithCake } from "../middleware/validation";
-import { UpdateNoteRequestBodyCake } from "../types/cakes";
 
 /**
  * @param id: ObjectID of the notes document to be retreived.
@@ -43,9 +41,9 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     if (note == null) {
       throw new Error();
     }
-    const notes : NoteItem[] = note.answers as NoteItem[];
-    notes.forEach((note) => {
-      note.question=questionIDs.get(note.id) ?? "";
+    const notes: NoteItem[] = note.answers as NoteItem[];
+    notes.forEach((note_answer) => {
+      note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
     return res.status(200).json(note.answers);
   } catch (e) {

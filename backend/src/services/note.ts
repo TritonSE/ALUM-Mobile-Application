@@ -52,19 +52,16 @@ function hashCode(str: string) {
 function createAnswerArray(questions: QuestionType[]): AnswerType[] {
   const answerList: AnswerType[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
-    const questionID = hashCode(questions[i].question+questions[i].type);
-    answerList[i] = new Answer(
-      questions[i].type,
-      questionID
-    );
+    const questionID = hashCode(questions[i].question + questions[i].type);
+    answerList[i] = new Answer(questions[i].type, questionID);
   }
   return answerList;
 }
 
-function fillHashMap(questions: Question[], map: Map<String, String>): void{
-  for(let i=0; i<questions.length; ++i){
-    const questionID = hashCode(questions[i].question+questions[i].type);
-    if(!map.has(questionID)){
+function fillHashMap(questions: Question[], map: Map<string, string>): void {
+  for (let i = 0; i < questions.length; ++i) {
+    const questionID = hashCode(questions[i].question + questions[i].type);
+    if (!map.has(questionID)) {
       map.set(questionID, questions[i].question);
     }
   }

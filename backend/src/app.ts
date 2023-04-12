@@ -6,9 +6,6 @@ import { userRouter } from "./routes/user";
 import { notesRouter } from "./routes/notes";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
-import { fillHashMap } from "./services/note";
-import preSessionQuestions from "./models/preQuestionsList.json";
-import postSessionQuestions from "./models/postQuestionsList.json";
 import { imageRouter } from "./routes/image";
 import { errorHandler } from "./errors/handler";
 
@@ -18,11 +15,6 @@ import { errorHandler } from "./errors/handler";
  */
 class Server {
   public app = express();
-  public questionIDs = new Map<string, string>();
-  constructor(){
-    fillHashMap(preSessionQuestions, this.questionIDs);
-    fillHashMap(postSessionQuestions, this.questionIDs);
-  }
 }
 
 // initialize server app
@@ -41,5 +33,3 @@ server.app.use(errorHandler); // This handler is reached whenever there is some 
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-
-export const questionIDs = server.questionIDs;
