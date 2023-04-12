@@ -9,11 +9,15 @@ import SwiftUI
 
 struct CustomAlertView: View {
     @State var isAlert: Bool
+    let leftButtonLabel: String
+    let rightButtonLabel: String
+    let titleText: String
+    let errorMessage: String
     var body: some View {
         ZStack {
             Rectangle()
                 .frame(width: 326, height: 230)
-                .foregroundColor(Color.white.opacity(0.5)) // white and remove opacity
+                .foregroundColor(Color.white) 
                 .cornerRadius(16)
 
             VStack {
@@ -30,12 +34,12 @@ struct CustomAlertView: View {
                 }
                 .padding(.top, 19.11)
                 Spacer().frame(height: 11.11)
-                Text("Exit [pre/post]-session notes?")
+                Text(titleText)
                     .font(.custom("Metropolis-Regular", size: 17))
                     .frame(width: 294, height: 26)
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 8)
-                Text("All changes have been saved. You can continue editing in “Sessions” tab.")
+                Text(errorMessage)
                     .font(.custom("Metropolis-Regular", size: 13))
                     .frame(width: 294, height: 36)
                     .foregroundColor(Color("NeutralGray4"))
@@ -47,7 +51,7 @@ struct CustomAlertView: View {
                             // Add action for "Close" button here
                         },
                         label: {
-                            Text("Yes, exit")
+                            Text(leftButtonLabel)
                                 .font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(Color("ALUM Primary Purple"))
                                 .font(.system(size: 17, weight: .semibold))
@@ -64,16 +68,22 @@ struct CustomAlertView: View {
                             // Add action for "Close" button here
                         },
                         label: {
-                            Text("No")
+                            Text(rightButtonLabel)
                                 .font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(.white)
                                 .font(.system(size: 17, weight: .semibold))
                                 .frame(width: 143, height: 48)
-                                .background(LinearGradient(gradient: Gradient(colors: [Color("ALUM Primary Blue"), Color("Primary Gradient Blue")]), startPoint: .bottomTrailing, endPoint: . topLeading))
+                                .background(
+                                    LinearGradient(gradient: Gradient(colors:
+                                                        [Color("ALUM Primary Blue"),
+                                                         Color("Primary Gradient Blue")]),
+                                    startPoint: .bottomTrailing,
+                                    endPoint: .topLeading))
                                 .cornerRadius(12)
                         }
                     )
                 }
+                .padding(.bottom, 16)
             }
         }
     }
@@ -81,6 +91,10 @@ struct CustomAlertView: View {
 
 struct CustomAlertView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomAlertView(isAlert: false)
+        CustomAlertView(isAlert: false,
+                        leftButtonLabel: "Yes, exit",
+                        rightButtonLabel: "No :(",
+                        titleText: "Exit [pre/post]-session notes?",
+                        errorMessage: "All changes have been saved. You can continue editing in “Sessions” tab.")
     }
 }

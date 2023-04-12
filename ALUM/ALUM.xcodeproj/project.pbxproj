@@ -18,7 +18,6 @@
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
-		7418647329E68F3300671273 /* CustomAlertComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418647229E68F3300671273 /* CustomAlertComponent.swift */; };
 		7418647529E6B58E00671273 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7418647429E6B58E00671273 /* CustomAlertView.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
@@ -88,7 +87,6 @@
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
-		7418647229E68F3300671273 /* CustomAlertComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertComponent.swift; sourceTree = "<group>"; };
 		7418647429E6B58E00671273 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				97886D0E29C1964B00548A12 /* ResizingTextBox.swift */,
 				97886D1029C27F4A00548A12 /* ALUMTextFieldComponent.swift */,
 				0752D3BB29C4823900E6EEFF /* NavigationHeaderComponent.swift */,
-				7418647229E68F3300671273 /* CustomAlertComponent.swift */,
 				7418647429E6B58E00671273 /* CustomAlertView.swift */,
 			);
 			path = Components;
@@ -478,7 +475,6 @@
 				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */,
-				7418647329E68F3300671273 /* CustomAlertComponent.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
