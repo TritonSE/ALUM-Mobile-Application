@@ -70,6 +70,8 @@
 		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
+		E3F4186129E7222B00FDE56D /* CalendlyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */; };
+		E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186529E7246400FDE56D /* CalendlyBooking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +137,8 @@
 		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
+		E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBookingViewModel.swift; sourceTree = "<group>"; };
+		E3F4186529E7246400FDE56D /* CalendlyBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBooking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +249,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E3F4186229E7234A00FDE56D /* CalendlyBooking */,
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				80274FF1299DAFF500CCB9D0 /* LoginPage */,
@@ -257,6 +262,7 @@
 			children = (
 				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
 				97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */,
+				E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -332,6 +338,14 @@
 				97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */,
 			);
 			path = ErrorFunctions;
+			sourceTree = "<group>";
+		};
+		E3F4186229E7234A00FDE56D /* CalendlyBooking */ = {
+			isa = PBXGroup;
+			children = (
+				E3F4186529E7246400FDE56D /* CalendlyBooking.swift */,
+			);
+			path = CalendlyBooking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,6 +483,7 @@
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
+				E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
@@ -483,6 +498,7 @@
 				0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
+				E3F4186129E7222B00FDE56D /* CalendlyBookingViewModel.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,
 				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
 				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
