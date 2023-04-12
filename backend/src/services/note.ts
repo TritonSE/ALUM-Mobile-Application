@@ -3,6 +3,7 @@ import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
+import { questionIDs } from "../app"
 
 interface Question {
   question: string;
@@ -62,12 +63,22 @@ function hashCode(str: string) {
 function createAnswerArray(questions: Question[]): Answer[] {
   const answerList: Answer[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
+    const questionID = hashCode(questions[i].question+questions[i].type);
     answerList[i] = new Answer(
       questions[i].type,
-      hashCode(questions[i].question + questions[i].type)
+      questionID
     );
   }
   return answerList;
+}
+
+function fillHashMap(questions: Question[], map: Map<String, String>): void{
+  for(let i=0; i<questions.length; ++i){
+    const questionID = hashCode(questions[i].question+questions[i].type);
+    if(!map.has(questionID)){
+      map.set(questionID, questions[i].question);
+    }
+  }
 }
 
 /**
@@ -98,4 +109,4 @@ async function createPostSessionNotes() {
   }
 }
 
-export { createPreSessionNotes, createPostSessionNotes, Answer };
+export { createPreSessionNotes, createPostSessionNotes, Answer, fillHashMap};
