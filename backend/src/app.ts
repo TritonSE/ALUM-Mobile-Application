@@ -1,5 +1,5 @@
 import express from "express";
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { json } from "body-parser";
 
 import { userRouter } from "./routes/user";
@@ -43,5 +43,3 @@ server.app.use(errorHandler); // This handler is reached whenever there is some 
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
-
-export {mongoose as database};

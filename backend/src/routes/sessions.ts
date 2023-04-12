@@ -2,7 +2,6 @@
  * This file contains the route that will create a session
  */
 
-import { DBRef } from "bson";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { Session } from "../models/session";
@@ -102,7 +101,33 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
       .status(InternalError.ERROR_GETTING_SESSION.status)
       .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
   }
-});
+  }
+);
+
+router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
+  const sessionId = req.params.sessionId;
+  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+    return res
+      .status(ServiceError.INVALID_MONGO_ID.status)
+      .send(ServiceError.INVALID_MONGO_ID.message);
+  }
+
+  try {
+    const session = await Session.findById(sessionId);
+    if (!session) {
+      throw ServiceError.SESSION_WAS_NOT_FOUND;
+    }
+    const { preSession, postSession, menteeId, mentorId, dateTime } = session;
+    return res.status(200).send({
+      message: `Here is session ${sessionId}`,
+      session: {
+        preSession,
+        postSession,
+        menteeId,
+        mentorId,
+        dateTime,
+      },
+    });
 
 router.get(
   "/sessions",
