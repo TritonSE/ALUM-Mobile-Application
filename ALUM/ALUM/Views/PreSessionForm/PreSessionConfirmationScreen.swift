@@ -110,14 +110,16 @@ struct PreSessionConfirmationScreen: View {
                             .padding(.bottom, 32)
                             .frame(width: geometry.size.width * 0.3025)
 
-                            Button {
-
-                            } label: {
-                                Text("Save")
-                            }
+                            NavigationLink(destination: SessionConfirmationScreen(sessionType: "presession"), label: {
+                                HStack {
+                                    Text("Save")
+                                        .font(.custom("Metropolis-Regular", size: 17))
+                                }
+                            })
                             .buttonStyle(FilledInButtonStyle(disabled: false))
                             .padding(.bottom, 32)
                             .frame(width: geometry.size.width * 0.575)
+
                         }
                         .padding(.leading, 16)
                         .padding(.trailing, 16)

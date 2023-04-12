@@ -12,5 +12,6 @@ struct Question: Codable, Hashable, Identifiable {
     var type: String
     var id: String
     var answerBullet: [String]
+    var answerCheckboxBullet: [String: String]
     var answerParagraph: String
 }
