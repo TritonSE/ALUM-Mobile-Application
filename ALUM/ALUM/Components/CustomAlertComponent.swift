@@ -114,7 +114,7 @@ struct CustomAlertComponent: View {
                 Divider()
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 0.5)
                     .padding(.all, 0)
-                
+
                 HStack(spacing: 0) {
 
                     // left button
