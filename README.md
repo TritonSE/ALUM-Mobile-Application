@@ -2,7 +2,7 @@
 ### Tools needed
 - **Xcode** - Install from App Store
 
-### Organisation
+### Organization
 ```bash
 src/
 ├── Components/*
@@ -27,9 +27,21 @@ Often times, SwiftLint will show errors that can be fixed automatically. To fix 
 4. After running with fix, make sure to run lint again in case there are some errors that cannot be fixed automatically.
 
 ## Backend
+Documentation - https://documenter.getpostman.com/view/18831621/2s93XsXm5B
 ### Tools needed
-- [Postman](https://www.postman.com/) - Used to test API endpoints manually
+[Postman](https://www.postman.com/) - Used to test API endpoints manually. 
 
+### Postman setup
+We have a Postman collection setup for all our routes. 
+
+1. Just click on this button and either "Fork Collection" (recommended) OR "View collection". 
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/18831621-b16db8a4-a9c6-4d09-9b34-9a3434a4e212?action=collection%2Ffork&collection-url=entityId%3D18831621-b16db8a4-a9c6-4d09-9b34-9a3434a4e212%26entityType%3Dcollection%26workspaceId%3Db962d7f5-c39d-4b7a-90ff-51c554da3711#?env%5BALUM%5D=W3sia2V5IjoiQVBJX1VSTCIsInZhbHVlIjoiaHR0cDovLzEyNy4wLjAuMTozMDAwIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJodHRwOi8vMTI3LjAuMC4xOjMwMDAiLCJzZXNzaW9uSW5kZXgiOjB9LHsia2V5IjoiTUVOVE9SX0JFQVJFUl9UT0tFTiIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6InNlY3JldCIsInNlc3Npb25WYWx1ZSI6ImV5SmhiR2NpT2lKU1V6STFOaUlzSW10cFpDSTZJamczWXpGbE4yWTRNREF6TkdKaVl6Z3hZamhtTW1SaU9ETTNPVEl4WmpSaVpESTROMll4WkdZaUxDSjBlWEFpT2lKS1YxUWlmUS5leUp5YjJ4bElqb2liV1Z1ZEc5eUlpd2lhWE56SWpvaWFILi4uIiwic2Vzc2lvbkluZGV4IjoxfSx7ImtleSI6Ik1FTlRFRV9CRUFSRVJfVE9LRU4iLCJ2YWx1ZSI6IiIsImVuYWJsZWQiOnRydWUsInR5cGUiOiJzZWNyZXQiLCJzZXNzaW9uVmFsdWUiOiJleUpoYkdjaU9pSlNVekkxTmlJc0ltdHBaQ0k2SWpnM1l6RmxOMlk0TURBek5HSmlZemd4WWpobU1tUmlPRE0zT1RJeFpqUmlaREk0TjJZeFpHWWlMQ0owZVhBaU9pSktWMVFpZlEuZXlKeWIyeGxJam9pYldWdWRHVmxJaXdpYVhOeklqb2lhSC4uLiIsInNlc3Npb25JbmRleCI6Mn0seyJrZXkiOiJHT09HTEVfQVBJX0tFWSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZSwidHlwZSI6ImRlZmF1bHQiLCJzZXNzaW9uVmFsdWUiOiJBSXphU3lCaTNRYkdMOFVrVEI1dHhtSHl2c05aUHRmQV9vaV9qMVEiLCJzZXNzaW9uSW5kZXgiOjN9XQ==)
+
+2. Next, setup the variable environment using the video tutorial linked - https://drive.google.com/file/d/1y1TsyelzPby0q7eyMPXuYSbsWRod6NdQ/view?usp=share_link
+Note: The `ALUM.postman_environment.json` imported in the video can be found in the root of the repository
+
+3. At this point, you should be able to run the requests on the collection (ones protected by auth too)
 ### Setup
 To get started, open a terminal and cd into the `backend/` directory using 
 ```
@@ -67,7 +79,7 @@ npm run lint-fix
 ```
 If your PR is failing lint check, use these commands!
 
-### Organisation
+### Organization
 ```bash
 src/
 ├── models/* (DB models to interact with the database)
@@ -75,3 +87,6 @@ src/
 ├── routes/* (Exposes the various services to the clients using endpoints)
 └── app.ts (Main script to run the server and use routes)
 ```
+
+### Auth Layer and Roles
+The backend uses the firebase authentication and custom user claims to protect routes. Custom user claims are essentially roles and we use three: mentor, mentee, and admin. Outside of protecting the routes, the auth layer can also be used to determine who is accessing the route (mentor, mentee, admin, etc.). Reference the [Firebase API](https://firebase.google.com/docs/reference/rest/auth) for more information on how the auth layer works.

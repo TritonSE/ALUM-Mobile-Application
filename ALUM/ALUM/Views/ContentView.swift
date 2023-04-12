@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        NavigationView {
-            VStack {
-                Text("Hello World")
-                NavigationLink(destination: LoginPageView()) {
-                    Text("Login Page")
-                }
-            }
-        }
-    }
-}
+     @State var toShow: String = "sign up"
+
+     var body: some View {
+         Text("Hello World")
+     }
+ }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

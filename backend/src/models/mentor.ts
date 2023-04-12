@@ -7,15 +7,33 @@ import mongoose from "mongoose";
 
 interface MentorInterface {
   name: string;
-  organization_id: string;
-  access_token: string;
+  imageId: string;
+  about: string;
+  calendlyLink: string;
+  graduationYear: number;
+  college: string;
+  major: string;
+  minor: string;
+  career: string;
+  topicsOfExpertise: string[];
+  mentorMotivation: string;
+  menteeIDs: mongoose.Types.ObjectId[];
   status: string;
 }
 
 interface MentorDoc extends mongoose.Document {
   name: string;
-  organization_id: string;
-  access_token: string;
+  imageId: string;
+  about: string;
+  calendlyLink: string;
+  graduationYear: number;
+  college: string;
+  major: string;
+  minor: string;
+  career: string;
+  topicsOfExpertise: string[];
+  mentorMotivation: string;
+  menteeIDs: mongoose.Types.ObjectId[];
   status: string;
 }
 
@@ -28,14 +46,54 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  organizationId: {
+  imageId: {
     type: String,
     required: true,
   },
-  accessToken: {
+  about: {
     type: String,
     required: true,
   },
+  calendlyLink: {
+    type: String,
+    required: true,
+  },
+  graduationYear: {
+    type: Number,
+    required: true,
+  },
+  college: {
+    type: String,
+    required: true,
+  },
+  major: {
+    type: String,
+    required: true,
+  },
+  minor: {
+    type: String,
+    required: true,
+  },
+  career: {
+    type: String,
+    required: true,
+  },
+  topicsOfExpertise: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
+  mentorMotivation: {
+    type: String,
+    required: false,
+  }, // TODO Revisit this field
+  menteeIDs: [
+    {
+      type: mongoose.Types.ObjectId,
+      required: false,
+    },
+  ],
   status: {
     type: String,
     required: true,

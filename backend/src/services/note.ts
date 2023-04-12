@@ -1,9 +1,8 @@
-import { assert } from "console";
 import { createHash } from "crypto";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
-import { questionIDs } from "../app"
+import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
 
 interface Question {
   question: string;
@@ -13,35 +12,25 @@ interface Question {
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
  */
-class Answer {
+class Answer implements AnswerType {
   answer: string | Array<string>;
 
   type: string;
 
-  id: string; // hashed from question
+  id: string;
 
-  constructor(type: string, id: string) {
-    this.answer = "";
-    this.type = type;
-    this.id = id;
+  toObject(): AnswerType {
+    return { answer: this.answer, type: this.type, id: this.id };
   }
 
-  /**
-   * Sets the text answer of an answer object. If the answer is a textbox, the text will be set to the input.
-   * Otherwise, the text will be added to the answer ArrayList.
-   * @param input: Text of answer to input
-   */
-  setAnswer(input: string): void {
-    if (typeof this.answer === "string") {
-      this.answer = input;
+  constructor(type: string, id: string) {
+    if (type === "text") {
+      this.answer = "";
     } else {
-      try {
-        assert(Array.isArray(this.answer));
-        this.answer.push(input);
-      } catch (e) {
-        throw new Error();
-      }
+      this.answer = new Array<string>();
     }
+    this.type = type;
+    this.id = id;
   }
 }
 
@@ -60,8 +49,8 @@ function hashCode(str: string) {
  * @returns The created answer array.
  */
 
-function createAnswerArray(questions: Question[]): Answer[] {
-  const answerList: Answer[] = new Array(questions.length);
+function createAnswerArray(questions: QuestionType[]): AnswerType[] {
+  const answerList: AnswerType[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
     const questionID = hashCode(questions[i].question+questions[i].type);
     answerList[i] = new Answer(
@@ -88,10 +77,10 @@ async function createPreSessionNotes() {
   let preNotes = null;
   try {
     const preSessionAnswers = createAnswerArray(preSessionQuestions);
-    preNotes = new Note({ preSessionAnswers, type: "pre" });
+    preNotes = new Note({ answers: preSessionAnswers, type: "pre" });
     return await preNotes.save();
   } catch (e) {
-    throw new Error();
+    throw new Error("Unable to create notes!");
   }
 }
 
@@ -102,11 +91,45 @@ async function createPostSessionNotes() {
   let postNotes = null;
   try {
     const postSessionAnswers = createAnswerArray(postSessionQuestions);
-    postNotes = new Note({ postSessionAnswers, type: "post" });
+    postNotes = new Note({ answers: postSessionAnswers, type: "post" });
     return await postNotes.save();
   } catch (e) {
-    throw new Error();
+    throw new Error("Unable to create notes!");
   }
 }
 
-export { createPreSessionNotes, createPostSessionNotes, Answer, fillHashMap};
+/**
+ * Updates notes document inside of MongoDB
+ * @param updatedNotes New notes document with new answers to replace original document
+ * @param documentId ObjectID of the document to be updated
+ * @returns Updated note document w/ new answers
+ * @throws Error if there was a problem saving the notes
+ */
+async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
+  console.log("updatedNotes", updatedNotes);
+  const noteDoc = await Note.findById(documentId);
+  if (!noteDoc) {
+    throw new Error("Document not found");
+  } else {
+    // Can improve this in future if needed by creating a hashmap
+    noteDoc.answers.forEach((_, answerIndex) => {
+      const updatedNote = updatedNotes.find(
+        (note) => note.question_id === noteDoc.answers[answerIndex].id
+      );
+      if (updatedNote) {
+        noteDoc.answers[answerIndex].answer = updatedNote.answer;
+      }
+    });
+    try {
+      // Since we are modifying noteDoc.answers[index].answer directly,
+      // mongoose does not notice the change so ignores saving it unless we manually mark
+      noteDoc.markModified("answers");
+      return await noteDoc.save();
+    } catch (error) {
+      console.error(error);
+      throw new Error("Save error");
+    }
+  }
+}
+
+export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, fillHashMap };
