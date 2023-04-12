@@ -7,6 +7,7 @@ import { CustomError } from "./errors";
 const ERROR_GETTING_MENTEE = "There was some error getting the mentee";
 const ERROR_GETTING_MENTOR = "There was some error getting the mentor";
 const ERROR_GETTING_IMAGE = "There was some error getting the image";
+const ERROR_GETTING_SESSION = "There was some error searching this user"
 const NO_APP_PORT = "Could not find app port env variable";
 const NO_MONGO_URI = "Could not find mongo uri env variable";
 const NO_SERVICE_ACCOUNT_KEY = "Could not find service account key env variable";
@@ -26,4 +27,6 @@ export class InternalError extends CustomError {
   static NO_SERVICE_ACCOUNT_KEY = new InternalError(5, 500, NO_SERVICE_ACCOUNT_KEY);
 
   static NO_DEFAULT_IMAGE_ID = new InternalError(6, 500, NO_DEFAULT_IMAGE_ID);
+
+  static ERROR_GETTTING_SESSION = new InternalError(7, 500, ERROR_GETTING_SESSION);
 }

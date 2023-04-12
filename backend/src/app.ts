@@ -1,10 +1,11 @@
 import express from "express";
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { json } from "body-parser";
 import { userRouter } from "./routes/user";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
 import { imageRouter } from "./routes/image";
+import { database } from "firebase-admin";
 
 /**
  * Express server application class.
@@ -29,3 +30,5 @@ server.app.use(imageRouter);
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
+
+export {mongoose as database};

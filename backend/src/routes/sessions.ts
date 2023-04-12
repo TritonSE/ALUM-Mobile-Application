@@ -3,9 +3,13 @@
  * sessions
  */
 
+import { DBRef } from "bson";
 import express, { NextFunction, Request, Response } from "express";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import {database} from "../app";
+import { verifyAuthToken } from "../middleware/auth";
+import { InternalError } from "../errors/internal";
 /**
  * This is a post route to create a new session. 
  *
@@ -48,6 +52,38 @@ router.post("/sessions", async (req: Request, res: Response, next: NextFunction)
       message: `Session with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
     });
   } catch (e) {
+    next();
+    return res.status(400);
+  }
+});
+
+
+router.get("/sessions", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) =>{
+  const userID = req.body.uid;
+  let role = req.body.role;
+  let userSessions;
+  if(role === null || userID === null){
+    return res.status(InternalError.ERROR_GETTTING_SESSION.status)
+    .send(InternalError.ERROR_GETTTING_SESSION.message);
+  }
+  try{
+  if(role==="mentee"){
+      userSessions = await Session.find({menteeId: {$eq : userID}});
+  }
+  if (role === "mentor"){
+      userSessions = await Session.find({mentorId: {$eq: userID}});
+  }
+  if(userSessions===null){
+      return res.status(400).json({
+        message: `No sessions found for user ${userID}!`
+      })
+    }
+  return res.status(200).json({
+      message: `Sessions for user ${userID}:`,
+      sessions: userSessions
+    })
+  }
+  catch(e){
     next();
     return res.status(400);
   }
