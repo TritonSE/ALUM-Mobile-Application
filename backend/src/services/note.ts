@@ -4,6 +4,11 @@ import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
 
+interface Question {
+  question: string;
+  type: string;
+}
+
 /*
  * Class definition for an Answer to a question, can either be textbox or bullet boxes.
  */
@@ -47,12 +52,19 @@ function hashCode(str: string) {
 function createAnswerArray(questions: QuestionType[]): AnswerType[] {
   const answerList: AnswerType[] = new Array(questions.length);
   for (let i = 0; i < answerList.length; ++i) {
-    answerList[i] = new Answer(
-      questions[i].type,
-      hashCode(questions[i].question + questions[i].type)
-    ).toObject();
+    const questionID = hashCode(questions[i].question + questions[i].type);
+    answerList[i] = new Answer(questions[i].type, questionID);
   }
   return answerList;
+}
+
+function fillHashMap(questions: Question[], map: Map<string, string>): void {
+  for (let i = 0; i < questions.length; ++i) {
+    const questionID = hashCode(questions[i].question + questions[i].type);
+    if (!map.has(questionID)) {
+      map.set(questionID, questions[i].question);
+    }
+  }
 }
 
 /**
@@ -117,4 +129,4 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   }
 }
 
-export { createPreSessionNotes, createPostSessionNotes, updateNotes };
+export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, fillHashMap };
