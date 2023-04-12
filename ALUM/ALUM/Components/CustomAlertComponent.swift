@@ -1,0 +1,212 @@
+//
+//  CustomAlertComponent.swift
+//  ALUM
+//
+//  Created by Sidhant Rohatgi on 4/11/23.
+//
+
+import Combine
+import SwiftUI
+
+/// Alert type
+enum AlertType {
+
+    case success
+    case error(title: String, message: String = "")
+
+    func title() -> String {
+        switch self {
+        case .success:
+            return "Success"
+        case .error(title: let title, _):
+            return title
+        }
+    }
+
+    func message() -> String {
+        switch self {
+        case .success:
+            return "Please confirm that you're still open to session requests"
+        case .error(_, message: let message):
+            return message
+        }
+    }
+
+    /// Left button action text for the alert view
+    var leftActionText: String {
+        switch self {
+        case .success:
+            return "Go"
+        case .error:
+            return "Go"
+        }
+    }
+
+    /// Right button action text for the alert view
+    var rightActionText: String {
+        switch self {
+        case .success:
+            return "Cancel"
+        case .error:
+            return "Cancel"
+        }
+    }
+
+    func height(isShowVerticalButtons: Bool = false) -> CGFloat {
+        switch self {
+        case .success:
+            return isShowVerticalButtons ? 220 : 150
+        case .error:
+            return isShowVerticalButtons ? 220 : 150
+        }
+    }
+}
+
+/// A boolean State variable is required in order to present the view.
+struct CustomAlertComponent: View {
+
+    /// Flag used to dismiss the alert on the presenting view
+    @Binding var presentAlert: Bool
+
+    /// The alert type being shown
+    @State var alertType: AlertType = .success
+
+    /// based on this value alert buttons will show vertically
+    var isShowVerticalButtons = false
+
+    var leftButtonAction: (() -> Void)?
+    var rightButtonAction: (() -> Void)?
+
+    let verticalButtonsHeight: CGFloat = 80
+
+    var body: some View {
+
+        ZStack {
+
+            // faded background
+            Color.black.opacity(0.75)
+                .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 0) {
+
+                if alertType.title() != "" {
+
+                    // alert title
+                    Text(alertType.title())
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.black)
+                        .multilineTextAlignment(.center)
+                        .frame(height: 25)
+                        .padding(.top, 16)
+                        .padding(.bottom, 8)
+                        .padding(.horizontal, 16)
+                }
+
+                // alert message
+                Text(alertType.message())
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    .font(.system(size: 14))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    .minimumScaleFactor(0.5)
+
+                Divider()
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 0.5)
+                    .padding(.all, 0)
+                
+                HStack(spacing: 0) {
+
+                    // left button
+                    if !alertType.leftActionText.isEmpty {
+                        Button {
+                            leftButtonAction?()
+                        } label: {
+                            Text(alertType.leftActionText)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .padding()
+                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        }
+                        Divider()
+                            .frame(minWidth: 0, maxWidth: 0.5, minHeight: 0, maxHeight: .infinity)
+                    }
+
+                    // right button (default)
+                    Button {
+                        rightButtonAction?()
+                    } label: {
+                        Text(alertType.rightActionText)
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.pink)
+                            .multilineTextAlignment(.center)
+                            .padding(15)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                    }
+
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 55)
+                .padding([.horizontal, .bottom], 0)
+
+            }
+            .frame(width: 270, height: alertType.height(isShowVerticalButtons: isShowVerticalButtons))
+            .background(
+                Color.white
+            )
+            .cornerRadius(4)
+        }
+        .zIndex(2)
+    }
+}
+
+struct ContentVieww: View {
+
+    @State var presentAlert = false
+
+    var body: some View {
+        ZStack {
+
+            Button {
+                withAnimation {
+                    presentAlert.toggle()
+                }
+            } label: {
+                Text("Show Custom Alert")
+            }
+
+            if presentAlert {
+
+//                Success Alert
+
+//                CustomAlert(presentAlert: $presentAlert) {
+//                    withAnimation{
+//                        presentAlert.toggle()
+//                    }
+//                } rightButtonAction: {
+//                    withAnimation{
+//                        presentAlert.toggle()
+//                    }
+//                }
+
+//                Error Alert
+
+                CustomAlertComponent(presentAlert: $presentAlert, alertType: .error(title: "Error", message: "Please confirm that you're still open to session."), isShowVerticalButtons: false) {
+                    withAnimation {
+                        presentAlert.toggle()
+                    }
+                } rightButtonAction: {
+                    withAnimation {
+                        presentAlert.toggle()
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct CustomAlertComponent_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentVieww()
+    }
+}
