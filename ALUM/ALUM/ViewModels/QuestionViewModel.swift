@@ -66,17 +66,9 @@ final class QuestionViewModel: ObservableObject {
         self.questionList.append(question2)
         self.questionList.append(question3)
         self.questionList.append(question4)
-        self.questionList.append(question5)
+        // self.questionList.append(question5)
         self.questionList.append(question6)
         self.isLoading = false
-    }
-
-    func fetchQuestions() async throws -> [Question] {
-        let url = URL(string: "http://localhost:3000/notes/")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let questions = try decoder.decode( [Question].self, from: data)
-        return questions
     }
 
     func submitNotesPatch() async throws {
@@ -89,6 +81,15 @@ final class QuestionViewModel: ObservableObject {
             }
         }
         try await NotesService().patchNotesHelper(data: notesData)
+    }
+    
+    func loadNotes() async throws {
+        var notesData: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/6436f1175a9cebd93b899a4f")
+        for question in notesData {
+            var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
+            question.answer.toRaw(question: &questionToAdd)
+            self.questionList.append(questionToAdd)
+        }
     }
 
     func nextQuestion() {
