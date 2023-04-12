@@ -30,7 +30,7 @@ struct CustomAlertView: View {
                 }
                 .padding(.top, 19.11)
                 Spacer().frame(height: 11.11)
-                Text("placeholder title")
+                Text("Exit [pre/post]-session notes?")
                     .font(.custom("Metropolis-Regular", size: 17))
                     .frame(width: 294, height: 26)
                     .multilineTextAlignment(.center)
@@ -47,7 +47,7 @@ struct CustomAlertView: View {
                             // Add action for "Close" button here
                         },
                         label: {
-                            Text("Close")
+                            Text("Yes, exit")
                                 .font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(Color("ALUM Primary Purple"))
                                 .font(.system(size: 17, weight: .semibold))
@@ -69,23 +69,18 @@ struct CustomAlertView: View {
                                 .foregroundColor(.white)
                                 .font(.system(size: 17, weight: .semibold))
                                 .frame(width: 143, height: 48)
-                                .background(Color.blue)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color("ALUM Primary Blue"), Color("Primary Gradient Blue")]), startPoint: .bottomTrailing, endPoint: . topLeading))
                                 .cornerRadius(12)
-                                .overlay(RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color("ALUM Primary Blue"), lineWidth: 2))
                         }
                     )
                 }
             }
         }
-//        .background(Color.black.opacity(0.5))
-//        .frame(width: 326, height: 230)
-//        .cornerRadius(16)
     }
 }
 
 struct CustomAlertView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomAlertView(isAlert: true)
+        CustomAlertView(isAlert: false)
     }
 }
