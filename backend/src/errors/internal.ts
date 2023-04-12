@@ -7,7 +7,7 @@ import { CustomError } from "./errors";
 const ERROR_GETTING_MENTEE = "There was some error getting the mentee";
 const ERROR_GETTING_MENTOR = "There was some error getting the mentor";
 const ERROR_GETTING_IMAGE = "There was some error getting the image";
-const ERROR_GETTING_SESSION = "There was some error searching this user"
+const ERROR_GETTING_SESSION = "There was some error searching this user";
 const NO_APP_PORT = "Could not find app port env variable";
 const NO_MONGO_URI = "Could not find mongo uri env variable";
 const NO_SERVICE_ACCOUNT_KEY = "Could not find service account key env variable";
