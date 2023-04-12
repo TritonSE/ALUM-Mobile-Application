@@ -2,6 +2,7 @@
  * This file contains the route that will create a session
  */
 
+import { DBRef } from "bson";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { Session } from "../models/session";
@@ -12,6 +13,9 @@ import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 
+import {database} from "../app";
+import { verifyAuthToken } from "../middleware/auth";
+import { InternalError } from "../errors/internal";
 /**
  * This is a post route to create a new session. 
  *
