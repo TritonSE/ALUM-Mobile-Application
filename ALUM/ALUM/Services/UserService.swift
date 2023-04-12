@@ -31,6 +31,26 @@ struct MentorPostData: Codable {
     var mentorMotivation: String
 }
 
+struct MentorGetData: Codable {
+    var menteeIDs: [String]?
+    var id: String?
+    var name: String
+    var about: String
+    var imageId: String
+    var major: String
+    var minor: String
+    var college: String
+    var career: String
+    var graduationYear: Int
+    var calendlyLink: String
+    var topicsOfExpertise: [String]
+    var mentorMotivation: String?
+    var pairingIds: [String]?
+    var organizationId: String?
+    var personalAccessToken: String?
+    var status: String?
+}
+
 class UserService {
     func createUser(url: String, jsonData: Data) async throws {
         // Create a URL request with JSON content type
