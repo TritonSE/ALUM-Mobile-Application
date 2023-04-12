@@ -26,8 +26,7 @@ struct MultipleChoice: View {
                         .frame(width: 8, height: 8)
                         .padding(.init(top: 14.0, leading: 34, bottom: 14.0, trailing: 10))
                 }
-                
-                
+
                 Text(content)
                     .font(Font.custom("Metropolis-Regular", size: 17))
                     .padding(.init(top: 11, leading: 0, bottom: 11, trailing: 2))
@@ -41,23 +40,20 @@ struct MultipleChoice: View {
                                 .padding(.trailing, 8)
                                 .padding(.leading, 8)
                                 .frame(height: 48.0)
-                            
+
                             RoundedRectangle(cornerRadius: 12.0)
                                 .stroke(Color("ALUM Dark Blue"))
                                 .padding(.trailing, 8)
                                 .padding(.leading, 8)
                                 .frame(height: 48.0)
                         })
-                    
-                    
-                
+
                 Spacer()
             }
-        }
-        else {
+        } else {
             ZStack {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                
+
                     .stroke(Color("ALUM Dark Blue"), lineWidth: 1)
                     .frame(width: 358, height: 48)
                 HStack {
@@ -87,7 +83,7 @@ struct MultipleChoice: View {
                             .padding(.trailing, 16)
                             .padding(.leading, 16)
                             .frame(height: 48.0)
-                        
+
                         RoundedRectangle(cornerRadius: 12.0)
                             .stroke(Color("ALUM Dark Blue"))
                             .padding(.trailing, 16)
@@ -95,9 +91,9 @@ struct MultipleChoice: View {
                             .frame(height: 48.0)
                     })
             }
-            
+
         }
-            
+
     }
 }
 
@@ -111,7 +107,7 @@ struct MultipleChoiceView: View {
     // index selected var
     var body: some View {
         Text("asdf")
-        
+
     }
 }
 

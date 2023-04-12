@@ -11,7 +11,14 @@ struct Bullet: View {
     var data: String
     @State var type: String = "bullet"
     @State var checked: Bool = false
-    
+
+    func toggleType() {
+        if type == "checked" {
+            type = "unchecked"
+        } else if type == "unchecked" {
+            type = "checked"
+        }
+    }
 
     var body: some View {
         if type == "bullet" {
@@ -28,7 +35,6 @@ struct Bullet: View {
                     .padding(.init(top: 8.0, leading: 0, bottom: 8.0, trailing: 0))
                 HStack {
                     Image(systemName: "circle.fill")
-                        .frame(width: 8, height: 8)
                         .font(.system(size: 8.0))
                         .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.init(top: 0.0, leading: 36, bottom: 0.0, trailing: 157))
@@ -37,7 +43,6 @@ struct Bullet: View {
                         remove()
                     } label: {
                         Image(systemName: "xmark")
-                            .frame(width: 8, height: 8)
                             .foregroundColor(Color("NeutralGray3"))
                             .font(.system(size: 12))
 
@@ -45,8 +50,7 @@ struct Bullet: View {
                     .padding(.init(top: 0.0, leading: 157, bottom: 0.0, trailing: 28))
                 }
             }
-        }
-        else {
+        } else {
             ZStack {
                 Text(data)
                     .font(Font.custom("Metropolis-Regular", size: 17))
@@ -58,7 +62,7 @@ struct Bullet: View {
                     .background(Color.white)
                     .cornerRadius(8)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.init(top: 4.0, leading: 0, bottom: 4.0, trailing: 0))
+                    .padding(.init(top: 8.0, leading: 0, bottom: 8.0, trailing: 0))
                 HStack {
                     ZStack {
                         if checked == true {
@@ -68,13 +72,13 @@ struct Bullet: View {
                             Image(systemName: "checkmark")
                                 .foregroundColor(Color("ALUM Dark Blue"))
                                 .font(.system(size: 10, weight: .bold))
-                                .frame(width: 9, height: 6)
                                 .padding(.init(top: 0.0, leading: 32, bottom: 0.0, trailing: 157))
                         }
                         Image(systemName: "square")
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .onTapGesture {
                                 self.checked.toggle()
+                                toggleType()
                             }
                             .padding(.init(top: 0.0, leading: 32, bottom: 0.0, trailing: 157))
                     }
@@ -83,7 +87,6 @@ struct Bullet: View {
                         remove()
                     } label: {
                         Image(systemName: "xmark")
-                            .frame(width: 8, height: 8)
                             .foregroundColor(Color("NeutralGray3"))
                             .font(.system(size: 12))
 
@@ -124,7 +127,6 @@ struct BulletsView: View {
         newText = ""
         showingSheet = true
     }
-    
 
     var body: some View {
        NavigationView {
@@ -159,12 +161,9 @@ struct BulletsView: View {
     }
 }
 
-
-
 struct CheckboxBulletsView: View {
-    @State var bulletsContent: [String]
-    @State var bulletsStatus: [String]
-    @Binding var question: String
+    @Binding var checkboxBullets: [CheckboxBullet]
+    @State var question: String
     @State var showingSheet = false
     @State var newText = ""
     @State var editingBulletIndex = 0
@@ -174,22 +173,20 @@ struct CheckboxBulletsView: View {
         showingSheet = false
     }
     func done() {
-        bulletsContent[editingBulletIndex] = newText
+        checkboxBullets[editingBulletIndex].content = newText
         showingSheet = false
     }
     func editText(index: Int) {
         editingBulletIndex = index
-        newText = bulletsContent[editingBulletIndex]
+        newText = checkboxBullets[editingBulletIndex].content
         showingSheet = true
     }
     func removeBullet(index: Int) {
-        bulletsContent.remove(at: index)
-        bulletsStatus.remove(at: index)
+        checkboxBullets.remove(at: index)
     }
     func addBullet() {
-        bulletsContent.append("")
-        bulletsStatus.append("bullet")
-        editingBulletIndex = bulletsContent.count - 1
+        checkboxBullets.append(CheckboxBullet(content: "", status: "bullet"))
+        editingBulletIndex = checkboxBullets.count - 1
         newText = ""
         showingSheet = true
     }
@@ -199,18 +196,18 @@ struct CheckboxBulletsView: View {
             ZStack {
                 Color("ALUM White 2")
                 VStack {
-                    ForEach(bulletsContent.indices, id: \.self) { idx in
+                    ForEach(checkboxBullets.indices, id: \.self) { idx in
                         Bullet(remove: {self.removeBullet(index: idx)},
-                               data: bulletsContent[idx],
-                               type: bulletsStatus[idx],
-                               checked: bulletsStatus[idx] == "checked")
+                               data: checkboxBullets[idx].content,
+                               type: checkboxBullets[idx].status,
+                               checked: checkboxBullets[idx].status == "checked")
                         .onTapGesture {
                             self.editText(index: idx)
                         }
                     }
                     CircleAddButton(add: addBullet)
                         .padding(.top, 32)
-                    if bulletsContent.count == 0 {
+                    if checkboxBullets.count == 0 {
                         Text(belowText)
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .font(Font.custom("Metropolis-Regular", size: 17))
@@ -226,15 +223,14 @@ struct CheckboxBulletsView: View {
     }
 }
 
-
-
-
 struct BulletsViewTester: View {
-    @State var bulletsContentList: [String] = ["this should be checked", "this should be unchecked", "this should be a bullet"]
-    @State var bulletsStatusList: [String] = ["checked", "unchecked", "bullet"]
+    @State var bulletsList: [CheckboxBullet] = [
+        CheckboxBullet(content: "some content", status: "unchecked"),
+        CheckboxBullet(content: "more content", status: "bullet"),
+        CheckboxBullet(content: "a bullet here", status: "bullet")]
     @State var question: String = "Why do you want to be a mentor?"
     var body: some View {
-        CheckboxBulletsView(bulletsContent: bulletsContentList, bulletsStatus: bulletsStatusList, question: $question)
+        CheckboxBulletsView(checkboxBullets: $bulletsList, question: question)
     }
 }
 

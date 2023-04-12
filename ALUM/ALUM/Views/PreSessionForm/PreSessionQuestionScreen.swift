@@ -17,22 +17,22 @@ struct PreSessionQuestionScreen: View {
             DynamicProgressBarComponent(nodes: $viewModel.questionList.count, filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
                 .padding()
                 .background(Color.white)
-            
+
             ScrollView {
                 content
             }
-            
+
             footer
                 .padding(.horizontal, 16)
                 .padding(.top, 32)
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
-             
+
         }
         .edgesIgnoringSafeArea(.bottom)
         .applyPreSessionScreenHeaderModifier()
     }
-    
+
     @ViewBuilder
     var footer: some View {
         if !viewModel.lastQuestion {
@@ -60,9 +60,9 @@ struct PreSessionQuestionScreen: View {
                         }
                     }
                     .buttonStyle(OutlinedButtonStyle())
-                    
+
                     Spacer()
-                    
+
                     Button {
                         viewModel.nextQuestion()
                     } label: {
@@ -88,9 +88,9 @@ struct PreSessionQuestionScreen: View {
                     }
                 }
                 .buttonStyle(OutlinedButtonStyle())
-                
+
                 Spacer()
-                
+
                 NavigationLink(destination: PreSessionConfirmationScreen(viewModel: viewModel), label: {
                     HStack {
                         Text("Continue")
@@ -104,7 +104,7 @@ struct PreSessionQuestionScreen: View {
             }
         }
     }
-    
+
     // viewModel.questionList[index].answerBullet
     var content: some View {
         VStack {

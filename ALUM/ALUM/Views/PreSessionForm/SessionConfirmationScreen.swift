@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SessionConfirmationScreen: View {
-    @State var sessionType: String = "missed"
+    @State var text: [String] // [primary text, subtext, button text]
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -25,31 +25,21 @@ struct SessionConfirmationScreen: View {
                         .font(.system(size: 100, weight: .black))
                         .foregroundColor(.white)
                 }
-                if sessionType == "missed" {
-                    Text("Missed session form submitted!")
-                        .font(.custom("Metropolis-Regular", size: 34))
-                        .padding(16)
-                        .multilineTextAlignment(.center)
-                    Text("Thank you for your feedback!")
-                        .font(.custom("Metropolis-Regular", size: 17))
-                        .foregroundColor(Color("NeutralGray4"))
-                        .multilineTextAlignment(.center)
-                        .padding(16)
-                } else {
-                    Text((sessionType == "presession") ? "Pre-session form saved!" : "Post-session form saved!")
-                        .font(.custom("Metropolis-Regular", size: 34))
-                        .multilineTextAlignment(.center)
-                        .padding(16)
-                    Text("You can continue on the notes later under \"Sessions\".")
-                        .font(.custom("Metropolis-Regular", size: 17))
-                        .foregroundColor(Color("NeutralGray4"))
-                        .multilineTextAlignment(.center)
-                        .padding(16)
-                }
+
+                Text(text[0])
+                    .font(.custom("Metropolis-Regular", size: 34))
+                    .padding(16)
+                    .multilineTextAlignment(.center)
+                Text(text[1])
+                    .font(.custom("Metropolis-Regular", size: 17))
+                    .foregroundColor(Color("NeutralGray4"))
+                    .multilineTextAlignment(.center)
+                    .padding(16)
+
                 Spacer()
-                NavigationLink(destination: SessionConfirmationScreen(), label: {
+                NavigationLink(destination: LoginPageView(), label: {
                     HStack {
-                        Text("Close")
+                        Text(text[2])
                             .font(.custom("Metropolis-Regular", size: 17))
                     }
                 })
@@ -61,13 +51,23 @@ struct SessionConfirmationScreen: View {
             .padding(.trailing, 16)
             .frame(alignment: .bottom)
             .frame(maxWidth: .infinity)
-            
+
         }
+    }
+}
+
+struct SessionConfirmationTester: View {
+    @State var text: [String] = [
+        "Missed session form submitted!",
+        "Thank you for your feedback!",
+        "Close"]
+    var body: some View {
+        SessionConfirmationScreen(text: text)
     }
 }
 
 struct SessionConfirmationScreen_Previews: PreviewProvider {
     static var previews: some View {
-        SessionConfirmationScreen()
+        SessionConfirmationTester()
     }
 }

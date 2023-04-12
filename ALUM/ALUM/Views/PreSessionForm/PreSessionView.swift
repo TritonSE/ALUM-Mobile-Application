@@ -23,7 +23,6 @@ struct PreSessionScreenHeaderModifier: ViewModifier {
     }
 }
 
-
 extension View {
     func applyPreSessionScreenHeaderModifier() -> some View {
         self.modifier(PreSessionScreenHeaderModifier())
@@ -46,7 +45,7 @@ struct PreSessionView: View {
                     .navigationBarHidden(true)
             }
         }
-        //.navigationBarBackButtonHidden()
+        // .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.loadTestData()
         }

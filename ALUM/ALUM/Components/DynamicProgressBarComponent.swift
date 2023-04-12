@@ -38,7 +38,7 @@ struct DynamicProgressBarComponent: View {
                         }
                     }
                     Group {
-                        if index == activeNode  {
+                        if index == activeNode {
                             ActiveCircle()
                         } else if index < filledNodes + 1 {
                             FilledCircle()

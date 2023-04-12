@@ -6,11 +6,10 @@
 //
 // Notes:
 // The button titled "XXX" currently leads back to the login page, check where it should actually be leading back to.
-
 import SwiftUI
 
 struct PreSessionConfirmationScreen: View {
-    
+
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
 
@@ -18,7 +17,7 @@ struct PreSessionConfirmationScreen: View {
         VStack {
             StaticProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.questionList.count, activeNode: 0)
                 .background(Color.white)
-            
+
             ScrollView {
                 content
             }
@@ -31,7 +30,7 @@ struct PreSessionConfirmationScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .applyPreSessionScreenHeaderModifier()
     }
-    
+
     var footer: some View {
         HStack {
             Button {
@@ -60,12 +59,13 @@ struct PreSessionConfirmationScreen: View {
             }
             .buttonStyle(FilledInButtonStyle())
 
-            NavigationLink(destination: LoginPageView(), isActive: $viewModel.submitSuccess) {
+            NavigationLink(destination: SessionConfirmationScreen(text: ["Pre-session form saved!", "You can continue on the notes later under \"Sessions\".", "Great"]),
+                           isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }
         }
     }
-    
+
     var content: some View {
         VStack {
             HStack {

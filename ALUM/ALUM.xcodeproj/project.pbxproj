@@ -334,13 +334,13 @@
 			isa = PBXGroup;
 			children = (
 				97A31ACC29BB0B9C00B79D30 /* PreSessionView.swift */,
-				97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */,
 				2A287A2329C258DE00D69D9F /* PreSessionQuestionScreen.swift */,
-				2A301A2529DE8D9E0039DDC3 /* PostSessionQuestionScreen.swift */,
-				2A301A2729DE91EF0039DDC3 /* MissedSessionScreen.swift */,
+				97A31AD229BB0CB800B79D30 /* PreSessionConfirmationScreen.swift */,
 				2A301A2B29DE98AD0039DDC3 /* PostSessionView.swift */,
-				2AE4F59229E5C9BE00F764DA /* SessionConfirmationScreen.swift */,
+				2A301A2529DE8D9E0039DDC3 /* PostSessionQuestionScreen.swift */,
 				2AE4F59629E62AE000F764DA /* PostSessionConfirmationScreen.swift */,
+				2A301A2729DE91EF0039DDC3 /* MissedSessionScreen.swift */,
+				2AE4F59229E5C9BE00F764DA /* SessionConfirmationScreen.swift */,
 			);
 			path = PreSessionForm;
 			sourceTree = "<group>";

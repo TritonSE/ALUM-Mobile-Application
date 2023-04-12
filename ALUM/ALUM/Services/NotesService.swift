@@ -10,7 +10,7 @@ import Foundation
 enum PatchAnswer: Codable {
     case string(String)
     case listString([String])
-    
+
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let string = try? container.decode(String.self) {
@@ -21,7 +21,7 @@ enum PatchAnswer: Codable {
             throw DecodingError.typeMismatch(PatchAnswer.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Invalid type for PatchAnswer"))
         }
     }
-    
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch self {
@@ -43,10 +43,10 @@ class NotesService {
     func patchNotes(url: String, jsonData: Data) async throws {
         let urlObj = URL(string: url)!
         var request = URLRequest(url: urlObj)
-        
+
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         do {
             // Encode the data as JSON
             request.httpBody = jsonData
@@ -56,7 +56,7 @@ class NotesService {
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.networkError()
             }
-            
+
             if httpResponse.statusCode != 201 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
@@ -70,7 +70,7 @@ class NotesService {
             throw error
         }
     }
-    
+
     func patchNotesHelper(data: [QuestionPatchData]) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
            print("Failed to encode order")

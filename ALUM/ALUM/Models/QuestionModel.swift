@@ -12,10 +12,11 @@ struct Question: Codable, Hashable, Identifiable {
     var type: String
     var id: String
     var answerBullet: [String]
-    var answerCheckboxBullet: [String: String]
+    var answerCheckboxBullet: [CheckboxBullet]
     var answerParagraph: String
-    
-    init(question: String = "", type: String = "", id: String = "", answerBullet: [String] = [], answerCheckboxBullet: [String: String] = [:], answerParagraph: String = "") {
+
+    init(question: String = "", type: String = "", id: String = "", answerBullet: [String] = [],
+         answerCheckboxBullet: [CheckboxBullet] = [], answerParagraph: String = "") {
         self.question = question
         self.type = type
         self.id = id
@@ -23,4 +24,10 @@ struct Question: Codable, Hashable, Identifiable {
         self.answerCheckboxBullet = answerCheckboxBullet
         self.answerParagraph = answerParagraph
     }
+}
+
+struct CheckboxBullet: Codable, Hashable, Identifiable {
+    var id = UUID()
+    var content: String
+    var status: String
 }

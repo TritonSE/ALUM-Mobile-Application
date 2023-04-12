@@ -39,11 +39,13 @@ router.post(
     try {
       const preNoteId = await createPreSessionNotes();
       const postNoteId = await createPostSessionNotes();
+      const postMentorNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
       const meetingTime = new Date(req.body.dateInfo);
       const session = new Session({
         preSession: preNoteId._id,
         postSession: postNoteId._id,
+        postSessionMentor: postMentorNoteId._id,
         menteeId,
         mentorId,
         dateTime: meetingTime,

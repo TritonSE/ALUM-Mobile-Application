@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct PostSessionQuestionScreen: View {
-    
+
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
                 Color("ALUM White 2").edgesIgnoringSafeArea(.all)
                 VStack {
-                    DynamicProgressBarComponent(nodes: $viewModel.questionList.count, filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
+                    DynamicProgressBarComponent(nodes: $viewModel.questionList.count,
+                                                filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
                         .frame(alignment: .top)
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -52,11 +53,13 @@ struct PostSessionQuestionScreen: View {
                                 .padding(.trailing, 16)
                                 .padding(.bottom, 32)
                                 .padding(.top, 8)
-                                
+
                             }
 
                             if viewModel.questionList[viewModel.currentIndex].type == "text" {
-                                ParagraphInput(question: viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
+                                ParagraphInput(
+                                    question: viewModel.questionList[viewModel.currentIndex].question,
+                                    text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
                                     .padding(.leading, 16)
                                     .padding(.trailing, 16)
                                     .padding(.top, 8)
@@ -68,10 +71,10 @@ struct PostSessionQuestionScreen: View {
                                     .padding(.leading, 16)
                                     .padding(.bottom, 16)
                                     .padding(.top, 8)
-                                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet, question: viewModel.questionList[viewModel.currentIndex].question)
-                            }
-                            
-                            else if viewModel.questionList[viewModel.currentIndex].type == "checkbox-bullet" {
+                                BulletsView(
+                                    bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet,
+                                    question: viewModel.questionList[viewModel.currentIndex].question)
+                            } else if viewModel.questionList[viewModel.currentIndex].type == "checkbox-bullet" {
                                 Text(viewModel.questionList[viewModel.currentIndex].question)
                                     .foregroundColor(Color("ALUM Dark Blue"))
                                     .font(Font.custom("Metropolis-Regular", size: 17))
@@ -80,10 +83,9 @@ struct PostSessionQuestionScreen: View {
                                     .padding(.bottom, 16)
                                     .padding(.top, 8)
                                 CheckboxBulletsView(
-                                    bulletsContent:   ([String](viewModel.questionList[viewModel.currentIndex].answerCheckboxBullet.values)),
-                                    bulletsStatus: [String](viewModel.questionList[viewModel.currentIndex].answerCheckboxBullet.keys),
-                                    question: $viewModel.questionList[viewModel.currentIndex].question)
-                            
+                                    checkboxBullets:
+                                        $viewModel.questionList[viewModel.currentIndex].answerCheckboxBullet,
+                                    question: viewModel.questionList[viewModel.currentIndex].question)
                             }
                         }
                     }
@@ -137,8 +139,7 @@ struct PostSessionQuestionScreen: View {
                                     .frame(width: geometry.size.width * 0.575)
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             HStack {
                                 Button {
                                     viewModel.prevQuestion()
@@ -151,8 +152,9 @@ struct PostSessionQuestionScreen: View {
                                 .buttonStyle(OutlinedButtonStyle(disabled: false))
                                 .padding(.trailing, 16)
                                 .padding(.bottom, 32)
-                                
-                                NavigationLink(destination: PostSessionConfirmationScreen(viewModel: viewModel), label: {
+
+                                NavigationLink(
+                                    destination: PostSessionConfirmationScreen(viewModel: viewModel), label: {
                                     HStack {
                                         Text("Continue")
                                             .font(.custom("Metropolis-Regular", size: 17))
@@ -172,7 +174,7 @@ struct PostSessionQuestionScreen: View {
                     .frame(alignment: .bottom)
                     .frame(maxWidth: .infinity)
                     .background(Color.white.ignoresSafeArea(edges: .bottom))
-                        
+
                 }
             }
             .navigationBarItems(leading: NavigationLink(
@@ -194,7 +196,7 @@ struct PostSessionQuestionScreen: View {
 
 struct PostSessionQuestionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
-    
+
     static var previews: some View {
         PostSessionQuestionScreen(viewModel: viewModel)
     }
