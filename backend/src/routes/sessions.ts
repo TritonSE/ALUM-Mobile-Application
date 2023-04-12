@@ -2,12 +2,10 @@
  * This file contains the route that will create a session
  */
 
-import { DBRef } from "bson";
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
-import {database} from "../app";
 import { verifyAuthToken } from "../middleware/auth";
 import { InternalError } from "../errors/internal";
 import { verifyAuthToken } from "../middleware/auth";
@@ -107,39 +105,36 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
   }
 });
 
-router.get(
-  "/sessions",
-  [verifyAuthToken],
-  async (req: Request, res: Response, next: NextFunction) => {
-    const userID = req.body.uid;
-    const role = req.body.role;
-    let userSessions;
-    if (role === null || userID === null) {
-      return res
-        .status(InternalError.ERROR_GETTING_SESSION.status)
-        .send(InternalError.ERROR_GETTING_SESSION.message);
-    }
-    try {
-      if (role === "mentee") {
-        userSessions = await Session.find({ menteeId: { $eq: userID } });
-      }
-      if (role === "mentor") {
-        userSessions = await Session.find({ mentorId: { $eq: userID } });
-      }
-      if (userSessions === null) {
-        return res.status(400).json({
-          message: `No sessions found for user ${userID}!`,
-        });
-      }
-      return res.status(200).json({
-        message: `Sessions for user ${userID}:`,
-        sessions: userSessions,
-      });
-    } catch (e) {
-      next();
-      return res.status(400);
-    }
+
+router.get("/sessions", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) =>{
+  const userID = req.body.uid;
+  let role = req.body.role;
+  let userSessions;
+  if(role === null || userID === null){
+    return res.status(InternalError.ERROR_GETTTING_SESSION.status)
+    .send(InternalError.ERROR_GETTTING_SESSION.message);
   }
-);
+  try{
+  if(role==="mentee"){
+      userSessions = await Session.find({menteeId: {$eq : userID}});
+  }
+  if (role === "mentor"){
+      userSessions = await Session.find({mentorId: {$eq: userID}});
+  }
+  if(userSessions===null){
+      return res.status(400).json({
+        message: `No sessions found for user ${userID}!`
+      })
+    }
+  return res.status(200).json({
+      message: `Sessions for user ${userID}:`,
+      sessions: userSessions
+    })
+  }
+  catch(e){
+    next();
+    return res.status(400);
+  }
+});
 
 export { router as sessionsRouter };
