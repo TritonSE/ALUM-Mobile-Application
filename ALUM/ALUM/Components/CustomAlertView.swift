@@ -78,7 +78,7 @@ struct CustomAlertView: View {
                                 .background(
                                     LinearGradient(gradient: Gradient(colors:
                                                         [Color("ALUM Primary Blue"),
-                                                         Color("Primary Gradient Blue")]),
+                                                         Color("ALUM Primary Dark Blue")]),
                                     startPoint: .bottomTrailing,
                                     endPoint: .topLeading))
                                 .cornerRadius(12)
@@ -99,7 +99,7 @@ struct CustomAlertView_Previews: PreviewProvider {
         print("Right button pressed!")
     }
     static var previews: some View {
-        CustomAlertView(isAlert: true,
+        CustomAlertView(isAlert: false,
                         leftButtonLabel: "Yes, exit",
                         rightButtonLabel: "No",
                         titleText: "Exit [pre/post]-session notes?",
