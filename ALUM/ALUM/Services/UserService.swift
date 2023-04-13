@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct MenteePostData: Codable {
     var name: String
@@ -164,12 +165,36 @@ class UserService {
         }
         return try await self.createUser(url: "http://localhost:3000/mentor", jsonData: jsonData)
     }
-    
+    func getCurrentAuth() async throws -> String? {
+        if let currentUser = Auth.auth().currentUser {
+            do {
+                let tokenResult = try await currentUser.getIDTokenResult()
+                return tokenResult.token
+            } catch let error {
+                // Handle the error
+                print("Error getting auth token: \(error.localizedDescription)")
+                throw(error)
+            }
+        } else {
+            // User is not logged in
+            print("User is not logged in")
+            return nil
+        }
+    }
     func getMentor(userID: String) async throws -> MentorGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentor/" + userID)!
         var request = URLRequest(url: urlObj)
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImM4MjNkMWE0MTg5ZjI3NThjYWI4NDQ4ZmQ0MTIwN2ViZGZhMjVlMzkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudGVlIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MTM3MzY5OSwidXNlcl9pZCI6IjY0MzFiOTllYmNmNDQyMGZlOTgyNWZlMyIsInN1YiI6IjY0MzFiOTllYmNmNDQyMGZlOTgyNWZlMyIsImlhdCI6MTY4MTM3MzY5OSwiZXhwIjoxNjgxMzc3Mjk5LCJlbWFpbCI6Im1lbnRlZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudGVlQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.BDMmUznV2A4iG0R3Rgl0Icvh9CqbzKGDiyuvbGgus69rL9EoEzBB9BNv5t1kM0qsCjBorxG3RM8c3mlLfkESgyhC2ymPaJMPChsDq9FTBEB0PPNXe69y8oGhlKgDPhT1k3d-xXKOn5xHfqPWZk5lrQinKFiIiJ4kYHJdR-3ipjt1L5Xoa9INeUBX8YYoi_4rQe3zP11tlQgTnQrpLH8H72UmAwl-ewFKlz-jZz-AvMmROdPAx7DiTLIh-wwJGr1LsKwa13Xb0BdOMTzzwmUFgYJwnN74ivn1HH-lfkxfEyHO8UgXAF6bkaFU-2mCrwfKSMGMb3fG95GSRrujBluxuA"
+        guard let authToken = try await getCurrentAuth() else {
+            print("Could not get auth token")
+            return nil
+        }
+//        if authToken != nil {
+//            print("Auth Token Identified")
+//        } else {
+//            print("Could not get auth token")
+//            return nil
+//        }
+        print(authToken)
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -197,12 +222,16 @@ class UserService {
             throw error
         }
     }
-    
     func getMentee(userID: String) async throws -> MenteeGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentee/" + userID)!
         var request = URLRequest(url: urlObj)
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImM4MjNkMWE0MTg5ZjI3NThjYWI4NDQ4ZmQ0MTIwN2ViZGZhMjVlMzkiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MTM3NDc1NSwidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MTM3NDc1NSwiZXhwIjoxNjgxMzc4MzU1LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.NqQ8aXAcr8FyA3zUilFkPzrAvHC8tMRtMwqGeYfuMNv8GKCTgOQWJrQ-yrYYrdLJ5nBjWdhoFpbEfUgb4MkjxVq9AGGCWNeoBvJZY5P0R5513p16qwNOxay3oBEwoOjkYSgaYUJ7S1PcJdBXEleb5hZK1ZeBoKEKFVeBZjcYW53P_fEPbVyIEo19krYHBgsPBaxqN_wplEijCnfEyWAwOud7FmDZZJjVDhZMN5ImMqA0HItgASrODxkl1g90YhqQwcjn40hXn9iyEzBNQKtMe-NQhj02Mzvg2Nkf4_17PicxcLEqxdoONbzZ5bY94gF-gy9MOY_J0Esip6NAxhUpJg"
+        let authToken = try await getCurrentAuth()
+        if authToken != nil {
+            print("Auth Token Identified")
+        } else {
+            print("Could not get auth token")
+            return nil
+        }
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -228,6 +257,16 @@ class UserService {
         catch {
             print(error)
             throw error
+        }
+    }
+    func testGetMentor() async {
+        let userID = "nq2mcgJ7pUTh3PSZyqwbdbi8kmn2"
+        do {
+            if let mentorData = try await getMentor(userID: userID) {
+                print("Mentor Data: \(mentorData)")
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
         }
     }
 }
