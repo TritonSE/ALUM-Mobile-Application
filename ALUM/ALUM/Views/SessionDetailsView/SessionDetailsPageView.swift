@@ -28,6 +28,8 @@ extension View {
 }
 
 struct SessionDetailsPageView: View {
+    @StateObject private var viewModel = SessionDetailViewModel()
+
     var body: some View {
         GeometryReader { grr in
             VStack {
@@ -127,22 +129,35 @@ struct SessionDetailsPageView: View {
                     
                     Spacer()
                 }
-                .padding(.bottom, 5)
+                .padding(.bottom, viewModel.formIsComplete ? 20 : 5)
                 
-                HStack {
-                    FormIncompleteComponent(type: "Pre")
-                    Spacer()
+                if !viewModel.formIsComplete {
+                    HStack {
+                        FormIncompleteComponent(type: "Pre")
+                        Spacer()
+                    }
+                    .padding(.bottom, 22)
                 }
-                .padding(.bottom, 22)
                 
-                Button {
-                    
-                } label: {
-                    Text("Complete Pre-Session Notes")
-                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                if !viewModel.formIsComplete {
+                    Button {
+                        
+                    } label: {
+                        Text("Complete Pre-Session Notes")
+                            .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    }
+                    .buttonStyle(FilledInButtonStyle())
+                    .padding(.bottom, 5)
+                } else {
+                    Button {
+                        
+                    } label: {
+                        Text("View Pre-Session Notes")
+                            .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    }
+                    .buttonStyle(FilledInButtonStyle())
+                    .padding(.bottom, 5)
                 }
-                .buttonStyle(FilledInButtonStyle())
-                .padding(.bottom, 5)
             }
             
             Button {

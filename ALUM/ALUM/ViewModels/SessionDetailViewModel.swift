@@ -8,5 +8,6 @@
 import Foundation
 
 final class SessionDetailViewModel: ObservableObject {
-    
+    @Published var formIsComplete: Bool = false
+    @Published var sessionCompleted: Bool = false
 }
