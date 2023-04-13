@@ -1,5 +1,5 @@
 //
-//  CustomAlertView.swift
+//  CustomAlertComponent.swift
 //  ALUM
 //
 //  Created by Sidhant Rohatgi on 4/11/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomAlertView: View {
+struct CustomAlertComponent: View {
     @State var isAlert: Bool
     let leftButtonLabel: String
     let rightButtonLabel: String
@@ -111,7 +111,7 @@ struct AlertWithBlurPreviewHelper: View {
             .blur(radius: showAlert ? 10 : 0)
 
             if showAlert {
-                CustomAlertView(isAlert: true,
+                CustomAlertComponent(isAlert: true,
                                 leftButtonLabel: "Yes, exit",
                                 rightButtonLabel: "No",
                                 titleText: "Exit [pre/post]-session notes?",
