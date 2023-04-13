@@ -122,7 +122,7 @@ class UserService {
         // Create a URL request with JSON content type
         let urlObj = URL(string: url)!
         var request = URLRequest(url: urlObj)
-
+        
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
@@ -131,11 +131,11 @@ class UserService {
             // Make the network request
             let (responseData, response) = try await URLSession.shared.data(for: request)
             // Check the response status code
-
+            
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.networkError()
             }
-
+            
             if httpResponse.statusCode != 201 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
@@ -149,7 +149,7 @@ class UserService {
             throw error
         }
     }
-
+    
     func createMentee(data: MenteePostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")
@@ -157,7 +157,7 @@ class UserService {
         }
         return try await self.createUser(url: "http://localhost:3000/mentee", jsonData: jsonData)
     }
-
+    
     func createMentor(data: MentorPostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")
@@ -188,12 +188,6 @@ class UserService {
             print("Could not get auth token")
             return nil
         }
-//        if authToken != nil {
-//            print("Auth Token Identified")
-//        } else {
-//            print("Could not get auth token")
-//            return nil
-//        }
         print(authToken)
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
@@ -216,8 +210,7 @@ class UserService {
                     }
                 return mentorData
             }
-        }
-        catch {
+        } catch {
             print(error)
             throw error
         }
@@ -253,20 +246,9 @@ class UserService {
                     }
                 return menteeData
             }
-        }
-        catch {
+        } catch {
             print(error)
             throw error
-        }
-    }
-    func testGetMentor() async {
-        let userID = "nq2mcgJ7pUTh3PSZyqwbdbi8kmn2"
-        do {
-            if let mentorData = try await getMentor(userID: userID) {
-                print("Mentor Data: \(mentorData)")
-            }
-        } catch {
-            print("Error: \(error.localizedDescription)")
         }
     }
 }
