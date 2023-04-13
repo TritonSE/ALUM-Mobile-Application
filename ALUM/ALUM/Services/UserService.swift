@@ -247,4 +247,14 @@ class UserService {
             throw error
         }
     }
+    func testGetMentor() async {
+        let userID = "nq2mcgJ7pUTh3PSZyqwbdbi8kmn2"
+        do {
+            if let mentorData = try await getMentor(userID: userID) {
+                print("Mentor Data: \(mentorData)")
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
 }
