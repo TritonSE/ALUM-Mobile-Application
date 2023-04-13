@@ -10,7 +10,7 @@ import SwiftUI
 struct AddTagButton: View {
 
     @State var text: String = ""
-    @State var isShowing: Bool = true
+    @Binding var isShowing: Bool
 
     var body: some View {
         VStack {
@@ -46,7 +46,9 @@ struct AddTagButton: View {
 }
 
 struct AddTagButton_Previews: PreviewProvider {
+    static var isShowing = Binding.constant(true)
+
     static var previews: some View {
-        AddTagButton(text: "Sample Text 2 @12345")
+        AddTagButton(text: "Sample Text 2 @12345", isShowing: isShowing)
     }
 }

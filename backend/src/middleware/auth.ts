@@ -6,23 +6,20 @@
 import { Request, Response, NextFunction } from "express";
 import { decodeAuthToken } from "../services/auth";
 import { AuthError } from "../errors/auth";
-import { CustomError } from "../errors/errors";
 
 /**
  * Middleware to verify Auth token and calls next function based on user role
  */
 const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
-  const token =
-    authHeader && authHeader.split(" ")[0] === "Bearer" ? authHeader.split(" ")[1] : null;
-  if (!token) {
-    return res
-      .status(AuthError.TOKEN_NOT_IN_HEADER.status)
-      .send(AuthError.TOKEN_NOT_IN_HEADER.message);
-  }
+  try {
+    const authHeader = req.headers.authorization;
+    const token =
+      authHeader && authHeader.split(" ")[0] === "Bearer" ? authHeader.split(" ")[1] : null;
+    if (!token) {
+      throw AuthError.TOKEN_NOT_IN_HEADER;
+    }
 
-  let userInfo;
-
+let userInfo;
   try {
     userInfo = await decodeAuthToken(token);
   } catch (e) {
@@ -41,3 +38,4 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
 };
 
 export { verifyAuthToken };
+
