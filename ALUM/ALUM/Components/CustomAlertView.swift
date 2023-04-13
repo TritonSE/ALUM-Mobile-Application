@@ -13,11 +13,13 @@ struct CustomAlertView: View {
     let rightButtonLabel: String
     let titleText: String
     let errorMessage: String
+    let leftButtonAction: () -> Void
+    let rightButtonAction: () -> Void
     var body: some View {
         ZStack {
             Rectangle()
                 .frame(width: 326, height: 230)
-                .foregroundColor(Color.white) 
+                .foregroundColor(Color.white)
                 .cornerRadius(16)
 
             VStack {
@@ -48,7 +50,7 @@ struct CustomAlertView: View {
                 HStack(spacing: 8) {
                     Button(
                         action: {
-                            // Add action for "Close" button here
+                            self.leftButtonAction()
                         },
                         label: {
                             Text(leftButtonLabel)
@@ -65,7 +67,7 @@ struct CustomAlertView: View {
 
                     Button(
                         action: {
-                            // Add action for "Close" button here
+                            self.rightButtonAction()
                         },
                         label: {
                             Text(rightButtonLabel)
@@ -90,11 +92,19 @@ struct CustomAlertView: View {
 }
 
 struct CustomAlertView_Previews: PreviewProvider {
+    static func leftButtonAction() {
+        print("Left button pressed!")
+    }
+    static func rightButtonAction() {
+        print("Right button pressed!")
+    }
     static var previews: some View {
-        CustomAlertView(isAlert: false,
+        CustomAlertView(isAlert: true,
                         leftButtonLabel: "Yes, exit",
-                        rightButtonLabel: "No :(",
+                        rightButtonLabel: "No",
                         titleText: "Exit [pre/post]-session notes?",
-                        errorMessage: "All changes have been saved. You can continue editing in “Sessions” tab.")
+                        errorMessage: "All changes have been saved. You can continue editing in “Sessions” tab.",
+                        leftButtonAction: leftButtonAction,
+                        rightButtonAction: rightButtonAction)
     }
 }
