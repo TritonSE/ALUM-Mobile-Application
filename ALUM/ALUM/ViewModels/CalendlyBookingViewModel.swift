@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 import WebKit
 
+// May not need atm but will leave in case further development requires it
 class ViewController: UIViewController, WKUIDelegate {
     
     var webView: WKWebView!

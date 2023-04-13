@@ -26,7 +26,9 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-        SignUpPageView()
+        //SignUpPageView()
+        CalendlyBooking()
+        
     }
   }
 }
