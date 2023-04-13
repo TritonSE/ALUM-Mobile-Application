@@ -108,8 +108,8 @@ router.get(
     let userSessions;
     if (role === null || userID === null) {
       return res
-        .status(InternalError.ERROR_GETTTING_SESSION.status)
-        .send(InternalError.ERROR_GETTTING_SESSION.message);
+        .status(InternalError.ERROR_GETTING_SESSION.status)
+        .send(InternalError.ERROR_GETTING_SESSION.message);
     }
     try {
       if (role === "mentee") {

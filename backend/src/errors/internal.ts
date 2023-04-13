@@ -12,7 +12,6 @@ const NO_APP_PORT = "Could not find app port env variable";
 const NO_MONGO_URI = "Could not find mongo uri env variable";
 const NO_SERVICE_ACCOUNT_KEY = "Could not find service account key env variable";
 const NO_DEFAULT_IMAGE_ID = "Could not find default image id env variable";
-const ERROR_GETTING_SESSION = "There was some error getting the session";
 
 export class InternalError extends CustomError {
   static ERROR_GETTING_MENTEE = new InternalError(0, 500, ERROR_GETTING_MENTEE);
@@ -29,5 +28,5 @@ export class InternalError extends CustomError {
 
   static NO_DEFAULT_IMAGE_ID = new InternalError(6, 500, NO_DEFAULT_IMAGE_ID);
 
-  static ERROR_GETTTING_SESSION = new InternalError(7, 500, ERROR_GETTING_SESSION);
+  static ERROR_GETTING_SESSION = new InternalError(7, 500, ERROR_GETTING_SESSION);
 }
