@@ -27,7 +27,7 @@ struct BlurScreenComponent: View {
             .blur(radius: showAlert ? 10 : 0)
 
             if showAlert {
-                CustomAlertView(isAlert: false,
+                CustomAlertView(isAlert: true,
                                 leftButtonLabel: "Yes, exit",
                                 rightButtonLabel: "No",
                                 titleText: "Exit [pre/post]-session notes?",
