@@ -91,6 +91,45 @@ struct CustomAlertView: View {
     }
 }
 
+struct AlertWithBlurPreviewHelper: View {
+    @State var showAlert = false
+
+    var body: some View {
+        ZStack {
+            Color.white
+            VStack {
+                Spacer()
+                Text("Hello World")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding()
+                Button("Show Alert") {
+                    showAlert = true
+                }
+                .padding()
+            }
+            .blur(radius: showAlert ? 10 : 0)
+
+            if showAlert {
+                CustomAlertView(isAlert: true,
+                                leftButtonLabel: "Yes, exit",
+                                rightButtonLabel: "No",
+                                titleText: "Exit [pre/post]-session notes?",
+                                errorMessage: "All changes have been saved",
+                                leftButtonAction: {
+                                    print("Left button pressed!")
+                                    showAlert =  false
+                },
+                                rightButtonAction: { print("Right button pressed!") })
+                    .frame(width: 326, height: 230)
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+            }
+        }
+    }
+}
+
 struct CustomAlertView_Previews: PreviewProvider {
     static func leftButtonAction() {
         print("Left button pressed!")
@@ -99,12 +138,6 @@ struct CustomAlertView_Previews: PreviewProvider {
         print("Right button pressed!")
     }
     static var previews: some View {
-        CustomAlertView(isAlert: false,
-                        leftButtonLabel: "Yes, exit",
-                        rightButtonLabel: "No",
-                        titleText: "Exit [pre/post]-session notes?",
-                        errorMessage: "All changes have been saved. You can continue editing in “Sessions” tab.",
-                        leftButtonAction: leftButtonAction,
-                        rightButtonAction: rightButtonAction)
+        AlertWithBlurPreviewHelper()
     }
 }
