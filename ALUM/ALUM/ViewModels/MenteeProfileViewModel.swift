@@ -9,19 +9,24 @@ import Foundation
 import SwiftUI
 
 final class MenteeProfileViewmodel: ObservableObject {
-    @Published var mentee = MenteeProfile(
-        name: "Timby Twolf",
-        email: "tbtwolf@gmail.com",
-        grade: "9",
-        topicsOfInterest: ["AP Classes", "Interest 2"],
-        careerInterests: ["Career1", "Career2"],
-        mentorshipGoal: """
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        """,
-        profilePic: Image("ALUMLogoBlue"),
-        mentor: "u3491237981"
-    )
-
-    @Published var selfView = false
+    @Published var menteeGET = MenteeGetData(
+        message: "Hello",
+        mentee: MenteeInfo(
+            id: "u123",
+            name: "Timby Twolf",
+            imageId: "23462",
+            about: "I love caramel",
+            grade: 10,
+            topicsOfInterest: ["AP", "CS"],
+            careerInterests: ["SWE"]),
+        whyPaired: "You two are great")
+    @Published var selfView = true
+    func getMenteeInfo(userID: String) async throws {
+        guard let menteeData = try? await UserService().getMentee(userID: userID) else {
+            print("Error getting info")
+            return
+        }
+        menteeGET = menteeData
+        selfView = (menteeGET.mentee.id != nil)
+    }
 }
