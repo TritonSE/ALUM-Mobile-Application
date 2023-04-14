@@ -247,6 +247,7 @@ router.get(
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("Inside mentor get try");
       const userId = req.params.userId;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
@@ -302,13 +303,14 @@ router.get(
             career,
             graduationYear,
             calendlyLink,
+            zoomLink,
             topicsOfExpertise,
             whyPaired,
           },
         });
         return;
       }
-      if (role === "mentee") {
+      if (role === "mentor") {
         const promises = pairingIds.map(async (pairingId) => {
           const pairing = await Pairing.findById(pairingId);
           return pairing?.menteeId;
