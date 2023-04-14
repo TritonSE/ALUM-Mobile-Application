@@ -61,6 +61,7 @@
 		979303DA29E882E20053C30E /* MentorSessionDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979303D929E882E20053C30E /* MentorSessionDetailsPage.swift */; };
 		979303DC29E885140053C30E /* MenteeSessionsDetailsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979303DB29E885140053C30E /* MenteeSessionsDetailsPage.swift */; };
 		979303DE29E885990053C30E /* HorizontalMenteeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979303DD29E885990053C30E /* HorizontalMenteeCard.swift */; };
+		979303E029E8B06E0053C30E /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979303DF29E8B06E0053C30E /* SessionService.swift */; };
 		97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97992B5E29A6E81D00701CC7 /* SignUpModel.swift */; };
 		979F60912991EBC600AC8CDD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 979F60902991EBC600AC8CDD /* GoogleService-Info.plist */; };
 		979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979F811F29B8181400D6E964 /* SelectYearComponent.swift */; };
@@ -120,6 +121,7 @@
 		979303D929E882E20053C30E /* MentorSessionDetailsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorSessionDetailsPage.swift; sourceTree = "<group>"; };
 		979303DB29E885140053C30E /* MenteeSessionsDetailsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeSessionsDetailsPage.swift; sourceTree = "<group>"; };
 		979303DD29E885990053C30E /* HorizontalMenteeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalMenteeCard.swift; sourceTree = "<group>"; };
+		979303DF29E8B06E0053C30E /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		97992B5E29A6E81D00701CC7 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		979F60902991EBC600AC8CDD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		979F811F29B8181400D6E964 /* SelectYearComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectYearComponent.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */,
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
+				979303DF29E8B06E0053C30E /* SessionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 			files = (
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
+				979303E029E8B06E0053C30E /* SessionService.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
 				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,

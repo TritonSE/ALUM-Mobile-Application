@@ -29,6 +29,7 @@ extension View {
 
 struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
+    var dateFormatter = DateFormatter()
     
     var body: some View {
         GeometryReader { grr in
@@ -43,6 +44,13 @@ struct MentorSessionDetailsPage: View {
             }
             .applyMenteeSessionDetailsHeaderModifier()
             .edgesIgnoringSafeArea(.bottom)
+        }
+        .task {
+            do {
+                try await viewModel.loadSession()
+            } catch {
+                print("Failure")
+            }
         }
     }
     
@@ -59,8 +67,13 @@ struct MentorSessionDetailsPage: View {
                 .padding(.top, 28)
                 .padding(.bottom, 20)
                 
-                HorizontalMenteeCard(isEmpty: true)
-                    .padding(.bottom, 28)
+                HorizontalMenteeCard(
+                    name: viewModel.session.mentee.name,
+                    grade: viewModel.session.mentee.grade,
+                    school: "NHS",
+                    isEmpty: true
+                )
+                .padding(.bottom, 28)
             }
 
             Group {
@@ -74,20 +87,12 @@ struct MentorSessionDetailsPage: View {
                 .padding(.bottom, 5)
                 
                 HStack {
-                    Text("Monday, January 23, 2023")
+                    Text(dateFormatter.string(from:viewModel.session.dateTime))
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     
                     Spacer()
                 }
                 .padding(.bottom, 5)
-                
-                HStack {
-                    Text("9:00 - 10:00 AM PT")
-                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    
-                    Spacer()
-                }
-                .padding(.bottom, 10)
             }
             
             if !viewModel.sessionCompleted {
@@ -111,7 +116,7 @@ struct MentorSessionDetailsPage: View {
                     .padding(.bottom, 5)
 
                     HStack {
-                        Text("https://alum.zoom.us/my/timby")
+                        Text(viewModel.session.mentor.zoomLink)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Dark Blue"))
 

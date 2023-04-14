@@ -35,7 +35,7 @@ struct MentorCard: View {
                 }
                 VStack {
                     HStack {
-                        Text("Mentor Name")
+                        Text(name)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.white)
                         Spacer()

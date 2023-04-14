@@ -25,11 +25,14 @@ struct ALUMApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
   var body: some Scene {
-    WindowGroup {
-      NavigationView {
-        ContentView()
-              .environmentObject(FirebaseAuthenticationService())
+//    WindowGroup {
+//      NavigationView {
+//        ContentView()
+//              .environmentObject(FirebaseAuthenticationService())
+//      }
+//    }
+      WindowGroup {
+          MenteeSessionsDetailsPage()
       }
-    }
   }
 }

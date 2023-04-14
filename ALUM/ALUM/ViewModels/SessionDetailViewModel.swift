@@ -11,4 +11,17 @@ final class SessionDetailViewModel: ObservableObject {
     @Published var session: Session = Session()
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
+    
+    func loadSession() async throws {
+        var sessionData: GetSessionData = try await SessionService().getSessionWithID(url: "http://localhost:3000/sessions/6436f1175a9cebd93b899a51")
+        self.session.dateTime = sessionData.dateTime
+
+        var mentorRaw: MentorGetData = try await UserService().getMentor(userID: sessionData.mentorId)
+        var mentor: MentorInfo = mentorRaw.mentor
+        self.session.mentor = mentor
+        
+        var menteeRaw: MenteeGetData = try await UserService().getMentee(userID: sessionData.menteeId)
+        var mentee: MenteeInfo = menteeRaw.mentee
+        self.session.mentee = mentee
+    }
 }

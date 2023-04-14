@@ -120,11 +120,13 @@ router.post(
       const imageId = defaultImageID;
       const about = "N/A";
       const calendlyLink = "N/A";
+      const zoomLink = "N/A";
       const mentor = new Mentor({
         name,
         imageId,
         about,
         calendlyLink,
+        zoomLink,
         status,
         ...args,
       });
@@ -246,6 +248,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
         career,
         graduationYear,
         calendlyLink,
+        zoomLink,
         topicsOfExpertise,
       } = mentor;
       return res.status(200).send({
@@ -260,6 +263,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
           career,
           graduationYear,
           calendlyLink,
+          zoomLink,
           topicsOfExpertise,
           whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
         },
