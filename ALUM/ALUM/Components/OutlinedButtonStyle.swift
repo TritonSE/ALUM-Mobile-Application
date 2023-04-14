@@ -17,11 +17,11 @@ struct OutlinedButtonStyle: ButtonStyle {
             configuration.label
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .frame(height: 48)
-                .foregroundColor(Color("ALUM Dark Blue"))
+                .foregroundColor(Color("ALUM Primary Purple"))
                 .font(.headline)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color( "ALUM Dark Blue"), lineWidth: 2)
+                        .stroke(Color( "ALUM Primary Purple"), lineWidth: 2)
                 )
                 .cornerRadius(8)
         } else {
