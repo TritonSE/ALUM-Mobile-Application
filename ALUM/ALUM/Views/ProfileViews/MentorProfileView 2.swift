@@ -1,17 +1,16 @@
 //
-//  MenteeProfileView.swift
+//  MentorProfileView.swift
 //  ALUM
 //
-//  Created by Yash Ravipati on 3/9/23.
+//  Created by Yash Ravipati on 3/3/23.
 //
 
 import SwiftUI
 import WrappingHStack
 
-struct MenteeProfileView: View {
-    @StateObject private var viewModel = MenteeProfileViewmodel()
+struct MentorProfileView: View {
+    @StateObject private var viewModel = MentorProfileViewmodel()
     @State var isAtTop: Bool = true
-    @State var uID: String = ""
     var body: some View {
         GeometryReader { grr in
             VStack(spacing: 0) {
@@ -35,7 +34,7 @@ struct MenteeProfileView: View {
                                 Circle()
                                     .frame(width: 135, height: 145)
                                     .foregroundColor(Color("ALUM White2"))
-                                Image("ALUMLogoBlue")
+                                viewModel.mentor.profilePic
                                     .resizable()
                                     .frame(width: 135, height: 135)
                                     .clipShape(Circle())
@@ -43,19 +42,47 @@ struct MenteeProfileView: View {
                             }
                             .padding(.top, 57)
                         }
-                        Text(viewModel.menteeGET.mentee.name)
+                        Text(viewModel.mentor.name)
                             .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                     }
                     HStack {
                         Image(systemName: "graduationcap")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Primary Purple"))
-                        Text(String(viewModel.menteeGET.mentee.grade) + "th Grade @ NHS")
+                        Text(viewModel.mentor.major + " @ " + viewModel.mentor.university)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
-                    .padding(.bottom, 18)
-                    if !viewModel.selfView {
-                        WhyPairedComponent(text: viewModel.menteeGET.mentee.whyPaired ?? "")
+                    .padding(.bottom, 6)
+                    HStack {
+                        Image(systemName: "suitcase")
+                            .frame(width: 25.25, height: 11)
+                            .foregroundColor(Color("ALUM Primary Purple"))
+                        Text(viewModel.mentor.intendedCareer)
+                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    }
+                    .padding(.bottom, 6)
+                    Text("NHS '19")
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .padding(.bottom, 6)
+                    if viewModel.selfView {
+                        Button {
+                        } label: {
+                            Text("View My Calendly")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        }
+                        .buttonStyle(FilledInButtonStyle())
+                        .frame(width: 358)
+                        .padding(.bottom, 26)
+                    } else {
+                        Button {
+                        } label: {
+                            Text("Book Session via Calendly")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        }
+                        .buttonStyle(FilledInButtonStyle())
+                        .frame(width: 358)
+                        .padding(.bottom, 10)
+                        WhyPairedComponent()
                             .padding(.bottom, 16)
                     }
                     Text("About")
@@ -64,31 +91,32 @@ struct MenteeProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
-                    Text(viewModel.menteeGET.mentee.about )
+                    Text(viewModel.mentor.mentorMotivation)
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 32)
-                    RenderTags(tags: viewModel.menteeGET.mentee.careerInterests, title: "Career Interests")
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
-                    RenderTags(tags: viewModel.menteeGET.mentee.topicsOfInterest, title: "Topics of Interest")
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
+                    RenderTags(tags: viewModel.mentor.topicsOfExpertise, title: "Topics of Expertise")
+                    .padding(.leading, 16)
+                    .padding(.bottom, 8)
                     if viewModel.selfView {
-                        Text("My Mentor")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Primary Purple"))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 16)
+                        Group {
+                            Text("My Mentees")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                .foregroundColor(Color("ALUM Primary Purple"))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 16)
+                                .padding(.top, 27)
+                            WrappingHStack(0 ..< viewModel.mentor.mentees.count, id: \.self) { index in
+                                MenteeCard(name: viewModel.mentor.mentees[index])
+                                    .padding(.bottom, 15)
+                                    .padding(.trailing, 10)
+                            }
+                            .padding(.bottom, 30)
                             .padding(.leading, 16)
-                            .padding(.bottom, 8)
-                        MentorCard(
-                            name: viewModel.menteeGET.mentee.pairingId ?? "Name", major: "CS",
-                        university: "UCSD", career: "Software Engineer",
-                        profilePic: Image("TestMenteePFP"), isEmpty: false)
-                            .padding(.bottom, 10)
+                            .offset(y: -20)
+                        }
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)
@@ -104,15 +132,15 @@ struct MenteeProfileView: View {
                     // params currently placeholders for later navigation
                     if isAtTop {
                         NavigationHeaderComponent(
-                            backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile", purple: true)
+                            backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: true)
                         .background(Color("ALUM Primary Purple"))
                     } else {
                         NavigationHeaderComponent(
-                            backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile", purple: false)
+                            backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: false)
                         .background(.white)
                     }
                 } else {
-                    if isAtTop {
+                    if isAtTop{
                         ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                             .background(Color("ALUM Primary Purple"))
                     } else {
@@ -122,21 +150,11 @@ struct MenteeProfileView: View {
                 }
             }
         }
-        .onAppear(perform: {
-            Task{
-                do{
-                    try await viewModel.getMenteeInfo(userID: uID)
-                }
-                catch{
-                    print("Error")
-                }
-            }
-        })
     }
 }
 
-struct MenteeProfileView_Previews: PreviewProvider {
+struct MentorProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        MenteeProfileView()
+        MentorProfileView()
     }
 }

@@ -11,6 +11,7 @@ import WrappingHStack
 struct MentorProfileView: View {
     @StateObject private var viewModel = MentorProfileViewmodel()
     @State var isAtTop: Bool = true
+    @State var uID: String = ""
     var body: some View {
         GeometryReader { grr in
             VStack(spacing: 0) {
@@ -34,7 +35,7 @@ struct MentorProfileView: View {
                                 Circle()
                                     .frame(width: 135, height: 145)
                                     .foregroundColor(Color("ALUM White2"))
-                                viewModel.mentor.profilePic
+                                Image("ALUMLogoBlue")
                                     .resizable()
                                     .frame(width: 135, height: 135)
                                     .clipShape(Circle())
@@ -42,14 +43,14 @@ struct MentorProfileView: View {
                             }
                             .padding(.top, 57)
                         }
-                        Text(viewModel.mentor.name)
+                        Text(viewModel.mentorGET.mentor.name)
                             .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                     }
                     HStack {
                         Image(systemName: "graduationcap")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Primary Purple"))
-                        Text(viewModel.mentor.major + " @ " + viewModel.mentor.university)
+                        Text(viewModel.mentorGET.mentor.major + " @ " + viewModel.mentorGET.mentor.college)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .padding(.bottom, 6)
@@ -57,7 +58,7 @@ struct MentorProfileView: View {
                         Image(systemName: "suitcase")
                             .frame(width: 25.25, height: 11)
                             .foregroundColor(Color("ALUM Primary Purple"))
-                        Text(viewModel.mentor.intendedCareer)
+                        Text(viewModel.mentorGET.mentor.career)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .padding(.bottom, 6)
@@ -82,7 +83,7 @@ struct MentorProfileView: View {
                         .buttonStyle(FilledInButtonStyle())
                         .frame(width: 358)
                         .padding(.bottom, 10)
-                        WhyPairedComponent()
+                        WhyPairedComponent(text: viewModel.mentorGET.mentor.whyPaired ?? "")
                             .padding(.bottom, 16)
                     }
                     Text("About")
@@ -91,13 +92,13 @@ struct MentorProfileView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
-                    Text(viewModel.mentor.mentorMotivation)
+                    Text(viewModel.mentorGET.mentor.about)
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 32)
-                    RenderTags(tags: viewModel.mentor.topicsOfExpertise, title: "Topics of Expertise")
+                    RenderTags(tags: viewModel.mentorGET.mentor.topicsOfExpertise, title: "Topics of Expertise")
                     .padding(.leading, 16)
                     .padding(.bottom, 8)
                     if viewModel.selfView {
@@ -108,8 +109,8 @@ struct MentorProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 16)
                                 .padding(.top, 27)
-                            WrappingHStack(0 ..< viewModel.mentor.mentees.count, id: \.self) { index in
-                                MenteeCard(name: viewModel.mentor.mentees[index])
+                            WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIDs!.count, id: \.self) { index in
+                                MenteeCard(name: "Name")
                                     .padding(.bottom, 15)
                                     .padding(.trailing, 10)
                             }
@@ -150,6 +151,16 @@ struct MentorProfileView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getMentorInfo(userID: uID)
+                }
+                catch {
+                    print("Error")
+                }
+            }
+        })
     }
 }
 
