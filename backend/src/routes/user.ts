@@ -21,6 +21,7 @@ import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
+import { CustomError } from "../errors";
 
 const router = express.Router();
 
@@ -153,41 +154,38 @@ router.post(
  *
  * Mentor calling: mentee name, image, grade, about, career interests, topics of interest
  */
-router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-  const role = req.body.role;
-
-  if (role === "mentee") {
-    try {
-      const mentee = await Mentee.findById(userId);
-      if (!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND;
-      }
-      const {
-        _id,
-        name,
-        imageId,
-        about,
-        grade,
-        topicsOfInterest,
-        careerInterests,
-        mentorshipGoal,
-        pairingId,
-        status
-      } = mentee;
-      let mentorId = "N/A"
-      const pairing = await Pairing.findById(pairingId);
+router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.params.userId;
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw ServiceError.INVALID_MONGO_ID;
+    }
+    const role = req.body.role;
+    const mentee = await Mentee.findById(userId);
+    if (!mentee) {
+      throw ServiceError.MENTEE_WAS_NOT_FOUND;
+    }
+    const {
+      _id: menteeId,
+      name,
+      imageId,
+      about,
+      grade,
+      topicsOfInterest,
+      careerInterests,
+      mentorshipGoal,
+      pairingId,
+      status
+    } = mentee;
+    const pairing = await Pairing.findById(pairingId);
+    if (role == "mentee") {
+      let mentorId = "N/A";
       if(pairing) {
         mentorId = pairing.mentorId;
       }
       return res.status(200).send({
         message: `Here is mentee ${mentee.name}`,
-        _id,
+        menteeId,
         name,
         imageId,
         about,
@@ -198,26 +196,8 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
         mentorId,
         status
       });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTEE.status)
-        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
-    }
-  }
-
-  if (role === "mentor") {
-    try {
-      const mentee = await Mentee.findById(userId);
-      if (!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND;
-      }
-      const { name, imageId, about, grade, topicsOfInterest, careerInterests, pairingId } = mentee;
-      let whyPaired = "N/A"
-      const pairing = await Pairing.findById(pairingId);
+    } else if (role == "mentor") {
+      let whyPaired = "N/A";
       if(pairing) {
         whyPaired = pairing.whyPaired;
       } 
@@ -233,18 +213,15 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
           whyPaired,
         },
       });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTEE.status)
-        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
+    } else {
+      throw InternalError.ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED;
     }
+  } catch (e) {
+    if (e instanceof CustomError) {
+      return next(e);
+    }
+    return next(InternalError.ERROR_GETTING_MENTEE);
   }
-
-  return res.status(405).send("Mentee or Mentor not accessing data");
 });
 
 /**
@@ -256,44 +233,50 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
  *
  * Mentor calling: gain all info about the mentor
  */
-router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-  const role = req.body.role;
+router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req.params.userId;
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      throw ServiceError.INVALID_MONGO_ID;
+    }
 
-  if (role === "mentee") {
-    try {
-      const mentor = await Mentor.findById(userId);
+    const role = req.body.role;
+    const clientId = req.body.uid;
+
+    const mentor = await Mentor.findById(userId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
-      const {
-        name,
-        imageId,
-        about,
-        major,
-        minor,
-        college,
-        career,
-        graduationYear,
-        calendlyLink,
-        topicsOfExpertise,
-        pairingIds,
-      } = mentor;
+
+    const {
+      _id: mentorId,
+      name,
+      imageId,
+      about,
+      major,
+      minor,
+      college,
+      career,
+      graduationYear,
+      calendlyLink,
+      topicsOfExpertise,
+      pairingIds,
+      mentorMotivation
+    } = mentor;
+
+    if (role == "mentee") {
       let whyPaired = "N/A";
       for(const i in pairingIds) {
         const pairing = await Pairing.findById(pairingIds[i]);
-        if(pairing?.menteeId === userId) {
+        if(pairing && pairing.menteeId === clientId) {
           whyPaired = pairing.whyPaired;
         }
       }
+
       return res.status(200).send({
         message: `Here is mentor ${mentor.name}`,
         mentor: {
+          mentorId,
           name,
           about,
           imageId,
@@ -307,39 +290,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
           whyPaired,
         },
       });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTOR.status)
-        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
-    }
-  }
-
-  if (role === "mentor") {
-    try {
-      const mentor = await Mentor.findById(userId);
-      if (!mentor) {
-        throw ServiceError.MENTOR_WAS_NOT_FOUND;
-      }
-      const {
-        _id,
-        name,
-        imageId,
-        about,
-        calendlyLink,
-        graduationYear,
-        college,
-        major,
-        minor,
-        career,
-        topicsOfExpertise,
-        mentorMotivation,
-        pairingIds,
-        status
-      } = mentor;
+    } else if (role === "mentee") {
       let menteeIds = [];
       for(const i in pairingIds) {
         const pairing = await Pairing.findById(pairingIds[i]);
@@ -347,7 +298,7 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
       }
       return res.status(200).send({
         message: `Here is mentor ${mentor.name}`,
-        _id,
+        mentorId,
         name,
         imageId,
         about,
@@ -362,18 +313,13 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
         menteeIds,
         status
       });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTOR.status)
-        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
     }
+  } catch (e) {
+    if (e instanceof ServiceError) {
+      return next(e);
+    }
+    return next(InternalError.ERROR_GETTING_MENTOR);
   }
-
-  return res.status(405).send("Mentee or Mentor not accessing data");
 });
 
 export { router as userRouter };
