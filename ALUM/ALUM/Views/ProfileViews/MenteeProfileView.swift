@@ -10,23 +10,25 @@ import WrappingHStack
 
 struct MenteeProfileView: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
+    @State var isAtTop: Bool = true
     var body: some View {
         GeometryReader { grr in
-            VStack {
-                if !viewModel.selfView {
-                    // params currently placeholders for later navigation
-                    NavigationHeaderComponent(
-                        backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile")
-                } else {
-                    ProfileHeaderComponent(profile: true, title: "Mentee Profile")
-                        .padding(.bottom)
-                }
+            VStack(spacing: 0) {
                 ScrollView {
+                    GeometryReader { geo in
+                        Rectangle()
+                            .frame(width: 0, height: 0)
+                            .foregroundColor(Color("ALUM Primary Purple"))
+                            .onChange(of: geo.frame(in: .global).midY) { midY in
+                                isAtTop = midY >= -60.0
+                            }
+                    }
+                    .frame(width: 0, height: 0)
                     VStack {
                         ZStack {
                             Rectangle()
-                                .frame(height: 125)
-                                .foregroundColor(Color("ALUM Light Blue"))
+                                .frame(height: 150)
+                                .foregroundColor(Color("ALUM Primary Purple"))
                                 .padding(.bottom, 76)
                             Group {
                                 Circle()
@@ -46,7 +48,7 @@ struct MenteeProfileView: View {
                     HStack {
                         Image(systemName: "graduationcap")
                             .frame(width: 25.25, height: 11)
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .foregroundColor(Color("ALUM Primary Purple"))
                         Text(viewModel.mentee.grade + "th Grade @ NHS")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
@@ -57,7 +59,7 @@ struct MenteeProfileView: View {
                     }
                     Text("About")
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .foregroundColor(Color("ALUM Primary Purple"))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 16)
                         .padding(.bottom, 8)
@@ -76,7 +78,7 @@ struct MenteeProfileView: View {
                     if viewModel.selfView {
                         Text("My Mentor")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .foregroundColor(Color("ALUM Primary Purple"))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 16)
                             .padding(.leading, 16)
@@ -88,10 +90,34 @@ struct MenteeProfileView: View {
                             .padding(.bottom, 10)
                     }
                 }
-                .frame(minHeight: grr.size.height-120)
+                .frame(minHeight: grr.size.height - 50)
                 .background(Color("ALUM White2"))
+                .padding(.bottom, 8)
+                .edgesIgnoringSafeArea(.bottom)
                 if viewModel.selfView {
                     NavigationFooter(page: "Profile")
+                }
+            }
+            ZStack {
+                if !viewModel.selfView {
+                    // params currently placeholders for later navigation
+                    if isAtTop {
+                        NavigationHeaderComponent(
+                            backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile", purple: true)
+                        .background(Color("ALUM Primary Purple"))
+                    } else {
+                        NavigationHeaderComponent(
+                            backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: false)
+                        .background(.white)
+                    }
+                } else {
+                    if isAtTop {
+                        ProfileHeaderComponent(profile: true, title: "Mentee Profile", purple: true)
+                            .background(Color("ALUM Primary Purple"))
+                    } else {
+                        ProfileHeaderComponent(profile: true, title: "Mentor Profile", purple: false)
+                            .background(.white)
+                    }
                 }
             }
         }

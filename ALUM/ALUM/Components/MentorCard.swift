@@ -20,7 +20,7 @@ struct MentorCard: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
                     .frame(width: 358, height: 118)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(Color("ALUM Primary Purple"))
                 if isEmpty {
                     Circle()
                         .frame(width: 85)

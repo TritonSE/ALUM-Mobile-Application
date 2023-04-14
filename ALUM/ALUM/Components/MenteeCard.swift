@@ -36,7 +36,7 @@ struct MenteeCard: View {
                 RoundedRectangle(cornerRadius: 12.0)
                     .frame(width: 110, height: 135)
                     .offset(y: 32)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(Color("ALUM Primary Purple"))
                 if isEmpty {
                     Rectangle()                .frame(width: 110, height: 75)
                         .cornerRadius(12.0, corners: .topLeft)

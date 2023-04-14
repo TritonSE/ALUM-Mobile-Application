@@ -12,7 +12,9 @@ struct ProfileHeaderComponent: View {
     @State var title: String
     @State var leftText = "Cancel"
     @State var rightText = "Save"
+    @State var purple = true
     var body: some View {
+        let foreColor = purple ? Color("ALUM White") : Color("ALUM Primary Purple")
         ZStack {
             HStack {
                 if !profile {
@@ -20,7 +22,7 @@ struct ProfileHeaderComponent: View {
                     } label: {
                         Text(leftText)
                             .font(Font.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .foregroundColor(foreColor)
                     }
                     .padding(.leading, 16)
                     .padding(.top)
@@ -34,7 +36,7 @@ struct ProfileHeaderComponent: View {
                     }
                     .padding(.leading, 20)
                     .padding(.top)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(foreColor)
                 }
                 Spacer()
                 if !profile {
@@ -42,29 +44,40 @@ struct ProfileHeaderComponent: View {
                     } label: {
                         Text(rightText)
                             .font(Font.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .foregroundColor(foreColor)
                     }
                     .padding(.trailing, 16)
                     .padding(.top)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(foreColor)
                 } else {
                     Button {
                     } label: {
-                        Image("ALUM Pencil")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 19.83, height: 19.83)
-                            .padding(.trailing, 20)
+                        if purple {
+                            Image("ALUM Pencil White")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 19.83, height: 19.83)
+                                .padding(.trailing, 20)
+                        }
+                        else {
+                            Image("ALUM Pencil")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 19.83, height: 19.83)
+                                .padding(.trailing, 20)
+                        }
                     }
                     .padding(.top)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(foreColor)
                 }
             }
             Text(title)
                 .frame(width: 240)
                 .padding(.top)
                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                .foregroundColor(purple ? Color("ALUM White") : Color.black)
         }
+        .padding(.bottom)
     }
 }
 

@@ -23,7 +23,11 @@ struct NavigationHeaderComponent<Destination: View>: View {
     @State var backText: String
     @State var backDestination: Destination
     @State var title: String
+    @State var purple: Bool
     var body: some View {
+        let foreColor = purple ? Color("ALUM White") : Color("ALUM Primary Purple")
+        let titleColor = purple ? Color("ALUM White") : Color.black
+
         ZStack {
             Group {
                 if #available(iOS 16.0, *) {
@@ -37,11 +41,12 @@ struct NavigationHeaderComponent<Destination: View>: View {
                             .navigationBarHidden(true)
                 }
             }
-            .foregroundColor(Color("ALUM Dark Blue"))
+            .foregroundColor(foreColor)
             .frame(maxWidth: .infinity, alignment: .leading)
             Text(title)
                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(titleColor)
         }
         .padding()
     }
@@ -52,7 +57,8 @@ struct NavigationHeaderComponent_Previews: PreviewProvider {
         NavigationHeaderComponent(
             backText: "Login",
             backDestination: LoginPageView(),
-            title: "Signup"
+            title: "Signup",
+            purple: false
         )
     }
 }
