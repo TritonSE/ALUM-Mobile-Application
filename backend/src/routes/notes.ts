@@ -38,7 +38,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     console.log("Getting...");
     const id = req.params.id;
     const note = await Note.findById(id);
-    if (note == null) {
+    if (note === null) {
       throw new Error();
     }
     const notes: NoteItem[] = note.answers as NoteItem[];
