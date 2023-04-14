@@ -8,6 +8,7 @@ import { validateReqBodyWithCake } from "../middleware/validation";
 // import multer from "multer";
 import { Mentee } from "../models/mentee";
 import { Mentor } from "../models/mentor";
+import { Pairing } from "../models/pairing";
 import { createUser } from "../services/auth";
 import {
   CreateMenteeRequestBodyCake,
@@ -20,6 +21,7 @@ import { InternalError } from "../errors/internal";
 import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
+import { CustomError } from "../errors";
 
 const router = express.Router();
 
@@ -69,11 +71,13 @@ router.post(
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
+      const pairingId = "N/A";
       const mentee = new Mentee({
         name,
         imageId,
         about,
         status,
+        pairingId,
         ...args,
       });
       await createUser(mentee._id.toString(), email, password, "mentee");
@@ -121,6 +125,7 @@ router.post(
       const about = "N/A";
       const calendlyLink = "N/A";
       const zoomLink = "N/A";
+      const pairingIds: string[] = [];
       const mentor = new Mentor({
         name,
         imageId,
@@ -128,6 +133,7 @@ router.post(
         calendlyLink,
         zoomLink,
         status,
+        pairingIds,
         ...args,
       });
       await createUser(mentor._id.toString(), email, password, "mentor");
@@ -150,69 +156,82 @@ router.post(
  *
  * Mentor calling: mentee name, image, grade, about, career interests, topics of interest
  */
-router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-  const role = req.body.role;
-
-  if (role === "mentee") {
+router.get(
+  "/mentee/:userId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userId = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+      const role = req.body.role;
       const mentee = await Mentee.findById(userId);
       if (!mentee) {
         throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
-      return res.status(200).send({
-        message: `Here is mentee ${mentee.name}`,
-        mentee,
-        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTEE.status)
-        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
-    }
-  }
-
-  if (role === "mentor") {
-    try {
-      const mentee = await Mentee.findById(userId);
-      if (!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND;
-      }
-      const { name, imageId, about, grade, topicsOfInterest, careerInterests } = mentee;
-      return res.status(200).send({
-        message: `Here is mentee ${mentee.name}`,
-        mentee: {
+      const {
+        _id: menteeId,
+        name,
+        imageId,
+        about,
+        grade,
+        topicsOfInterest,
+        careerInterests,
+        mentorshipGoal,
+        pairingId,
+        status,
+      } = mentee;
+      const pairing = await Pairing.findById(pairingId);
+      if (role === "mentee") {
+        let mentorId = "N/A";
+        if (pairing) {
+          mentorId = pairing.mentorId;
+        }
+        res.status(200).send({
+          message: `Here is mentee ${mentee.name}`,
+          menteeId,
           name,
           imageId,
           about,
           grade,
           topicsOfInterest,
           careerInterests,
-          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
+          mentorshipGoal,
+          mentorId,
+          status,
+        });
+        return;
       }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTEE.status)
-        .send(InternalError.ERROR_GETTING_MENTEE.displayMessage(true));
+      if (role === "mentor") {
+        let whyPaired = "N/A";
+        if (pairing) {
+          whyPaired = pairing.whyPaired;
+        }
+        res.status(200).send({
+          message: `Here is mentee ${mentee.name}`,
+          mentee: {
+            name,
+            imageId,
+            about,
+            grade,
+            topicsOfInterest,
+            careerInterests,
+            whyPaired,
+          },
+        });
+        return;
+      }
+      throw InternalError.ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED;
+    } catch (e) {
+      if (e instanceof CustomError) {
+        next(e);
+        return;
+      }
+      next(InternalError.ERROR_GETTING_MENTEE);
     }
   }
-
-  return res.status(405).send("Mentee or Mentor not accessing data");
-});
+);
 
 /**
  * This is a get route for a mentor. Note that the response is dependant on the person
@@ -223,22 +242,26 @@ router.get("/mentee/:userId", [verifyAuthToken], async (req: Request, res: Respo
  *
  * Mentor calling: gain all info about the mentor
  */
-router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  if (!mongoose.Types.ObjectId.isValid(userId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-  const role = req.body.role;
-
-  if (role === "mentee") {
+router.get(
+  "/mentor/:userId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const userId = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const role = req.body.role;
+      const clientId = req.body.uid;
+
       const mentor = await Mentor.findById(userId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
+
       const {
+        _id: mentorId,
         name,
         imageId,
         about,
@@ -250,58 +273,75 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
         calendlyLink,
         zoomLink,
         topicsOfExpertise,
+        pairingIds,
+        mentorMotivation,
+        status,
       } = mentor;
-      return res.status(200).send({
-        message: `Here is mentor ${mentor.name}`,
-        mentor: {
+
+      if (role === "mentee") {
+        const promises = pairingIds.map(async (pairingId): Promise<string | null> => {
+          const pairing = await Pairing.findById(pairingId);
+          if (pairing && pairing.menteeId === clientId) {
+            return pairing.whyPaired;
+          }
+          return null;
+        });
+        const results = await Promise.all(promises);
+        const whyPaired = results.find((result) => result !== undefined && result !== null);
+
+        res.status(200).send({
+          message: `Here is mentor ${mentor.name}`,
+          mentor: {
+            mentorId,
+            name,
+            about,
+            imageId,
+            major,
+            minor,
+            college,
+            career,
+            graduationYear,
+            calendlyLink,
+            topicsOfExpertise,
+            whyPaired,
+          },
+        });
+        return;
+      }
+      if (role === "mentee") {
+        const promises = pairingIds.map(async (pairingId) => {
+          const pairing = await Pairing.findById(pairingId);
+          return pairing?.menteeId;
+        });
+        const menteeIds = await Promise.all(promises);
+        res.status(200).send({
+          message: `Here is mentor ${mentor.name}`,
+          mentorId,
           name,
-          about,
           imageId,
+          about,
+          calendlyLink,
+          graduationYear,
+          college,
           major,
           minor,
-          college,
           career,
-          graduationYear,
-          calendlyLink,
           zoomLink,
           topicsOfExpertise,
-          whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        },
-      });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
+          mentorMotivation,
+          menteeIds,
+          status,
+        });
+        return;
       }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTOR.status)
-        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
+    } catch (e) {
+      if (e instanceof ServiceError) {
+        next(e);
+        return;
+      }
+      next(InternalError.ERROR_GETTING_MENTOR);
     }
   }
-
-  if (role === "mentor") {
-    try {
-      const mentor = await Mentor.findById(userId);
-      if (!mentor) {
-        throw ServiceError.MENTOR_WAS_NOT_FOUND;
-      }
-      return res.status(200).send({
-        message: `Here is mentor ${mentor.name}`,
-        mentor,
-        whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      });
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ServiceError) {
-        return res.status(e.status).send(e.displayMessage(true));
-      }
-      return res
-        .status(InternalError.ERROR_GETTING_MENTOR.status)
-        .send(InternalError.ERROR_GETTING_MENTOR.displayMessage(true));
-    }
-  }
-
-  return res.status(405).send("Mentee or Mentor not accessing data");
-});
+);
 
 export { router as userRouter };

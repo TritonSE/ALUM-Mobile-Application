@@ -18,7 +18,7 @@ interface MentorInterface {
   career: string;
   topicsOfExpertise: string[];
   mentorMotivation: string;
-  menteeIDs: mongoose.Types.ObjectId[];
+  pairingIds: string[];
   status: string;
 }
 
@@ -35,7 +35,7 @@ interface MentorDoc extends mongoose.Document {
   career: string;
   topicsOfExpertise: string[];
   mentorMotivation: string;
-  menteeIDs: mongoose.Types.ObjectId[];
+  pairingIds: string[];
   status: string;
 }
 
@@ -92,11 +92,11 @@ const mentorSchema = new mongoose.Schema({
   ],
   mentorMotivation: {
     type: String,
-    required: false,
-  }, // TODO Revisit this field
-  menteeIDs: [
+    required: true,
+  },
+  pairingIds: [
     {
-      type: mongoose.Types.ObjectId,
+      type: String,
       required: false,
     },
   ],
