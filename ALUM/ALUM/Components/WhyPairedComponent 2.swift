@@ -51,10 +51,9 @@ struct WhyPairedComponent: View {
             if active {
                 Text(text)
                     .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.trailing)
-                    .padding(.leading)
-                    .padding(.vertical)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 32)
+                    .padding(.vertical, 15)
                     .background(
                         Rectangle()
                             .stroke(Color("ALUM Light Purple"), lineWidth: 2)
