@@ -27,16 +27,16 @@ struct ProfileHeaderComponent: View {
                     .padding(.leading, 16)
                     .padding(.top)
                 } else {
-                    Button {
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                    }
-                    .padding(.leading, 20)
-                    .padding(.top)
-                    .foregroundColor(foreColor)
+//                    Button {
+//                    } label: {
+//                        Image(systemName: "gearshape")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 20, height: 20)
+//                    }
+//                    .padding(.leading, 20)
+//                    .padding(.top)
+//                    .foregroundColor(foreColor)
                 }
                 Spacer()
                 if !profile {
@@ -50,25 +50,25 @@ struct ProfileHeaderComponent: View {
                     .padding(.top)
                     .foregroundColor(foreColor)
                 } else {
-                    Button {
-                    } label: {
-                        if purple {
-                            Image("ALUM Pencil White")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 19.83, height: 19.83)
-                                .padding(.trailing, 20)
-                        }
-                        else {
-                            Image("ALUM Pencil")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 19.83, height: 19.83)
-                                .padding(.trailing, 20)
-                        }
-                    }
-                    .padding(.top)
-                    .foregroundColor(foreColor)
+//                    Button {
+//                    } label: {
+//                        if purple {
+//                            Image("ALUM Pencil White")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 19.83, height: 19.83)
+//                                .padding(.trailing, 20)
+//                        }
+//                        else {
+//                            Image("ALUM Pencil")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 19.83, height: 19.83)
+//                                .padding(.trailing, 20)
+//                        }
+//                    }
+//                    .padding(.top)
+//                    .foregroundColor(foreColor)
                 }
             }
             Text(title)

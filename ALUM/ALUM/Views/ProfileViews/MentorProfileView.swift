@@ -141,10 +141,10 @@ struct MentorProfileView: View {
                     }
                 } else {
                     if isAtTop{
-                        ProfileHeaderComponent(profile: true, title: "Mentor Profile", purple: true)
+                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                             .background(Color("ALUM Primary Purple"))
                     } else {
-                        ProfileHeaderComponent(profile: true, title: "Mentor Profile", purple: false)
+                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
                             .background(.white)
                     }
                 }

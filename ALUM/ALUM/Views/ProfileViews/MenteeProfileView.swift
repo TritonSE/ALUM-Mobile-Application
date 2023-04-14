@@ -107,15 +107,15 @@ struct MenteeProfileView: View {
                         .background(Color("ALUM Primary Purple"))
                     } else {
                         NavigationHeaderComponent(
-                            backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: false)
+                            backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile", purple: false)
                         .background(.white)
                     }
                 } else {
                     if isAtTop {
-                        ProfileHeaderComponent(profile: true, title: "Mentee Profile", purple: true)
+                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                             .background(Color("ALUM Primary Purple"))
                     } else {
-                        ProfileHeaderComponent(profile: true, title: "Mentor Profile", purple: false)
+                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
                             .background(.white)
                     }
                 }

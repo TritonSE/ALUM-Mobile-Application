@@ -23,5 +23,5 @@ final class MenteeProfileViewmodel: ObservableObject {
         mentor: "u3491237981"
     )
 
-    @Published var selfView = true
+    @Published var selfView = false
 }
