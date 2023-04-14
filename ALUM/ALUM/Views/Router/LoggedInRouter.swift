@@ -13,9 +13,7 @@ struct LoggedInRouter: View {
     var body: some View {
         VStack {
             if page == .home {
-                Spacer()
-                Text("Sessions Detail Page")
-                Spacer()
+                SessionDetailsPageView()
             } else if page == .profile {
                 MenteeProfileView()
                   .environmentObject(FirebaseAuthenticationService())
