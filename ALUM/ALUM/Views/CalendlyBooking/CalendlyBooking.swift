@@ -43,7 +43,9 @@ struct CalendlyView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
-        webView.configuration.userContentController.add(context.coordinator, name: "*")
+        let userContentController = WKUserContentController()
+        userContentController.add(context.coordinator, name: "message")
+        webView.configuration.userContentController = userContentController
         webView.navigationDelegate = context.coordinator
         return webView
     }
@@ -66,8 +68,6 @@ struct CalendlyView: UIViewRepresentable {
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             print("I got to the userContentController Function")
-            let body = message.body
-            print(body)
         }
     }
 }
