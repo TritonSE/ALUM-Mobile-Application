@@ -250,7 +250,7 @@ struct WhyMentor: View {
         whyMentorIsShowing = false
     }
 
-    func done(textfield: String) {
+    func done() {
         whyMentor = tempGoal
         whyMentorIsShowing = false
     }

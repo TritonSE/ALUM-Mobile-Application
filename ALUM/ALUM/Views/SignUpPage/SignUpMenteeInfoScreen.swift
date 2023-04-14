@@ -271,7 +271,7 @@ struct MentorshipGoal: View {
         goalIsShowing = false
     }
 
-    func done(textfield: String) {
+    func done() {
         mentorshipGoal = tempGoal
         goalIsShowing = false
     }

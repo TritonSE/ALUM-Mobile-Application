@@ -15,6 +15,20 @@
 		0732C54B29E9EE4A003DEDEB /* SessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C54A29E9EE4A003DEDEB /* SessionModel.swift */; };
 		0732C54D29E9EE6E003DEDEB /* HorizontalMenteeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C54C29E9EE6D003DEDEB /* HorizontalMenteeCard.swift */; };
 		0732C54F29E9EF06003DEDEB /* FormIncompleteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C54E29E9EF06003DEDEB /* FormIncompleteComponent.swift */; };
+		0732C55529E9F471003DEDEB /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55029E9F471003DEDEB /* Bullet.swift */; };
+		0732C55629E9F471003DEDEB /* DynamicProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55129E9F471003DEDEB /* DynamicProgressBarComponent.swift */; };
+		0732C55729E9F471003DEDEB /* MultipleChoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55229E9F471003DEDEB /* MultipleChoiceList.swift */; };
+		0732C55929E9F471003DEDEB /* CircleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55429E9F471003DEDEB /* CircleAddButton.swift */; };
+		0732C55B29E9F4BB003DEDEB /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55A29E9F4BB003DEDEB /* QuestionViewModel.swift */; };
+		0732C55D29E9F4C8003DEDEB /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55C29E9F4C8003DEDEB /* QuestionModel.swift */; };
+		0732C56729E9F4DE003DEDEB /* PostSessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C55F29E9F4DE003DEDEB /* PostSessionConfirmationScreen.swift */; };
+		0732C56829E9F4DE003DEDEB /* PreSessionQuestionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56029E9F4DE003DEDEB /* PreSessionQuestionScreen.swift */; };
+		0732C56929E9F4DE003DEDEB /* PreSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56129E9F4DE003DEDEB /* PreSessionView.swift */; };
+		0732C56A29E9F4DE003DEDEB /* SessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56229E9F4DE003DEDEB /* SessionConfirmationScreen.swift */; };
+		0732C56B29E9F4DE003DEDEB /* PostSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56329E9F4DE003DEDEB /* PostSessionView.swift */; };
+		0732C56C29E9F4DE003DEDEB /* PostSessionQuestionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56429E9F4DE003DEDEB /* PostSessionQuestionScreen.swift */; };
+		0732C56D29E9F4DE003DEDEB /* MissedSessionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56529E9F4DE003DEDEB /* MissedSessionScreen.swift */; };
+		0732C56E29E9F4DE003DEDEB /* PreSessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732C56629E9F4DE003DEDEB /* PreSessionConfirmationScreen.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
@@ -106,6 +120,20 @@
 		0732C54A29E9EE4A003DEDEB /* SessionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionModel.swift; sourceTree = "<group>"; };
 		0732C54C29E9EE6D003DEDEB /* HorizontalMenteeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalMenteeCard.swift; sourceTree = "<group>"; };
 		0732C54E29E9EF06003DEDEB /* FormIncompleteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormIncompleteComponent.swift; sourceTree = "<group>"; };
+		0732C55029E9F471003DEDEB /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		0732C55129E9F471003DEDEB /* DynamicProgressBarComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicProgressBarComponent.swift; sourceTree = "<group>"; };
+		0732C55229E9F471003DEDEB /* MultipleChoiceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceList.swift; sourceTree = "<group>"; };
+		0732C55429E9F471003DEDEB /* CircleAddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleAddButton.swift; sourceTree = "<group>"; };
+		0732C55A29E9F4BB003DEDEB /* QuestionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
+		0732C55C29E9F4C8003DEDEB /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
+		0732C55F29E9F4DE003DEDEB /* PostSessionConfirmationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSessionConfirmationScreen.swift; sourceTree = "<group>"; };
+		0732C56029E9F4DE003DEDEB /* PreSessionQuestionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreSessionQuestionScreen.swift; sourceTree = "<group>"; };
+		0732C56129E9F4DE003DEDEB /* PreSessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreSessionView.swift; sourceTree = "<group>"; };
+		0732C56229E9F4DE003DEDEB /* SessionConfirmationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionConfirmationScreen.swift; sourceTree = "<group>"; };
+		0732C56329E9F4DE003DEDEB /* PostSessionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSessionView.swift; sourceTree = "<group>"; };
+		0732C56429E9F4DE003DEDEB /* PostSessionQuestionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSessionQuestionScreen.swift; sourceTree = "<group>"; };
+		0732C56529E9F4DE003DEDEB /* MissedSessionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissedSessionScreen.swift; sourceTree = "<group>"; };
+		0732C56629E9F4DE003DEDEB /* PreSessionConfirmationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreSessionConfirmationScreen.swift; sourceTree = "<group>"; };
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -223,6 +251,21 @@
 			path = SessionDetailsView;
 			sourceTree = "<group>";
 		};
+		0732C55E29E9F4DE003DEDEB /* PreSessionForm */ = {
+			isa = PBXGroup;
+			children = (
+				0732C55F29E9F4DE003DEDEB /* PostSessionConfirmationScreen.swift */,
+				0732C56029E9F4DE003DEDEB /* PreSessionQuestionScreen.swift */,
+				0732C56129E9F4DE003DEDEB /* PreSessionView.swift */,
+				0732C56229E9F4DE003DEDEB /* SessionConfirmationScreen.swift */,
+				0732C56329E9F4DE003DEDEB /* PostSessionView.swift */,
+				0732C56429E9F4DE003DEDEB /* PostSessionQuestionScreen.swift */,
+				0732C56529E9F4DE003DEDEB /* MissedSessionScreen.swift */,
+				0732C56629E9F4DE003DEDEB /* PreSessionConfirmationScreen.swift */,
+			);
+			path = PreSessionForm;
+			sourceTree = "<group>";
+		};
 		0748208229712921004AF547 = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +325,10 @@
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0732C55029E9F471003DEDEB /* Bullet.swift */,
+				0732C55429E9F471003DEDEB /* CircleAddButton.swift */,
+				0732C55129E9F471003DEDEB /* DynamicProgressBarComponent.swift */,
+				0732C55229E9F471003DEDEB /* MultipleChoiceList.swift */,
 				0732C54E29E9EF06003DEDEB /* FormIncompleteComponent.swift */,
 				0732C54C29E9EE6D003DEDEB /* HorizontalMenteeCard.swift */,
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
@@ -316,6 +363,7 @@
 		07F9A50D297180EA00BC11A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0732C55C29E9F4C8003DEDEB /* QuestionModel.swift */,
 				0732C54A29E9EE4A003DEDEB /* SessionModel.swift */,
 				80210EBC29B95D50008B912A /* ProfileModel.swift */,
 				97992B5E29A6E81D00701CC7 /* SignUpModel.swift */,
@@ -327,6 +375,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0732C55E29E9F4DE003DEDEB /* PreSessionForm */,
 				0732C54129E9EE34003DEDEB /* SessionDetailsView */,
 				07D4B8F229E9B2CA00CFC078 /* Router */,
 				80210EC629BA825B008B912A /* ProfileViews */,
@@ -341,6 +390,7 @@
 		07F9A50F297180F500BC11A8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0732C55A29E9F4BB003DEDEB /* QuestionViewModel.swift */,
 				0732C54829E9EE40003DEDEB /* SessionDetailViewModel.swift */,
 				805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */,
 				80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */,
@@ -557,6 +607,7 @@
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				07D4B8F429E9B30C00CFC078 /* LoggedInRouter.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
+				0732C56E29E9F4DE003DEDEB /* PreSessionConfirmationScreen.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				0732C54529E9EE34003DEDEB /* MentorSessionDetailsPage.swift in Sources */,
@@ -571,16 +622,23 @@
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				0732C54B29E9EE4A003DEDEB /* SessionModel.swift in Sources */,
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
+				0732C55529E9F471003DEDEB /* Bullet.swift in Sources */,
+				0732C55D29E9F4C8003DEDEB /* QuestionModel.swift in Sources */,
 				97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */,
 				8095FE7529E4153C006AA63C /* ProfileHeaderComponent.swift in Sources */,
 				0732C54629E9EE34003DEDEB /* MenteeSessionsDetailsPage.swift in Sources */,
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
+				0732C56729E9F4DE003DEDEB /* PostSessionConfirmationScreen.swift in Sources */,
 				97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
+				0732C55629E9F471003DEDEB /* DynamicProgressBarComponent.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
+				0732C56A29E9F4DE003DEDEB /* SessionConfirmationScreen.swift in Sources */,
+				0732C56C29E9F4DE003DEDEB /* PostSessionQuestionScreen.swift in Sources */,
+				0732C56D29E9F4DE003DEDEB /* MissedSessionScreen.swift in Sources */,
 				805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
 				80938CEA29C51D18006BC120 /* FirebaseContentView.swift in Sources */,
@@ -592,6 +650,7 @@
 				07D4B8F129E9B05500CFC078 /* Router.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
 				97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */,
+				0732C55929E9F471003DEDEB /* CircleAddButton.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
@@ -603,11 +662,16 @@
 				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
 				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
 				0732C54729E9EE34003DEDEB /* SessionDetailsPageView.swift in Sources */,
+				0732C56B29E9F4DE003DEDEB /* PostSessionView.swift in Sources */,
 				0732C54F29E9EF06003DEDEB /* FormIncompleteComponent.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
+				0732C55729E9F471003DEDEB /* MultipleChoiceList.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
+				0732C56829E9F4DE003DEDEB /* PreSessionQuestionScreen.swift in Sources */,
 				80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */,
+				0732C56929E9F4DE003DEDEB /* PreSessionView.swift in Sources */,
+				0732C55B29E9F4BB003DEDEB /* QuestionViewModel.swift in Sources */,
 				80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
