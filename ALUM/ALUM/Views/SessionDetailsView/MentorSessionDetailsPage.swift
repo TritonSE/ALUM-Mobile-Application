@@ -49,7 +49,7 @@ struct MentorSessionDetailsPage: View {
             do {
                 try await viewModel.loadSession()
             } catch {
-                print("Failure")
+                print(error)
             }
         }
     }
@@ -87,7 +87,7 @@ struct MentorSessionDetailsPage: View {
                 .padding(.bottom, 5)
                 
                 HStack {
-                    Text(dateFormatter.string(from:viewModel.session.dateTime))
+                    Text(viewModel.session.dateTime)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     
                     Spacer()

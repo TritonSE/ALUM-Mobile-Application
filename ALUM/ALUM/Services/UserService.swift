@@ -214,13 +214,13 @@ class UserService {
     func getMentor(userID: String) async throws -> MentorGetData {
         let urlObj = URL(string: "http://localhost:3000/mentor/" + userID)!
         var request = URLRequest(url: urlObj)
-        guard let authToken = try await getCurrentAuth() else {
-            print("Could not get auth token")
-            throw APIError.invalidRequest(message: "Could not get auth token")
-        }
-        print(authToken)
+//        guard let authToken = try await getCurrentAuth() else {
+//            print("Could not get auth token")
+//            throw APIError.invalidRequest(message: "Could not get auth token")
+//        }
+//        print(authToken)
         request.httpMethod = "GET"
-        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+//        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
             let (responseData, response) = try await URLSession.shared.data(for: request)
@@ -234,7 +234,7 @@ class UserService {
                 )
             } else {
                 print("GET \("http://localhost:3000/mentor/" + userID) was successful.")
-                guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) as? MentorGetData else {
+                guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
                     print("Failed to decode order ")
                     throw APIError.invalidRequest(message: "Could not decode data")
                 }
@@ -271,7 +271,7 @@ class UserService {
                 )
             } else {
                 print("GET \("http://localhost:3000/mentee/" + userID) was successful.")
-                guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) as? MenteeGetData else {
+                guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
                     print("Failed to decode order ")
                     throw APIError.invalidRequest(message: "Could not decode data")
                 }

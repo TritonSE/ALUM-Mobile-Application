@@ -7,12 +7,17 @@
 
 import Foundation
 
-struct GetSessionData: Decodable {
+struct SessionInfo: Decodable {
     var preSession: String
     var postSession: String
     var menteeId: String
     var mentorId: String
-    var dateTime: Date
+    var dateTime: String
+}
+
+struct GetSessionData: Decodable {
+    var message: String
+    var session: SessionInfo
 }
 
 class SessionService {
@@ -28,13 +33,14 @@ class SessionService {
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.networkError()
             }
-            if httpResponse.statusCode != 201 {
+            if httpResponse.statusCode != 200 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
                 )
             } else {
-                guard let sessionData = try JSONDecoder().decode(GetSessionData.self, from: responseData) as? GetSessionData else {
+                print(responseData)
+                guard let sessionData = try? JSONDecoder().decode(GetSessionData.self, from: responseData) else {
                     print("Failed to decode data")
                     throw APIError.invalidRequest(message: "Could not decode data")
                 }
