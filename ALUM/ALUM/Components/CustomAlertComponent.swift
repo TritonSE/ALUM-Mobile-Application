@@ -57,14 +57,12 @@ struct CustomAlertComponent: View {
                                 .font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(Color("ALUM Primary Purple"))
                                 .font(.system(size: 17, weight: .semibold))
-                                .frame(width: 143, height: 48)
-                                .background(Color.white)
+
                                 .cornerRadius(12)
-                                .overlay(RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color("ALUM Primary Blue"), lineWidth: 2))
                         }
                     )
-
+                    .buttonStyle(OutlinedButtonStyle())
+                    .frame(width: 143, height: 48)
                     Button(
                         action: {
                             self.rightButtonAction()
@@ -74,16 +72,11 @@ struct CustomAlertComponent: View {
                                 .font(.custom("Metropolis-Regular", size: 17))
                                 .foregroundColor(.white)
                                 .font(.system(size: 17, weight: .semibold))
-                                .frame(width: 143, height: 48)
-                                .background(
-                                    LinearGradient(gradient: Gradient(colors:
-                                                        [Color("ALUM Primary Blue"),
-                                                         Color("ALUM Primary Dark Blue")]),
-                                    startPoint: .bottomTrailing,
-                                    endPoint: .topLeading))
                                 .cornerRadius(12)
                         }
                     )
+                    .frame(width: 143, height: 48)
+                    .buttonStyle(FilledInButtonStyle())
                 }
                 .padding(.bottom, 16)
             }
