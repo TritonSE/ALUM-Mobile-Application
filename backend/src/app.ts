@@ -28,8 +28,8 @@ mongoose.connect(mongoURI, {}, () => {
 const pairing = new Pairing({
   menteeId: "6431b99ebcf4420fe9825fe3",
   mentorId: "6431b9a2bcf4420fe9825fe5",
-  whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-})
+  whyPaired: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+});
 
 pairing.save();
 
