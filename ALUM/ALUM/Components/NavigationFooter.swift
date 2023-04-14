@@ -6,23 +6,25 @@
 //
 
 import SwiftUI
+enum FooterTabs {
+    case home
+    case profile
+}
 
 struct NavigationFooter: View {
-    @State var page: String
+    @Binding var page: FooterTabs
     var body: some View {
         ZStack {
-            Rectangle()
-                .frame(height: 82)
-                .foregroundColor(.white)
             HStack {
                 ZStack {
-                    if page == "Home"{
+                    if page == .home {
                         RoundedRectangle(cornerRadius: 8.0)
                             .frame(width: 64, height: 3)
                             .foregroundColor(Color("ALUM Primary Purple"))
                             .offset(y: -35)
                     }
                     Button {
+                        page = .home
                     } label: {
                         VStack {
                             Image("ALUM Home")
@@ -36,16 +38,17 @@ struct NavigationFooter: View {
                     }
                     .foregroundColor(Color("ALUM Primary Purple"))
                 }
-                .padding(.leading, page == "Home" ? 82 : 98)
+                .padding(.leading, page == .home ? 82 : 98)
                 Spacer()
                 ZStack {
-                    if page == "Profile"{
+                    if page == .profile {
                         RoundedRectangle(cornerRadius: 8.0)
                             .frame(width: 64, height: 3)
                             .foregroundColor(Color("ALUM Primary Purple"))
                             .offset(y: -35)
                     }
                     Button {
+                        page = .profile
                     } label: {
                         VStack {
                             Image("ALUMLogoBlue")
@@ -58,17 +61,23 @@ struct NavigationFooter: View {
                     }
                     .foregroundColor(Color("ALUM Primary Purple"))
                 }
-                .padding(.trailing, page == "Profile" ? 82 : 93)
+                .padding(.trailing, page == .profile ? 82 : 93)
             }
-            .padding(.bottom, 25)
         }
-        .frame(maxHeight: .infinity, alignment: .bottom)
         .edgesIgnoringSafeArea(.bottom  )
+    }
+}
+
+struct NavigationFooterPreviewHelper: View {
+    @State var page: FooterTabs = .home
+    
+    var body: some View {
+        NavigationFooter(page: $page)
     }
 }
 
 struct NavigationFooter_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationFooter(page: "Home")
+        NavigationFooterPreviewHelper()
     }
 }

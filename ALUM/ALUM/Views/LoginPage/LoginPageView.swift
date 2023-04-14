@@ -10,16 +10,9 @@ import Firebase
 
 struct LoginPageView: View {
     @StateObject private var viewModel = LoginPageViewModel()
-
+    @EnvironmentObject var appEnvironment: AppEnvironment
+    
     var body: some View {
-        if viewModel.userIsLoggedIn {
-            ContentView()
-        } else {
-            content
-        }
-    }
-
-    var content: some View {
         return
         VStack(spacing: 0) {
             Image("ALUMLogoBlue")
@@ -70,7 +63,9 @@ struct LoginPageView: View {
                 Button("Login") {
                     viewModel.emailFunc = []
                     viewModel.passFunc = []
-                    viewModel.login()
+                    viewModel.login() {_ in
+                        self.appEnvironment.isLoggedIn.toggle()
+                    }
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.leading, 16)

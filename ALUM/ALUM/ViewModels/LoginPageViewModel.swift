@@ -4,6 +4,7 @@
 //
 //  Created by Yash Ravipati on 2/15/23.
 //
+import SwiftUI
 
 import Foundation
 import FirebaseCore
@@ -16,7 +17,8 @@ final class LoginPageViewModel: ObservableObject {
     @Published var userIsLoggedIn: Bool = false
     @Published var emailFunc: [(String) -> (Bool, String)] = []
     @Published var passFunc: [(String) -> (Bool, String)] = []
-    func login() {
+    
+    func login(completion: @escaping (Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
             if let maybeError = error {
                 let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
@@ -33,6 +35,7 @@ final class LoginPageViewModel: ObservableObject {
             } else {
                 print("success")
                 self.userIsLoggedIn.toggle()
+                completion(nil)
             }
         }
     }

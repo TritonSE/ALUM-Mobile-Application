@@ -124,9 +124,6 @@ struct MentorProfileView: View {
                 .background(Color("ALUM White2"))
                 .padding(.bottom, 8)
                 .edgesIgnoringSafeArea(.bottom)
-                if viewModel.selfView {
-                    NavigationFooter(page: "Profile")
-                }
             }
             ZStack {
                 if !viewModel.selfView {

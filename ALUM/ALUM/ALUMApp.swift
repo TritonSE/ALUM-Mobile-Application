@@ -21,14 +21,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct ALUMApp: App {
-  // register app delegate for Firebase setup
-  @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    // register app delegate for Firebase setup
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
   var body: some Scene {
     WindowGroup {
       NavigationView {
-        ContentView()
-              .environmentObject(FirebaseAuthenticationService())
+          Router()
       }
     }
   }

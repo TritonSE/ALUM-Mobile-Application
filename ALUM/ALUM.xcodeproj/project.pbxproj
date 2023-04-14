@@ -14,6 +14,10 @@
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
 		0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
+		07D4B8F129E9B05500CFC078 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4B8F029E9B05500CFC078 /* Router.swift */; };
+		07D4B8F429E9B30C00CFC078 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4B8F329E9B30C00CFC078 /* LoggedInRouter.swift */; };
+		07D4B8F629E9B36500CFC078 /* LoggedOutRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4B8F529E9B36500CFC078 /* LoggedOutRouter.swift */; };
+		07D4B8F829E9CCEA00CFC078 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D4B8F729E9CCEA00CFC078 /* AppEnvironment.swift */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
@@ -94,6 +98,10 @@
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		075379F629B6A9F100A0DD5E /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
+		07D4B8F029E9B05500CFC078 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		07D4B8F329E9B30C00CFC078 /* LoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRouter.swift; sourceTree = "<group>"; };
+		07D4B8F529E9B36500CFC078 /* LoggedOutRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedOutRouter.swift; sourceTree = "<group>"; };
+		07D4B8F729E9CCEA00CFC078 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
@@ -237,6 +245,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		07D4B8F229E9B2CA00CFC078 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				07D4B8F029E9B05500CFC078 /* Router.swift */,
+				07D4B8F329E9B30C00CFC078 /* LoggedInRouter.swift */,
+				07D4B8F529E9B36500CFC078 /* LoggedOutRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +292,7 @@
 			children = (
 				80210EBC29B95D50008B912A /* ProfileModel.swift */,
 				97992B5E29A6E81D00701CC7 /* SignUpModel.swift */,
+				07D4B8F729E9CCEA00CFC078 /* AppEnvironment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,6 +300,7 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				07D4B8F229E9B2CA00CFC078 /* Router */,
 				80210EC629BA825B008B912A /* ProfileViews */,
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
@@ -506,6 +526,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
+				07D4B8F429E9B30C00CFC078 /* LoggedInRouter.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
@@ -514,6 +535,7 @@
 				97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */,
 				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
 				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
+				07D4B8F829E9CCEA00CFC078 /* AppEnvironment.swift in Sources */,
 				8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
@@ -534,6 +556,7 @@
 				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
 				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
 				979F812229B842E200D6E964 /* UniversityNames.swift in Sources */,
+				07D4B8F129E9B05500CFC078 /* Router.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
 				97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */,
 				80BD53692981F72D005B4CCD /* ProgressBarComponent.swift in Sources */,
@@ -552,6 +575,7 @@
 				80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
+				07D4B8F629E9B36500CFC078 /* LoggedOutRouter.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
 				80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */,
 				80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */,
