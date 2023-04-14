@@ -266,8 +266,8 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
 
     if (role == "mentee") {
       let whyPaired = "N/A";
-      for(const i in pairingIds) {
-        const pairing = await Pairing.findById(pairingIds[i]);
+      for (const pairingId of pairingIds) {
+        const pairing = await Pairing.findById(pairingId);
         if(pairing && pairing.menteeId === clientId) {
           whyPaired = pairing.whyPaired;
         }
@@ -292,8 +292,8 @@ router.get("/mentor/:userId", [verifyAuthToken], async (req: Request, res: Respo
       });
     } else if (role === "mentee") {
       let menteeIds = [];
-      for(const i in pairingIds) {
-        const pairing = await Pairing.findById(pairingIds[i]);
+      for(const pairingId of pairingIds) {
+        const pairing = await Pairing.findById(pairingId);
         menteeIds.push(pairing?.menteeId);
       }
       return res.status(200).send({
