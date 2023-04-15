@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct MentorCard: View {
-    @State var name = "MMM Monkey"
-    @State var major = "CS"
-    @State var university = "UCSD"
-    @State var career = "Software Engineer"
-    @State var profilePic = Image("TestMenteePFP")
     @State var isEmpty = false
+    @State var uID: String = ""
+    @StateObject private var viewModel = MentorProfileViewmodel()
     var body: some View {
         Button {
         } label: {
@@ -23,11 +20,11 @@ struct MentorCard: View {
                     .foregroundColor(Color("ALUM Primary Purple"))
                 if isEmpty {
                     Circle()
-                        .frame(width: 85)
+                        .frame(width: 85, height: 85)
                         .foregroundColor(Color("NeutralGray1"))
                         .offset(x: -112.5)
                 } else {
-                    profilePic
+                    Image("ALUMLogoBlue")
                         .resizable()
                         .clipShape(Circle())
                         .frame(width: 85, height: 85)
@@ -35,7 +32,7 @@ struct MentorCard: View {
                 }
                 VStack {
                     HStack {
-                        Text(name)
+                        Text(viewModel.mentorGET.mentor.name)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.white)
                         Spacer()
@@ -47,10 +44,11 @@ struct MentorCard: View {
                             .resizable()
                             .frame(width: 19, height: 18)
                             .foregroundColor(.white)
-                        Text(major + " @ " + university)
+                        Text(viewModel.mentorGET.mentor.major + " @ " + viewModel.mentorGET.mentor.college)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(.white)
                             .frame(width: 200, alignment: .leading)
+                            .multilineTextAlignment(.leading)
                         Spacer()
                     }
                     .offset(x: 150)
@@ -59,7 +57,7 @@ struct MentorCard: View {
                         Image(systemName: "suitcase")
                             .resizable()
                             .frame(width: 19, height: 15)
-                        Text(career)
+                        Text(viewModel.mentorGET.mentor.career)
                         Spacer()
                     }
                     .offset(x: 150)
@@ -67,11 +65,21 @@ struct MentorCard: View {
                 }
             }
         }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getMentorInfo(userID: uID)
+                }
+                catch {
+                    print("Error")
+                }
+            }
+        })
     }
 }
 
 struct MentorCard_Previews: PreviewProvider {
     static var previews: some View {
-        MentorCard()
+        MentorCard(isEmpty: true)
     }
 }
