@@ -101,7 +101,6 @@ class UserService {
             print("Could not get auth token")
             return nil
         }
-        print(authToken)
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
