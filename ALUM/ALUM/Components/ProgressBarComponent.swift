@@ -69,7 +69,7 @@ struct ActiveCircle: View {
             .frame(width: circleDiameter - borderWidth, height: circleDiameter - borderWidth)
             .overlay(
                 Circle()
-                    .stroke(Color("ALUM Dark Blue"), lineWidth: borderWidth)
+                    .stroke(Color("ALUM Primary Blue"), lineWidth: borderWidth)
             )
             .frame(height: circleDiameter)
     }
@@ -79,7 +79,7 @@ struct FilledCircle: View {
     var body: some View {
         ZStack {
             Circle()
-                .foregroundColor(Color("ALUM Dark Blue"))
+                .foregroundColor(Color("ALUM Primary Purple"))
                 .frame(width: circleDiameter, height: circleDiameter)
             Image("CheckMarkVector")
         }
@@ -97,8 +97,13 @@ struct PendingCircle: View {
 struct FilledLine: View {
     var body: some View {
         Rectangle()
+            .fill(
+                LinearGradient(
+                    gradient: Gradient(
+                        colors: [Color("ALUM Primary Dark Blue"), Color("ALUM Primary Blue")]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing))
             .frame(width: .infinity, height: 2)
-            .foregroundColor(Color("ALUM Dark Blue"))
     }
 }
 

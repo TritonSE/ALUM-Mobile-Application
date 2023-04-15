@@ -19,10 +19,10 @@ struct FilledInButtonStyle: ButtonStyle {
                     .font(.headline)
                     .background(
                         LinearGradient(gradient: Gradient(colors:
-                                            [Color("ALUM Primary Blue"),
-                                             Color("ALUM Primary Dark Blue")]),
-                        startPoint: .bottomTrailing,
-                        endPoint: .topLeading))
+                                            [Color("ALUM Primary Dark Blue"),
+                                             Color("ALUM Primary Blue")]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing))
                     .cornerRadius(8)
             } else {
                 configuration.label
