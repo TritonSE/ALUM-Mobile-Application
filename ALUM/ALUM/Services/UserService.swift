@@ -120,6 +120,7 @@ class UserService {
                     print("Failed to decode order ")
                     return nil
                     }
+                print(mentorData.mentor.menteeIDs![0])
                 return mentorData
             }
         } catch {
@@ -130,10 +131,7 @@ class UserService {
     func getMentee(userID: String) async throws -> MenteeGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentee/" + userID)!
         var request = URLRequest(url: urlObj)
-        let authToken = try await getCurrentAuth()
-        if authToken != nil {
-            print("Auth Token Identified")
-        } else {
+        guard let authToken = try await getCurrentAuth() else {
             print("Could not get auth token")
             return nil
         }

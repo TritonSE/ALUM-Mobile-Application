@@ -26,9 +26,9 @@ extension View {
 }
 
 struct MenteeCard: View {
-    @State var name = "Timby Wolf"
-    @State var profilePic = Image("TestMenteePFP")
     @State var isEmpty = false
+    @State var uID: String = ""
+    @StateObject private var viewModel = MenteeProfileViewmodel()
     var body: some View {
         Button {
         } label: {
@@ -43,13 +43,13 @@ struct MenteeCard: View {
                         .cornerRadius(12.0, corners: .topRight)
                         .foregroundColor(Color("NeutralGray1"))
                 } else {
-                    profilePic
+                    Image(viewModel.menteeGET.mentee.imageId)
                         .resizable()
                         .frame(width: 110, height: 75)
                         .cornerRadius(12.0, corners: .topLeft)
                         .cornerRadius(12.0, corners: .topRight)
                 }
-                Text(name)
+                Text(viewModel.menteeGET.mentee.name)
                     .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
                     .foregroundColor(.white)
                     .offset(y: 65)
@@ -59,6 +59,16 @@ struct MenteeCard: View {
                     .frame(width: 75, height: 40, alignment: .leading)
             }
         }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getMenteeInfo(userID: uID)
+                }
+                catch {
+                    print("Error")
+                }
+            }
+        })
     }
 }
 
