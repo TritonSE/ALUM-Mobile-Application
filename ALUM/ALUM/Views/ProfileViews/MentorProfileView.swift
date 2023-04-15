@@ -110,7 +110,7 @@ struct MentorProfileView: View {
                                 .padding(.leading, 16)
                                 .padding(.top, 27)
                             WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIDs!.count, id: \.self) { index in
-                                MenteeCard(name: "Name")
+                                MenteeCard(isEmpty: true, uID: viewModel.mentorGET.mentor.menteeIDs![index])
                                     .padding(.bottom, 15)
                                     .padding(.trailing, 10)
                             }
