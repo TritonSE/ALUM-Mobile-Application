@@ -199,10 +199,11 @@ router.get(
             mentorshipGoal,
             mentorId,
             status,
-          }
+          },
         });
         return;
-      } else if (role === "mentor") {
+      }
+      if (role === "mentor") {
         let whyPaired = "N/A";
         if (pairing) {
           whyPaired = pairing.whyPaired;
@@ -305,7 +306,8 @@ router.get(
           },
         });
         return;
-      } else if (role === "mentor") {
+      }
+      if (role === "mentor") {
         const promises = pairingIds.map(async (pairingId) => {
           const pairing = await Pairing.findById(pairingId);
           return pairing?.menteeId;
@@ -328,12 +330,11 @@ router.get(
             mentorMotivation,
             menteeIds,
             status,
-          }
+          },
         });
         return;
-      } else {
-        throw InternalError.ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED;
       }
+      throw InternalError.ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED;
     } catch (e) {
       if (e instanceof ServiceError) {
         next(e);
