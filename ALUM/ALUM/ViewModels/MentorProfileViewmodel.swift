@@ -30,7 +30,6 @@ final class MentorProfileViewmodel: ObservableObject {
             print("Error getting info")
             return
         }
-        print("Success")
         mentorGET = mentorData
         // motivation is an optional parameter, used to check who is viewing profile
         selfView = (mentorGET.mentor.mentorMotivation != nil)

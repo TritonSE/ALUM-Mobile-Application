@@ -24,25 +24,28 @@ struct NavigationHeaderComponent<Destination: View>: View {
     @State var backDestination: Destination
     @State var title: String
     @State var purple: Bool
+    @State var showButton = true
     var body: some View {
         let foreColor = purple ? Color("ALUM White") : Color("ALUM Primary Purple")
         let titleColor = purple ? Color("ALUM White") : Color.black
 
         ZStack {
-            Group {
-                if #available(iOS 16.0, *) {
-                    // Apply function that is only available in iOS 16 or later
-                    NavigationLink(destination: backDestination, label: {BackButton(text: backText)})
-                        .toolbar(.hidden, for: .navigationBar)
-                } else {
-                    // Apply function that is available in earlier versions of iOS
-                    // Because .navigationBarHidden is deprecated in future versions of iOS
-                    NavigationLink(destination: backDestination, label: {BackButton(text: backText)})
+            if showButton {
+                Group {
+                    if #available(iOS 16.0, *) {
+                        // Apply function that is only available in iOS 16 or later
+                        NavigationLink(destination: backDestination, label: {BackButton(text: backText)})
+                            .toolbar(.hidden, for: .navigationBar)
+                    } else {
+                        // Apply function that is available in earlier versions of iOS
+                        // Because .navigationBarHidden is deprecated in future versions of iOS
+                        NavigationLink(destination: backDestination, label: {BackButton(text: backText)})
                             .navigationBarHidden(true)
+                    }
                 }
+                .foregroundColor(foreColor)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .foregroundColor(foreColor)
-            .frame(maxWidth: .infinity, alignment: .leading)
             Text(title)
                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .frame(maxWidth: .infinity, alignment: .center)

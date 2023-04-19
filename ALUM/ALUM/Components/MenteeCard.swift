@@ -30,45 +30,41 @@ struct MenteeCard: View {
     @State var uID: String = ""
     @StateObject private var viewModel = MenteeProfileViewmodel()
     var body: some View {
-        NavigationView {
-            NavigationLink(destination: MenteeProfileView(uID: viewModel.menteeGET.mentee.id)) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12.0)
-                        .frame(width: 110, height: 135)
-                        .offset(y: 32)
-                        .foregroundColor(Color("ALUM Primary Purple"))
-                    if isEmpty {
-                        Rectangle()                .frame(width: 110, height: 75)
-                            .cornerRadius(12.0, corners: .topLeft)
-                            .cornerRadius(12.0, corners: .topRight)
-                            .foregroundColor(Color("NeutralGray1"))
-                    } else {
-                        Image(viewModel.menteeGET.mentee.imageId)
-                            .resizable()
-                            .frame(width: 110, height: 75)
-                            .cornerRadius(12.0, corners: .topLeft)
-                            .cornerRadius(12.0, corners: .topRight)
-                    }
-                    Text(viewModel.menteeGET.mentee.name)
-                        .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
-                        .foregroundColor(.white)
-                        .offset(y: 65)
-                        .offset(x: -8)
-                        .multilineTextAlignment(.leading)
-                        .lineSpacing(5)
-                        .frame(width: 75, height: 40, alignment: .leading)
-                }
-                .onAppear(perform: {
-                    Task {
-                        do {
-                            try await viewModel.getMenteeInfo(userID: uID)
-                        } catch {
-                            print("Error")
-                        }
-                    }
-                })
+        ZStack {
+            RoundedRectangle(cornerRadius: 12.0)
+                .frame(width: 110, height: 135)
+                .offset(y: 32)
+                .foregroundColor(Color("ALUM Primary Purple"))
+            if isEmpty {
+                Rectangle()                .frame(width: 110, height: 75)
+                    .cornerRadius(12.0, corners: .topLeft)
+                    .cornerRadius(12.0, corners: .topRight)
+                    .foregroundColor(Color("NeutralGray1"))
+            } else {
+                Image(viewModel.menteeGET.mentee.imageId)
+                    .resizable()
+                    .frame(width: 110, height: 75)
+                    .cornerRadius(12.0, corners: .topLeft)
+                    .cornerRadius(12.0, corners: .topRight)
             }
+            Text(viewModel.menteeGET.mentee.name)
+                .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
+                .foregroundColor(.white)
+                .offset(y: 65)
+                .offset(x: -8)
+                .multilineTextAlignment(.leading)
+                .lineSpacing(5)
+                .frame(width: 75, height: 40, alignment: .leading)
         }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getMenteeInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
     }
 }
 
