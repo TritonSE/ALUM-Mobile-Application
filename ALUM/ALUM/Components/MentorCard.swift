@@ -72,14 +72,12 @@ struct MentorCard: View {
                 Task {
                     do {
                         try await viewModel.getMentorInfo(userID: uID)
-                    }
-                    catch {
+                    } catch {
                         print("Error")
                     }
                 }
             })
-        }
-        else {
+        } else {
             MentorProfileView(uID: viewModel.mentorGET.mentor.id)
         }
     }

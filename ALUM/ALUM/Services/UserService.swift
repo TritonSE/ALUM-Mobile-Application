@@ -35,7 +35,7 @@ class UserService {
     func createUser(url: String, jsonData: Data) async throws {
         // Create a URL request with JSON content type
         let urlObj = URL(string: url)!
-        var request = URLRequest(url: urlObj)        
+        var request = URLRequest(url: urlObj)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
@@ -44,11 +44,11 @@ class UserService {
             // Make the network request
             let (responseData, response) = try await URLSession.shared.data(for: request)
             // Check the response status code
-            
+
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.networkError()
             }
-            
+
             if httpResponse.statusCode != 201 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
@@ -62,7 +62,7 @@ class UserService {
             throw error
         }
     }
-    
+
     func createMentee(data: MenteePostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")
@@ -70,7 +70,7 @@ class UserService {
         }
         return try await self.createUser(url: "http://localhost:3000/mentee", jsonData: jsonData)
     }
-    
+
     func createMentor(data: MentorPostData) async throws {
         guard let jsonData = try? JSONEncoder().encode(data) else {
             print("Failed to encode order")

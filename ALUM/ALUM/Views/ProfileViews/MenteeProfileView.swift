@@ -123,8 +123,7 @@ struct MenteeProfileView: View {
             Task {
                 do {
                     try await viewModel.getMenteeInfo(userID: uID)
-                }
-                catch {
+                } catch {
                     print("Error")
                 }
             }
