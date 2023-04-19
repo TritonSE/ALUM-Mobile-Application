@@ -19,13 +19,13 @@ final class MenteeProfileViewmodel: ObservableObject {
             grade: 10,
             topicsOfInterest: ["AP", "CS"],
             careerInterests: ["SWE"]))
-    @Published var selfView = true
+    @Published var selfView = false
     func getMenteeInfo(userID: String) async throws {
         guard let menteeData = try? await UserService().getMentee(userID: userID) else {
             print("Error getting info")
             return
         }
         menteeGET = menteeData
-        selfView = (menteeGET.mentee.id != nil)
+        selfView = (menteeGET.mentee.mentorshipGoal != nil)
     }
 }

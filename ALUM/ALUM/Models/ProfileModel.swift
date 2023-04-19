@@ -14,8 +14,8 @@ struct MentorGetData: Decodable {
 }
 
 struct MentorInfo: Decodable {
-    var menteeIDs: [String]?
-    var id: String?
+    var menteeIds: [String]?
+    var id: String
     var name: String
     var imageId: String
     var about: String
@@ -27,15 +27,12 @@ struct MentorInfo: Decodable {
     var career: String
     var topicsOfExpertise: [String]
     var mentorMotivation: String?
-    var organizationId: String?
-    var personalAccessToken: String?
     var status: String?
-    var mongoVersion: Int?
     var whyPaired: String?
 
     private enum CodingKeys: String, CodingKey {
-        case menteeIDs
-        case id = "_id"
+        case menteeIds
+        case id = "mentorId"
         case name
         case imageId
         case about
@@ -47,10 +44,7 @@ struct MentorInfo: Decodable {
         case career
         case topicsOfExpertise
         case mentorMotivation
-        case organizationId
-        case personalAccessToken
         case status
-        case mongoVersion = "__v"
         case whyPaired
     }
 }
@@ -61,7 +55,7 @@ struct MenteeGetData: Decodable {
 }
 
 struct MenteeInfo: Decodable {
-    var id: String?
+    var id: String
     var name: String
     var imageId: String
     var about: String
@@ -71,11 +65,10 @@ struct MenteeInfo: Decodable {
     var mentorshipGoal: String?
     var mentorId: String?
     var status: String?
-    var mongoVersion: Int?
     var whyPaired: String?
 
     private enum CodingKeys: String, CodingKey {
-        case id = "_id"
+        case id = "menteeId"
         case name
         case imageId
         case about
@@ -85,7 +78,6 @@ struct MenteeInfo: Decodable {
         case mentorshipGoal
         case mentorId
         case status
-        case mongoVersion = "__v"
         case whyPaired
     }
 }

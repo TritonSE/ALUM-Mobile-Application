@@ -109,8 +109,8 @@ struct MentorProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.leading, 16)
                                 .padding(.top, 27)
-                            WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIDs!.count, id: \.self) { index in
-                                MenteeCard(isEmpty: true, uID: viewModel.mentorGET.mentor.menteeIDs![index])
+                            WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIds!.count, id: \.self) { index in
+                                MenteeCard(isEmpty: true, uID: viewModel.mentorGET.mentor.menteeIds![index])
                                     .padding(.bottom, 15)
                                     .padding(.trailing, 10)
                             }

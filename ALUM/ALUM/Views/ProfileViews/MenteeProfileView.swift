@@ -11,7 +11,7 @@ import WrappingHStack
 struct MenteeProfileView: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var isAtTop: Bool = true
-    @State var uID: String = "6431b99ebcf4420fe9825fe3"
+    @State var uID: String = ""
     var body: some View {
         GeometryReader { grr in
             VStack(spacing: 0) {
@@ -120,11 +120,11 @@ struct MenteeProfileView: View {
             }
         }
         .onAppear(perform: {
-            Task{
-                do{
+            Task {
+                do {
                     try await viewModel.getMenteeInfo(userID: uID)
                 }
-                catch{
+                catch {
                     print("Error")
                 }
             }

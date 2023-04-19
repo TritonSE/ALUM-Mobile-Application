@@ -120,7 +120,6 @@ class UserService {
                     print("Failed to decode order ")
                     return nil
                     }
-                print(mentorData.mentor.menteeIDs![0])
                 return mentorData
             }
         } catch {
@@ -131,12 +130,10 @@ class UserService {
     func getMentee(userID: String) async throws -> MenteeGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentee/" + userID)!
         var request = URLRequest(url: urlObj)
-//        guard let authToken = try await getCurrentAuth() else {
-//            print("Could not get auth token")
-//            return nil
-//        }
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudGVlIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MTg1NjUzNiwidXNlcl9pZCI6IjY0MzFiOTllYmNmNDQyMGZlOTgyNWZlMyIsInN1YiI6IjY0MzFiOTllYmNmNDQyMGZlOTgyNWZlMyIsImlhdCI6MTY4MTg1NjUzNiwiZXhwIjoxNjgxODYwMTM2LCJlbWFpbCI6Im1lbnRlZUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudGVlQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.TsgOLXhiVBaGLC94eDhQWNAMvyrFFo-kU7YcbPI3FH6gA98hooEQxUY8x7YvzKK77P8-qbETgl4EEIOApuNO1on0PVWOTk3OwiGtg-0CO958BL5TkBbhn6-rNxc5aUxhD2xvLUaijAI0X7RbIPnfLnIn1Inm-igQnSdK9ifJHLgmCiXhw3AgwuDUTn-mwv2V7F9DI9kyRaDw1A9wSUtjgLtlah62aDlcRFy92HN1zULd3_EEuVKASOra7qMUAqLb2B25fGtBF88_wEl_Ps3gsS3Uuyx648nQJql3BhgeKT_aPguk91yLJWGjebjcOtO62fzVxfoCnmJdKTCEcrmJ1w"
+        guard let authToken = try await getCurrentAuth() else {
+            print("Could not get auth token")
+            return nil
+        }
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
