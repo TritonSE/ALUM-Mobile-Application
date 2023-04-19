@@ -76,15 +76,6 @@ struct MenteeCard: View {
         else {
             MenteeProfileView(uID: viewModel.menteeGET.mentee.id)
         }
-        .onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.getMenteeInfo(userID: uID)
-                }
-                catch {
-                    print("Error")
-                }
-            }
         })
     }
 }
