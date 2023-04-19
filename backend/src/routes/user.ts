@@ -319,6 +319,24 @@ router.get(
           return pairing?.menteeId;
         });
         const menteeIds = await Promise.all(promises);
+        console.log({
+          mentorId,
+          name,
+          imageId,
+          about,
+          calendlyLink,
+          zoomLink,
+          graduationYear,
+          college,
+          major,
+          minor,
+          career,
+          topicsOfExpertise,
+          mentorMotivation,
+          menteeIds,
+          status,
+        });
+
         res.status(200).send({
           message: `Here is mentor ${mentor.name}`,
           mentor: {
@@ -327,7 +345,7 @@ router.get(
             imageId,
             about,
             calendlyLink,
-            zoomLink,
+            zoomLink : (zoomLink == undefined) ? "N/A" : zoomLink,
             graduationYear,
             college,
             major,
