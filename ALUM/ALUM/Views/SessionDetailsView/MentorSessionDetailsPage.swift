@@ -47,7 +47,7 @@ struct MentorSessionDetailsPage: View {
         }
         .task {
             do {
-                try await viewModel.loadSession()
+                try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
             } catch {
                 print(error)
             }
@@ -68,8 +68,8 @@ struct MentorSessionDetailsPage: View {
                 .padding(.bottom, 20)
                 
                 HorizontalMenteeCard(
-                    name: viewModel.session.mentee.name,
-                    grade: viewModel.session.mentee.grade,
+                    name: viewModel.session.mentee.mentee.name,
+                    grade: viewModel.session.mentee.mentee.grade,
                     school: "NHS",
                     isEmpty: true
                 )
@@ -116,7 +116,7 @@ struct MentorSessionDetailsPage: View {
                     .padding(.bottom, 5)
 
                     HStack {
-                        Text(viewModel.session.mentor.zoomLink)
+                        Text(viewModel.session.mentor.mentor.zoomLink)
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Dark Blue"))
 

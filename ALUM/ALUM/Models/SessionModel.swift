@@ -8,15 +8,12 @@
 import Foundation
 
 struct Session {
-    var mentor: MentorInfo
-    var mentee: MenteeInfo
+    var preSessionID: String
+    var postSessionID: String
+    var mentor: MentorGetData
+    var mentee: MenteeGetData
     var dateTime: String
     // var location: String
     // we can get location as mentor.zoomLink
-    
-    init(mentor: MentorInfo = MentorInfo(), mentee: MenteeInfo = MenteeInfo(), dateTime: String = "") {
-        self.mentor = mentor
-        self.mentee = mentee
-        self.dateTime = dateTime
-    }
+
 }
