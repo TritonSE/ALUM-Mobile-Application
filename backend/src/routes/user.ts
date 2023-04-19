@@ -211,6 +211,7 @@ router.get(
         res.status(200).send({
           message: `Here is mentee ${mentee.name}`,
           mentee: {
+            menteeId,
             name,
             imageId,
             about,
