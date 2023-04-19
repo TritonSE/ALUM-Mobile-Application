@@ -188,16 +188,18 @@ router.get(
         }
         res.status(200).send({
           message: `Here is mentee ${mentee.name}`,
-          menteeId,
-          name,
-          imageId,
-          about,
-          grade,
-          topicsOfInterest,
-          careerInterests,
-          mentorshipGoal,
-          mentorId,
-          status,
+          mentee: {
+            menteeId,
+            name,
+            imageId,
+            about,
+            grade,
+            topicsOfInterest,
+            careerInterests,
+            mentorshipGoal,
+            mentorId,
+            status,
+          },
         });
         return;
       }
@@ -209,6 +211,7 @@ router.get(
         res.status(200).send({
           message: `Here is mentee ${mentee.name}`,
           mentee: {
+            menteeId,
             name,
             imageId,
             about,
@@ -305,7 +308,7 @@ router.get(
         });
         return;
       }
-      if (role === "mentee") {
+      if (role === "mentor") {
         const promises = pairingIds.map(async (pairingId) => {
           const pairing = await Pairing.findById(pairingId);
           return pairing?.menteeId;
@@ -313,23 +316,26 @@ router.get(
         const menteeIds = await Promise.all(promises);
         res.status(200).send({
           message: `Here is mentor ${mentor.name}`,
-          mentorId,
-          name,
-          imageId,
-          about,
-          calendlyLink,
-          graduationYear,
-          college,
-          major,
-          minor,
-          career,
-          topicsOfExpertise,
-          mentorMotivation,
-          menteeIds,
-          status,
+          mentor: {
+            mentorId,
+            name,
+            imageId,
+            about,
+            calendlyLink,
+            graduationYear,
+            college,
+            major,
+            minor,
+            career,
+            topicsOfExpertise,
+            mentorMotivation,
+            menteeIds,
+            status,
+          },
         });
         return;
       }
+      throw InternalError.ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED;
     } catch (e) {
       if (e instanceof ServiceError) {
         next(e);
