@@ -11,7 +11,6 @@ import SwiftUI
 struct MentorGetData: Decodable {
     var message: String
     var mentor: MentorInfo
-    var whyPaired: String?
 }
 
 struct MentorInfo: Decodable {
@@ -28,7 +27,6 @@ struct MentorInfo: Decodable {
     var career: String
     var topicsOfExpertise: [String]
     var mentorMotivation: String?
-    var pairingIds: [String]?
     var organizationId: String?
     var personalAccessToken: String?
     var status: String?
@@ -49,7 +47,6 @@ struct MentorInfo: Decodable {
         case career
         case topicsOfExpertise
         case mentorMotivation
-        case pairingIds
         case organizationId
         case personalAccessToken
         case status
@@ -61,7 +58,6 @@ struct MentorInfo: Decodable {
 struct MenteeGetData: Decodable {
     var message: String
     var mentee: MenteeInfo
-    var whyPaired: String?
 }
 
 struct MenteeInfo: Decodable {
@@ -73,7 +69,7 @@ struct MenteeInfo: Decodable {
     var topicsOfInterest: [String]
     var careerInterests: [String]
     var mentorshipGoal: String?
-    var pairingId: String?
+    var mentorId: String?
     var status: String?
     var mongoVersion: Int?
     var whyPaired: String?
@@ -87,7 +83,7 @@ struct MenteeInfo: Decodable {
         case topicsOfInterest
         case careerInterests
         case mentorshipGoal
-        case pairingId
+        case mentorId
         case status
         case mongoVersion = "__v"
         case whyPaired
