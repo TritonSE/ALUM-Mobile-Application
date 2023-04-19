@@ -82,6 +82,16 @@ struct MentorCard: View {
         else {
             MentorProfileView(uID: viewModel.mentorGET.mentor.id)
         }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.getMentorInfo(userID: uID)
+                }
+                catch {
+                    print("Error")
+                }
+            }
+        })
     }
 }
 
