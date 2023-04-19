@@ -29,12 +29,9 @@ struct MenteeCard: View {
     @State var isEmpty = false
     @State var uID: String = ""
     @StateObject private var viewModel = MenteeProfileViewmodel()
-    @State var isClicked = false
     var body: some View {
-        if !isClicked {
-            Button {
-                isClicked = true
-            } label: {
+        NavigationView {
+            NavigationLink(destination: MenteeProfileView(uID: viewModel.menteeGET.mentee.id)) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12.0)
                         .frame(width: 110, height: 135)
@@ -61,18 +58,16 @@ struct MenteeCard: View {
                         .lineSpacing(5)
                         .frame(width: 75, height: 40, alignment: .leading)
                 }
-            }
-            .onAppear(perform: {
-                Task {
-                    do {
-                        try await viewModel.getMenteeInfo(userID: uID)
-                    } catch {
-                        print("Error")
+                .onAppear(perform: {
+                    Task {
+                        do {
+                            try await viewModel.getMenteeInfo(userID: uID)
+                        } catch {
+                            print("Error")
+                        }
                     }
-                }
-            })
-        } else {
-            MenteeProfileView(uID: viewModel.menteeGET.mentee.id)
+                })
+            }
         }
     }
 }
