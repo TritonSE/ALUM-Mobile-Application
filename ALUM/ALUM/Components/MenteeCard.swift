@@ -66,17 +66,14 @@ struct MenteeCard: View {
                 Task {
                     do {
                         try await viewModel.getMenteeInfo(userID: uID)
-                    }
-                    catch {
+                    } catch {
                         print("Error")
                     }
                 }
             })
-        }
-        else {
+        } else {
             MenteeProfileView(uID: viewModel.menteeGET.mentee.id)
         }
-        })
     }
 }
 
