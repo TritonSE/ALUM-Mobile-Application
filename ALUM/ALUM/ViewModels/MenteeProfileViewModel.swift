@@ -18,8 +18,7 @@ final class MenteeProfileViewmodel: ObservableObject {
             about: "I love caramel",
             grade: 10,
             topicsOfInterest: ["AP", "CS"],
-            careerInterests: ["SWE"]),
-        whyPaired: "You two are great")
+            careerInterests: ["SWE"]))
     @Published var selfView = true
     func getMenteeInfo(userID: String) async throws {
         guard let menteeData = try? await UserService().getMentee(userID: userID) else {

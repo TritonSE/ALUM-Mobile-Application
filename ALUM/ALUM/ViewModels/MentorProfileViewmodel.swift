@@ -22,8 +22,7 @@ final class MentorProfileViewmodel: ObservableObject {
         major: "CS",
         minor: "Business",
         career: "SWE",
-        topicsOfExpertise: ["CS", "AP", "Hi"]),
-        whyPaired: "You two are great")
+        topicsOfExpertise: ["CS", "AP", "Hi"]))
     @Published var selfView = true
 
     func getMentorInfo(userID: String) async throws {

@@ -11,7 +11,7 @@ import WrappingHStack
 struct MenteeProfileView: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var isAtTop: Bool = true
-    @State var uID: String = ""
+    @State var uID: String = "6431b99ebcf4420fe9825fe3"
     var body: some View {
         GeometryReader { grr in
             VStack(spacing: 0) {
@@ -84,7 +84,7 @@ struct MenteeProfileView: View {
                             .padding(.top, 16)
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        MentorCard(isEmpty: true, uID: "")
+                        MentorCard(isEmpty: true, uID: viewModel.menteeGET.mentee.mentorId ?? "")
                             .padding(.bottom, 10)
                     }
                 }
