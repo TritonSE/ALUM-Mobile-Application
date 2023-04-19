@@ -42,13 +42,13 @@ router.post(
     console.info("Posting new session,", req.query);
     try {
       const preNoteId = await createPreSessionNotes();
-      const postNoteId = await createPostSessionNotes();
+      const postMenteeNoteId = await createPostSessionNotes();
       const postMentorNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
       const meetingTime = new Date(req.body.dateInfo);
       const session = new Session({
         preSession: preNoteId._id,
-        postSession: postNoteId._id,
+        postSessionMentee: postMenteeNoteId._id,
         postSessionMentor: postMentorNoteId._id,
         menteeId,
         mentorId,
@@ -78,12 +78,13 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
     }
-    const { preSession, postSession, menteeId, mentorId, dateTime } = session;
+    const { preSession, postSessionMentee, postSessionMentor, menteeId, mentorId, dateTime } = session;
     return res.status(200).send({
       message: `Here is session ${sessionId}`,
       session: {
         preSession,
-        postSession,
+        postSessionMentee,
+        postSessionMentor,
         menteeId,
         mentorId,
         dateTime,

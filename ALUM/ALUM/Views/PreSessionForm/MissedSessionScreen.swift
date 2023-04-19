@@ -24,6 +24,7 @@ struct MissedSessionScreen: View {
     @State var noOption: Bool = false
     @State var otherEmpty: Bool = false
     @State var otherText: String = ""
+    @State var user: String
 
     var body: some View {
         GeometryReader { geometry in
@@ -82,6 +83,10 @@ struct MissedSessionScreen: View {
                                            checked: selectedOption == .forgot, otherText: $otherText)
                                 .onTapGesture {selectedOption = .forgot; viewModel.missedOption = "I forgot about the session"; noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
+                            MultipleChoice(content: "Mentor/ee didn't show",
+                                           checked: selectedOption == .notShowed, otherText: $otherText)
+                                .onTapGesture {selectedOption = .notShowed; viewModel.missedOption = "Mentor/ee didn't show"; noOption = false; otherEmpty = false}
+                                .padding(.bottom, 12)
                             MultipleChoice(content: "Other:",
                                            checked: selectedOption == .other, otherText: $otherText)
                                 .onTapGesture {selectedOption = .other; viewModel.missedOption = otherText; noOption = false}
@@ -90,8 +95,6 @@ struct MissedSessionScreen: View {
                                            checked: selectedOption == .notSay, otherText: $otherText)
                                 .onTapGesture {selectedOption = .notSay; viewModel.missedOption = "Prefer not to say"; noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
-
-                                // Text(viewModel.missedOption)
 
                         }
                     }
@@ -172,8 +175,9 @@ struct MissedSessionScreen: View {
 
 struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
-
+    static private var user = "mentor"
+    
     static var previews: some View {
-        MissedSessionScreen(viewModel: viewModel)
+        MissedSessionScreen(viewModel: viewModel, user: user)
     }
 }

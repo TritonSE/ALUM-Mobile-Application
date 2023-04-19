@@ -45,7 +45,7 @@ enum PatchAnswer: Codable {
 struct QuestionPatchData: Codable {
     var answer: PatchAnswer
     var type: String
-    var id: String
+    var questionId: String
 }
 
 struct QuestionGetData: Identifiable, Decodable {
@@ -73,7 +73,7 @@ class NotesService {
                 throw APIError.networkError()
             }
 
-            if httpResponse.statusCode != 201 {
+            if httpResponse.statusCode != 200 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
@@ -93,7 +93,7 @@ class NotesService {
            return
         }
         // need to add
-        return try await self.patchNotes(url: "http://localhost:3000/notes/6436f1175a9cebd93b899a4f", jsonData: jsonData)
+        return try await self.patchNotes(url: "http://localhost:3000/notes/6440619d7e6c452c590431f6", jsonData: jsonData)
     }
 
     func getNotes(url: String) async throws -> [QuestionGetData] {
@@ -108,7 +108,7 @@ class NotesService {
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.networkError()
             }
-            if httpResponse.statusCode != 201 {
+            if httpResponse.statusCode != 200 {
                 let responseStr = String(decoding: responseData, as: UTF8.self)
                 throw APIError.invalidRequest(
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"

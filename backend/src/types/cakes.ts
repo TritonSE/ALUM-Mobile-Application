@@ -34,7 +34,7 @@ export const CreateMentorRequestBodyCake = bake({
 export const UpdateNoteDetailsCake = bake({
   answer: union(string, array(string)),
   type: string,
-  question_id: string,
+  questionId: string,
 });
 export const UpdateNoteRequestBodyCake = array(UpdateNoteDetailsCake);
 

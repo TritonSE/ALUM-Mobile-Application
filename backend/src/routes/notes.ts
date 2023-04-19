@@ -45,6 +45,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     notes.forEach((note_answer) => {
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
+    console.log(note.answers);
     return res.status(200).json(note.answers);
   } catch (e) {
     next(e);

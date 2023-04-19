@@ -7,18 +7,43 @@
 
 import SwiftUI
 
+struct PostSessionScreenHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "XXX",
+                    backDestination: LoginPageView(),
+                    title: "Post-session Notes"
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
+
+extension View {
+    func applyPostSessionScreenHeaderModifier() -> some View {
+        self.modifier(PostSessionScreenHeaderModifier())
+    }
+}
+
 struct PostSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     var body: some View {
-        NavigationView {
+        Group {
             if !viewModel.isLoading {
                 PostSessionQuestionScreen(viewModel: viewModel)
+                    .navigationBarTitle("", displayMode: .inline)
+                    .navigationBarHidden(true)
             } else {
                 Text("Loading...")
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
             }
         }
-        .navigationBarBackButtonHidden()
         .onAppear {
             viewModel.loadTestData()
         }

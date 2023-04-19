@@ -111,7 +111,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
     // Can improve this in future if needed by creating a hashmap
     noteDoc.answers.forEach((_, answerIndex) => {
       const updatedNote = updatedNotes.find(
-        (note) => note.question_id === noteDoc.answers[answerIndex].id
+        (note) => note.questionId === noteDoc.answers[answerIndex].id
       );
       if (updatedNote) {
         noteDoc.answers[answerIndex].answer = updatedNote.answer;

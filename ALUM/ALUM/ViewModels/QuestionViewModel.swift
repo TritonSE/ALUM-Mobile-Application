@@ -75,22 +75,24 @@ final class QuestionViewModel: ObservableObject {
         var notesData: [QuestionPatchData] = []
         for question in questionList {
             if question.answerBullet.isEmpty && question.answerParagraph != "" {
-                notesData.append(QuestionPatchData(answer: PatchAnswer.string(question.answerParagraph), type: question.type, id: question.id))
+                notesData.append(QuestionPatchData(answer: PatchAnswer.string(question.answerParagraph), type: question.type, questionId: question.id))
             } else if question.answerParagraph == "" && !question.answerBullet.isEmpty {
-                notesData.append(QuestionPatchData(answer: PatchAnswer.listString(question.answerBullet), type: question.type, id: question.id))
+                notesData.append(QuestionPatchData(answer: PatchAnswer.listString(question.answerBullet), type: question.type, questionId: question.id))
             }
         }
         try await NotesService().patchNotesHelper(data: notesData)
     }
     
     func loadNotes() async throws {
-        var notesData: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/6436f1175a9cebd93b899a4f")
+        var notesData: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/64405b21e886c9662365f695")
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
             question.answer.toRaw(question: &questionToAdd)
             self.questionList.append(questionToAdd)
         }
+        self.isLoading = false
     }
+
 
     func nextQuestion() {
         self.currentIndex += 1

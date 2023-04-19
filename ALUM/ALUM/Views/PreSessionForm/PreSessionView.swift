@@ -47,7 +47,14 @@ struct PreSessionView: View {
         }
         // .navigationBarBackButtonHidden()
         .onAppear {
-            viewModel.loadTestData()
+            Task {
+                do {
+                    try await viewModel.loadNotes()
+                } catch {
+                    print("Error")
+                }
+            }
+            //viewModel.loadTestData()
         }
     }
 }
