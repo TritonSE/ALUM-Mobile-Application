@@ -9,10 +9,7 @@ import SwiftUI
 
 struct WhyPairedComponent: View {
     @State var active = false
-    @State var text = """
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    """
+    var text = ""
     var body: some View {
         VStack(spacing: 0) {
             Button {
@@ -72,6 +69,6 @@ struct WhyPairedComponent: View {
 
 struct WhyPairedComponent_Previews: PreviewProvider {
     static var previews: some View {
-        WhyPairedComponent()
+        WhyPairedComponent(text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
     }
 }
