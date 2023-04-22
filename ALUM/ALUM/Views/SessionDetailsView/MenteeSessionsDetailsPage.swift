@@ -67,13 +67,7 @@ struct MenteeSessionsDetailsPage: View {
                 .padding(.top, 28)
                 .padding(.bottom, 20)
                 
-                MentorCard(
-                    name: viewModel.session.mentor.mentor.name,
-                    major: viewModel.session.mentor.mentor.major,
-                    university: viewModel.session.mentor.mentor.college,
-                    career: viewModel.session.mentor.mentor.career,
-                    isEmpty: true
-                )
+                MentorCard(isEmpty: true, uID: viewModel.session.mentor.mentor.id)
                     .padding(.bottom, 28)
             }
 

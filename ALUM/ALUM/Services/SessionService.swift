@@ -31,12 +31,13 @@ class SessionService {
         }
          */
         let authToken =
-        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0" +
-        "b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MTk0MjYxNiwidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIs" +
-        "InN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MTk0MjYxNiwiZXhwIjoxNjgxOTQ2MjE2LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2Us" +
-        "ImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.eSYXeo4J_xwncROeDCjaf5UKcKHCPyg_bcvievQtI" +
-        "2r0CGuK16YaBpERb5GimEoO3RNKkQqzdXtftTCFu5BuQNADd8yfVKTm3fMGmB74QjC5RvR7jLAPGyten9E3yDDFhkmo-Y8RKMM5Cb7aGz4SIppgiJBKHk7dRVADb5pYELli2hwQUsueVlB4Pp7RpBbL8ZB9whp" +
-        "b3bYdaMOt9AuQgZisDnbKLZq1o4ao5Be193bI6EdpelzH56iOngihALfOra6tbDFLJaR-OwnrJGiIskyLVtzuEh_Nuoc1xTPontbARrD_Jlx3LTLW79Hgnc95LMJVpIBX0VK2rkyK0-gxcA"
+        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoia" +
+        "HR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjA1ODczOCwidXNlcl9pZ" +
+        "CI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjA1ODczOCwiZXhwIjoxNjgyMDYyMzM4LCJlbWFpb" +
+        "CI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic" +
+        "2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JVc7hWZzJ6niqg-KgDj17vG_rLDi2_lnXPHKAMInS3o0yTtjC6LkKVFMxDKbgkv5fxTyTxMm3EGxq8Ur150CrP9f66jD-Yfb" +
+        "RtqQpddRwOR0kBHFZr1ayXTIEMu6epugTCrEHX6rRo-TZUm3moI2_4avPVGpLpDl-gmwBDa6co_JOhAGGNoOxif68lG50j6e12SSeWoglkcpKoVOwYjtN2WVSVV9pg6Nmuy8VwFU" +
+        "0gSbwpnrI6nF0eFBxUbynjsGKf56DBm9Pl510NMs0HkBxsHFC8Rbfpr4iHuTohBELgM0OiG3i2IeuTIbED5hbL_3yQqkKBEociV7GEyZDmVV2g"
         request.httpMethod = "GET"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
