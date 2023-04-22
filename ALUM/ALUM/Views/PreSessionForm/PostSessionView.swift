@@ -45,7 +45,13 @@ struct PostSessionView: View {
             }
         }
         .onAppear {
-            viewModel.loadTestData()
+            Task {
+                do {
+                    try await viewModel.loadPostNotes()
+                } catch {
+                    print("Error")
+                }
+            }
         }
     }
 }

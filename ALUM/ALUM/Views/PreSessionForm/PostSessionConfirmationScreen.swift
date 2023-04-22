@@ -10,14 +10,14 @@ import SwiftUI
 struct PostSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
-    @State var currNotes: String = "mine" // "mine" or "mentor"
+    @State var currNotes: String = "this" // "this" or "other"
 
     func setMyNotes() {
         currNotes = "mine"
     }
 
-    func setMentorNotes() {
-        currNotes = "mentor"
+    func setOtherNotes() {
+        currNotes = "other"
     }
     
     var body: some View {
@@ -97,7 +97,7 @@ struct PostSessionConfirmationScreen: View {
                 }
                 .padding(.trailing, 40)
                 Button {
-                    setMentorNotes()
+                    setOtherNotes()
                 } label: {
                     Text("MENTOR NOTES")
                         .font(.custom("Metropolis-Regular", size: 16))
@@ -110,52 +110,50 @@ struct PostSessionConfirmationScreen: View {
                 .background(Color("ALUM Light Blue"))
                 .frame(width: 358)
                 .padding(.bottom, 32)
-        
-            if currNotes == "mine" {
-                ForEach(viewModel.questionList, id: \.self) { currQuestion in
+
+            ForEach((currNotes == "this") ? viewModel.questionList : viewModel.questionListOther, id: \.self) { currQuestion in
+                HStack {
+                    Text(currQuestion.question)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+
+                    Spacer()
+                }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+                .padding(.bottom, 8)
+
+                if currQuestion.type == "text" {
                     HStack {
-                        Text(currQuestion.question)
-                            .foregroundColor(Color("ALUM Dark Blue"))
+                        Text(currQuestion.answerParagraph)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        
+
                         Spacer()
                     }
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
-                    .padding(.bottom, 8)
-                    
-                    if currQuestion.type == "text" {
-                        HStack {
-                            Text(currQuestion.answerParagraph)
-                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            
-                            Spacer()
-                        }
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
-                        .padding(.bottom, 32)
-                    } else if currQuestion.type == "bullet" {
-                        VStack {
-                            ForEach(currQuestion.answerBullet, id: \.self) { item in
-                                HStack {
-                                    Image(systemName: "circle.fill")
-                                        .foregroundColor(Color.black)
-                                        .font(.system(size: 5.0))
-                                    Text(item)
-                                        .font(Font.custom("Metropolis-Regular",
-                                                          size: 17,
-                                                          relativeTo: .headline))
-                                        .foregroundColor(.black)
-                                        .padding(.bottom, 2)
-                                        .lineSpacing(4.0)
-                                    Spacer()
-                                }
-                                .padding(.leading, 16)
-                                .padding(.trailing, 16)
+                    .padding(.bottom, 32)
+                } else if currQuestion.type == "bullet" {
+                    VStack {
+                        ForEach(currQuestion.answerBullet, id: \.self) { item in
+                            HStack {
+                                Image(systemName: "circle.fill")
+                                    .foregroundColor(Color.black)
+                                    .font(.system(size: 5.0))
+                                Text(item)
+                                    .font(Font.custom("Metropolis-Regular",
+                                                      size: 17,
+                                                      relativeTo: .headline))
+                                    .foregroundColor(.black)
+                                    .padding(.bottom, 2)
+                                    .lineSpacing(4.0)
+                                Spacer()
                             }
+                            .padding(.leading, 16)
+                            .padding(.trailing, 16)
                         }
-                        .padding(.bottom, 32)
                     }
+                    .padding(.bottom, 32)
                 }
             }
         }

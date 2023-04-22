@@ -9,6 +9,7 @@ import Foundation
 
 final class QuestionViewModel: ObservableObject {
     @Published var questionList: [Question] = []
+    @Published var questionListOther: [Question] = []
     @Published var currentIndex: Int = 0
     @Published var lastQuestion: Bool = false
     @Published var isLoading: Bool = true
@@ -82,13 +83,29 @@ final class QuestionViewModel: ObservableObject {
         }
         try await NotesService().patchNotesHelper(data: notesData)
     }
-    
+
     func loadNotes() async throws {
         var notesData: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/64405b21e886c9662365f695")
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
             question.answer.toRaw(question: &questionToAdd)
             self.questionList.append(questionToAdd)
+        }
+        self.isLoading = false
+    }
+    
+    func loadPostNotes() async throws {
+        var notesData: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/6440619d7e6c452c590431f8")
+        var notesDataOther: [QuestionGetData] = try await NotesService().getNotes(url: "http://localhost:3000/notes/6440619d7e6c452c590431fa")
+        for question in notesData {
+            var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
+            question.answer.toRaw(question: &questionToAdd)
+            self.questionList.append(questionToAdd)
+        }
+        for question in notesDataOther {
+            var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
+            question.answer.toRaw(question: &questionToAdd)
+            self.questionListOther.append(questionToAdd)
         }
         self.isLoading = false
     }
