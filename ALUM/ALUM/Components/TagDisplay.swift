@@ -25,7 +25,7 @@ struct TagDisplay: View {
                     Spacer()
                         .frame(width: 12)
 
-                    Text(tagString)
+                    ALUMText(text: tagString)
                         .foregroundColor(Color(.black))
                     Spacer()
                         .frame(width: 12)
@@ -49,7 +49,6 @@ struct TagDisplay: View {
             .padding(10)
             .background(RoundedRectangle(cornerRadius: 100).stroke())
             .foregroundColor(Color("ALUM Light Blue"))
-            .font(.body)
             .background(Color("ALUM Light Blue"))
             .cornerRadius(100)
             .frame(height: 40)

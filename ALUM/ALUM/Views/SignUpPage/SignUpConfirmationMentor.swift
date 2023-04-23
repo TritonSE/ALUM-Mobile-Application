@@ -62,9 +62,7 @@ struct SignUpConfirmationMentor: View {
     var content: some View {
         VStack {
             HStack {
-                Text("Confirmation")
-                    .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
-
+                ALUMText(text: "Confirmation", fontSize: .largeFontSize)
                     .foregroundColor(Color("NeutralGray3"))
                     .padding(.leading)
                     .padding(.top)
@@ -72,77 +70,49 @@ struct SignUpConfirmationMentor: View {
             }
             .padding(.bottom, 24)
             HStack {
-                Text("Name: ")
+                ALUMText(text: "Name: ")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                Text(viewModel.mentor.name)
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: viewModel.mentor.name)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
-                Text("Email: ")
+                ALUMText(text: "Email: ")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                Text(viewModel.mentor.email)
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: viewModel.mentor.email)
                 Spacer()
             }
             .padding(.bottom, 24)
             Group {
                 HStack {
-                    Text("School: ")
+                    ALUMText(text: "School: ")
                         .padding(.leading, 16)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    Text(viewModel.mentor.university)
+                    ALUMText(text: viewModel.mentor.university)
                         .padding(.leading)
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     Spacer()
                 }
                 .padding(.bottom, 32)
             }
             Group {
                 HStack {
-                    Text("Major")
+                    ALUMText(text: "Major")
                         .padding(.leading)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    Text(viewModel.mentor.major)
+                    ALUMText(text: viewModel.mentor.major)
                         .padding(.leading)
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .lineSpacing(5)
-                    Spacer()
-                }
-                .padding(.bottom, 32)
-            }
-            Group {
-                HStack {
-                    Text("Minor")
-                        .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .padding(.trailing, 37)
-                        .lineSpacing(5)
-                    Spacer()
-                }
-                .padding(.bottom, 8)
-                HStack {
-                    Text(viewModel.mentor.minor)
-                        .padding(.leading)
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
                     Spacer()
                 }
@@ -150,19 +120,35 @@ struct SignUpConfirmationMentor: View {
             }
             Group {
                 HStack {
-                    Text("Intended Career")
+                    ALUMText(text: "Minor")
                         .padding(.leading)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    Text(viewModel.mentor.intendedCareer)
+                    ALUMText(text: viewModel.mentor.minor)
                         .padding(.leading)
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
+            }
+            Group {
+                HStack {
+                    ALUMText(text: "Intended Career")
+                        .padding(.leading)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .padding(.trailing, 37)
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 8)
+                HStack {
+                    ALUMText(text: viewModel.mentor.intendedCareer)
+                        .padding(.leading)
                         .lineSpacing(5)
                     Spacer()
                 }
@@ -170,11 +156,10 @@ struct SignUpConfirmationMentor: View {
             }
             VStack {
                 HStack {
-                    Text("Topics of Expertise:")
+                    ALUMText(text: "Topics of Expertise:")
                         .padding(.leading)
                         .padding(.bottom, 8)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     Spacer()
                 }
                 WrappingHStack(viewModel.mentor.topicsOfExpertise.sorted(), id: \.self) { topic in
@@ -193,19 +178,17 @@ struct SignUpConfirmationMentor: View {
             .padding(.bottom, 32)
             Group {
                 HStack {
-                    Text("Mentor Motivation")
+                    ALUMText(text: "Mentor Motivation")
                         .padding(.leading)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    Text(viewModel.mentor.mentorMotivation)
+                    ALUMText(text: viewModel.mentor.mentorMotivation)
                         .padding(.leading)
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)
                     Spacer()
                 }

@@ -13,8 +13,7 @@ struct BackButton: View {
         HStack {
             Image(systemName: "chevron.left")
                 .frame(width: 6, height: 12)
-            Text(text)
-                .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
+            ALUMText(text: text, fontSize: .smallFontSize)
         }
     }
 }
@@ -39,8 +38,7 @@ struct NavigationHeaderComponent<Destination: View>: View {
             }
             .foregroundColor(Color("ALUM Dark Blue"))
             .frame(maxWidth: .infinity, alignment: .leading)
-            Text(title)
-                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+            ALUMText(text: title)
                 .frame(maxWidth: .infinity, alignment: .center)
         }
         .padding()

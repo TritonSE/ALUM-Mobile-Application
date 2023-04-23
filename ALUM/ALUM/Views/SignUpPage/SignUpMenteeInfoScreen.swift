@@ -69,8 +69,7 @@ struct SignUpMenteeInfoScreen: View {
     var content: some View {
         VStack {
             HStack {
-                Text("Tell us about yourself")
-                    .font(.custom("Metropolis-Regular", size: 34))
+                ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize)
                     .foregroundColor(Color("NeutralGray3"))
                 Spacer()
             }
@@ -79,8 +78,7 @@ struct SignUpMenteeInfoScreen: View {
             .padding(.top, 8)
 
             HStack {
-                Text("Grade")
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "Grade")
                     .foregroundColor(Color("ALUM Dark Blue"))
                 Spacer()
             }
@@ -102,7 +100,7 @@ struct SignUpMenteeInfoScreen: View {
             .padding(.bottom, 32)
 
             HStack {
-                Text("Topics of Interest").lineSpacing(4.0).font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "Topics of Interest")
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
@@ -115,7 +113,7 @@ struct SignUpMenteeInfoScreen: View {
             }  label: {
                 if viewModel.mentee.topicsOfInterest.isEmpty {
                     HStack {
-                        Text("Search to add topics").font(.custom("Metropolis-Regular", size: 17))
+                        ALUMText(text: "Search to add topics")
                             .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
 
                         Spacer()
@@ -163,9 +161,7 @@ struct SignUpMenteeInfoScreen: View {
             })
 
             HStack {
-                Text("Career Interests")
-                    .lineSpacing(4.0)
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "Career Interests")
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
@@ -178,8 +174,7 @@ struct SignUpMenteeInfoScreen: View {
             }  label: {
                 if viewModel.mentee.careerInterests.isEmpty {
                     HStack {
-                        Text("Search to add interests")
-                            .font(.custom("Metropolis-Regular", size: 17))
+                        ALUMText(text: "Search to add interests")
                             .foregroundColor(Color("NeutralGray3"))
                             .padding(.leading, 16)
 
@@ -232,9 +227,7 @@ struct SignUpMenteeInfoScreen: View {
             )
 
             HStack {
-                Text("What do you hope to get out of \nmentorship?")
-                    .lineSpacing(4.0)
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "What do you hope to get out of \nmentorship?")
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()

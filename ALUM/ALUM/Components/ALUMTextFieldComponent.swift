@@ -15,8 +15,7 @@ struct ALUMTextFieldComponent: View {
     var body: some View {
         VStack {
             HStack {
-                Text(title).lineSpacing(4.0)
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: title).lineSpacing(4.0)
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()

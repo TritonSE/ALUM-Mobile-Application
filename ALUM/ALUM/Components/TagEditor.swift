@@ -84,14 +84,12 @@ struct TagEditor: View {
                     tempTags = selectedTags
                     dismiss()
                 } label: {
-                    Text("Cancel")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Cancel", fontSize: .smallFontSize)
                 }
 
                 Spacer()
 
-                Text(screenTitle)
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: screenTitle)
                     .padding(.trailing, 16)
 
                 Spacer()
@@ -100,8 +98,7 @@ struct TagEditor: View {
                     selectedTags = tempTags
                     dismiss()
                 } label: {
-                    Text("Done")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Done", fontSize: .smallFontSize)
                 }
             }
             .padding(.leading, 16)

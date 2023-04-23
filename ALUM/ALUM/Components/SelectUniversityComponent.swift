@@ -20,14 +20,12 @@ struct SelectUniversityComponent: View {
                     universityChoice = university
                     dismiss()
                 } label: {
-                    Text("Cancel")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Cancel", fontSize: .smallFontSize)
                 }
 
                 Spacer()
 
-                Text("College/University")
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "College/University")
                     .padding(.trailing, 16)
 
                 Spacer()
@@ -36,8 +34,7 @@ struct SelectUniversityComponent: View {
                     university = universityChoice
                     dismiss()
                 } label: {
-                    Text("Done")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Done", fontSize: .smallFontSize)
                 }
             }
             .padding(.leading, 16)
@@ -49,8 +46,7 @@ struct SelectUniversityComponent: View {
                 .padding(.bottom, 16)
 
             HStack {
-                Text("Search Results")
-                    .font(.custom("Metropolis-Regular", size: 13))
+                ALUMText(text: "Search Results", fontSize: .smallFontSize)
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
@@ -132,8 +128,7 @@ struct UniversityRowView: View {
 
     var body: some View {
         HStack {
-            Text(universityName)
-                .font(.custom("Metropolis-Regular", size: 17))
+            ALUMText(text: universityName)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
 

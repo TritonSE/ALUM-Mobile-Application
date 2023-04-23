@@ -17,8 +17,7 @@ struct ParagraphInput: View {
 
     var body: some View {
         HStack {
-            Text(question)
-                .font(.system(size: 17))
+            ALUMText(text: question)
                 .foregroundColor(Color("ALUM Dark Blue"))
             Spacer()
         }
@@ -38,8 +37,7 @@ struct ParagraphInput: View {
             })
         HStack {
             Spacer()
-            Text("\(text.count) / 1000")
-                .font(.system(size: 13))
+            ALUMText(text: "\(text.count) / 1000", fontSize: .smallFontSize)
                 .foregroundColor(Color("NeutralGray3"))
         }
     }

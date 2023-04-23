@@ -17,8 +17,7 @@ struct SignUpJoinOption: View {
 
         VStack {
             HStack {
-                Text(title)
-                    .font(.custom("Metropolis-Regular", size: 34))
+                ALUMText(text: title, fontSize: .largeFontSize)
                 Spacer()
 
                 ZStack {
@@ -39,8 +38,7 @@ struct SignUpJoinOption: View {
             .padding(.bottom, 8)
             .padding(.top, 16)
 
-            Text(description)
-                .font(.custom("Metropolis-Regular", size: 17))
+            ALUMText(text: description)
                 .lineSpacing(4.0)
                 .padding(.leading, 32)
                 .padding(.trailing, 32)
@@ -64,7 +62,7 @@ struct SignUpJoinOption: View {
 
  struct SignUpJoinOption_Previews: PreviewProvider {
      static var title: String = "Mentee"
-     static var description: String = "abcdefhijklmnopqrstuvwxyz"
+     static var description: String = "abcdefhijklmnopqrstuvwxyz\ngugduwydjsghsgdjg\n"
      static var isSelected: Bool = true
 
      static var previews: some View {

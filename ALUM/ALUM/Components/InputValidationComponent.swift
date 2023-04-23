@@ -10,7 +10,7 @@ import SwiftUI
 struct InputValidationComponent: View {
 
     @Binding var text: String
-    @State var componentName: Text = Text("")
+    @State var componentName: ALUMText = ALUMText(text: "")
     @State var labelText: String = ""
     @State var borderColor: Color = Color("NeutralGray3")
     @State var isSecured: Bool = false

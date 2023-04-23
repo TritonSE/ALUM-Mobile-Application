@@ -15,8 +15,7 @@ struct ResizingTextBox: View {
             if text.count <= 150 {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(text)
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        ALUMText(text: text)
                             .foregroundColor(.black)
                             .lineSpacing(4.0)
                             .padding(.top, 16)
@@ -39,8 +38,7 @@ struct ResizingTextBox: View {
             } else {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text(text)
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        ALUMText(text: text)
                             .foregroundColor(.black)
                             .truncationMode(.tail)
                             .lineSpacing(4.0)

@@ -18,7 +18,6 @@ struct OutlinedButtonStyle: ButtonStyle {
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .frame(height: 48)
                 .foregroundColor(Color("ALUM Primary Purple"))
-                .font(.headline)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(Color( "ALUM Primary Purple"), lineWidth: 2)
@@ -29,7 +28,6 @@ struct OutlinedButtonStyle: ButtonStyle {
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .frame(height: 48)
                 .foregroundColor(Color("NeutralGray4"))
-                .font(.headline)
                 .background(Color(
                     "NeutralGray1"))
                 .cornerRadius(8)
@@ -39,8 +37,8 @@ struct OutlinedButtonStyle: ButtonStyle {
     }
 }
 
-struct OutlinedButtonView: View {
-    var body: some View {
+struct OutlinedButtonStyle_Previews: PreviewProvider {
+    static var previews: some View {
         HStack(spacing: 10) {
             Button("OUTLINED BUTTON") {
 
@@ -56,12 +54,5 @@ struct OutlinedButtonView: View {
             .buttonStyle(OutlinedButtonStyle(disabled: true))
         }
         .padding(15)
-    }
-
-}
-
-struct OutlinedButtonStyle_Previews: PreviewProvider {
-    static var previews: some View {
-        OutlinedButtonView()
     }
 }

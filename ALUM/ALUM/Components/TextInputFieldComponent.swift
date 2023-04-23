@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextInputFieldComponent: View {
     @Binding var textFieldText: String
-    @State var topLabel: Text = Text("")
+    @State var topLabel: ALUMText = ALUMText(text: "")
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     @State var borderColor: Color = Color("NeutralGray3")
@@ -20,7 +20,6 @@ struct TextInputFieldComponent: View {
         VStack {
             HStack {
                 topLabel
-                    .font(Font.custom("Metropolis-Thin", size: 17))
                     .foregroundColor(Color("ALUM Dark Blue"))
                 Spacer()
             }
@@ -69,7 +68,7 @@ struct TestView: View {
 
     var body: some View {
         VStack {
-            TextInputFieldComponent(textFieldText: $textInput, isSecured: true, showEye: true, labelText: "Username:")
+            TextInputFieldComponent(textFieldText: $textInput, topLabel: ALUMText(text: "Label"), isSecured: true, showEye: true, labelText: "Username:")
             Text(textInput)
         }
 

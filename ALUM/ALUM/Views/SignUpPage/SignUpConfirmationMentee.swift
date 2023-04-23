@@ -63,9 +63,7 @@ struct SignUpConfirmationMentee: View {
     var content: some View {
         VStack {
             HStack {
-                Text("Confirmation")
-                    .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
-
+                ALUMText(text: "Confirmation", fontSize: .largeFontSize)
                     .foregroundColor(Color("NeutralGray3"))
                     .padding(.leading)
                     .padding(.top)
@@ -73,41 +71,34 @@ struct SignUpConfirmationMentee: View {
             }
             .padding(.bottom, 24)
             HStack {
-                Text("Name: ")
+                ALUMText(text: "Name: ")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                Text(viewModel.mentee.name)
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: viewModel.mentee.name)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
-                Text("Email: ")
+                ALUMText(text: "Email: ")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                Text(viewModel.mentee.email)
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: viewModel.mentee.email)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
-                Text("Grade: ")
+                ALUMText(text: "Grade: ")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                Text("\(viewModel.mentee.grade)")
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: "\(viewModel.mentee.grade)")
                 Spacer()
             }
             .padding(.bottom, 24)
             VStack {
                 HStack {
-                    Text("Topics of Interest:")
+                    ALUMText(text: "Topics of Interest:")
                         .padding(.leading)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.bottom, 8)
                     Spacer()
                 }
@@ -129,10 +120,9 @@ struct SignUpConfirmationMentee: View {
 
             VStack {
                 HStack {
-                    Text("Career Interests:")
+                    ALUMText(text: "Career Interests:")
                         .padding(.leading)
                         .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     Spacer()
                 }
                 .padding(.bottom, 8)
@@ -153,18 +143,16 @@ struct SignUpConfirmationMentee: View {
             .padding(.bottom, 32)
 
             HStack {
-                Text("What do you hope to get out of mentorship?")
+                ALUMText(text: "What do you hope to get out of mentorship?")
                     .padding(.leading)
                     .foregroundColor(Color("ALUM Dark Blue"))
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     .padding(.trailing, 37)
                     .lineSpacing(5)
                 Spacer()
             }
             .padding(.bottom, 8)
             HStack {
-                Text(viewModel.mentee.mentorshipGoal)
-                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: viewModel.mentee.mentorshipGoal)
                     .lineSpacing(5)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)

@@ -21,9 +21,8 @@ struct InputValidationText: View {
                         .foregroundColor(Color("FunctionalSuccess"))
                 }
 
-                Text(message)
+                ALUMText(text: message, fontSize: .smallFontSize)
                     .foregroundColor(Color("FunctionalSuccess"))
-                    .font(.subheadline)
                     .frame(height: 18.0)
 
                 Spacer()
@@ -35,12 +34,10 @@ struct InputValidationText: View {
                 if showCheck {
                     Image(systemName: "exclamationmark.circle")
                         .foregroundColor(Color("FunctionalError"))
-                        .frame(width: 16.0, height: 16.0)
                 }
 
-                Text(message)
+                ALUMText(text: message, fontSize: .smallFontSize)
                     .foregroundColor(Color("FunctionalError"))
-                    .font(.subheadline)
                     .frame(height: 18.0)
 
                 Spacer()

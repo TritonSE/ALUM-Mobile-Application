@@ -10,7 +10,7 @@ import Firebase
 
 struct LoginPageView: View {
     @StateObject private var viewModel = LoginPageViewModel()
-
+    
     var body: some View {
         if viewModel.userIsLoggedIn {
             ContentView()
@@ -18,7 +18,7 @@ struct LoginPageView: View {
             content
         }
     }
-
+    
     var content: some View {
         return
         VStack(spacing: 0) {
@@ -27,24 +27,20 @@ struct LoginPageView: View {
                 .scaledToFit()
                 .frame(width: 120, height: 120)
                 .padding(.bottom, 16)
-
-            Text("Welcome to ALUM")
-                // .font(.largeTitle)
-                .font(.custom("Metropolis-Regular", size: 34))
+            
+            ALUMText(text: "Welcome to ALUM", fontSize: .largeFontSize)
                 .foregroundColor(Color("ALUM Dark Blue"))
                 .frame(width: 306, height: 41)
                 .padding(.bottom, 64)
-
-            InputValidationComponent(text: $viewModel.email, componentName: Text("Email: ")
-                .font(.custom("Metropolis-Regular", size: 16)), labelText: "Email", showCheck: false,
+            
+            InputValidationComponent(text: $viewModel.email, componentName: ALUMText(text: "Email: "), labelText: "Email", showCheck: false,
                                      functions: viewModel.emailFunc)
-                .padding(.bottom, 22)
-
+            .padding(.bottom, 22)
+            
             Group {
                 InputValidationComponent(
                     text: $viewModel.password,
-                    componentName: Text("Password: ")
-                        .font(.custom("Metropolis-Regular", size: 16)),
+                    componentName: ALUMText(text: "Password: "),
                     labelText: "Password",
                     isSecured: true,
                     showEye: true,
@@ -52,20 +48,18 @@ struct LoginPageView: View {
                     functions: viewModel.passFunc
                 )
                 .padding(.bottom, 6)
-
+                
                 HStack {
                     Spacer()
                     NavigationLink(destination: SignUpPageView(), label: {
-                        Text("Forgot Password")
-                            .underline()
+                        ALUMText(text: "Forgot Password", fontSize: .smallFontSize, isUnderlined: true)
                     })
                     .foregroundColor(.black)
-                    .font(.footnote)
                 }
                 .padding(.trailing, 16.0)
                 .padding(.bottom, 32)
             }
-
+            
             if viewModel.email != "" && viewModel.password != "" {
                 Button("Login") {
                     viewModel.emailFunc = []
@@ -86,11 +80,9 @@ struct LoginPageView: View {
                 .padding(.trailing, 16)
                 .padding(.bottom, 32)
             }
-
+            
             HStack {
-                Text("Don't have an account?")
-                    .font(.custom("Metropolis-Regular", size: 16))
-
+                ALUMText(text: "Don't have an account?")
                 NavigationLink(destination: SignUpPageView(), label: {
                     Text("Sign-Up")
                         .underline()

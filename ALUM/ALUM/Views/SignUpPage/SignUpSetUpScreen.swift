@@ -22,14 +22,14 @@ struct SignUpSetUpScreen: View {
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-            .applySignUpScreenHeaderModifier()
-            .onAppear {
-                viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
-                viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
-                                      SignUpFlowErrorFunctions.OneNumber,
-                                      SignUpFlowErrorFunctions.SpecialChar]
-            }
-            .edgesIgnoringSafeArea(.bottom)
+        .applySignUpScreenHeaderModifier()
+        .onAppear {
+            viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
+            viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
+                                  SignUpFlowErrorFunctions.OneNumber,
+                                  SignUpFlowErrorFunctions.SpecialChar]
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
     var footer: some View {
         HStack {
@@ -42,11 +42,11 @@ struct SignUpSetUpScreen: View {
                     SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
                     viewModel.account.password == viewModel.passwordAgain {
                     NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
-                            HStack {
-                                Text("Continue")
-                                Image(systemName: "arrow.right")
-                            }
+                        HStack {
+                            Text("Continue")
+                            Image(systemName: "arrow.right")
                         }
+                    }
                     )
                     .buttonStyle(FilledInButtonStyle(disabled: false))
                 } else {
@@ -66,32 +66,33 @@ struct SignUpSetUpScreen: View {
     var content: some View {
         VStack {
             HStack {
-                Text("Account Set-Up")
-                    .font(.custom("Metropolis-Regular", size: 34))
+                ALUMText(text: "Account Set-Up")
                     .foregroundColor(Color("NeutralGray3"))
                     .frame(width: 306, height: 41)
                 Spacer()
             }
             .padding(.bottom, 32)
             .padding(.top, 8)
-
-            InputValidationComponent(text: $viewModel.account.email, componentName: Text("Email: ")
-                .font(.custom("Metropolis-Regular", size: 16)), labelText: "Email", showCheck: true,
-                                     functions: viewModel.emailFunc)
+            
+            InputValidationComponent(
+                text: $viewModel.account.email,
+                componentName: ALUMText(text: "Email: "),
+                labelText: "Email",
+                showCheck: true,
+                functions: viewModel.emailFunc)
+            .padding(.bottom, 32)
+            
+            InputValidationComponent(text: $viewModel.account.name, componentName: ALUMText(text: "Name: "), labelText: "Name")
                 .padding(.bottom, 32)
-
-            InputValidationComponent(text: $viewModel.account.name, componentName: Text("Name: ")
-                .font(.custom("Metropolis-Regular", size: 16)), labelText: "Name")
-                .padding(.bottom, 32)
-
-            InputValidationComponent(text: $viewModel.account.password, componentName: Text("Password: ")
-                .font(.custom("Metropolis-Reegular", size: 16)), labelText: "Password", isSecured: true,
+            
+            InputValidationComponent(text: $viewModel.account.password, componentName: ALUMText(text: "Password: ")
+                                     , labelText: "Password", isSecured: true,
                                      showEye: true, showCheck: true, functions: viewModel.passFunc)
-                .padding(.bottom, 32)
-
+            .padding(.bottom, 32)
+            
             InputValidationComponent(
                 text: $viewModel.passwordAgain,
-                componentName: Text("Confirm Password: ").font(.custom("Metropolis-Regular", size: 16)),
+                componentName: ALUMText(text: "Confirm Password: "),
                 labelText: "Password",
                 isSecured: true,
                 showEye: true,
@@ -104,7 +105,7 @@ struct SignUpSetUpScreen: View {
 
 struct SignUpSetUpScreen_Previews: PreviewProvider {
     static private var viewModel = SignUpViewModel()
-
+    
     static var previews: some View {
         SignUpSetUpScreen(viewModel: viewModel)
     }

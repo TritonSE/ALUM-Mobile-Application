@@ -16,7 +16,6 @@ struct FilledInButtonStyle: ButtonStyle {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
                     .foregroundColor(.white)
-                    .font(.headline)
                     .background(
                         LinearGradient(gradient: Gradient(colors:
                                             [Color("ALUM Primary Blue"),
@@ -29,14 +28,14 @@ struct FilledInButtonStyle: ButtonStyle {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
                     .foregroundColor(Color("NeutralGray4"))
-                    .font(.headline)
                     .background(Color("NeutralGray1"))
                     .cornerRadius(8)
             }
         }
 }
-struct FilledInButton: View {
-    var body: some View {
+
+struct FilledInButtonStyle_Previews: PreviewProvider {
+    static var previews: some View {
         HStack(spacing: 10) {
             Button("BUTTON") {
 
@@ -52,11 +51,5 @@ struct FilledInButton: View {
             .buttonStyle(FilledInButtonStyle(disabled: true))
         }
         .padding(15)
-    }
-}
-
-struct FilledInButtonStyle_Previews: PreviewProvider {
-    static var previews: some View {
-        FilledInButton()
     }
 }

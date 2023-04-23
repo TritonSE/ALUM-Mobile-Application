@@ -62,15 +62,14 @@ struct SignUpMentorInfoScreen: View {
     var content: some View {
         VStack {
             HStack {
-                Text("Tell us about yourself").font(.custom("Metropolis-Regular", size: 34))
+                ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize)
                     .foregroundColor(Color("NeutralGray3"))
                 Spacer()
             }
             .padding(.bottom, 32).padding(.leading, 16).padding(.top, 8)
 
             HStack {
-                Text("Year of Graduation from Northwood")
-                    .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: "Year of Graduation from Northwood")
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
@@ -109,8 +108,7 @@ struct SignUpMentorInfoScreen: View {
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
 
             HStack {
-                Text("College/University")
-                    .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                ALUMText(text: "College/University")
                     .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
@@ -155,9 +153,7 @@ struct SignUpMentorInfoScreen: View {
 
             Group {
                 HStack {
-                    Text("Topics of Expertise")
-                        .lineSpacing(4.0)
-                        .font(.custom("Metropolis-Regular", size: 17))
+                    ALUMText(text: "Topics of Expertise")
                         .foregroundColor(Color("ALUM Dark Blue"))
 
                     Spacer()
@@ -170,7 +166,7 @@ struct SignUpMentorInfoScreen: View {
                 }  label: {
                     if viewModel.mentor.topicsOfExpertise.isEmpty {
                         HStack {
-                            Text("Search to add topics").font(.custom("Metropolis-Regular", size: 17))
+                            ALUMText(text: "Search to add topics")
                                 .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
 
                             Spacer()
@@ -220,8 +216,7 @@ struct SignUpMentorInfoScreen: View {
 
             Group {
                 HStack {
-                    Text("Why do you want to be a mentor?").lineSpacing(4.0)
-                        .font(.custom("Metropolis-Regular", size: 17))
+                    ALUMText(text: "Why do you want to be a mentor?")
                         .foregroundColor(Color("ALUM Dark Blue"))
 
                     Spacer()

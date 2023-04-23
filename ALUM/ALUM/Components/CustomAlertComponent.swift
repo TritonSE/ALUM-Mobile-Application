@@ -36,13 +36,11 @@ struct CustomAlertComponent: View {
                 }
                 .padding(.top, 19.11)
                 Spacer().frame(height: 11.11)
-                Text(titleText)
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: titleText)
                     .frame(width: 294, height: 26)
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 8)
-                Text(errorMessage)
-                    .font(.custom("Metropolis-Regular", size: 13))
+                ALUMText(text: errorMessage, fontSize: .smallFontSize)
                     .frame(width: 294, height: 36)
                     .foregroundColor(Color("NeutralGray4"))
                     .multilineTextAlignment(.center)
@@ -53,11 +51,8 @@ struct CustomAlertComponent: View {
                             self.leftButtonAction()
                         },
                         label: {
-                            Text(leftButtonLabel)
-                                .font(.custom("Metropolis-Regular", size: 17))
+                            ALUMText(text: leftButtonLabel)
                                 .foregroundColor(Color("ALUM Primary Purple"))
-                                .font(.system(size: 17, weight: .semibold))
-
                                 .cornerRadius(12)
                         }
                     )
@@ -68,10 +63,8 @@ struct CustomAlertComponent: View {
                             self.rightButtonAction()
                         },
                         label: {
-                            Text(rightButtonLabel)
-                                .font(.custom("Metropolis-Regular", size: 17))
+                            ALUMText(text: rightButtonLabel)
                                 .foregroundColor(.white)
-                                .font(.system(size: 17, weight: .semibold))
                                 .cornerRadius(12)
                         }
                     )

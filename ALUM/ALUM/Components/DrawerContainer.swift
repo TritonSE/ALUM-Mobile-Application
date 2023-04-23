@@ -12,7 +12,6 @@ struct DrawerContainer<Content: View>: View {
     var doneFunc: (String) -> Void
     @State var text: String = "hi"
     @ViewBuilder var content: Content
-
     var body: some View {
         ScrollView {
             ZStack(alignment: .top) {
@@ -21,21 +20,24 @@ struct DrawerContainer<Content: View>: View {
                     .foregroundColor(Color.white)
                 VStack {
                     HStack {
-                        Button("Cancel") {
+                        Button(action: {
                             withAnimation(.spring()) {
                                 cancelFunc()
                             }
-                        }
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(.system(size: 13))
+                        }, label: {
+                            ALUMText(text: "Cancel", fontSize: .smallFontSize)
+                                .foregroundColor(Color("ALUM Dark Blue"))
+                        })
                         Spacer()
-                        Button("Done") {
+                        
+                        Button(action: {
                             withAnimation(.spring()) {
                                 doneFunc(text)
                             }
-                        }
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                        .font(.system(size: 13))
+                        }, label: {
+                            ALUMText(text: "Done", fontSize: .smallFontSize)
+                                .foregroundColor(Color("ALUM Dark Blue"))
+                        })
                     }
                     .padding(.bottom, 20)
                     .frame(width: UIScreen.main.bounds.width * 0.9, alignment: .center)
@@ -50,7 +52,7 @@ struct DrawerTester: View {
     @State private var showingSheet = false
     @State var data: String = "previous text"
     @State var oldText: String = "previous text"
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -69,17 +71,17 @@ struct DrawerTester: View {
                         ParagraphInput(question: "Why do you want to be a mentor?", text: $data)
                     }
                 }
-
+                
                 Text(data)
             }
         }
     }
-
+    
     func done(textfield: String) {
         oldText = data
         showingSheet = false
     }
-
+    
     func cancel() {
         data = oldText
         showingSheet = false

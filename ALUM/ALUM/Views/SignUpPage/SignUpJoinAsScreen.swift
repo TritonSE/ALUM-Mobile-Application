@@ -81,8 +81,7 @@ struct SignUpJoinAsScreen: View {
     var content: some View {
         VStack {
             HStack {
-                Text("I want to join as a...")
-                    .font(.custom("Metropolis-Regular", size: 34))
+                ALUMText(text: "I want to join as a...", fontSize: .largeFontSize)
                     .foregroundColor(Color("NeutralGray3"))
                     .frame(width: 306, height: 41)
                     .padding(.top, 8)

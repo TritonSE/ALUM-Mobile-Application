@@ -28,8 +28,7 @@ struct SignUpGradeComponent: View {
             .padding(.top, 14)
             .padding(.bottom, 14)
 
-            Text(grade)
-                .font(.custom("Metropolis-Regular", size: 17))
+            ALUMText(text: grade)
                 .fixedSize()
         }
         .padding(.leading, 24)

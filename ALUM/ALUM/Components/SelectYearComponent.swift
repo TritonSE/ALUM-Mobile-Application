@@ -20,14 +20,12 @@ struct SelectYearComponent: View {
                     yearChoice = year
                     dismiss()
                 } label: {
-                    Text("Cancel")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Cancel", fontSize: .smallFontSize)
                 }
 
                 Spacer()
 
-                Text("Year of Graduation from...")
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "Year of Graduation from...")
                     .padding(.trailing, 16)
 
                 Spacer()
@@ -36,8 +34,7 @@ struct SelectYearComponent: View {
                     year = yearChoice
                     dismiss()
                 } label: {
-                    Text("Done")
-                        .font(.custom("Metropolis-Regular", size: 13))
+                    ALUMText(text: "Done", fontSize: .smallFontSize)
                 }
             }
             .padding(.leading, 16)
@@ -74,8 +71,7 @@ struct YearRowView: View {
 
     var body: some View {
         HStack {
-            Text(String(graduationYear))
-                .font(.custom("Metropolis-Regular", size: 17))
+            ALUMText(text: String(graduationYear))
             Spacer()
             if isSelected {
                 Image(systemName: "checkmark")

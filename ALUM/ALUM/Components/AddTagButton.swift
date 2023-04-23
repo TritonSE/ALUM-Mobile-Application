@@ -26,7 +26,7 @@ struct AddTagButton: View {
                         Spacer()
                             .frame(width: 14)
 
-                        Text(text)
+                        ALUMText(text: text)
                             .foregroundColor(Color("ALUM Dark Blue"))
                         Spacer()
                             .frame(width: 12)
@@ -37,7 +37,6 @@ struct AddTagButton: View {
             .padding(10)
             .background(RoundedRectangle(cornerRadius: 100).stroke())
             .foregroundColor(Color("ALUM Light Blue"))
-            .font(.body)
             .background(Color(.white))
             .cornerRadius(100)
 
