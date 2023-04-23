@@ -22,7 +22,7 @@ struct LoginPageView: View {
     var content: some View {
         return
         VStack(spacing: 0) {
-            Image("ALUMLogoBlue")
+            Image("ALUM LOGO")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
