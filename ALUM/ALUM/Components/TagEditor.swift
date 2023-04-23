@@ -28,7 +28,7 @@ struct ItemDisplay: View {
             Button(action: itemToggle, label: {
                 Image(systemName: tagIsChecked ? "checkmark.square" : "square")
                     .padding(.leading, 31)
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(ALUMColor.primaryPurple.color)
             })
             Text(tagString)
         }
@@ -48,7 +48,7 @@ struct SearchBar: View {
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color("ALUM Dark Blue"), lineWidth: 1))
+                        .stroke(ALUMColor.primaryPurple.color, lineWidth: 1))
                 .padding(.horizontal, 10)
                 .overlay(
                     HStack {
@@ -62,7 +62,7 @@ struct SearchBar: View {
                             Image(systemName: "xmark")
                         })
                         .padding(.init(top: 0.0, leading: 14.0, bottom: 0.0, trailing: 16.0))
-                        .accentColor(Color("NeutralGray4"))
+                        .accentColor(ALUMColor.gray4.color)
                     })
         }
     }
@@ -120,15 +120,14 @@ struct TagEditor: View {
             .padding(.leading)
             .padding(.trailing)
             .padding(.bottom, 16)
-            Text("Suggestions")
+            ALUMText(text: "Suggestions", fontSize: .smallFontSize)
                 .padding(.leading, 16)
                 .padding(.trailing, 282)
-                .foregroundColor(Color("ALUM Dark Blue"))
 
             Divider()
                 .padding(.leading, 16)
                 .frame(width: 350, height: 0.5)
-                .overlay(Color("ALUM Dark Blue"))
+                .overlay(ALUMColor.primaryPurple.color)
                 .padding(.bottom, 10)
 
             ScrollView {

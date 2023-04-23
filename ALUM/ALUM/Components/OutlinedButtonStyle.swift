@@ -17,19 +17,18 @@ struct OutlinedButtonStyle: ButtonStyle {
             configuration.label
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .frame(height: 48)
-                .foregroundColor(Color("ALUM Primary Purple"))
+                .foregroundColor(ALUMColor.primaryPurple.color)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color( "ALUM Primary Purple"), lineWidth: 2)
+                        .stroke(ALUMColor.primaryPurple.color, lineWidth: 2)
                 )
                 .cornerRadius(8)
         } else {
             configuration.label
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .frame(height: 48)
-                .foregroundColor(Color("NeutralGray4"))
-                .background(Color(
-                    "NeutralGray1"))
+                .foregroundColor(ALUMColor.gray4.color)
+                .background(ALUMColor.gray1.color)
                 .cornerRadius(8)
                 .disabled(true)
         }

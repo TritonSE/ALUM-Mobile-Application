@@ -14,41 +14,26 @@ struct InputValidationText: View {
     @State var showCheck: Bool = true
 
     var body: some View {
-        if isValid {
-            HStack {
-                if showCheck {
-                    Image(systemName: "checkmark.circle")
-                        .foregroundColor(Color("FunctionalSuccess"))
-                }
-
-                ALUMText(text: message, fontSize: .smallFontSize)
-                    .foregroundColor(Color("FunctionalSuccess"))
-                    .frame(height: 18.0)
-
-                Spacer()
+        let messageIconSystemName = isValid ?  "checkmark.circle" : "exclamationmark.circle";
+        let color = isValid ? ALUMColor.green : ALUMColor.red;
+        return HStack {
+            if showCheck {
+                Image(systemName: messageIconSystemName)
             }
-            .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
 
-        } else {
-            HStack {
-                if showCheck {
-                    Image(systemName: "exclamationmark.circle")
-                        .foregroundColor(Color("FunctionalError"))
-                }
+            ALUMText(text: message, fontSize: .smallFontSize, textColor: color)
+                .frame(height: 18.0)
 
-                ALUMText(text: message, fontSize: .smallFontSize)
-                    .foregroundColor(Color("FunctionalError"))
-                    .frame(height: 18.0)
-
-                Spacer()
-            }
-            .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
+            Spacer()
         }
+        .foregroundColor(color.color)
+        .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
     }
 }
 
 struct InputValidationText_Previews: PreviewProvider {
     static var previews: some View {
-        InputValidationText()
+        InputValidationText(isValid: true)
+        InputValidationText(isValid: false)
     }
 }

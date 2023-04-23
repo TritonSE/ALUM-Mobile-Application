@@ -66,8 +66,7 @@ struct SignUpSetUpScreen: View {
     var content: some View {
         VStack {
             HStack {
-                ALUMText(text: "Account Set-Up")
-                    .foregroundColor(Color("NeutralGray3"))
+                ALUMText(text: "Account Set-Up", fontSize: .largeFontSize, textColor: ALUMColor.gray3)
                     .frame(width: 306, height: 41)
                 Spacer()
             }

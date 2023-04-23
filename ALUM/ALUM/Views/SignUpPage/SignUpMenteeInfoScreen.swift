@@ -69,8 +69,7 @@ struct SignUpMenteeInfoScreen: View {
     var content: some View {
         VStack {
             HStack {
-                ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize)
-                    .foregroundColor(Color("NeutralGray3"))
+                ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize, textColor: ALUMColor.gray3)
                 Spacer()
             }
             .padding(.bottom, 32)
@@ -79,7 +78,6 @@ struct SignUpMenteeInfoScreen: View {
 
             HStack {
                 ALUMText(text: "Grade")
-                    .foregroundColor(Color("ALUM Dark Blue"))
                 Spacer()
             }
             .padding(.bottom, 2)
@@ -101,7 +99,6 @@ struct SignUpMenteeInfoScreen: View {
 
             HStack {
                 ALUMText(text: "Topics of Interest")
-                    .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
             }
@@ -113,15 +110,14 @@ struct SignUpMenteeInfoScreen: View {
             }  label: {
                 if viewModel.mentee.topicsOfInterest.isEmpty {
                     HStack {
-                        ALUMText(text: "Search to add topics")
-                            .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
+                        ALUMText(text: "Search to add topics", textColor: ALUMColor.gray3).padding(.leading, 16)
 
                         Spacer()
                     }
                     .frame(height: 48.0)
-                    .background(Color("ALUM White").cornerRadius(8.0))
+                    .background(ALUMColor.white.color.cornerRadius(8.0))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                        RoundedRectangle(cornerRadius: 8.0).stroke(ALUMColor.gray3.color, lineWidth: 1.0)
                     )
                     .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                 } else {
@@ -162,7 +158,6 @@ struct SignUpMenteeInfoScreen: View {
 
             HStack {
                 ALUMText(text: "Career Interests")
-                    .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
             }
@@ -174,20 +169,19 @@ struct SignUpMenteeInfoScreen: View {
             }  label: {
                 if viewModel.mentee.careerInterests.isEmpty {
                     HStack {
-                        ALUMText(text: "Search to add interests")
-                            .foregroundColor(Color("NeutralGray3"))
+                        ALUMText(text: "Search to add interests", textColor: ALUMColor.gray3)
                             .padding(.leading, 16)
 
                         Spacer()
                     }
                     .frame(height: 48.0)
                     .background(
-                        Color("ALUM White")
+                        ALUMColor.white.color
                             .cornerRadius(8.0)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 8.0)
-                            .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                            .stroke(ALUMColor.gray3.color, lineWidth: 1.0)
                     )
                     .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                 } else {
@@ -228,8 +222,6 @@ struct SignUpMenteeInfoScreen: View {
 
             HStack {
                 ALUMText(text: "What do you hope to get out of \nmentorship?")
-                    .foregroundColor(Color("ALUM Dark Blue"))
-
                 Spacer()
             }
             .padding(.leading, 16)

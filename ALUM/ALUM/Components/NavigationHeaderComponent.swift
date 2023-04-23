@@ -36,9 +36,9 @@ struct NavigationHeaderComponent<Destination: View>: View {
                             .navigationBarHidden(true)
                 }
             }
-            .foregroundColor(Color("ALUM Dark Blue"))
+            .foregroundColor(ALUMColor.primaryPurple.color)
             .frame(maxWidth: .infinity, alignment: .leading)
-            ALUMText(text: title)
+            ALUMText(text: title, textColor: ALUMColor.black)
                 .frame(maxWidth: .infinity, alignment: .center)
         }
         .padding()

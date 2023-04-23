@@ -25,7 +25,7 @@ struct SelectYearComponent: View {
 
                 Spacer()
 
-                ALUMText(text: "Year of Graduation from...")
+                ALUMText(text: "Year of Graduation from...", textColor: ALUMColor.black)
                     .padding(.trailing, 16)
 
                 Spacer()
@@ -71,11 +71,11 @@ struct YearRowView: View {
 
     var body: some View {
         HStack {
-            ALUMText(text: String(graduationYear))
+            ALUMText(text: String(graduationYear), textColor: ALUMColor.black)
             Spacer()
             if isSelected {
                 Image(systemName: "checkmark")
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(ALUMColor.primaryPurple.color)
             }
         }
         .padding(.leading, 16)
@@ -84,7 +84,7 @@ struct YearRowView: View {
         .padding(.bottom, 20)
         .background(
             Rectangle()
-                .fill(isSelected ? Color("ALUM Light Blue").opacity(0.3) : Color.white)
+                .fill(isSelected ? ALUMColor.lightPurple.color.opacity(0.3) : Color.white)
         )
     }
 }

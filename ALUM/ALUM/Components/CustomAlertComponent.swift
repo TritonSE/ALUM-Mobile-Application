@@ -26,23 +26,22 @@ struct CustomAlertComponent: View {
                 ZStack {
                     Circle()
                         .frame(width: 49.78, height: 49.78)
-                        .foregroundColor(isAlert ? Color("ALUM Alert Red") : Color("ALUM Primary Blue"))
+                        .foregroundColor(isAlert ? ALUMColor.red.color : ALUMColor.lightBlue.color)
                     Image(systemName: isAlert ? "exclamationmark" : "questionmark")
                         .font(.system(size: 30, weight: .black))
-                        .foregroundColor(.white)
+                        .foregroundColor(ALUMColor.white.color)
                         .padding(.top, 10.11)
                         .padding(.horizontal, 16.33)
                         .padding(.bottom, 9.33)
                 }
                 .padding(.top, 19.11)
                 Spacer().frame(height: 11.11)
-                ALUMText(text: titleText)
+                ALUMText(text: titleText, textColor: ALUMColor.black)
                     .frame(width: 294, height: 26)
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 8)
-                ALUMText(text: errorMessage, fontSize: .smallFontSize)
+                ALUMText(text: errorMessage, fontSize: .smallFontSize, textColor: ALUMColor.gray4)
                     .frame(width: 294, height: 36)
-                    .foregroundColor(Color("NeutralGray4"))
                     .multilineTextAlignment(.center)
                 Spacer().frame(height: 16)
                 HStack(spacing: 8) {
@@ -52,7 +51,6 @@ struct CustomAlertComponent: View {
                         },
                         label: {
                             ALUMText(text: leftButtonLabel)
-                                .foregroundColor(Color("ALUM Primary Purple"))
                                 .cornerRadius(12)
                         }
                     )
@@ -63,8 +61,7 @@ struct CustomAlertComponent: View {
                             self.rightButtonAction()
                         },
                         label: {
-                            ALUMText(text: rightButtonLabel)
-                                .foregroundColor(.white)
+                            ALUMText(text: rightButtonLabel, textColor: ALUMColor.white)
                                 .cornerRadius(12)
                         }
                     )
@@ -97,7 +94,7 @@ struct AlertWithBlurPreviewHelper: View {
             .blur(radius: showAlert ? 10 : 0)
 
             if showAlert {
-                CustomAlertComponent(isAlert: true,
+                CustomAlertComponent(isAlert: false,
                                 leftButtonLabel: "Yes, exit",
                                 rightButtonLabel: "No",
                                 titleText: "Exit [pre/post]-session notes?",
@@ -125,5 +122,25 @@ struct CustomAlertView_Previews: PreviewProvider {
     }
     static var previews: some View {
         AlertWithBlurPreviewHelper()
+        
+        CustomAlertComponent(
+            isAlert: false,
+            leftButtonLabel: "Yes, exit",
+            rightButtonLabel: "No",
+            titleText: "Exit [pre/post]-session notes?",
+            errorMessage: "All changes have been saved",
+            leftButtonAction: self.leftButtonAction,
+            rightButtonAction: self.rightButtonAction
+        )
+        
+        CustomAlertComponent(
+            isAlert: true,
+            leftButtonLabel: "Yes, exit",
+            rightButtonLabel: "No",
+            titleText: "Exit [pre/post]-session notes?",
+            errorMessage: "All changes have been saved",
+            leftButtonAction: self.leftButtonAction,
+            rightButtonAction: self.rightButtonAction
+        )
     }
 }

@@ -18,7 +18,7 @@ struct SignUpScreenHeaderModifier: ViewModifier {
                 )
             }
             content
-                .background(Color("ALUM White 2"))
+                .background(ALUMColor.beige.color)
         }
     }
 }

@@ -60,20 +60,11 @@ struct SignUpMentorInfoScreen: View {
     }
 
     var content: some View {
-        VStack {
-            HStack {
-                ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize)
-                    .foregroundColor(Color("NeutralGray3"))
-                Spacer()
-            }
+        VStack(alignment: .leading) {
+            ALUMText(text: "Tell us about yourself", fontSize: .largeFontSize, textColor: ALUMColor.gray3)
             .padding(.bottom, 32).padding(.leading, 16).padding(.top, 8)
 
-            HStack {
-                ALUMText(text: "Year of Graduation from Northwood")
-                    .foregroundColor(Color("ALUM Dark Blue"))
-
-                Spacer()
-            }
+            ALUMText(text: "Year of Graduation from Northwood")
             .padding(.bottom, 2).padding(.leading, 16)
 
             Button {
@@ -83,9 +74,9 @@ struct SignUpMentorInfoScreen: View {
                     HStack {
 
                         if viewModel.mentor.yearOfGrad != 0 {
-                            Text(String(viewModel.mentor.yearOfGrad)).foregroundColor(.black)
+                            ALUMText(text: String(viewModel.mentor.yearOfGrad), textColor: ALUMColor.black)
                         } else {
-                            Text("Select a year").foregroundColor(Color("NeutralGray3"))
+                            ALUMText(text: "Select a year", textColor: ALUMColor.gray3)
                         }
                         Spacer()
                     }
@@ -101,18 +92,13 @@ struct SignUpMentorInfoScreen: View {
                                     yearChoice: viewModel.mentor.yearOfGrad)
             })
             .frame(height: 48.0)
-            .background(Color("ALUM White").cornerRadius(8.0))
+            .background(ALUMColor.white.color.cornerRadius(8.0))
             .overlay(
-                RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                RoundedRectangle(cornerRadius: 8.0).stroke(ALUMColor.gray3.color, lineWidth: 1.0)
             )
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
 
-            HStack {
-                ALUMText(text: "College/University")
-                    .foregroundColor(Color("ALUM Dark Blue"))
-
-                Spacer()
-            }
+            ALUMText(text: "College/University")
             .padding(.bottom, 2).padding(.leading, 16)
 
             Button {
@@ -122,7 +108,7 @@ struct SignUpMentorInfoScreen: View {
                     if viewModel.mentor.university != "" {
                         Text(viewModel.mentor.university).foregroundColor(.black)
                     } else {
-                        Text("Search for your school").foregroundColor(Color("NeutralGray3"))
+                        ALUMText(text: "Search for your school", textColor: ALUMColor.gray3)
                     }
                     Spacer()
                 }
@@ -133,9 +119,9 @@ struct SignUpMentorInfoScreen: View {
                                           university: $viewModel.mentor.university)
             })
             .frame(height: 48.0)
-            .background(Color("ALUM White").cornerRadius(8.0))
+            .background(ALUMColor.white.color.cornerRadius(8.0))
             .overlay(
-                RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                RoundedRectangle(cornerRadius: 8.0).stroke(ALUMColor.gray3.color, lineWidth: 1.0)
             )
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
 
@@ -152,12 +138,7 @@ struct SignUpMentorInfoScreen: View {
                                    text: $viewModel.mentor.intendedCareer)
 
             Group {
-                HStack {
-                    ALUMText(text: "Topics of Expertise")
-                        .foregroundColor(Color("ALUM Dark Blue"))
-
-                    Spacer()
-                }
+                ALUMText(text: "Topics of Expertise")
                 .padding(.leading, 16)
                 .padding(.bottom, 2)
 
@@ -166,16 +147,16 @@ struct SignUpMentorInfoScreen: View {
                 }  label: {
                     if viewModel.mentor.topicsOfExpertise.isEmpty {
                         HStack {
-                            ALUMText(text: "Search to add topics")
-                                .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
+                            ALUMText(text: "Search to add topics", textColor: ALUMColor.gray3)
+                                .padding(.leading, 16)
 
                             Spacer()
                         }
                         .frame(height: 48.0)
-                        .background(Color("ALUM White").cornerRadius(8.0))
+                        .background(ALUMColor.white.color.cornerRadius(8.0))
                         .overlay(
                             RoundedRectangle(cornerRadius: 8.0)
-                                .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                                .stroke(ALUMColor.gray3.color, lineWidth: 1.0)
                         )
                         .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
                     } else {
@@ -217,8 +198,6 @@ struct SignUpMentorInfoScreen: View {
             Group {
                 HStack {
                     ALUMText(text: "Why do you want to be a mentor?")
-                        .foregroundColor(Color("ALUM Dark Blue"))
-
                     Spacer()
                 }
                 .padding(.leading, 16).padding(.bottom, 2)

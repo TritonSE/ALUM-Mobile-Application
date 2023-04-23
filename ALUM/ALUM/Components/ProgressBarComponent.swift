@@ -65,11 +65,11 @@ struct ProgressBarComponent: View {
 struct ActiveCircle: View {
     var body: some View {
         Circle()
-            .foregroundColor(Color("ALUM Light Blue"))
+            .foregroundColor(ALUMColor.lightBlue.color)
             .frame(width: circleDiameter - borderWidth, height: circleDiameter - borderWidth)
             .overlay(
                 Circle()
-                    .stroke(Color("ALUM Dark Blue"), lineWidth: borderWidth)
+                    .stroke(ALUMColor.primaryPurple.color, lineWidth: borderWidth)
             )
             .frame(height: circleDiameter)
     }
@@ -79,7 +79,7 @@ struct FilledCircle: View {
     var body: some View {
         ZStack {
             Circle()
-                .foregroundColor(Color("ALUM Dark Blue"))
+                .foregroundColor(ALUMColor.primaryPurple.color)
                 .frame(width: circleDiameter, height: circleDiameter)
             Image("CheckMarkVector")
         }
@@ -89,7 +89,7 @@ struct FilledCircle: View {
 struct PendingCircle: View {
     var body: some View {
         Circle()
-            .foregroundColor(Color("NeutralGray2"))
+            .foregroundColor(ALUMColor.gray2.color)
             .frame(width: circleDiameter, height: circleDiameter)
     }
 }
@@ -98,7 +98,7 @@ struct FilledLine: View {
     var body: some View {
         Rectangle()
             .frame(width: .infinity, height: 2)
-            .foregroundColor(Color("ALUM Dark Blue"))
+            .foregroundColor(ALUMColor.primaryPurple.color)
     }
 }
 
@@ -106,7 +106,7 @@ struct PendingLine: View {
     var body: some View {
         Rectangle()
             .frame(width: .infinity, height: 2)
-            .foregroundColor(Color("NeutralGray2"))
+            .foregroundColor(ALUMColor.gray2.color)
     }
 }
 

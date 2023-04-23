@@ -16,19 +16,14 @@ struct FilledInButtonStyle: ButtonStyle {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
                     .foregroundColor(.white)
-                    .background(
-                        LinearGradient(gradient: Gradient(colors:
-                                            [Color("ALUM Primary Blue"),
-                                             Color("ALUM Primary Dark Blue")]),
-                        startPoint: .bottomTrailing,
-                        endPoint: .topLeading))
+                    .background(primaryGradientColor)
                     .cornerRadius(8)
             } else {
                 configuration.label
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .frame(height: 48)
-                    .foregroundColor(Color("NeutralGray4"))
-                    .background(Color("NeutralGray1"))
+                    .foregroundColor(ALUMColor.gray4.color)
+                    .background(ALUMColor.gray1.color)
                     .cornerRadius(8)
             }
         }
@@ -42,6 +37,7 @@ struct FilledInButtonStyle_Previews: PreviewProvider {
             }
             .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
+            
             .buttonStyle(FilledInButtonStyle(disabled: false))
             Button("BUTTON") {
 

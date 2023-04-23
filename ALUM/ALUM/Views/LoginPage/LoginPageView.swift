@@ -29,7 +29,6 @@ struct LoginPageView: View {
                 .padding(.bottom, 16)
             
             ALUMText(text: "Welcome to ALUM", fontSize: .largeFontSize)
-                .foregroundColor(Color("ALUM Dark Blue"))
                 .frame(width: 306, height: 41)
                 .padding(.bottom, 64)
             
@@ -52,7 +51,7 @@ struct LoginPageView: View {
                 HStack {
                     Spacer()
                     NavigationLink(destination: SignUpPageView(), label: {
-                        ALUMText(text: "Forgot Password", fontSize: .smallFontSize, isUnderlined: true)
+                        ALUMText(text: "Forgot Password?", fontSize: .smallFontSize, textColor: ALUMColor.black, isUnderlined: true)
                     })
                     .foregroundColor(.black)
                 }
@@ -82,12 +81,10 @@ struct LoginPageView: View {
             }
             
             HStack {
-                ALUMText(text: "Don't have an account?")
+                ALUMText(text: "Don't have an account?", textColor: ALUMColor.black)
                 NavigationLink(destination: SignUpPageView(), label: {
-                    Text("Sign-Up")
-                        .underline()
+                    ALUMText(text: "Sign-Up", textColor: ALUMColor.primaryBlue, isUnderlined: true)
                 })
-                .foregroundColor(Color("ALUM Medium Blue"))
             }
         }
         .navigationBarBackButtonHidden()

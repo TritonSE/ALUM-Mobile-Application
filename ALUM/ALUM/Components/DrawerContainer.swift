@@ -26,7 +26,6 @@ struct DrawerContainer<Content: View>: View {
                             }
                         }, label: {
                             ALUMText(text: "Cancel", fontSize: .smallFontSize)
-                                .foregroundColor(Color("ALUM Dark Blue"))
                         })
                         Spacer()
                         
@@ -36,7 +35,6 @@ struct DrawerContainer<Content: View>: View {
                             }
                         }, label: {
                             ALUMText(text: "Done", fontSize: .smallFontSize)
-                                .foregroundColor(Color("ALUM Dark Blue"))
                         })
                     }
                     .padding(.bottom, 20)
@@ -60,12 +58,12 @@ struct DrawerTester: View {
                     showingSheet.toggle()
                 }
                 .padding(120)
-                .background(Color("ALUM White"))
+                .background(ALUMColor.white.color)
                 .foregroundColor(Color.black)
                 .cornerRadius(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color("NeutralGray3"), lineWidth: 1))
+                        .stroke(ALUMColor.gray3.color, lineWidth: 1))
                 .sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
                         ParagraphInput(question: "Why do you want to be a mentor?", text: $data)

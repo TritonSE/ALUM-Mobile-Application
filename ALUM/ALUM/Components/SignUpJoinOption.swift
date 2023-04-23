@@ -14,31 +14,33 @@ struct SignUpJoinOption: View {
     var isSelected: Bool
 
     var body: some View {
-
-        VStack {
+        let fillColor = isSelected ? ALUMColor.extraLightPurple : ALUMColor.white
+        let borderColor = isSelected ? ALUMColor.primaryPurple : ALUMColor.lightPurple
+        let textColor = ALUMColor.black
+        let circleColor = ALUMColor.primaryPurple
+        VStack(alignment: .leading) {
             HStack {
-                ALUMText(text: title, fontSize: .largeFontSize)
+                ALUMText(text: title, fontSize: .largeFontSize, textColor: textColor)
                 Spacer()
 
                 ZStack {
                     Circle()
-                        .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 2.0)
+                        .strokeBorder(circleColor.color, lineWidth: 2.0)
                         .frame(width: 20, height: 20)
 
                     if isSelected {
                         Circle()
-                            .fill(Color("ALUM Dark Blue"))
+                            .fill(circleColor.color)
                             .frame(width: 4, height: 4)
                     }
                 }
-
             }
             .padding(.leading, 32)
             .padding(.trailing, 32)
             .padding(.bottom, 8)
             .padding(.top, 16)
 
-            ALUMText(text: description)
+            ALUMText(text: description, textColor: textColor)
                 .lineSpacing(4.0)
                 .padding(.leading, 32)
                 .padding(.trailing, 32)
@@ -47,12 +49,11 @@ struct SignUpJoinOption: View {
         .background(
             ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .fill(isSelected ? Color("ALUM Light Blue") : Color.white)
-                    .padding(.trailing, 16)
-                    .padding(.leading, 16)
-
-                RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color("ALUM Light Blue"))
+                    .fill(fillColor.color)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12.0)
+                            .stroke(borderColor.color, lineWidth: 2)
+                    )
                     .padding(.trailing, 16)
                     .padding(.leading, 16)
             }
@@ -66,6 +67,7 @@ struct SignUpJoinOption: View {
      static var isSelected: Bool = true
 
      static var previews: some View {
-         SignUpJoinOption(title: title, description: description, isSelected: isSelected)
+         SignUpJoinOption(title: title, description: description, isSelected: true)
+         SignUpJoinOption(title: title, description: description, isSelected: false)
      }
  }

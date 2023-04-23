@@ -62,8 +62,7 @@ struct SignUpConfirmationMentor: View {
     var content: some View {
         VStack {
             HStack {
-                ALUMText(text: "Confirmation", fontSize: .largeFontSize)
-                    .foregroundColor(Color("NeutralGray3"))
+                ALUMText(text: "Confirmation", fontSize: .largeFontSize, textColor: ALUMColor.gray3)
                     .padding(.leading)
                     .padding(.top)
                 Spacer()
@@ -72,16 +71,14 @@ struct SignUpConfirmationMentor: View {
             HStack {
                 ALUMText(text: "Name: ")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                ALUMText(text: viewModel.mentor.name)
+                ALUMText(text: viewModel.mentor.name, textColor: ALUMColor.black)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
                 ALUMText(text: "Email: ")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                ALUMText(text: viewModel.mentor.email)
+                ALUMText(text: viewModel.mentor.email, textColor: ALUMColor.black)
                 Spacer()
             }
             .padding(.bottom, 24)
@@ -89,12 +86,11 @@ struct SignUpConfirmationMentor: View {
                 HStack {
                     ALUMText(text: "School: ")
                         .padding(.leading, 16)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    ALUMText(text: viewModel.mentor.university)
+                    ALUMText(text: viewModel.mentor.university, textColor: ALUMColor.black)
                         .padding(.leading)
                     Spacer()
                 }
@@ -104,14 +100,13 @@ struct SignUpConfirmationMentor: View {
                 HStack {
                     ALUMText(text: "Major")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    ALUMText(text: viewModel.mentor.major)
+                    ALUMText(text: viewModel.mentor.major, textColor: ALUMColor.black)
                         .padding(.leading)
                         .lineSpacing(5)
                     Spacer()
@@ -122,14 +117,13 @@ struct SignUpConfirmationMentor: View {
                 HStack {
                     ALUMText(text: "Minor")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    ALUMText(text: viewModel.mentor.minor)
+                    ALUMText(text: viewModel.mentor.minor, textColor: ALUMColor.black)
                         .padding(.leading)
                         .lineSpacing(5)
                     Spacer()
@@ -140,14 +134,13 @@ struct SignUpConfirmationMentor: View {
                 HStack {
                     ALUMText(text: "Intended Career")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    ALUMText(text: viewModel.mentor.intendedCareer)
+                    ALUMText(text: viewModel.mentor.intendedCareer, textColor: ALUMColor.black)
                         .padding(.leading)
                         .lineSpacing(5)
                     Spacer()
@@ -159,7 +152,6 @@ struct SignUpConfirmationMentor: View {
                     ALUMText(text: "Topics of Expertise:")
                         .padding(.leading)
                         .padding(.bottom, 8)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                     Spacer()
                 }
                 WrappingHStack(viewModel.mentor.topicsOfExpertise.sorted(), id: \.self) { topic in
@@ -180,14 +172,13 @@ struct SignUpConfirmationMentor: View {
                 HStack {
                     ALUMText(text: "Mentor Motivation")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.trailing, 37)
                         .lineSpacing(5)
                     Spacer()
                 }
                 .padding(.bottom, 8)
                 HStack {
-                    ALUMText(text: viewModel.mentor.mentorMotivation)
+                    ALUMText(text: viewModel.mentor.mentorMotivation, textColor: ALUMColor.black)
                         .padding(.leading)
                         .lineSpacing(5)
                     Spacer()

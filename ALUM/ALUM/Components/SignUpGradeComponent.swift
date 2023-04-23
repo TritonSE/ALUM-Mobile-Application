@@ -13,22 +13,28 @@ struct SignUpGradeComponent: View {
     var isSelected: Bool
 
     var body: some View {
-        HStack {
+        let fillColor = isSelected ? ALUMColor.extraLightPurple : ALUMColor.white
+        let borderColor = isSelected ? ALUMColor.primaryPurple : ALUMColor.lightPurple
+        let textColor = ALUMColor.black
+        let circleColor = ALUMColor.primaryPurple
+        
+        
+        return HStack {
             ZStack {
                 Circle()
-                    .strokeBorder(Color("ALUM Dark Blue"), lineWidth: 2.0)
+                    .strokeBorder(circleColor.color, lineWidth: 2.0)
                     .frame(width: 20, height: 20)
 
                 if isSelected {
                     Circle()
-                        .fill(Color("ALUM Dark Blue"))
+                        .fill(circleColor.color)
                         .frame(width: 4, height: 4)
                 }
             }
             .padding(.top, 14)
             .padding(.bottom, 14)
 
-            ALUMText(text: grade)
+            ALUMText(text: grade, textColor: textColor)
                 .fixedSize()
         }
         .padding(.leading, 24)
@@ -36,13 +42,13 @@ struct SignUpGradeComponent: View {
         .background(
             ZStack {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .fill(isSelected ? Color("ALUM Light Blue") : Color("ALUM White"))
+                    .fill(fillColor.color)
                     .padding(.trailing, 8)
                     .padding(.leading, 8)
                     .frame(height: 48.0)
 
                 RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color("ALUM Light Blue"))
+                    .stroke(borderColor.color)
                     .padding(.trailing, 8)
                     .padding(.leading, 8)
                     .frame(height: 48.0)
@@ -54,9 +60,10 @@ struct SignUpGradeComponent: View {
 struct SignUpGradeComponent_Previews: PreviewProvider {
 
     static var grade: String = "10"
-    static var isSelected: Bool = true
 
     static var previews: some View {
-        SignUpGradeComponent(grade: grade, isSelected: isSelected)
+        SignUpGradeComponent(grade: grade, isSelected: true)
+        SignUpGradeComponent(grade: grade, isSelected: false)
+
     }
 }

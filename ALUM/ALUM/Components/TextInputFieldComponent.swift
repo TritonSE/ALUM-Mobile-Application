@@ -12,7 +12,7 @@ struct TextInputFieldComponent: View {
     @State var topLabel: ALUMText = ALUMText(text: "")
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
-    @State var borderColor: Color = Color("NeutralGray3")
+    @State var borderColor: Color = ALUMColor.gray3.color
     var labelText: String = ""
 
     var body: some View {
@@ -20,7 +20,6 @@ struct TextInputFieldComponent: View {
         VStack {
             HStack {
                 topLabel
-                    .foregroundColor(Color("ALUM Dark Blue"))
                 Spacer()
             }
             .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
@@ -39,7 +38,7 @@ struct TextInputFieldComponent: View {
                 .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
                 .frame(height: 48.0)
                 .background(
-                    Color("ALUM White")
+                    ALUMColor.white.color
                         .cornerRadius(8.0)
                 )
                 .overlay(
@@ -51,7 +50,7 @@ struct TextInputFieldComponent: View {
                         isSecured.toggle()
                     }, label: {
                         Image(systemName: isSecured ? "eye.slash" : "eye")
-                            .accentColor(Color("NeutralGray4"))
+                            .accentColor(ALUMColor.gray4.color)
                     })
                     .padding(.init(top: 0.0, leading: 14.0, bottom: 0.0, trailing: 14.0))
                 }

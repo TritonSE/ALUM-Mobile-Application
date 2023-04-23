@@ -12,7 +12,7 @@ struct InputValidationComponent: View {
     @Binding var text: String
     @State var componentName: ALUMText = ALUMText(text: "")
     @State var labelText: String = ""
-    @State var borderColor: Color = Color("NeutralGray3")
+    @State var borderColor: Color = ALUMColor.gray3.color
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     @State var showCheck: Bool = false
@@ -33,7 +33,6 @@ struct InputValidationComponent: View {
                         InputValidationText(message: "", showCheck: showCheck)
                     } else {
                         InputValidationText(isValid: false, message: result.1, showCheck: showCheck)
-                        // self.borderColor = Color("FunctionalError")
                     }
                 }
             }

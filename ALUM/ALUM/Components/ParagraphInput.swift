@@ -18,7 +18,6 @@ struct ParagraphInput: View {
     var body: some View {
         HStack {
             ALUMText(text: question)
-                .foregroundColor(Color("ALUM Dark Blue"))
             Spacer()
         }
         TextEditor(text: $text)
@@ -27,9 +26,9 @@ struct ParagraphInput: View {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color("NeutralGray3"), lineWidth: 1))
-            .colorMultiply(Color("ALUM White"))
-            .background(Color("ALUM White"))
+                    .stroke(ALUMColor.gray3.color, lineWidth: 1))
+            .colorMultiply(ALUMColor.white.color)
+            .background(ALUMColor.white.color)
             .onChange(of: text, perform: { text in
                 if text.count > 1000 {
                     self.text = String(text.prefix(1000))
@@ -37,8 +36,7 @@ struct ParagraphInput: View {
             })
         HStack {
             Spacer()
-            ALUMText(text: "\(text.count) / 1000", fontSize: .smallFontSize)
-                .foregroundColor(Color("NeutralGray3"))
+            ALUMText(text: "\(text.count) / 1000", fontSize: .smallFontSize, textColor: ALUMColor.gray3)
         }
     }
 }

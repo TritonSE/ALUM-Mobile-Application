@@ -63,8 +63,7 @@ struct SignUpConfirmationMentee: View {
     var content: some View {
         VStack {
             HStack {
-                ALUMText(text: "Confirmation", fontSize: .largeFontSize)
-                    .foregroundColor(Color("NeutralGray3"))
+                ALUMText(text: "Confirmation", fontSize: .largeFontSize, textColor: ALUMColor.gray3)
                     .padding(.leading)
                     .padding(.top)
                 Spacer()
@@ -73,24 +72,21 @@ struct SignUpConfirmationMentee: View {
             HStack {
                 ALUMText(text: "Name: ")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                ALUMText(text: viewModel.mentee.name)
+                ALUMText(text: viewModel.mentee.name, textColor: ALUMColor.black)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
                 ALUMText(text: "Email: ")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                ALUMText(text: viewModel.mentee.email)
+                ALUMText(text: viewModel.mentee.email, textColor: ALUMColor.black)
                 Spacer()
             }
             .padding(.bottom, 16)
             HStack {
                 ALUMText(text: "Grade: ")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                ALUMText(text: "\(viewModel.mentee.grade)")
+                ALUMText(text: "\(viewModel.mentee.grade)", textColor: ALUMColor.black)
                 Spacer()
             }
             .padding(.bottom, 24)
@@ -98,7 +94,6 @@ struct SignUpConfirmationMentee: View {
                 HStack {
                     ALUMText(text: "Topics of Interest:")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                         .padding(.bottom, 8)
                     Spacer()
                 }
@@ -122,7 +117,6 @@ struct SignUpConfirmationMentee: View {
                 HStack {
                     ALUMText(text: "Career Interests:")
                         .padding(.leading)
-                        .foregroundColor(Color("ALUM Dark Blue"))
                     Spacer()
                 }
                 .padding(.bottom, 8)
@@ -145,14 +139,13 @@ struct SignUpConfirmationMentee: View {
             HStack {
                 ALUMText(text: "What do you hope to get out of mentorship?")
                     .padding(.leading)
-                    .foregroundColor(Color("ALUM Dark Blue"))
                     .padding(.trailing, 37)
                     .lineSpacing(5)
                 Spacer()
             }
             .padding(.bottom, 8)
             HStack {
-                ALUMText(text: viewModel.mentee.mentorshipGoal)
+                ALUMText(text: viewModel.mentee.mentorshipGoal, textColor: ALUMColor.black)
                     .lineSpacing(5)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)

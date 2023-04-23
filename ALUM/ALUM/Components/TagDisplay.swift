@@ -25,8 +25,7 @@ struct TagDisplay: View {
                     Spacer()
                         .frame(width: 12)
 
-                    ALUMText(text: tagString)
-                        .foregroundColor(Color(.black))
+                    ALUMText(text: tagString, textColor: ALUMColor.black)
                     Spacer()
                         .frame(width: 12)
 
@@ -36,7 +35,7 @@ struct TagDisplay: View {
                         }, label: {
                             Image(systemName: "xmark")
                         })
-                        .foregroundColor(Color("NeutralGray4"))
+                        .foregroundColor(ALUMColor.white.color)
                         .frame(height: 8)
                         .frame(width: 8)
                         Spacer()
@@ -48,8 +47,8 @@ struct TagDisplay: View {
             }
             .padding(10)
             .background(RoundedRectangle(cornerRadius: 100).stroke())
-            .foregroundColor(Color("ALUM Light Blue"))
-            .background(Color("ALUM Light Blue"))
+            .foregroundColor(ALUMColor.lightPurple.color)
+            .background(ALUMColor.lightPurple.color)
             .cornerRadius(100)
             .frame(height: 40)
 
@@ -60,5 +59,6 @@ struct TagDisplay: View {
 struct TagDisplay_Previews: PreviewProvider {
     static var previews: some View {
         TagDisplay(tagString: "Sample New Text @12345")
+        TagDisplay(tagString: "Sample New Text @12345", crossShowing: true)
     }
 }

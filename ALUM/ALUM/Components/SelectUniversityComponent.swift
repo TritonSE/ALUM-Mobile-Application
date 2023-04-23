@@ -25,7 +25,7 @@ struct SelectUniversityComponent: View {
 
                 Spacer()
 
-                ALUMText(text: "College/University")
+                ALUMText(text: "College/University", textColor: ALUMColor.black)
                     .padding(.trailing, 16)
 
                 Spacer()
@@ -47,7 +47,6 @@ struct SelectUniversityComponent: View {
 
             HStack {
                 ALUMText(text: "Search Results", fontSize: .smallFontSize)
-                    .foregroundColor(Color("ALUM Dark Blue"))
 
                 Spacer()
             }
@@ -55,7 +54,7 @@ struct SelectUniversityComponent: View {
             .padding(.trailing, 16)
 
             Divider()
-                .overlay(Color("ALUM Dark Blue"))
+                .overlay(ALUMColor.primaryPurple.color)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
 
@@ -83,52 +82,13 @@ struct SelectUniversityComponent: View {
     }
 }
 
-/*
-struct SearchBar: View {
-    @Binding var text: String
-    
-    var body: some View {
-        ZStack (alignment: .trailing){
-            TextField("", text: $text)
-                .padding(.init(top: 0.0, leading: 48.0, bottom: 0.0, trailing: 48.0))
-                .frame(height: 48)
-                .background(Color.white)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color("ALUM Dark Blue"), lineWidth: 1)
-                )
-                .overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color("NeutralGray3"))
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding(.leading, 19)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            text = ""
-                        }, label: {
-                            Image(systemName: "xmark" )
-                        })
-                        .padding(.init(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 16.0))
-                        .accentColor(Color("NeutralGray4"))
-                    }
-            )
-        }
-        .padding(.init(top: 0.0, leading: 16.0, bottom: 0.0, trailing: 16.0))
-    }
-}
- */
-
 struct UniversityRowView: View {
     var universityName: String = ""
     var isSelected: Bool = false
 
     var body: some View {
         HStack {
-            ALUMText(text: universityName)
+            ALUMText(text: universityName, textColor: ALUMColor.black)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
 
@@ -136,7 +96,7 @@ struct UniversityRowView: View {
 
             if isSelected {
                 Image(systemName: "checkmark")
-                    .foregroundColor(Color("ALUM Dark Blue"))
+                    .foregroundColor(ALUMColor.primaryPurple.color)
             }
         }
         .padding(.leading, 16)
@@ -145,7 +105,7 @@ struct UniversityRowView: View {
         .padding(.bottom, 20)
         .background(
             Rectangle()
-                .fill(isSelected ? Color("ALUM Light Blue").opacity(0.3) : Color.white)
+                .fill(isSelected ? ALUMColor.lightPurple.color.opacity(0.3) : ALUMColor.white.color)
         )
     }
 }
