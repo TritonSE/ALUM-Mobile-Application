@@ -89,7 +89,7 @@ struct TagEditor: View {
 
                 Spacer()
 
-                ALUMText(text: screenTitle)
+                ALUMText(text: screenTitle, textColor: ALUMColor.black)
                     .padding(.trailing, 16)
 
                 Spacer()

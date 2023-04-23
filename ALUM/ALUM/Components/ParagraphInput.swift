@@ -48,7 +48,6 @@ struct ParagraphInputScreen: View {
     var body: some View {
         VStack {
             ParagraphInput(question: "Why do you want to be a mentor?", text: $textFieldText)
-            // Text(data)
         }
     }
 }
