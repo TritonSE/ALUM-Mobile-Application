@@ -6,7 +6,7 @@ labels: ''
 assignees: ''
 
 ---
-**Describe the probleme**
+**Describe the problem**
 
 **How to Reproduce?**
 
