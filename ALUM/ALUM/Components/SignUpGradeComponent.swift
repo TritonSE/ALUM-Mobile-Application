@@ -17,8 +17,7 @@ struct SignUpGradeComponent: View {
         let borderColor = isSelected ? ALUMColor.primaryPurple : ALUMColor.lightPurple
         let textColor = ALUMColor.black
         let circleColor = ALUMColor.primaryPurple
-        
-        
+
         return HStack {
             ZStack {
                 Circle()

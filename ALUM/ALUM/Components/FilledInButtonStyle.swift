@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FilledInButtonStyle: ButtonStyle {
-    @State var disabled: Bool = false
+    var disabled: Bool = false
 
     func makeBody(configuration: Configuration) -> some View {
             if !disabled {
@@ -37,7 +37,7 @@ struct FilledInButtonStyle_Previews: PreviewProvider {
             }
             .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
-            
+
             .buttonStyle(FilledInButtonStyle(disabled: false))
             Button("BUTTON") {
 

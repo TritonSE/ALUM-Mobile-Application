@@ -10,7 +10,7 @@ import Firebase
 
 struct LoginPageView: View {
     @StateObject private var viewModel = LoginPageViewModel()
-    
+
     var body: some View {
         if viewModel.userIsLoggedIn {
             ContentView()
@@ -18,7 +18,7 @@ struct LoginPageView: View {
             content
         }
     }
-    
+
     var content: some View {
         return
         VStack(spacing: 0) {
@@ -27,15 +27,18 @@ struct LoginPageView: View {
                 .scaledToFit()
                 .frame(width: 120, height: 120)
                 .padding(.bottom, 16)
-            
+
             ALUMText(text: "Welcome to ALUM", fontSize: .largeFontSize)
                 .frame(width: 306, height: 41)
                 .padding(.bottom, 64)
-            
-            InputValidationComponent(text: $viewModel.email, componentName: ALUMText(text: "Email: "), labelText: "Email", showCheck: false,
-                                     functions: viewModel.emailFunc)
+
+            InputValidationComponent(
+                text: $viewModel.email,
+                componentName: ALUMText(text: "Email: "),
+                labelText: "Email", showCheck: false,
+                functions: viewModel.emailFunc)
             .padding(.bottom, 22)
-            
+
             Group {
                 InputValidationComponent(
                     text: $viewModel.password,
@@ -47,18 +50,23 @@ struct LoginPageView: View {
                     functions: viewModel.passFunc
                 )
                 .padding(.bottom, 6)
-                
+
                 HStack {
                     Spacer()
                     NavigationLink(destination: SignUpPageView(), label: {
-                        ALUMText(text: "Forgot Password?", fontSize: .smallFontSize, textColor: ALUMColor.black, isUnderlined: true)
+                        ALUMText(
+                            text: "Forgot Password?",
+                            fontSize: .smallFontSize,
+                            textColor: ALUMColor.black,
+                            isUnderlined: true
+                        )
                     })
                     .foregroundColor(.black)
                 }
                 .padding(.trailing, 16.0)
                 .padding(.bottom, 32)
             }
-            
+
             if viewModel.email != "" && viewModel.password != "" {
                 Button("Login") {
                     viewModel.emailFunc = []
@@ -79,7 +87,7 @@ struct LoginPageView: View {
                 .padding(.trailing, 16)
                 .padding(.bottom, 32)
             }
-            
+
             HStack {
                 ALUMText(text: "Don't have an account?", textColor: ALUMColor.black)
                 NavigationLink(destination: SignUpPageView(), label: {

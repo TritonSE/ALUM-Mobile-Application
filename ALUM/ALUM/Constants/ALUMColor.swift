@@ -22,23 +22,23 @@ extension Color {
 enum ALUMColor: UInt {
     case lightBlue = 0xD0DBFF
     case primaryBlue = 0x4470FF
-    
+
     case extraLightPurple = 0xEFEEFF
     case lightPurple = 0xD0CDFF
     case primaryPurple = 0x463EC7
-    
+
     case red = 0xB93B3B
     case green = 0x3BB966
-    
+
     case gray1 = 0xEBEBEB
     case gray2 = 0xD8D8D8
     case gray3 = 0xB4B4B4
     case gray4 = 0x909090
-    
+
     case white = 0xFFFFFF
     case beige = 0xFCFAF6
     case black = 0x000000
-    
+
     var color: Color {
         return Color(hex: self.rawValue)
     }

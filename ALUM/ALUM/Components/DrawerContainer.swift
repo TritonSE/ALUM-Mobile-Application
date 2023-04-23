@@ -28,7 +28,7 @@ struct DrawerContainer<Content: View>: View {
                             ALUMText(text: "Cancel", fontSize: .smallFontSize)
                         })
                         Spacer()
-                        
+
                         Button(action: {
                             withAnimation(.spring()) {
                                 doneFunc(text)
@@ -50,7 +50,7 @@ struct DrawerTester: View {
     @State private var showingSheet = false
     @State var data: String = "previous text"
     @State var oldText: String = "previous text"
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -69,17 +69,17 @@ struct DrawerTester: View {
                         ParagraphInput(question: "Why do you want to be a mentor?", text: $data)
                     }
                 }
-                
+
                 Text(data)
             }
         }
     }
-    
+
     func done(textfield: String) {
         oldText = data
         showingSheet = false
     }
-    
+
     func cancel() {
         data = oldText
         showingSheet = false

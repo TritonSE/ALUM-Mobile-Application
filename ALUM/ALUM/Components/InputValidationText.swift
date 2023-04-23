@@ -14,8 +14,8 @@ struct InputValidationText: View {
     @State var showCheck: Bool = true
 
     var body: some View {
-        let messageIconSystemName = isValid ?  "checkmark.circle" : "exclamationmark.circle";
-        let color = isValid ? ALUMColor.green : ALUMColor.red;
+        let messageIconSystemName = isValid ?  "checkmark.circle" : "exclamationmark.circle"
+        let color = isValid ? ALUMColor.green : ALUMColor.red
         return HStack {
             if showCheck {
                 Image(systemName: messageIconSystemName)

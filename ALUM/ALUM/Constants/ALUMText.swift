@@ -38,6 +38,5 @@ struct ALUMText: View {
             .font(.custom(fontName.rawValue, size: fontSize.rawValue))
             .underline(isUnderlined)
             .foregroundColor(textColor.color)
-//            .foregroundColor(ALUMColor.black.color)
     }
 }

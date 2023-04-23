@@ -35,48 +35,38 @@ struct SignUpJoinAsScreen: View {
     }
 
     var footer: some View {
-        HStack {
+        var continueDestinationView = AnyView(EmptyView())
+        var continueDisabled = true
+        switch selectedType {
+        case .mentee:
+            continueDestinationView = AnyView(SignUpMenteeInfoScreen(viewModel: viewModel))
+            continueDisabled = false
+        case .mentor:
+            continueDestinationView = AnyView(SignUpMentorInfoScreen(viewModel: viewModel))
+            continueDisabled = false
+        default:
+            continueDisabled = true
+        }
+
+        return HStack {
             Button {
                 dismiss()
             } label: {
                 HStack {
                     Image(systemName: "arrow.left")
-                    Text("Back")
+                    ALUMText(text: "Back", textColor: ALUMColor.primaryPurple)
                 }
             }
             .buttonStyle(OutlinedButtonStyle(disabled: false))
             .padding(.trailing, 16)
-
-            if selectedType == .mentee {
-                NavigationLink(destination: SignUpMenteeInfoScreen(viewModel: viewModel)) {
-                    HStack {
-                        Text("Continue")
-                        Image(systemName: "arrow.right")
-                    }
-
+            NavigationLink(destination: continueDestinationView) {
+                HStack {
+                    ALUMText(text: "Continue", textColor: continueDisabled ? ALUMColor.gray4 : ALUMColor.white)
+                    Image(systemName: "arrow.right")
                 }
-                .buttonStyle(FilledInButtonStyle(disabled: false))
-            } else if selectedType == .mentor {
-                NavigationLink(destination: SignUpMentorInfoScreen(viewModel: viewModel)) {
-                    HStack {
-                        Text("Continue")
-                        Image(systemName: "arrow.right")
-                    }
-                }
-                .buttonStyle(FilledInButtonStyle(disabled: false))
-            } else {
-                Button {
-
-                } label: {
-                    HStack {
-                        Text("Continue")
-                        Image(systemName: "arrow.right")
-                    }
-                }
-                .buttonStyle(FilledInButtonStyle(disabled: true))
             }
+            .buttonStyle(FilledInButtonStyle(disabled: continueDisabled))
         }
-
     }
     var content: some View {
         VStack {

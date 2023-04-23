@@ -122,7 +122,7 @@ struct CustomAlertView_Previews: PreviewProvider {
     }
     static var previews: some View {
         AlertWithBlurPreviewHelper()
-        
+
         CustomAlertComponent(
             isAlert: false,
             leftButtonLabel: "Yes, exit",
@@ -132,7 +132,7 @@ struct CustomAlertView_Previews: PreviewProvider {
             leftButtonAction: self.leftButtonAction,
             rightButtonAction: self.rightButtonAction
         )
-        
+
         CustomAlertComponent(
             isAlert: true,
             leftButtonLabel: "Yes, exit",

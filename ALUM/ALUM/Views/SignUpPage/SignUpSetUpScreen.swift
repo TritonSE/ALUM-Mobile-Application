@@ -72,7 +72,7 @@ struct SignUpSetUpScreen: View {
             }
             .padding(.bottom, 32)
             .padding(.top, 8)
-            
+
             InputValidationComponent(
                 text: $viewModel.account.email,
                 componentName: ALUMText(text: "Email: "),
@@ -80,15 +80,14 @@ struct SignUpSetUpScreen: View {
                 showCheck: true,
                 functions: viewModel.emailFunc)
             .padding(.bottom, 32)
-            
+
             InputValidationComponent(text: $viewModel.account.name, componentName: ALUMText(text: "Name: "), labelText: "Name")
                 .padding(.bottom, 32)
-            
+
             InputValidationComponent(text: $viewModel.account.password, componentName: ALUMText(text: "Password: ")
                                      , labelText: "Password", isSecured: true,
                                      showEye: true, showCheck: true, functions: viewModel.passFunc)
             .padding(.bottom, 32)
-            
             InputValidationComponent(
                 text: $viewModel.passwordAgain,
                 componentName: ALUMText(text: "Confirm Password: "),
@@ -104,7 +103,7 @@ struct SignUpSetUpScreen: View {
 
 struct SignUpSetUpScreen_Previews: PreviewProvider {
     static private var viewModel = SignUpViewModel()
-    
+
     static var previews: some View {
         SignUpSetUpScreen(viewModel: viewModel)
     }
