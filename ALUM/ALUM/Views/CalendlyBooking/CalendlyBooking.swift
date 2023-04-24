@@ -43,27 +43,37 @@ struct CalendlyView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
-        let userContentController = WKUserContentController()
-        userContentController.add(context.coordinator, name: "message")
-        webView.configuration.userContentController = userContentController
+        webView.configuration.userContentController.add(context.coordinator, name: "*")
         webView.navigationDelegate = context.coordinator
         return webView
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
+        let htmlPath = Bundle.main.path(forResource: "index", ofType: "html")!
+        let htmlUrl = URL(fileURLWithPath: htmlPath)
+        let request = URLRequest(url: htmlUrl)
+        /*
         let request = URLRequest(url: url)
+        uiView.load(request)
+         */
         uiView.load(request)
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(webView: self)
     }
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-        var parent: CalendlyView
+        var webView: CalendlyView
         
-        init(_ parent: CalendlyView) {
-            self.parent = parent
+        init(webView: CalendlyView) {
+            self.webView = webView
+        }
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                  if let domain = webView.url?.host {
+                      print("Domain: \(domain)")
+            }
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

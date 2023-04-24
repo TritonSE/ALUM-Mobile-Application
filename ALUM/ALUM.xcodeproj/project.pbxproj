@@ -70,6 +70,7 @@
 		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
+		E3B7183429F6F67A00E12853 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = E3B7183329F6F67A00E12853 /* index.html */; };
 		E3F4186129E7222B00FDE56D /* CalendlyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */; };
 		E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186529E7246400FDE56D /* CalendlyBooking.swift */; };
 /* End PBXBuildFile section */
@@ -137,6 +138,7 @@
 		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
+		E3B7183329F6F67A00E12853 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBookingViewModel.swift; sourceTree = "<group>"; };
 		E3F4186529E7246400FDE56D /* CalendlyBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBooking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -344,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				E3F4186529E7246400FDE56D /* CalendlyBooking.swift */,
+				E3B7183329F6F67A00E12853 /* index.html */,
 			);
 			path = CalendlyBooking;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */,
+				E3B7183429F6F67A00E12853 /* index.html in Resources */,
 				80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */,
 				80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */,
 				80F5387729A6A80500FB5E66 /* Metropolis-ExtraBold.otf in Resources */,

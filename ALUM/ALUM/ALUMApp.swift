@@ -13,10 +13,22 @@ import FirebaseAuth
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-
-    return true
+      FirebaseApp.configure()
+      
+      return true
   }
+
+ func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Check if the URL scheme is your custom scheme
+        if url.scheme == "alumapp" {
+            print("Doing something with uri")
+            print(url)
+            return true
+        }
+        
+        print("Not doing anything")
+        return false
+    }
 }
 
 @main
