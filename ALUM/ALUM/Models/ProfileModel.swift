@@ -30,6 +30,7 @@ struct MentorInfo: Decodable {
     var status: String?
     var whyPaired: String?
 
+    // coding keys are for JSONDecoding
     private enum CodingKeys: String, CodingKey {
         case menteeIds
         case id = "mentorId"
@@ -67,6 +68,7 @@ struct MenteeInfo: Decodable {
     var status: String?
     var whyPaired: String?
 
+    // coding keys are for JSONDecoding
     private enum CodingKeys: String, CodingKey {
         case id = "menteeId"
         case name

@@ -10,7 +10,7 @@ import WrappingHStack
 
 struct MentorProfileView: View {
     @StateObject private var viewModel = MentorProfileViewmodel()
-    @State var isAtTop: Bool = true
+    @State var scrollAtTop: Bool = true
     @State var uID: String = ""
     var body: some View {
         NavigationView {
@@ -22,7 +22,7 @@ struct MentorProfileView: View {
                                 .frame(width: 0, height: 0)
                                 .foregroundColor(Color("ALUM Primary Purple"))
                                 .onChange(of: geo.frame(in: .global).midY) { midY in
-                                    isAtTop = midY >= -60.0
+                                    scrollAtTop = midY >= -60.0
                                 }
                         }
                         .frame(width: 0, height: 0)
@@ -66,27 +66,14 @@ struct MentorProfileView: View {
                         Text("NHS '19")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .padding(.bottom, 6)
-                        if viewModel.selfView {
-                            Button {
-                            } label: {
-                                Text("View My Calendly")
-                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            }
-                            .buttonStyle(FilledInButtonStyle())
-                            .frame(width: 358)
-                            .padding(.bottom, 26)
-                        } else {
-                            Button {
-                            } label: {
-                                Text("Book Session via Calendly")
-                                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            }
-                            .buttonStyle(FilledInButtonStyle())
-                            .frame(width: 358)
-                            .padding(.bottom, 10)
-                            WhyPairedComponent(text: viewModel.mentorGET.mentor.whyPaired ?? "")
-                                .padding(.bottom, 16)
+                        Button {
+                        } label: {
+                            Text(viewModel.selfView ? "View My Calendly" : "Book Calendly Session")
+                                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
+                        .buttonStyle(FilledInButtonStyle())
+                        .frame(width: 358)
+                        .padding(.bottom, 26)
                         Text("About")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Primary Purple"))
@@ -111,7 +98,9 @@ struct MentorProfileView: View {
                                     .padding(.leading, 16)
                                     .padding(.top, 27)
                                 WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIds!.count, id: \.self) { index in
-                                    NavigationLink(destination: MenteeProfileView(uID: viewModel.mentorGET.mentor.menteeIds![index])) {
+                                    NavigationLink(destination:
+                                                    MenteeProfileView(uID: viewModel.mentorGET.mentor.menteeIds![index])
+                                    ) {
                                         MenteeCard(isEmpty: true, uID: viewModel.mentorGET.mentor.menteeIds![index])
                                             .padding(.bottom, 15)
                                             .padding(.trailing, 10)
@@ -134,17 +123,25 @@ struct MentorProfileView: View {
                 ZStack {
                     if !viewModel.selfView {
                         // params currently placeholders for later navigation
-                        if isAtTop {
+                        if scrollAtTop {
                             NavigationHeaderComponent(
-                                backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: true, showButton: false)
+                                backText: "Login",
+                                backDestination: LoginPageView(),
+                                title: "Mentor Profile",
+                                purple: true,
+                                showButton: false)
                             .background(Color("ALUM Primary Purple"))
                         } else {
                             NavigationHeaderComponent(
-                                backText: "Login", backDestination: LoginPageView(), title: "Mentor Profile", purple: false, showButton: false)
+                                backText: "Login",
+                                backDestination: LoginPageView(),
+                                title: "Mentor Profile",
+                                purple: false,
+                                showButton: false)
                             .background(.white)
                         }
                     } else {
-                        if isAtTop {
+                        if scrollAtTop {
                             ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                                 .background(Color("ALUM Primary Purple"))
                         } else {

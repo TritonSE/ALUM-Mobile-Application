@@ -10,7 +10,7 @@ import WrappingHStack
 
 struct MenteeProfileView: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
-    @State var isAtTop: Bool = true
+    @State var scrollAtTop: Bool = true
     @State var uID: String = ""
     var body: some View {
         NavigationView {
@@ -22,7 +22,7 @@ struct MenteeProfileView: View {
                                 .frame(width: 0, height: 0)
                                 .foregroundColor(Color("ALUM Primary Purple"))
                                 .onChange(of: geo.frame(in: .global).midY) { midY in
-                                    isAtTop = midY >= -60.0
+                                    scrollAtTop = midY >= -60.0
                                 }
                         }
                         .frame(width: 0, height: 0)
@@ -55,10 +55,6 @@ struct MenteeProfileView: View {
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .padding(.bottom, 18)
-                        if !viewModel.selfView {
-                            WhyPairedComponent(text: viewModel.menteeGET.mentee.whyPaired ?? "")
-                                .padding(.bottom, 16)
-                        }
                         Text("About")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Primary Purple"))
@@ -85,7 +81,8 @@ struct MenteeProfileView: View {
                                 .padding(.top, 16)
                                 .padding(.leading, 16)
                                 .padding(.bottom, 8)
-                            NavigationLink(destination: MentorProfileView(uID: viewModel.menteeGET.mentee.mentorId ?? "")) {
+                            NavigationLink(destination:
+                                            MentorProfileView(uID: viewModel.menteeGET.mentee.mentorId ?? "")) {
                                 MentorCard(isEmpty: true, uID: viewModel.menteeGET.mentee.mentorId ?? "")
                                     .padding(.bottom, 10)
                             }
@@ -102,17 +99,27 @@ struct MenteeProfileView: View {
                 ZStack {
                     if !viewModel.selfView {
                         // params currently placeholders for later navigation
-                        if isAtTop {
+                        if scrollAtTop {
                             NavigationHeaderComponent(
-                                backText: "", backDestination: LoginPageView(), title: "Mentee Profile", purple: true, showButton: false)
+                                backText: "Login",
+                                backDestination: LoginPageView(),
+                                title: "Mentee Profile",
+                                purple: true,
+                                showButton: false
+                            )
                             .background(Color("ALUM Primary Purple"))
                         } else {
                             NavigationHeaderComponent(
-                                backText: "Login", backDestination: LoginPageView(), title: "Mentee Profile", purple: false, showButton: false)
+                                backText: "Login",
+                                backDestination: LoginPageView(),
+                                title: "Mentee Profile",
+                                purple: false,
+                                showButton: false
+                            )
                             .background(.white)
                         }
                     } else {
-                        if isAtTop {
+                        if scrollAtTop {
                             ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                                 .background(Color("ALUM Primary Purple"))
                         } else {

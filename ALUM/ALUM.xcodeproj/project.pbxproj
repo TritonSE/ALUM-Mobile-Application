@@ -28,6 +28,7 @@
 		80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */; };
 		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
 		8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileView.swift */; };
+		8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045EEB029F6844A00BD179C /* ServiceConstants.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
 		805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */; };
 		8083E73329E0D08400033F22 /* RenderTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083E73229E0D08400033F22 /* RenderTags.swift */; };
@@ -108,6 +109,7 @@
 		80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
 		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
 		8041161D29B21BB800529936 /* MentorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileView.swift; sourceTree = "<group>"; };
+		8045EEB029F6844A00BD179C /* ServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConstants.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
 		805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewmodel.swift; sourceTree = "<group>"; };
 		8083E73229E0D08400033F22 /* RenderTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTags.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			children = (
 				80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */,
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
+				8045EEB029F6844A00BD179C /* ServiceConstants.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				8083E73329E0D08400033F22 /* RenderTags.swift in Sources */,
 				8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */,
 				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
+				8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */,
 				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
 				979F812229B842E200D6E964 /* UniversityNames.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
