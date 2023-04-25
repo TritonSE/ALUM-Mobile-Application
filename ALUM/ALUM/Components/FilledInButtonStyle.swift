@@ -18,11 +18,11 @@ struct FilledInButtonStyle: ButtonStyle {
                     .foregroundColor(.white)
                     .font(.headline)
                     .background(
-                        LinearGradient(gradient: Gradient(colors:
-                                            [Color("ALUM Primary Blue"),
-                                             Color("ALUM Primary Dark Blue")]),
-                        startPoint: .bottomTrailing,
-                        endPoint: .topLeading))
+                                                         LinearGradient(gradient: Gradient(colors:
+                                                                             [Color("ALUM Primary Blue"),
+                                                                              Color("ALUM Primary Purple")]),
+                                                         startPoint: .trailing,
+                                                         endPoint: .leading))
                     .cornerRadius(8)
             } else {
                 configuration.label

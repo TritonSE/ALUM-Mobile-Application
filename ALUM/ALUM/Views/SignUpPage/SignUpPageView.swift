@@ -14,7 +14,7 @@ struct SignUpScreenHeaderModifier: ViewModifier {
                 NavigationHeaderComponent(
                     backText: "Login",
                     backDestination: LoginPageView(),
-                    title: "Signup"
+                    title: "Signup", purple: false
                 )
             }
             content
