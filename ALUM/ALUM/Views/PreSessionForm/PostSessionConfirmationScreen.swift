@@ -11,9 +11,10 @@ struct PostSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
     @State var currNotes: String = "this" // "this" or "other"
+    @State var user: String = "mentee" // "mentee" or "mentor"
 
     func setMyNotes() {
-        currNotes = "mine"
+        currNotes = "this"
     }
 
     func setOtherNotes() {
@@ -91,25 +92,55 @@ struct PostSessionConfirmationScreen: View {
                 Button {
                     setMyNotes()
                 } label: {
-                    Text("MY NOTES")
-                        .font(.custom("Metropolis-Regular", size: 16))
-                        .foregroundColor(Color("ALUM Dark Blue"))
+                    if currNotes == "this" {
+                        Text("MY NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .bold()
+                    } else {
+                        Text("MY NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                    }
+                    
                 }
                 .padding(.trailing, 40)
                 Button {
                     setOtherNotes()
                 } label: {
-                    Text("MENTOR NOTES")
-                        .font(.custom("Metropolis-Regular", size: 16))
-                        .foregroundColor(Color("ALUM Dark Blue"))
+                    if currNotes == "other" {
+                        Text("MENTOR NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .bold()
+                    } else {
+                        Text((user == "mentee") ? "MENTOR NOTES" : "MENTEE NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                    }
                 }
                 Spacer()
             }
             .padding(.leading, 16)
-            Divider()
-                .background(Color("ALUM Light Blue"))
-                .frame(width: 358)
-                .padding(.bottom, 32)
+            ZStack {
+                Divider()
+                    .background(Color("ALUM Light Blue"))
+                    .frame(width: 358)
+                    .padding(.bottom, 32)
+                if currNotes == "this" {
+                    Divider()
+                        .background(Color("ALUM Dark Blue").frame(height: 3))
+                        .frame(width: 84)
+                        .padding(.bottom, 32)
+                        .padding(.trailing, 275)
+                } else {
+                    Divider()
+                        .background(Color("ALUM Dark Blue").frame(height: 3))
+                        .frame(width: 129)
+                        .padding(.bottom, 32)
+                        .padding(.leading, 35)
+                }
+            }
 
             ForEach((currNotes == "this") ? viewModel.questionList : viewModel.questionListOther, id: \.self) { currQuestion in
                 HStack {
