@@ -68,7 +68,7 @@ struct MentorProfileView: View {
                             .padding(.bottom, 6)
                         Button {
                         } label: {
-                            Text(viewModel.selfView ? "View My Calendly" : "Book Calendly Session")
+                            Text(viewModel.selfView ? "View My Calendly" : "Book Session via Calendly")
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .buttonStyle(FilledInButtonStyle())
