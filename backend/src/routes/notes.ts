@@ -1,10 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Infer } from "caketype";
 import { Note } from "../models/notes";
+import {Session} from "../models/session";
 import { questionIDs } from "../config";
-import { updateNotes } from "../services/note";
+import {createPostSessionNotes, updateNotes} from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
+import { CheckboxBullet } from "../types/notes";
+import {ServiceError} from "../errors";
 
 const router = express.Router();
 
@@ -34,15 +37,48 @@ interface NoteItem {
 ]
  */
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    console.log("Getting...");
+  try{
     const id = req.params.id;
     const note = await Note.findById(id);
     if (note == null) {
-      throw new Error();
+      return res.status(ServiceError.NOTE_WAS_NOT_FOUND.status)
+          .send(ServiceError.NOTE_WAS_NOT_FOUND.message);
     }
-    const notes: NoteItem[] = note.answers as NoteItem[];
-    notes.forEach((note_answer) => {
+    if (note.type==="post"){
+      const temp = await Session.findOne({postSession : id});
+      if(temp == null){
+        return res.status(ServiceError.SESSION_WAS_NOT_FOUND.status)
+            .send(ServiceError.SESSION_WAS_NOT_FOUND);
+      }
+      else {
+        const preSessionNotes = await Note.findById(temp.preSession);
+        if(preSessionNotes==null){
+          return res.status(ServiceError.NOTE_WAS_NOT_FOUND.status)
+              .send(ServiceError.NOTE_WAS_NOT_FOUND.message);
+
+        }
+        else{
+          const topicsToDiscuss = preSessionNotes.answers[0].answer;
+          if(topicsToDiscuss instanceof Array){
+            note.answers[0].type="CheckboxBullet";
+            const topicsArray: CheckboxBullet[] = [];
+            topicsToDiscuss.forEach((topic) => {
+              if(typeof topic === "string") {
+                let tempTopic: CheckboxBullet =
+                {
+                  content: topic,
+                  status: "unchecked"
+                };
+               topicsArray.push(tempTopic);
+              }
+              });
+            note.answers[0].answer=topicsArray;
+          }
+        }
+      }
+    }
+    const notesAnswers: NoteItem[] = note.answers as NoteItem[];
+    notesAnswers.forEach((note_answer) => {
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
     return res.status(200).json(note.answers);

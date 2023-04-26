@@ -40,7 +40,6 @@ router.post(
   "/sessions",
   validateReqBodyWithCake(CreateSessionRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
-    console.info("Posting new session,", req.query);
     try {
       const preNoteId = await createPreSessionNotes();
       const postNoteId = await createPostSessionNotes();
@@ -59,7 +58,9 @@ router.post(
       });
     } catch (e) {
       next();
-      return res.status(400);
+      return res.status(400).json({
+        error: e
+      });
     }
   }
 );
