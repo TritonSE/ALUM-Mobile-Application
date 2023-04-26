@@ -45,13 +45,6 @@ struct MenteeSessionsDetailsPage: View {
             .applyMenteeSessionDetailsHeaderModifier()
             .edgesIgnoringSafeArea(.bottom)
         }
-        .task {
-            do {
-                try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
-            } catch {
-                print(error)
-            }
-        }
     }
     
     var content: some View {
@@ -212,6 +205,7 @@ struct MenteeSessionsDetailsPage: View {
         }
     }
 }
+
 
 struct MenteeSessionsDetailsPage_Previews: PreviewProvider {
     static var previews: some View {

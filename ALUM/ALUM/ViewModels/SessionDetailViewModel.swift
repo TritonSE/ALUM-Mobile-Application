@@ -45,6 +45,16 @@ final class SessionDetailViewModel: ObservableObject {
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     
+    init() {
+        Task {
+            do {
+                try await self.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
     func loadSession(sessionID: String) async throws {
         guard let sessionData = try? await SessionService().getSessionWithID(sessionID: sessionID) else {
             print("Error getting session info")

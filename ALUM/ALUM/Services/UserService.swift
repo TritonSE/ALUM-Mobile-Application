@@ -79,6 +79,19 @@ class UserService {
         }
         return try await self.createUser(url: APIRoutes.mentorPOST, jsonData: jsonData)
     }
+
+    func attachTokenToRequest(request: URLRequest) async throws -> URLRequest {
+        var finalRequest = request
+        guard let authToken = try await getCurrentAuth() else {
+            throw APIError.authenticationError(
+                message: "Error getting auth token"
+            )
+        }
+        finalRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        finalRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        return finalRequest
+    }
+    
     func getCurrentAuth() async throws -> String? {
         if let currentUser = Auth.auth().currentUser {
             do {
@@ -96,92 +109,7 @@ class UserService {
             return nil
         }
     }
-
-    func attachTokenToRequest(request: URLRequest) async throws -> URLRequest {
-        var finalRequest = request
-        guard let authToken = try await getCurrentAuth() else {
-            throw APIError.authenticationError(
-                message: "Error getting auth token"
-            )
-        }
-        finalRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        finalRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        return finalRequest
-    }
-    func getMentor(userID: String) async throws -> MentorGetData? {
-        let urlObj = URL(string: APIRoutes.mentorGET + userID)!
-        var request = URLRequest(url: urlObj)
-        request.httpMethod = "GET"
-        request = try await attachTokenToRequest(request: request)
-        do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("GET \(APIRoutes.mentorGET + userID) was successful.")
-                guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-                    throw APIError.invalidRequest(
-                        message: "Failed to Decode Data"
-                    )
-                }
-                return mentorData
-            }
-        } catch {
-            print(error)
-            throw error
-        }
-    }
-    func getMentee(userID: String) async throws -> MenteeGetData? {
-        let urlObj = URL(string: APIRoutes.menteeGET + userID)!
-        var request = URLRequest(url: urlObj)
-        request.httpMethod = "GET"
-        request = try await attachTokenToRequest(request: request)
-        do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("GET \(APIRoutes.menteeGET + userID) was successful.")
-                guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-                    throw APIError.invalidRequest(
-                        message: "Failed to Decode Data"
-                    )
-                }
-                return menteeData
-            }
-        } catch {
-            print(error)
-            throw error
-        }
-    }
-    func getCurrentAuth() async throws -> String? {
-        if let currentUser = Auth.auth().currentUser {
-            do {
-                let tokenResult = try await currentUser.getIDTokenResult()
-                return tokenResult.token
-            } catch let error {
-                // Handle the error
-                print("Error getting auth token: \(error.localizedDescription)")
-                throw(error)
-            }
-        } else {
-            // User is not logged in
-            print("User is not logged in")
-            return nil
-        }
-    }
+    
     func getMentor(userID: String) async throws -> MentorGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentor/" + userID)!
         var request = URLRequest(url: urlObj)
@@ -191,15 +119,10 @@ class UserService {
             return nil
         }
         */
-        let authToken =
-        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoia" +
-        "HR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjA1ODczOCwidXNlcl9pZ" +
-        "CI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjA1ODczOCwiZXhwIjoxNjgyMDYyMzM4LCJlbWFpb" +
-        "CI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic" +
-        "2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JVc7hWZzJ6niqg-KgDj17vG_rLDi2_lnXPHKAMInS3o0yTtjC6LkKVFMxDKbgkv5fxTyTxMm3EGxq8Ur150CrP9f66jD-Yfb" +
-        "RtqQpddRwOR0kBHFZr1ayXTIEMu6epugTCrEHX6rRo-TZUm3moI2_4avPVGpLpDl-gmwBDa6co_JOhAGGNoOxif68lG50j6e12SSeWoglkcpKoVOwYjtN2WVSVV9pg6Nmuy8VwFU" +
-        "0gSbwpnrI6nF0eFBxUbynjsGKf56DBm9Pl510NMs0HkBxsHFC8Rbfpr4iHuTohBELgM0OiG3i2IeuTIbED5hbL_3yQqkKBEociV7GEyZDmVV2g"
+        // swiftlint:disable:next line_length
+        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImU3OTMwMjdkYWI0YzcwNmQ2ODg0NGI4MDk2ZTBlYzQzMjYyMjIwMDAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjQ4NzQ4NywidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjQ4NzQ4NywiZXhwIjoxNjgyNDkxMDg3LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.VJqw2YEqxnGne2PKCRqIotemterM1Z1mn8t69-HH4F63WiRlX-B0dcO-oe2UuRVizXP_q9tYL1WcPKfK_uYA5niS4EQQqxMppH5o18XpPWE8NxrfpYGO9rzmzuef649vDvAjGnPWzeApwrY0Ocfbc6CP7GoxoMDAwwynRtjnVD9LxGK7-kt2QPZ19eaxY4pWParT595gijYmL8p8T9azowtjSeb7a79HTu5jwF8cP7etol56VwEaskQZVS_pGN-psGn7CjBk8e9qhXV8li0gVa9FPawLx2fXQVOHGAbbmf3E-yaUVSnXnzfEGTP8vgwqKDxtlE-e2MvM72CevcuKWA"
         request.httpMethod = "GET"
+        // request = try await attachTokenToRequest(request: request)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
@@ -213,11 +136,12 @@ class UserService {
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
                 )
             } else {
-                print("GET \("http://localhost:3000/mentor/" + userID) was successful.")
                 guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-                    print("Failed to decode order ")
-                    return nil
+                    throw APIError.invalidRequest(
+                        message: "Failed to Decode Data"
+                    )
                 }
+                print("GET \(APIRoutes.mentorGET + userID) was successful.")
                 return mentorData
             }
         } catch {
@@ -225,6 +149,7 @@ class UserService {
             throw error
         }
     }
+    
     func getMentee(userID: String) async throws -> MenteeGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentee/" + userID)!
         var request = URLRequest(url: urlObj)
@@ -234,15 +159,10 @@ class UserService {
             return nil
         }
          */
-        let authToken =
-        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZGE4NmU4MWJkNTllMGE4Y2YzNTgwNTJiYjUzYjUzYjE4MzA3NzMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoia" +
-        "HR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjA1ODczOCwidXNlcl9pZ" +
-        "CI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjA1ODczOCwiZXhwIjoxNjgyMDYyMzM4LCJlbWFpb" +
-        "CI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic" +
-        "2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JVc7hWZzJ6niqg-KgDj17vG_rLDi2_lnXPHKAMInS3o0yTtjC6LkKVFMxDKbgkv5fxTyTxMm3EGxq8Ur150CrP9f66jD-Yfb" +
-        "RtqQpddRwOR0kBHFZr1ayXTIEMu6epugTCrEHX6rRo-TZUm3moI2_4avPVGpLpDl-gmwBDa6co_JOhAGGNoOxif68lG50j6e12SSeWoglkcpKoVOwYjtN2WVSVV9pg6Nmuy8VwFU" +
-        "0gSbwpnrI6nF0eFBxUbynjsGKf56DBm9Pl510NMs0HkBxsHFC8Rbfpr4iHuTohBELgM0OiG3i2IeuTIbED5hbL_3yQqkKBEociV7GEyZDmVV2g"
+        // swiftlint:disable:next line_length
+        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImU3OTMwMjdkYWI0YzcwNmQ2ODg0NGI4MDk2ZTBlYzQzMjYyMjIwMDAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjQ4NzQ4NywidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjQ4NzQ4NywiZXhwIjoxNjgyNDkxMDg3LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.VJqw2YEqxnGne2PKCRqIotemterM1Z1mn8t69-HH4F63WiRlX-B0dcO-oe2UuRVizXP_q9tYL1WcPKfK_uYA5niS4EQQqxMppH5o18XpPWE8NxrfpYGO9rzmzuef649vDvAjGnPWzeApwrY0Ocfbc6CP7GoxoMDAwwynRtjnVD9LxGK7-kt2QPZ19eaxY4pWParT595gijYmL8p8T9azowtjSeb7a79HTu5jwF8cP7etol56VwEaskQZVS_pGN-psGn7CjBk8e9qhXV8li0gVa9FPawLx2fXQVOHGAbbmf3E-yaUVSnXnzfEGTP8vgwqKDxtlE-e2MvM72CevcuKWA"
         request.httpMethod = "GET"
+        // request = try await attachTokenToRequest(request: request)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         do {
@@ -256,11 +176,12 @@ class UserService {
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
                 )
             } else {
-                print("GET \("http://localhost:3000/mentee/" + userID) was successful.")
                 guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-                    print("Failed to decode order ")
-                    return nil
-                    }
+                    throw APIError.invalidRequest(
+                        message: "Failed to Decode Data"
+                    )
+                }
+                print("GET \(APIRoutes.menteeGET + userID) was successful.")
                 return menteeData
             }
         } catch {
