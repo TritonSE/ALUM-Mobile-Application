@@ -16,7 +16,9 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
   const token =
     authHeader && authHeader.split(" ")[0] === "Bearer" ? authHeader.split(" ")[1] : null;
   if (!token) {
-    return res.status(AuthError.TOKEN_NOT_IN_HEADER.status).send(AuthError.TOKEN_NOT_IN_HEADER.message);
+    return res
+      .status(AuthError.TOKEN_NOT_IN_HEADER.status)
+      .send(AuthError.TOKEN_NOT_IN_HEADER.displayMessage(true));
   }
 
   let userInfo;
