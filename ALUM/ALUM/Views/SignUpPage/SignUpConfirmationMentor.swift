@@ -168,6 +168,26 @@ struct SignUpConfirmationMentor: View {
                 }
                 .padding(.bottom, 32)
             }
+            Group {
+                HStack {
+                    Text("Location")
+                        .padding(.leading)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .padding(.trailing, 37)
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 8)
+                HStack {
+                    Text(viewModel.mentor.location)
+                        .padding(.leading)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
+            }
             VStack {
                 HStack {
                     Text("Topics of Expertise:")

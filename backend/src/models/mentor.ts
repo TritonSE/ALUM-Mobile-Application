@@ -19,6 +19,7 @@ interface MentorInterface {
   mentorMotivation: string;
   pairingIds: string[];
   status: string;
+  location: string;
 }
 
 interface MentorDoc extends mongoose.Document {
@@ -35,6 +36,7 @@ interface MentorDoc extends mongoose.Document {
   mentorMotivation: string;
   pairingIds: string[];
   status: string;
+  location: string;
 }
 
 interface MentorModelInterface extends mongoose.Model<MentorDoc> {
@@ -95,6 +97,10 @@ const mentorSchema = new mongoose.Schema({
     },
   ],
   status: {
+    type: String,
+    required: true,
+  },
+  location: {
     type: String,
     required: true,
   },
