@@ -15,11 +15,18 @@ interface SessionInterface {
 }
 
 interface SessionDoc extends mongoose.Document {
+<<<<<<< HEAD
   preSession: string;
   postSessionMentee: string;
   postSessionMentor: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
+=======
+  preSession: ObjectId;
+  postSession: ObjectId;
+  menteeId: string;
+  mentorId: string;
+>>>>>>> bde31717 (errors)
   dateTime: Date;
 }
 
@@ -41,11 +48,11 @@ const SessionSchema = new mongoose.Schema({
     required: true,
   },
   menteeId: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
   },
   mentorId: {
-    type: mongoose.Types.ObjectId,
+    type: String,
     required: true,
   },
   dateTime: {
