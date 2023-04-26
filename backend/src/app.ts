@@ -7,7 +7,7 @@ import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
 import { imageRouter } from "./routes/image";
 import { errorHandler } from "./errors/handler";
-
+import { calendlyPage } from "./routes/calendlyPage";
 /**
  * Express server application class.
  * @description Will later contain the routing system.
@@ -24,10 +24,12 @@ mongoose.connect(mongoURI, {}, () => {
 });
 
 server.app.use(json());
+server.app.set('view engine', 'pug')
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
 server.app.use(notesRouter);
 server.app.use(imageRouter);
+server.app.use(calendlyPage);
 server.app.use(errorHandler); // This handler is reached whenever there is some error in our middleware chain
 
 // make server listen on some port
