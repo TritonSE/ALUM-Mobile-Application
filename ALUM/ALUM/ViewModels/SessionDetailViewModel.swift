@@ -10,7 +10,8 @@ import Foundation
 final class SessionDetailViewModel: ObservableObject {
     @Published var session = Session(
         preSessionID: "abc123",
-        postSessionID: "xyz789",
+        menteePostSessionID: "xyz789",
+        mentorPostSessionID: "zyx987",
         mentor: MentorGetData(
             message: "Hello",
             mentor: MentorInfo(
@@ -53,7 +54,8 @@ final class SessionDetailViewModel: ObservableObject {
         }
         self.session.dateTime = sessionData.session.dateTime
         self.session.preSessionID = sessionData.session.preSession
-        self.session.postSessionID = sessionData.session.postSession
+        self.session.menteePostSessionID = sessionData.session.postSessionMentee
+        self.session.mentorPostSessionID = sessionData.session.postSessionMentor
 
         guard let mentorData = try? await UserService().getMentor(userID: sessionData.session.mentorId) else {
             print("Error getting mentor info")

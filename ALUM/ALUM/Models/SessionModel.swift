@@ -9,7 +9,8 @@ import Foundation
 
 struct Session {
     var preSessionID: String
-    var postSessionID: String
+    var menteePostSessionID: String
+    var mentorPostSessionID: String
     var mentor: MentorGetData
     var mentee: MenteeGetData
     var dateTime: String
