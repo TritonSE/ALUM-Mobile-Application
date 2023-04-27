@@ -8,7 +8,8 @@ import { createPreSessionNotes, createPostSessionNotes } from "../services/note"
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { getCalendlyEventDate } from "../services/calendly";
-import { accessToken } from "../config";
+import { ServiceError } from "../errors";
+import { Mentor } from "../models/mentor";
 /**
  * This is a post route to create a new session. 
  *
@@ -42,15 +43,12 @@ router.post(
       const preNoteId = await createPreSessionNotes();
       const postNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
-      if(!accessToken) {
-        throw Error("Token not found")
+      const mentor = await Mentor.findById(mentorId);
+      if(!mentor) {
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
+      const accessToken = mentor.personalAccessToken;
       const meetingTime = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
-      /*
-      console.log(eventDate);
-      const meetingTime = new Date(eventDate);
-      */
-      console.log(meetingTime)
       const session = new Session({
         preSession: preNoteId._id,
         postSession: postNoteId._id,

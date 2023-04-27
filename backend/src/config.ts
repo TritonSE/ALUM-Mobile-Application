@@ -51,6 +51,5 @@ const port = portV;
 const mongoURI = mongoURIV;
 const serviceAccountKey = serviceAccountKeyV;
 const defaultImageID = defaultImageIdV;
-const accessToken = process.env.CALENDLY_TOKEN;
 
-export { port, mongoURI, serviceAccountKey, defaultImageID, accessToken };
+export { port, mongoURI, serviceAccountKey, defaultImageID };
