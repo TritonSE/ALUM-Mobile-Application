@@ -1,5 +1,4 @@
 import express, { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
 
 const router = express.Router()
 
@@ -12,8 +11,8 @@ router.get('/calendly', (req: Request, res: Response) => {
         <meta name='viewport' content='width=device-width' />
     </head>
     <script>
-        function sendMessage() {
-            webkit.messageHandlers.myHandler.postMessage("Hello from HTML page!");
+        function sendMessage(message) {
+            webkit.messageHandlers.calendlyURI.postMessage(message);
             console.log("message sent", window.parent.origin);
             fetch('http://127.0.0.1:5000/')
             .then(response => {
@@ -23,38 +22,26 @@ router.get('/calendly', (req: Request, res: Response) => {
                     console.error(error);
             });
         }
+
         function isCalendlyEvent(e) {
             return e.data.event &&
                 e.data.event.indexOf('calendly') === 0;
         };
                         
-        window.addEventListener(
-            'message',
-            function(e) {{
-            if (isCalendlyEvent(e)) {
-                console.log(e.data);
-                }}
-            }
-        );
-                    
-        function isCalendlyEvent(e) {
-            console.log('testing' + e.name);
-            return e.data.event &&
-                e.data.event.indexOf('calendly') === 0;
-        };
                     
         window.addEventListener('message', function(e) {
             console.log('In listener. Event.type: ' + event.type +
-                ' e.data.event: ' + e.data.event + ' event: ' + JSON.stringify(e.data));
+            ' e.data.event: ' + e.data.event + ' event: ' + JSON.stringify(e.data));
             if (isCalendlyEvent(e)) {
-                console.log('calendly event!!!!');
-                    window.webkit.messageHandlers.myHandler.postMessage('Calendly:' + e.data);
+                var uri = e.data.payload.event.uri;
+                //console.log(uri);
+                console.log(e.data);
+                sendMessage(uri);
             } else {
-                window.webkit.messageHandlers.myHandler.postMessage('Other:' + e.data);
+                sendMessage(e.data);
             }
         });
     </script>
-    <button onclick="sendMessage()">Send Message </button>
     <!-- Calendly inline widget begin -->
     <div class="calendly-inline-widget" data-auto-load="false">
         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>

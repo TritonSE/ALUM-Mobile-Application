@@ -7,6 +7,8 @@ import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
+import { getCalendlyEventDate } from "../services/calendly";
+import { accessToken } from "../config";
 /**
  * This is a post route to create a new session. 
  *
@@ -15,7 +17,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
  postSession: string;
  menteeId: string;
  mentorId: string;
- dateTime: Date;
+ calendlyURI: string;
 }
 
 IMPORTANT: Date should be passed in with the format:
@@ -40,7 +42,15 @@ router.post(
       const preNoteId = await createPreSessionNotes();
       const postNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
-      const meetingTime = new Date(req.body.dateInfo);
+      if(!accessToken) {
+        throw Error("Token not found")
+      }
+      const meetingTime = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
+      /*
+      console.log(eventDate);
+      const meetingTime = new Date(eventDate);
+      */
+      console.log(meetingTime)
       const session = new Session({
         preSession: preNoteId._id,
         postSession: postNoteId._id,
@@ -53,6 +63,7 @@ router.post(
         message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
       });
     } catch (e) {
+      console.log(e)
       next();
       return res.status(400);
     }

@@ -15,7 +15,7 @@ import WebKit
 
 struct CalendlyBooking: View  {
     @State public var showWebView = false
-    public var urlString: String = "https://calendly.com/aananthanregina/30min"
+    public var urlString: String = "http://localhost:3000/calendly?url=https://calendly.com/aananthanregina/test"
     
     var body: some View {
         VStack(spacing: 0) {
@@ -43,19 +43,14 @@ struct CalendlyView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
-        webView.configuration.userContentController.add(context.coordinator, name: "*")
+        webView.configuration.userContentController.add(context.coordinator, name: "calendlyURI")
         webView.navigationDelegate = context.coordinator
         return webView
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        let htmlPath = Bundle.main.path(forResource: "index", ofType: "html")!
-        let htmlUrl = URL(fileURLWithPath: htmlPath)
-        let request = URLRequest(url: htmlUrl)
-        /*
         let request = URLRequest(url: url)
         uiView.load(request)
-         */
         uiView.load(request)
     }
     
@@ -77,7 +72,9 @@ struct CalendlyView: UIViewRepresentable {
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            print("I got to the userContentController Function")
+            if message.name == "calendlyURI" {
+                print(message.body)
+            }
         }
     }
 }
