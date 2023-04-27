@@ -10,7 +10,7 @@ import SwiftUI
 struct MentorSessionDetailsHeaderModifier: ViewModifier {
     @State var date: String = ""
     @State var mentee: String = ""
-    
+
     func body(content: Content) -> some View {
         VStack {
             VStack {
@@ -48,7 +48,9 @@ struct MentorSessionDetailsPage: View {
 
                         NavigationFooter(page: "Home")
                     }
-                    .applyMentorSessionDetailsHeaderModifier(date: viewModel.session.dateTime, mentee: viewModel.session.mentee.mentee.name)
+                    .applyMentorSessionDetailsHeaderModifier(
+                        date: viewModel.session.dateTime,
+                        mentee: viewModel.session.mentee.mentee.name)
                     .edgesIgnoringSafeArea(.bottom)
                 }
             } else {
