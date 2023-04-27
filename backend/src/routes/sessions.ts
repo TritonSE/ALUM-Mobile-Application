@@ -59,7 +59,9 @@ router.post(
       });
       await session.save();
       return res.status(201).json({
-        message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
+        sessionID: session.id,
+        menteeId: menteeId,
+        mentorId: mentorId,
       });
     } catch (e) {
       console.log(e)
