@@ -24,7 +24,9 @@ struct MissedSessionScreen: View {
     @State var noOption: Bool = false
     @State var otherEmpty: Bool = false
     @State var otherText: String = ""
-    @State var user: String
+    @State var otherUser: String = "Mentor"
+    @State var date: String = "date"
+    @State var time: String = "time"
 
     var body: some View {
         GeometryReader { geometry in
@@ -36,7 +38,7 @@ struct MissedSessionScreen: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color("ALUM Light Blue"))
-                                Text("It seems that your session with [Mentor/mentee Name] on [date] at [time] didn't happen.")
+                                Text("You have successfully booked a session with \(otherUser) on \(date) at \(time).")
                                     .font(.custom("Metropolis-Regular", size: 17))
                                     .lineSpacing(10)
                                     .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
@@ -175,9 +177,8 @@ struct MissedSessionScreen: View {
 
 struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
-    static private var user = "mentor"
     
     static var previews: some View {
-        MissedSessionScreen(viewModel: viewModel, user: user)
+        MissedSessionScreen(viewModel: viewModel)
     }
 }

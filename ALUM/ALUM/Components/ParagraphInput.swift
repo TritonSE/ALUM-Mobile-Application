@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct ParagraphInput: View {
-    @State var question: String
+    var question: String
     @Binding var text: String
     @State var fixedHeight: Bool = false
 

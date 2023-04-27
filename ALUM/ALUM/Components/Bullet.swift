@@ -100,7 +100,7 @@ struct Bullet: View {
 
 struct BulletsView: View {
     @Binding var bullets: [String]
-    @State var question: String
+    var question: String
     @State var showingSheet = false
     @State var newText = ""
     @State var editingBulletIndex = 0

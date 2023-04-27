@@ -11,6 +11,9 @@ struct PreSessionQuestionScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
+    @State var otherUser: String = "Mentor"
+    @State var date: String = "date"
+    @State var time: String = "time"
 
     var body: some View {
         VStack {
@@ -112,7 +115,7 @@ struct PreSessionQuestionScreen: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color("ALUM Light Blue"))
-                    Text("You have successfully booked a session with [Mentor Name] on [date] at [time]!")
+                    Text("You have successfully booked a session with \(otherUser) on \(date) at \(time).")
                         .font(.custom("Metropolis-Regular", size: 17))
                         .lineSpacing(10)
                         .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
