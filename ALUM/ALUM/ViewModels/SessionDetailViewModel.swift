@@ -44,16 +44,7 @@ final class SessionDetailViewModel: ObservableObject {
     )
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
-    
-    init() {
-        Task {
-            do {
-                try await self.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
-            } catch {
-                print(error)
-            }
-        }
-    }
+    @Published var isLoading: Bool = true
     
     func loadSession(sessionID: String) async throws {
         guard let sessionData = try? await SessionService().getSessionWithID(sessionID: sessionID) else {
@@ -75,23 +66,6 @@ final class SessionDetailViewModel: ObservableObject {
             return
         }
         self.session.mentee = menteeData
-        
-        /*
-        do {
-            var sessionData: GetSessionData = try await SessionService().getSessionWithID(sessionID: "6436f1175a9cebd93b899a51")
-            self.session.dateTime = sessionData.session.dateTime
-
-            var mentorRaw: MentorGetData = try await UserService().getMentor(userID: sessionData.session.mentorId)
-            var mentor: MentorInfo = mentorRaw.mentor
-            self.session.mentor = mentor
-
-            var menteeRaw: MenteeGetData = try await UserService().getMentee(userID: sessionData.session.menteeId)
-            var mentee: MenteeInfo = menteeRaw.mentee
-            self.session.mentee = mentee
-        } catch {
-            print(error)
-            throw(error)
-        }
-         */
+        self.isLoading = false
     }
 }

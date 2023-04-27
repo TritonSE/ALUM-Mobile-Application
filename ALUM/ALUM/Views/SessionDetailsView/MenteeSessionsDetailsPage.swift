@@ -32,19 +32,36 @@ struct MenteeSessionsDetailsPage: View {
     var dateFormatter = DateFormatter()
     
     var body: some View {
-        GeometryReader { grr in
-            VStack {
-                ScrollView {
-                    content
-                        .padding(.horizontal, 16)
-                }
-                .frame(minHeight: grr.size.height-120)
+        Group {
+            if !viewModel.isLoading {
+                GeometryReader { grr in
+                    VStack {
+                        ScrollView {
+                            content
+                                .padding(.horizontal, 16)
+                        }
+                        .frame(minHeight: grr.size.height-120)
 
-                NavigationFooter(page: "Home")
+                        NavigationFooter(page: "Home")
+                    }
+                    .applyMenteeSessionDetailsHeaderModifier()
+                    .edgesIgnoringSafeArea(.bottom)
+                }
+            } else {
+                ProgressView()
             }
-            .applyMenteeSessionDetailsHeaderModifier()
-            .edgesIgnoringSafeArea(.bottom)
         }
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
+                } catch {
+                    print("Error")
+                }
+            }
+        }
+        
+        
     }
     
     var content: some View {
