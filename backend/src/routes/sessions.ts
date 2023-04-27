@@ -11,6 +11,7 @@ import { ServiceError } from "../errors/service";
 import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
+
 /**
  * This is a post route to create a new session. 
  *
@@ -100,5 +101,40 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
       .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
   }
 });
+
+router.get(
+  "/sessions",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userID = req.body.uid;
+    const role = req.body.role;
+    let userSessions;
+    if (role === null || userID === null) {
+      return res
+        .status(InternalError.ERROR_GETTING_SESSION.status)
+        .send(InternalError.ERROR_GETTING_SESSION.message);
+    }
+    try {
+      if (role === "mentee") {
+        userSessions = await Session.find({ menteeId: { $eq: userID } });
+      }
+      if (role === "mentor") {
+        userSessions = await Session.find({ mentorId: { $eq: userID } });
+      }
+      if (userSessions === null) {
+        return res.status(400).json({
+          message: `No sessions found for user ${userID}!`,
+        });
+      }
+      return res.status(200).json({
+        message: `Sessions for user ${userID}:`,
+        sessions: userSessions,
+      });
+    } catch (e) {
+      next();
+      return res.status(400);
+    }
+  }
+);
 
 export { router as sessionsRouter };

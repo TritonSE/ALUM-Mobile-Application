@@ -14,7 +14,8 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
                 NavigationHeaderComponent(
                     backText: "XXX",
                     backDestination: LoginPageView(),
-                    title: "Post-session Notes"
+                    title: "Post-session Notes",
+                    purple: false
                 )
             }
             content

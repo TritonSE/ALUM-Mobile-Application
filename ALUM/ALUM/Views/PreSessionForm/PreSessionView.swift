@@ -14,7 +14,8 @@ struct PreSessionScreenHeaderModifier: ViewModifier {
                 NavigationHeaderComponent(
                     backText: "XXX",
                     backDestination: LoginPageView(),
-                    title: "Pre-session Notes"
+                    title: "Pre-session Notes",
+                    purple: false
                 )
             }
             content
