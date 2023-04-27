@@ -345,7 +345,7 @@ router.get(
             imageId,
             about,
             calendlyLink,
-            zoomLink : (zoomLink == undefined) ? "N/A" : zoomLink,
+            zoomLink: zoomLink === undefined ? "N/A" : zoomLink,
             graduationYear,
             college,
             major,

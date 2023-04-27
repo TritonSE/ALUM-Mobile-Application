@@ -10,7 +10,7 @@ interface MentorInterface {
   imageId: string;
   about: string;
   calendlyLink: string;
-  zoomLink: string
+  zoomLink: string;
   graduationYear: number;
   college: string;
   major: string;
@@ -62,7 +62,7 @@ const mentorSchema = new mongoose.Schema({
   },
   zoomLink: {
     type: String,
-    required: true
+    required: true,
   },
   graduationYear: {
     type: Number,
