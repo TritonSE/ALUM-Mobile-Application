@@ -13,7 +13,6 @@ async function getCalendlyEventDate(uri: String, accessToken: String) {
     let uuid = ''
     if (match) {
         uuid = match[1];
-        console.log(uuid);
     } else {
         throw ServiceError.INVALID_URI;
     }
@@ -28,7 +27,6 @@ async function getCalendlyEventDate(uri: String, accessToken: String) {
         });
         const data = response.json();
         const dateTime = data.then(data => data.resource.start_time);
-        console.log(dateTime);
         return dateTime
     } catch (e) {
         console.log(e)

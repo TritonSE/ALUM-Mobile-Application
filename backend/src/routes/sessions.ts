@@ -6,6 +6,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
+import { verifyAuthToken } from "../middleware/auth";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { getCalendlyEventDate } from "../services/calendly";
 import { ServiceError } from "../errors";
@@ -36,9 +37,9 @@ const router = express.Router();
 
 router.post(
   "/sessions",
-  validateReqBodyWithCake(CreateSessionRequestBodyCake),
+  [verifyAuthToken, validateReqBodyWithCake(CreateSessionRequestBodyCake)],
   async (req: Request, res: Response, next: NextFunction) => {
-    console.info("Posting new session,", req.query);
+    console.info("Posting new session,");
     try {
       const preNoteId = await createPreSessionNotes();
       const postNoteId = await createPostSessionNotes();
