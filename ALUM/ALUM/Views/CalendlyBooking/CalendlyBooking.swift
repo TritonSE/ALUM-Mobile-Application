@@ -15,6 +15,7 @@ import WebKit
 
 struct CalendlyBooking: View  {
     @State public var showWebView = false
+    // This should be updated to use the mentors link
     public var urlString: String = "http://localhost:3000/calendly?url=https://calendly.com/aananthanregina/test"
     
     var body: some View {
@@ -59,6 +60,10 @@ struct CalendlyView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
+        
+        
+
+        
         var webView: CalendlyView
         
         init(webView: CalendlyView) {
@@ -73,10 +78,22 @@ struct CalendlyView: UIViewRepresentable {
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
-                print(message.body)
+                Task{
+                    do {
+                        print(message.body)
+                        var messageBody = "\(message.body)"
+                        // Method should be called with proper mentor, mentee ids
+                        let result = try await
+                        PostSessionService().postSessionWithId(menteeId: "6431b99ebcf4420fe9825fe3", mentorId: "6431b9a2bcf4420fe9825fe5", calendlyURI: messageBody)
+                            
+                    } catch {
+                        print("Error Posting session")
+                    }
+                }
             }
         }
     }
+        
 }
 
 struct CalendlyBooking_Previews: PreviewProvider {

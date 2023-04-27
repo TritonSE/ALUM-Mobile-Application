@@ -11,19 +11,70 @@
 import Foundation
 
 
-struct SessionPostData {
+struct SessionPostData: Codable {
     var menteeId: String
     var mentorId: String
     var calendlyURI: String
 }
 
-struct SessionData {
-    var menteeId: String,
-    var 
+struct PostSessionData: Codable {
+    var sessionId: String
+    var menteeId: String
+    var mentorId: String
 }
 
 class PostSessionService {
-    postSessionWithId(menteeId: String, mentorId: String, calendlyURI: String) async throws -> SessionPostData?  {
+    func postSessionWithId(menteeId: String, mentorId: String, calendlyURI: String) async throws -> PostSessionData?  {
+        let urlObj = URL(string: "http://localhost:3000/sessions")!
+        var request = URLRequest(url: urlObj)
         
+        /*
+        guard let authToken = try await UserService().getCurrentAuth() else {
+                print("Could not get auth token")
+                throw APIError.invalidRequest(message: "Could not get auth token")
+        }
+        */
+        
+        // Add another authToken
+        let authToken = ""
+        
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let sessionBodyData = SessionPostData(menteeId: menteeId, mentorId: mentorId, calendlyURI: calendlyURI)
+        
+        guard let jsonData = try? JSONEncoder().encode(sessionBodyData) else {
+            throw APIError.invalidRequest(message: "Error encoding JSON Data")
+        }
+        
+        do {
+            request.httpBody =  jsonData
+            
+            let (responseData, response) = try await URLSession.shared.data(for: request)
+            // Check the response status code
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw APIError.networkError()
+            }
+
+            if httpResponse.statusCode != 201 {
+                let responseStr = String(decoding: responseData, as: UTF8.self)
+                throw APIError.invalidRequest(
+                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
+                )
+            } else {
+                print("POST (http://localhost:3000/sessions) was successful.")
+                guard let sessionData = try? JSONDecoder().decode(PostSessionData.self, from: responseData) else {
+                        print("Failed to decode data")
+                        throw APIError.invalidRequest(message: "Could not decode data")
+                }
+                return sessionData
+            }
+        } catch {
+            print(error)
+            throw error
+        }
     }
+    
 }

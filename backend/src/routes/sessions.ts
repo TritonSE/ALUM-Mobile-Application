@@ -59,7 +59,7 @@ router.post(
       });
       await session.save();
       return res.status(201).json({
-        sessionID: session._id,
+        sessionId: session._id,
         menteeId: menteeId,
         mentorId: mentorId,
       });
