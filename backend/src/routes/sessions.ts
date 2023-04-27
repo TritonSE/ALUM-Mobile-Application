@@ -3,7 +3,7 @@
  */
 
 import express, { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
@@ -118,14 +118,18 @@ router.get(
       if (role === "mentor") {
         userSessions = await Session.find({ mentorId: { $eq: userID } });
       }
-      if (userSessions === null) {
-        return res.status(400).json({
-          message: `No sessions found for user ${userID}!`,
+      if (userSessions != null) {
+        const sessionsArray: ObjectId[] = [];
+        userSessions.forEach((session) => {
+          sessionsArray.push(session._id);
+        });
+        return res.status(200).json({
+          message: `Sessions for user ${userID}:`,
+          sessions: sessionsArray,
         });
       }
-      return res.status(200).json({
-        message: `Sessions for user ${userID}:`,
-        sessions: userSessions,
+      return res.status(400).json({
+        message: `No sessions found for user ${userID}!`,
       });
     } catch (e) {
       next();
