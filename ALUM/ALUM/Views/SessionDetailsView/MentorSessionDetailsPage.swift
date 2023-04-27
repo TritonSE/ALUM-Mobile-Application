@@ -29,27 +29,36 @@ extension View {
 
 struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
+    @State private var sessionId: String = ""
     var dateFormatter = DateFormatter()
     
     var body: some View {
-        GeometryReader { grr in
-            VStack {
-                ScrollView {
-                    content
-                        .padding(.horizontal, 16)
-                }
-                .frame(minHeight: grr.size.height-120)
+        Group {
+            if !viewModel.isLoading {
+                GeometryReader { grr in
+                    VStack {
+                        ScrollView {
+                            content
+                                .padding(.horizontal, 16)
+                        }
+                        .frame(minHeight: grr.size.height-120)
 
-                NavigationFooter(page: "Home")
+                        NavigationFooter(page: "Home")
+                    }
+                    .applyMenteeSessionDetailsHeaderModifier()
+                    .edgesIgnoringSafeArea(.bottom)
+                }
+            } else {
+                ProgressView()
             }
-            .applyMenteeSessionDetailsHeaderModifier()
-            .edgesIgnoringSafeArea(.bottom)
         }
-        .task {
-            do {
-                try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
-            } catch {
-                print(error)
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
+                } catch {
+                    print(error)
+                }
             }
         }
     }
@@ -96,6 +105,7 @@ struct MentorSessionDetailsPage: View {
             }
             
             if !viewModel.sessionCompleted {
+                /*
                 Button {
                     
                 } label: {
@@ -104,6 +114,7 @@ struct MentorSessionDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
+                 */
                 
                 Group {
                     HStack {

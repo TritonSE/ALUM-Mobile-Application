@@ -113,14 +113,11 @@ class UserService {
     func getMentor(userID: String) async throws -> MentorGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentor/" + userID)!
         var request = URLRequest(url: urlObj)
-        /*
+        
         guard let authToken = try await getCurrentAuth() else {
             print("Could not get auth token")
             return nil
         }
-        */
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImU3OTMwMjdkYWI0YzcwNmQ2ODg0NGI4MDk2ZTBlYzQzMjYyMjIwMDAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjU1OTA3NywidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjU1OTA3NywiZXhwIjoxNjgyNTYyNjc3LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JC1Xygx5uYt381ogRhlVoZrzwVBGPUna4R7enlci2noU2YVD_NUxA4lPGJGC52mt7H7BciGuBbtblLfx_f9EwUOjVrwdpdaRbjRDKybYzb97ajXRznBElNXrSMwHtbv00cPZi1C8eCcn_ILtGhmw_0HokSERjz8yzRKsHxTn5gaUgOKyqwj2r1amI1Km10E4yH7bjJXHpMiab8idkG9CbyU8SQUiCEilqj2ADWEhHNPc1MD2m8ccri4GM6Ww351xUPKkJGHxZMHNCYS5Z3naoia8myhdKZRkaz3TLeWMyFl_Z9nsjmINytyFtVRe_Bro4NZqMkl07XUaGe0dtMdWFA"
         request.httpMethod = "GET"
         // request = try await attachTokenToRequest(request: request)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
@@ -153,14 +150,10 @@ class UserService {
     func getMentee(userID: String) async throws -> MenteeGetData? {
         let urlObj = URL(string: "http://localhost:3000/mentee/" + userID)!
         var request = URLRequest(url: urlObj)
-        /*
         guard let authToken = try await getCurrentAuth() else {
             print("Could not get auth token")
             return nil
         }
-         */
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImU3OTMwMjdkYWI0YzcwNmQ2ODg0NGI4MDk2ZTBlYzQzMjYyMjIwMDAiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MjU1OTA3NywidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MjU1OTA3NywiZXhwIjoxNjgyNTYyNjc3LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.JC1Xygx5uYt381ogRhlVoZrzwVBGPUna4R7enlci2noU2YVD_NUxA4lPGJGC52mt7H7BciGuBbtblLfx_f9EwUOjVrwdpdaRbjRDKybYzb97ajXRznBElNXrSMwHtbv00cPZi1C8eCcn_ILtGhmw_0HokSERjz8yzRKsHxTn5gaUgOKyqwj2r1amI1Km10E4yH7bjJXHpMiab8idkG9CbyU8SQUiCEilqj2ADWEhHNPc1MD2m8ccri4GM6Ww351xUPKkJGHxZMHNCYS5Z3naoia8myhdKZRkaz3TLeWMyFl_Z9nsjmINytyFtVRe_Bro4NZqMkl07XUaGe0dtMdWFA"
         request.httpMethod = "GET"
         // request = try await attachTokenToRequest(request: request)
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")

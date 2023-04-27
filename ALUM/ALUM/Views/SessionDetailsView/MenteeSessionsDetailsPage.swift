@@ -29,6 +29,7 @@ extension View {
 
 struct MenteeSessionsDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
+    @State private var sessionId: String = ""
     var dateFormatter = DateFormatter()
     
     var body: some View {
@@ -101,6 +102,7 @@ struct MenteeSessionsDetailsPage: View {
             }
             
             if !viewModel.sessionCompleted {
+                /*
                 Button {
                     
                 } label: {
@@ -109,6 +111,7 @@ struct MenteeSessionsDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
+                 */
                 
                 Group {
                     HStack {
