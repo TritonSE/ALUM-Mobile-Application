@@ -11,7 +11,7 @@ struct SignUpSetUpScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
                 .background(Color.white)
             ScrollView {
                 content

@@ -26,7 +26,7 @@ struct SignUpMenteeInfoScreen: View {
     @State var selectedGrade: GradeType?
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                 .background(Color.white)
             ScrollView {
                 content
@@ -271,7 +271,7 @@ struct MentorshipGoal: View {
         goalIsShowing = false
     }
 
-    func done(textfield: String) {
+    func done() {
         mentorshipGoal = tempGoal
         goalIsShowing = false
     }

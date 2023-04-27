@@ -14,7 +14,7 @@ struct SignUpConfirmationMentee: View {
 
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
                 .background(Color.white)
             ScrollView {
                 content
