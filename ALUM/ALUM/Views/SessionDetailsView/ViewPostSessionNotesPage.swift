@@ -1,5 +1,5 @@
 //
-//  ViewPreSessionNotesPage.swift
+//  ViewPostSessionNotesPage.swift
 //  ALUM
 //
 //  Created by Neelam Gurnani on 4/27/23.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ViewPreSessionNotesModifier: ViewModifier {
+struct ViewPostSessionNotesModifier: ViewModifier {
     func body(content: Content) -> some View {
         VStack {
             VStack {
                 NavigationHeaderComponent(
                     backText: "",
                     backDestination: LoginPageView(),
-                    title: "Pre-session Notes",
+                    title: "Post-session Notes",
                     purple: false
                 )
             }
@@ -25,13 +25,23 @@ struct ViewPreSessionNotesModifier: ViewModifier {
 }
 
 extension View {
-    func applyViewPreSessionNotesModifier() -> some View {
-        self.modifier(ViewPreSessionNotesModifier())
+    func applyViewPostSessionNotesModifier() -> some View {
+        self.modifier(ViewPostSessionNotesModifier())
     }
 }
 
-struct ViewPreSessionNotesPage: View {
+struct ViewPostSessionNotesPage: View {
     @StateObject var viewModel = QuestionViewModel()
+    @State var currNotes: String = "this" // "this" or "other"
+    @State var user: String = "mentee" // "mentee" or "mentor"
+    
+    func setMyNotes() {
+        currNotes = "this"
+    }
+
+    func setOtherNotes() {
+        currNotes = "other"
+    }
     
     var body: some View {
         Group {
@@ -51,7 +61,7 @@ struct ViewPreSessionNotesPage: View {
                             .background(Rectangle().fill(Color.white).shadow(radius: 8))
                     }
                     .edgesIgnoringSafeArea(.bottom)
-                    .applyViewPreSessionNotesModifier()
+                    .applyViewPostSessionNotesModifier()
                 }
             } else {
                 ProgressView()
@@ -60,7 +70,7 @@ struct ViewPreSessionNotesPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadNotes()
+                    try await viewModel.loadPostNotes()
                 } catch {
                     print("Error")
                 }
@@ -70,7 +80,7 @@ struct ViewPreSessionNotesPage: View {
     
     var footer: some View {
         NavigationLink {
-            PreSessionQuestionScreen(viewModel: viewModel)
+            PostSessionQuestionScreen(viewModel: viewModel)
         } label: {
             HStack {
                 Image(systemName: "pencil.line")
@@ -93,7 +103,62 @@ struct ViewPreSessionNotesPage: View {
             .padding(.bottom, 32)
             .padding(.top, 8)
 
-            ForEach(viewModel.questionList, id: \.self) { currQuestion in
+            HStack {
+                Button {
+                    setMyNotes()
+                } label: {
+                    if currNotes == "this" {
+                        Text("MY NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .bold()
+                    } else {
+                        Text("MY NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                    }
+
+                }
+                .padding(.trailing, 40)
+                Button {
+                    setOtherNotes()
+                } label: {
+                    if currNotes == "other" {
+                        Text("MENTOR NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                            .bold()
+                    } else {
+                        Text((user == "mentee") ? "MENTOR NOTES" : "MENTEE NOTES")
+                            .font(.custom("Metropolis-Regular", size: 16))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                    }
+                }
+                Spacer()
+            }
+            .padding(.leading, 16)
+            ZStack {
+                Divider()
+                    .background(Color("ALUM Light Blue"))
+                    .frame(width: 358)
+                    .padding(.bottom, 32)
+                if currNotes == "this" {
+                    Divider()
+                        .background(Color("ALUM Dark Blue").frame(height: 3))
+                        .frame(width: 84)
+                        .padding(.bottom, 32)
+                        .padding(.trailing, 275)
+                } else {
+                    Divider()
+                        .background(Color("ALUM Dark Blue").frame(height: 3))
+                        .frame(width: 129)
+                        .padding(.bottom, 32)
+                        .padding(.leading, 35)
+                }
+            }
+
+            ForEach((currNotes == "this") ? viewModel.questionList : viewModel.questionListOther,
+                    id: \.self) { currQuestion in
                 HStack {
                     Text(currQuestion.question)
                         .foregroundColor(Color("ALUM Dark Blue"))
@@ -142,10 +207,8 @@ struct ViewPreSessionNotesPage: View {
     }
 }
 
-struct ViewPreSessionNotesPage_Previews: PreviewProvider {
-    
-    
+struct ViewPostSessionNotesPage_Previews: PreviewProvider {
     static var previews: some View {
-        ViewPreSessionNotesPage()
+        ViewPostSessionNotesPage()
     }
 }
