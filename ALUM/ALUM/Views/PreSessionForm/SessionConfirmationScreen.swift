@@ -16,7 +16,9 @@ struct SessionConfirmationScreen: View {
                 ZStack {
                     Circle()
                         .fill(
-                            LinearGradient(gradient: Gradient(colors: [Color("GradientGreen"), Color("GradientBlue")]), startPoint: .top, endPoint: .bottom)
+                            LinearGradient(gradient: Gradient(
+                                colors: [Color("GradientGreen"), Color("GradientBlue")]),
+                                           startPoint: .top, endPoint: .bottom)
                         )
                         .frame(width: 213.33, height: 213.33)
                         .rotationEffect(Angle(degrees: 315))

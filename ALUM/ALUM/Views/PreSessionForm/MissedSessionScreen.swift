@@ -75,27 +75,40 @@ struct MissedSessionScreen: View {
 
                             MultipleChoice(content: "Mentor/ee and I decided to cancel",
                                            checked: selectedOption == .cancelled, otherText: $otherText)
-                                .onTapGesture {selectedOption = .cancelled; viewModel.missedOption = "Mentor/ee and I decided to cancel"; noOption = false; otherEmpty = false}
+                                .onTapGesture {selectedOption = .cancelled
+                                    viewModel.missedOption = "Mentor/ee and I decided to cancel"
+                                    noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
                             MultipleChoice(content: "I had an emergency",
-                                           checked: selectedOption == .emergency, otherText: $otherText)
-                                .onTapGesture {selectedOption = .emergency; viewModel.missedOption = "I had an emergency"; noOption = false; otherEmpty = false}
+                                           checked: selectedOption == .emergency,
+                                           otherText: $otherText)
+                                .onTapGesture {selectedOption = .emergency
+                                    viewModel.missedOption = "I had an emergency"
+                                    noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
                             MultipleChoice(content: "I forgot about the session",
                                            checked: selectedOption == .forgot, otherText: $otherText)
-                                .onTapGesture {selectedOption = .forgot; viewModel.missedOption = "I forgot about the session"; noOption = false; otherEmpty = false}
+                                .onTapGesture {selectedOption = .forgot
+                                    viewModel.missedOption = "I forgot about the session"
+                                    noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
                             MultipleChoice(content: "Mentor/ee didn't show",
                                            checked: selectedOption == .notShowed, otherText: $otherText)
-                                .onTapGesture {selectedOption = .notShowed; viewModel.missedOption = "Mentor/ee didn't show"; noOption = false; otherEmpty = false}
+                                .onTapGesture {selectedOption = .notShowed
+                                    viewModel.missedOption = "Mentor/ee didn't show"
+                                    noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
                             MultipleChoice(content: "Other:",
                                            checked: selectedOption == .other, otherText: $otherText)
-                                .onTapGesture {selectedOption = .other; viewModel.missedOption = otherText; noOption = false}
+                                .onTapGesture {selectedOption = .other
+                                    viewModel.missedOption = otherText
+                                    noOption = false}
                                 .padding(.bottom, 12)
                             MultipleChoice(content: "Prefer not to say",
                                            checked: selectedOption == .notSay, otherText: $otherText)
-                                .onTapGesture {selectedOption = .notSay; viewModel.missedOption = "Prefer not to say"; noOption = false; otherEmpty = false}
+                                .onTapGesture {selectedOption = .notSay
+                                    viewModel.missedOption = "Prefer not to say"
+                                    noOption = false; otherEmpty = false}
                                 .padding(.bottom, 12)
 
                         }
@@ -108,7 +121,8 @@ struct MissedSessionScreen: View {
                             .ignoresSafeArea(edges: .all)
                         if viewModel.missedOption != "" {
                             NavigationLink(destination: SessionConfirmationScreen(
-                                text: ["Missed session form submitted!", "Thank you for your feedback!", "Close"]), label: {
+                                text: ["Missed session form submitted!",
+                                       "Thank you for your feedback!", "Close"]), label: {
                                 HStack {
                                     Text("Submit")
                                         .font(.custom("Metropolis-Regular", size: 17))
@@ -177,7 +191,7 @@ struct MissedSessionScreen: View {
 
 struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
-    
+
     static var previews: some View {
         MissedSessionScreen(viewModel: viewModel)
     }

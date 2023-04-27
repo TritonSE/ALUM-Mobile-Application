@@ -15,7 +15,8 @@ struct PreSessionConfirmationScreen: View {
 
     var body: some View {
         VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.questionList.count, activeNode: 0)
+            StaticProgressBarComponent(nodes: viewModel.questionList.count,
+                                       filledNodes: viewModel.questionList.count, activeNode: 0)
                 .background(Color.white)
 
             ScrollView {
@@ -58,8 +59,9 @@ struct PreSessionConfirmationScreen: View {
                 Text("Save")
             }
             .buttonStyle(FilledInButtonStyle())
-
-            NavigationLink(destination: SessionConfirmationScreen(text: ["Pre-session form saved!", "You can continue on the notes later under \"Sessions\".", "Great"]),
+            NavigationLink(destination: SessionConfirmationScreen(
+                text: ["Pre-session form saved!",
+                       "You can continue on the notes later under \"Sessions\".", "Great"]),
                            isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }

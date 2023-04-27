@@ -18,7 +18,9 @@ enum PatchAnswer: Codable {
         } else if let listString = try? container.decode([String].self) {
             self = .listString(listString)
         } else {
-            throw DecodingError.typeMismatch(PatchAnswer.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Invalid type for PatchAnswer"))
+            throw DecodingError.typeMismatch(PatchAnswer.self,
+                                             DecodingError.Context(codingPath: decoder.codingPath,
+                                                                   debugDescription: "Invalid type for PatchAnswer"))
         }
     }
 
@@ -31,7 +33,7 @@ enum PatchAnswer: Codable {
             try container.encode(values)
         }
     }
-    
+
     func toRaw(question: inout Question) {
         switch self {
         case .string(let value):
@@ -93,16 +95,17 @@ class NotesService {
            return
         }
         // need to add
-        return try await self.patchNotes(url: "http://localhost:3000/notes/6440619d7e6c452c590431f6", jsonData: jsonData)
+        return try await self.patchNotes(
+            url: "http://localhost:3000/notes/6440619d7e6c452c590431f6", jsonData: jsonData)
     }
 
     func getNotes(url: String) async throws -> [QuestionGetData] {
         let urlObj = URL(string: url)!
         var request = URLRequest(url: urlObj)
-        
+
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         do {
             let (responseData, response) = try await URLSession.shared.data(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -114,7 +117,8 @@ class NotesService {
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
                 )
             } else {
-                guard let notesData = try JSONDecoder().decode([QuestionGetData].self, from: responseData) as? [QuestionGetData] else {
+                guard let notesData = try JSONDecoder().decode([QuestionGetData].self, from: responseData)
+                        as? [QuestionGetData] else {
                     print("Failed to decode data")
                     throw APIError.invalidRequest(message: "Could not decode data")
                 }

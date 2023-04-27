@@ -14,10 +14,11 @@ struct PostSessionQuestionScreen: View {
     @State var otherUser: String = "Mentor"
     @State var date: String = "date"
     @State var time: String = "time"
-    
+
     var body: some View {
         VStack {
-            DynamicProgressBarComponent(nodes: $viewModel.questionList.count, filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
+            DynamicProgressBarComponent(nodes: $viewModel.questionList.count,
+                                        filledNodes: $viewModel.currentIndex, activeNode: $viewModel.currentIndex)
                 .padding()
                 .background(Color.white)
 
@@ -35,7 +36,7 @@ struct PostSessionQuestionScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .applyPostSessionScreenHeaderModifier()
     }
-    
+
     @ViewBuilder
     var footer: some View {
         if !viewModel.lastQuestion {
@@ -107,7 +108,7 @@ struct PostSessionQuestionScreen: View {
             }
         }
     }
-    
+
     var content: some View {
         VStack {
             if viewModel.currentIndex == 0 {
@@ -138,7 +139,8 @@ struct PostSessionQuestionScreen: View {
             }
 
             if viewModel.questionList[viewModel.currentIndex].type == "text" {
-                ParagraphInput(question: viewModel.questionList[viewModel.currentIndex].question, text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
+                ParagraphInput(question: viewModel.questionList[viewModel.currentIndex].question,
+                               text: $viewModel.questionList[viewModel.currentIndex].answerParagraph)
                     .padding(.leading, 16)
                     .padding(.trailing, 16)
                     .padding(.top, 8)
@@ -150,7 +152,8 @@ struct PostSessionQuestionScreen: View {
                     .padding(.leading, 16)
                     .padding(.bottom, 16)
                     .padding(.top, 8)
-                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet, question: viewModel.questionList[viewModel.currentIndex].question)
+                BulletsView(bullets: $viewModel.questionList[viewModel.currentIndex].answerBullet,
+                            question: viewModel.questionList[viewModel.currentIndex].question)
             } else if viewModel.questionList[viewModel.currentIndex].type == "checkbox-bullet" {
                 Text(viewModel.questionList[viewModel.currentIndex].question)
                     .foregroundColor(Color("ALUM Dark Blue"))

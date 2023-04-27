@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginReviewPage: View {
     @State var text: [String]
-    
+
     var body: some View {
         VStack {
             Image("ALUMFilledLogo")
@@ -33,6 +33,7 @@ struct LoginReviewPage: View {
 
 struct LoginReviewPage_Previews: PreviewProvider {
     static var previews: some View {
-        LoginReviewPage(text: ["Application is under review", "It usually takes 3-5 days to process your application as a mentee."])
+        LoginReviewPage(text: ["Application is under review",
+                               "It usually takes 3-5 days to process your application as a mentee."])
     }
 }

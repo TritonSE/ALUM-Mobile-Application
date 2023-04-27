@@ -54,7 +54,7 @@ struct PreSessionView: View {
                     print("Error")
                 }
             }
-            //viewModel.loadTestData()
+            // viewModel.loadTestData()
         }
     }
 }

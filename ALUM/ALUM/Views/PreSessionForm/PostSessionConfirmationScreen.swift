@@ -20,10 +20,11 @@ struct PostSessionConfirmationScreen: View {
     func setOtherNotes() {
         currNotes = "other"
     }
-    
+
     var body: some View {
         VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count, filledNodes: viewModel.questionList.count, activeNode: 0)
+            StaticProgressBarComponent(nodes: viewModel.questionList.count,
+                                       filledNodes: viewModel.questionList.count, activeNode: 0)
                 .background(Color.white)
 
             ScrollView {
@@ -38,7 +39,7 @@ struct PostSessionConfirmationScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .applyPostSessionScreenHeaderModifier()
     }
-    
+
     var footer: some View {
         HStack {
             Button {
@@ -66,15 +67,15 @@ struct PostSessionConfirmationScreen: View {
                 Text("Save")
             }
             .buttonStyle(FilledInButtonStyle())
-
-            NavigationLink(destination: SessionConfirmationScreen(text: ["Post-session form saved!", "You can continue on the notes later under \"Sessions\".", "Great"]),
+            NavigationLink(destination: SessionConfirmationScreen(
+                text: ["Post-session form saved!",
+                       "You can continue on the notes later under \"Sessions\".", "Great"]),
                            isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }
         }
     }
-    
-    
+
     var content: some View {
         VStack {
             HStack {
@@ -87,7 +88,7 @@ struct PostSessionConfirmationScreen: View {
             .padding(.trailing, 16)
             .padding(.bottom, 32)
             .padding(.top, 8)
-            
+
             HStack {
                 Button {
                     setMyNotes()
@@ -102,7 +103,7 @@ struct PostSessionConfirmationScreen: View {
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                     }
-                    
+
                 }
                 .padding(.trailing, 40)
                 Button {
@@ -142,7 +143,8 @@ struct PostSessionConfirmationScreen: View {
                 }
             }
 
-            ForEach((currNotes == "this") ? viewModel.questionList : viewModel.questionListOther, id: \.self) { currQuestion in
+            ForEach((currNotes == "this") ? viewModel.questionList : viewModel.questionListOther,
+                    id: \.self) { currQuestion in
                 HStack {
                     Text(currQuestion.question)
                         .foregroundColor(Color("ALUM Dark Blue"))
