@@ -32,7 +32,7 @@ struct ALUMApp: App {
 //      }
 //    }
       WindowGroup {
-          MenteeSessionsDetailsPage()
+          MentorSessionDetailsPage()
       }
   }
 }

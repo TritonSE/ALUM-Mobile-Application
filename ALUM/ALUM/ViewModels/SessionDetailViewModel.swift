@@ -45,7 +45,7 @@ final class SessionDetailViewModel: ObservableObject {
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     @Published var isLoading: Bool = true
-    
+
     func loadSession(sessionID: String) async throws {
         guard let sessionData = try? await SessionService().getSessionWithID(sessionID: sessionID) else {
             print("Error getting session info")
@@ -54,13 +54,13 @@ final class SessionDetailViewModel: ObservableObject {
         self.session.dateTime = sessionData.session.dateTime
         self.session.preSessionID = sessionData.session.preSession
         self.session.postSessionID = sessionData.session.postSession
-        
+
         guard let mentorData = try? await UserService().getMentor(userID: sessionData.session.mentorId) else {
             print("Error getting mentor info")
             return
         }
         self.session.mentor = mentorData
-        
+
         guard let menteeData = try? await UserService().getMentee(userID: sessionData.session.menteeId) else {
             print("Error getting mentee info")
             return

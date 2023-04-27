@@ -9,13 +9,13 @@ import SwiftUI
 
 struct FormIncompleteComponent: View {
     @State var type: String = "Pre"
-    
+
     var body: some View {
         ZStack {
             HStack {
                 Image(systemName: "exclamationmark.circle")
                     .foregroundColor(Color("FunctionalError"))
-                
+
                 Text(type + "-session form incomplete")
                     .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
                     .foregroundColor(Color("FunctionalError"))

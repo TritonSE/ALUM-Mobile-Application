@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct MentorSessionDetailsHeaderModifier: ViewModifier {
+    @State var date: String = ""
+    @State var mentee: String = ""
+    
     func body(content: Content) -> some View {
         VStack {
             VStack {
-                Text("[Date] Session with [Mentee]")
+                Text("Session with " + mentee)
                     .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -22,8 +25,8 @@ struct MentorSessionDetailsHeaderModifier: ViewModifier {
 }
 
 extension View {
-    func applyMentorSessionDetailsHeaderModifier() -> some View {
-        self.modifier(MentorSessionDetailsHeaderModifier())
+    func applyMentorSessionDetailsHeaderModifier(date: String, mentee: String) -> some View {
+        self.modifier(MentorSessionDetailsHeaderModifier(date: date, mentee: mentee))
     }
 }
 
@@ -31,7 +34,7 @@ struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
     @State private var sessionId: String = ""
     var dateFormatter = DateFormatter()
-    
+
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -45,7 +48,7 @@ struct MentorSessionDetailsPage: View {
 
                         NavigationFooter(page: "Home")
                     }
-                    .applyMenteeSessionDetailsHeaderModifier()
+                    .applyMentorSessionDetailsHeaderModifier(date: viewModel.session.dateTime, mentee: viewModel.session.mentee.mentee.name)
                     .edgesIgnoringSafeArea(.bottom)
                 }
             } else {
@@ -62,7 +65,7 @@ struct MentorSessionDetailsPage: View {
             }
         }
     }
-    
+
     var content: some View {
         VStack {
             Group {
@@ -70,12 +73,12 @@ struct MentorSessionDetailsPage: View {
                     Text("Mentee")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(Color("NeutralGray4"))
-                    
+
                     Spacer()
-                }   
+                }
                 .padding(.top, 28)
                 .padding(.bottom, 20)
-                
+
                 HorizontalMenteeCard(
                     name: viewModel.session.mentee.mentee.name,
                     grade: viewModel.session.mentee.mentee.grade,
@@ -90,20 +93,20 @@ struct MentorSessionDetailsPage: View {
                     Text("Date & Time")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(Color("NeutralGray4"))
-                    
+
                     Spacer()
                 }
                 .padding(.bottom, 5)
-                
+
                 HStack {
                     Text(viewModel.session.dateTime)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    
+
                     Spacer()
                 }
                 .padding(.bottom, 5)
             }
-            
+
             if !viewModel.sessionCompleted {
                 /*
                 Button {
@@ -115,13 +118,13 @@ struct MentorSessionDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
                  */
-                
+
                 Group {
                     HStack {
                         Text("Location")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("NeutralGray4"))
-                        
+
                         Spacer()
                     }
                     .padding(.bottom, 5)
@@ -135,17 +138,17 @@ struct MentorSessionDetailsPage: View {
                     }
                     .padding(.bottom, 20)
                 }
-                
+
                 Group {
                     HStack {
                         Text("Pre-Session Form")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("NeutralGray4"))
-                        
+
                         Spacer()
                     }
                     .padding(.bottom, viewModel.formIsComplete ? 20 : 5)
-                    
+
                     if !viewModel.formIsComplete {
                         HStack {
                             FormIncompleteComponent(type: "Pre")
@@ -153,10 +156,10 @@ struct MentorSessionDetailsPage: View {
                         }
                         .padding(.bottom, 22)
                     }
-                    
+
                     if !viewModel.formIsComplete {
                         Button {
-                            
+
                         } label: {
                             Text("Complete Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -165,7 +168,7 @@ struct MentorSessionDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         Button {
-                            
+
                         } label: {
                             Text("View Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -174,9 +177,9 @@ struct MentorSessionDetailsPage: View {
                         .padding(.bottom, 5)
                     }
                 }
-                
+
                 Button {
-                    
+
                 } label: {
                     Text("Cancel Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -191,11 +194,11 @@ struct MentorSessionDetailsPage: View {
                         Text("Post-Session Form")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("NeutralGray4"))
-                        
+
                         Spacer()
                     }
                     .padding(.bottom, viewModel.formIsComplete ? 20 : 5)
-                    
+
                     if !viewModel.formIsComplete {
                         HStack {
                             FormIncompleteComponent(type: "Post")
@@ -203,10 +206,10 @@ struct MentorSessionDetailsPage: View {
                         }
                         .padding(.bottom, 22)
                     }
-                    
+
                     if !viewModel.formIsComplete {
                         Button {
-                            
+
                         } label: {
                             Text("Complete Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -215,7 +218,7 @@ struct MentorSessionDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         Button {
-                            
+
                         } label: {
                             Text("View Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -223,7 +226,7 @@ struct MentorSessionDetailsPage: View {
                         .buttonStyle(FilledInButtonStyle())
                         .padding(.bottom, 5)
                     }
-                }   
+                }
             }
         }
     }

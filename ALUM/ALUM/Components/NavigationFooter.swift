@@ -72,4 +72,3 @@ struct NavigationFooter_Previews: PreviewProvider {
         NavigationFooter(page: "Home")
     }
 }
-
