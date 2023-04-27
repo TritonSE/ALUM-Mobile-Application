@@ -117,7 +117,7 @@ struct MentorProfileView: View {
                     .padding(.bottom, 8)
                     .edgesIgnoringSafeArea(.bottom)
                     if viewModel.selfView {
-                        NavigationFooter(page: "Profile")
+                        NavigationFooter(page: "Profile", role: "mentor", uID: uID)
                     }
                 }
                 ZStack {

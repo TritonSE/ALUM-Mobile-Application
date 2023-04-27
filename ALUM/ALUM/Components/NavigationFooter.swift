@@ -7,8 +7,34 @@
 
 import SwiftUI
 
+func goMentorProfile(uID: String) {
+    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+       let window = windowScene.windows.first {
+        window.rootViewController = UIHostingController(rootView: MentorProfileView(uID: uID))
+        window.makeKeyAndVisible()
+    }
+}
+
+func goMenteeProfile(uID: String) {
+    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+       let window = windowScene.windows.first {
+        window.rootViewController = UIHostingController(rootView: MenteeProfileView(uID: uID))
+        window.makeKeyAndVisible()
+    }
+}
+
+func goHome() {
+    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+       let window = windowScene.windows.first {
+        window.rootViewController = UIHostingController(rootView: MentorProfileView())
+        window.makeKeyAndVisible()
+    }
+}
+
 struct NavigationFooter: View {
     @State var page: String
+    @State var role: String
+    @State var uID: String
     var body: some View {
         ZStack {
             Rectangle()
@@ -23,6 +49,9 @@ struct NavigationFooter: View {
                             .offset(y: -35)
                     }
                     Button {
+                        if(page != "Home") {
+                            goHome()
+                        }
                     } label: {
                         VStack {
                             Image("ALUM Home")
@@ -46,6 +75,14 @@ struct NavigationFooter: View {
                             .offset(y: -35)
                     }
                     Button {
+                        if(page != "Profile"){
+                            if(role == "mentor"){
+                                goMentorProfile(uID: uID)
+                            }
+                            else{
+                                goMenteeProfile(uID: uID)
+                            }
+                        }
                     } label: {
                         VStack {
                             Image("ALUMLogoBlue")
@@ -69,6 +106,7 @@ struct NavigationFooter: View {
 
 struct NavigationFooter_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationFooter(page: "Home")
+        NavigationFooter(page: "Home", role: "mentor", uID: "6431b9a2bcf4420fe9825fe5")
     }
 }
+

@@ -93,7 +93,7 @@ struct MenteeProfileView: View {
                     .padding(.bottom, 8)
                     .edgesIgnoringSafeArea(.bottom)
                     if viewModel.selfView {
-                        NavigationFooter(page: "Profile")
+                        NavigationFooter(page: "Profile", role: "mentee", uID: uID)
                     }
                 }
                 ZStack {
