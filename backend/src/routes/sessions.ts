@@ -37,7 +37,7 @@ const router = express.Router();
 
 router.post(
   "/sessions",
-  [verifyAuthToken, validateReqBodyWithCake(CreateSessionRequestBodyCake)],
+  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,");
     try {
@@ -59,7 +59,7 @@ router.post(
       });
       await session.save();
       return res.status(201).json({
-        sessionID: session.id,
+        sessionID: session._id,
         menteeId: menteeId,
         mentorId: mentorId,
       });

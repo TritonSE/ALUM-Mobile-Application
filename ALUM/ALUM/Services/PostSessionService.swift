@@ -18,7 +18,8 @@ struct SessionPostData {
 }
 
 struct SessionData {
-    
+    var menteeId: String,
+    var 
 }
 
 class PostSessionService {
