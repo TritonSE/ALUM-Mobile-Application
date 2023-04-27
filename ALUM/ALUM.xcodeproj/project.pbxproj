@@ -76,6 +76,7 @@
 		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
 		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */; };
 		80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* UserService.swift */; };
+		974D62CF29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9760067B299FFCD2000945E2 /* SignUpPageView.swift */; };
@@ -162,6 +163,7 @@
 		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
 		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentor.swift; sourceTree = "<group>"; };
 		80F5388B29B0252F00FB5E66 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreSessionNotesPage.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 			children = (
 				979303D929E882E20053C30E /* MentorSessionDetailsPage.swift */,
 				979303DB29E885140053C30E /* MenteeSessionsDetailsPage.swift */,
+				974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */,
 			);
 			path = SessionDetailsView;
 			sourceTree = "<group>";
@@ -650,7 +653,6 @@
 				97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
-				0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */,
 				979303D829E87E0E0053C30E /* SessionModel.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
@@ -661,6 +663,7 @@
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				979303DE29E885990053C30E /* HorizontalMenteeCard.swift in Sources */,
+				974D62CF29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift in Sources */,
 				979303CB29E7E9460053C30E /* SessionDetailViewModel.swift in Sources */,
 				0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
