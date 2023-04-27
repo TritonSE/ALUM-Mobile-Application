@@ -83,9 +83,9 @@ final class QuestionViewModel: ObservableObject {
         try await NotesService().patchNotesHelper(data: notesData)
     }
 
-    func loadNotes() async throws {
+    func loadNotes(notesID: String) async throws {
         var notesData: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/64405b21e886c9662365f695")
+            url: "http://localhost:3000/notes/" + notesID)
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
             question.answer.toRaw(question: &questionToAdd)
@@ -94,11 +94,11 @@ final class QuestionViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    func loadPostNotes() async throws {
+    func loadPostNotes(notesID: String, otherNotesID: String) async throws {
         var notesData: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/6440619d7e6c452c590431f8")
+            url: "http://localhost:3000/notes/" + notesID)
         var notesDataOther: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/6440619d7e6c452c590431fa")
+            url: "http://localhost:3000/notes/" + otherNotesID)
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question,
                                                    type: question.type, id: question.id)

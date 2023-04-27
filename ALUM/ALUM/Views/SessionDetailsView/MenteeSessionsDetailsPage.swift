@@ -156,8 +156,8 @@ struct MenteeSessionsDetailsPage: View {
                     }
 
                     if !viewModel.formIsComplete {
-                        Button {
-
+                        NavigationLink {
+                            PreSessionView(notesID: viewModel.session.preSessionID)
                         } label: {
                             Text("Complete Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -165,8 +165,8 @@ struct MenteeSessionsDetailsPage: View {
                         .buttonStyle(FilledInButtonStyle())
                         .padding(.bottom, 5)
                     } else {
-                        Button {
-
+                        NavigationLink {
+                            ViewPreSessionNotesPage(notesID: viewModel.session.preSessionID)
                         } label: {
                             Text("View Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -206,8 +206,8 @@ struct MenteeSessionsDetailsPage: View {
                     }
 
                     if !viewModel.formIsComplete {
-                        Button {
-
+                        NavigationLink {
+                            PostSessionView(notesID: viewModel.session.menteePostSessionID, otherNotesID: viewModel.session.mentorPostSessionID)
                         } label: {
                             Text("Complete Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -215,8 +215,8 @@ struct MenteeSessionsDetailsPage: View {
                         .buttonStyle(FilledInButtonStyle())
                         .padding(.bottom, 5)
                     } else {
-                        Button {
-
+                        NavigationLink {
+                            ViewPostSessionNotesPage(user: "mentee", notesID: viewModel.session.menteePostSessionID, otherNotesID: viewModel.session.mentorPostSessionID)
                         } label: {
                             Text("View Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))

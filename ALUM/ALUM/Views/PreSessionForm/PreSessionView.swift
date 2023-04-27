@@ -34,6 +34,8 @@ struct PreSessionView: View {
 
     @StateObject private var viewModel = QuestionViewModel()
 
+    @State var notesID: String = ""
+    
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -50,7 +52,7 @@ struct PreSessionView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadNotes()
+                    try await viewModel.loadNotes(notesID: notesID)
                 } catch {
                     print("Error")
                 }

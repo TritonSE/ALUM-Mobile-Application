@@ -32,6 +32,9 @@ extension View {
 
 struct PostSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
+    
+    @State var notesID: String = ""
+    @State var otherNotesID: String = ""
 
     var body: some View {
         Group {
@@ -48,7 +51,7 @@ struct PostSessionView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadPostNotes()
+                    try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
                 } catch {
                     print("Error")
                 }

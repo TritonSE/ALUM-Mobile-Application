@@ -35,6 +35,9 @@ struct ViewPostSessionNotesPage: View {
     @State var currNotes: String = "this" // "this" or "other"
     @State var user: String = "mentee" // "mentee" or "mentor"
     
+    @State var notesID: String = ""
+    @State var otherNotesID: String = ""
+    
     func setMyNotes() {
         currNotes = "this"
     }
@@ -70,7 +73,7 @@ struct ViewPostSessionNotesPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadPostNotes()
+                    try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
                 } catch {
                     print("Error")
                 }
