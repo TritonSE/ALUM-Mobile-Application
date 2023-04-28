@@ -48,10 +48,12 @@ struct Mentor {
     var topicsOfExpertise: Set<String>
     var password: String
     var location: String
+    var calendlyLink: String
     init(name: String = "", email: String = "", yearOfGrad: Int = 0,
          university: String = "", major: String = "", minor: String = "",
          intendedCareer: String = "", mentorMotivation: String = "",
-         topicsOfExpertise: Set<String> = [], password: String = "", location: String = "") {
+         topicsOfExpertise: Set<String> = [], password: String = "",
+         location: String = "", calendlyLink: String = "") {
         self.name = name
         self.email = email
         self.yearOfGrad = yearOfGrad
@@ -63,5 +65,6 @@ struct Mentor {
         self.topicsOfExpertise = topicsOfExpertise
         self.password = password
         self.location = location
+        self.calendlyLink = calendlyLink
     }
 }

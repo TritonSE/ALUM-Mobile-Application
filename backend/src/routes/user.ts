@@ -129,7 +129,7 @@ router.post(
         name,
         imageId,
         about,
-        calendlyLink,
+        // calendlyLink,
         status,
         pairingIds,
         ...args,

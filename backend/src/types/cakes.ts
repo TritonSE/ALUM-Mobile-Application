@@ -29,6 +29,7 @@ export const CreateMentorRequestBodyCake = bake({
   topicsOfExpertise: array(string),
   mentorMotivation: string,
   location: string,
+  calendlyLink: string,
 });
 
 // PATCH notes/id

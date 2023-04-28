@@ -140,7 +140,6 @@ struct SignUpMentorInfoScreen: View {
                 RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-
             Group {
                 ALUMTextFieldComponent(title: "Major",
                                        suggestion: "e.g. Economics, Statistics",
@@ -153,10 +152,12 @@ struct SignUpMentorInfoScreen: View {
                 ALUMTextFieldComponent(title: "Intended Career",
                                        suggestion: "e.g. Software Engineer, Product Designer",
                                        text: $viewModel.mentor.intendedCareer)
-
                 ALUMTextFieldComponent(title: "Location",
                                        suggestion: "e.g. Meeting ID",
                                        text: $viewModel.mentor.location)
+                ALUMTextFieldComponent(title: "Calendly Link",
+                                       suggestion: "calendly.com/...",
+                                       text: $viewModel.mentor.calendlyLink)
             }
 
             Group {

@@ -30,6 +30,7 @@ struct MentorPostData: Codable {
     var topicsOfExpertise: Set<String>
     var mentorMotivation: String
     var location: String
+    var calendlyLink: String
 }
 
 class UserService {
