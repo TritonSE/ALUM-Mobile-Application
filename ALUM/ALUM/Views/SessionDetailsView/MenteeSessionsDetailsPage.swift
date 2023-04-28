@@ -207,7 +207,11 @@ struct MenteeSessionsDetailsPage: View {
 
                     if !viewModel.formIsComplete {
                         NavigationLink {
-                            PostSessionView(notesID: viewModel.session.menteePostSessionID, otherNotesID: viewModel.session.mentorPostSessionID)
+                            PostSessionView(
+                                user: "mentee",
+                                notesID: viewModel.session.menteePostSessionID,
+                                otherNotesID: viewModel.session.mentorPostSessionID
+                            )
                         } label: {
                             Text("Complete Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -216,7 +220,11 @@ struct MenteeSessionsDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         NavigationLink {
-                            ViewPostSessionNotesPage(user: "mentee", notesID: viewModel.session.menteePostSessionID, otherNotesID: viewModel.session.mentorPostSessionID)
+                            ViewPostSessionNotesPage(
+                                user: "mentee",
+                                notesID: viewModel.session.menteePostSessionID,
+                                otherNotesID: viewModel.session.mentorPostSessionID
+                            )
                         } label: {
                             Text("View Post-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))

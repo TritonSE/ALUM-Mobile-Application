@@ -34,10 +34,10 @@ struct ViewPostSessionNotesPage: View {
     @StateObject var viewModel = QuestionViewModel()
     @State var currNotes: String = "this" // "this" or "other"
     @State var user: String = "mentee" // "mentee" or "mentor"
-    
+
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
-    
+
     func setMyNotes() {
         currNotes = "this"
     }
@@ -45,7 +45,7 @@ struct ViewPostSessionNotesPage: View {
     func setOtherNotes() {
         currNotes = "other"
     }
-    
+
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -56,7 +56,7 @@ struct ViewPostSessionNotesPage: View {
                                 .padding(.horizontal, 16)
                         }
                         .frame(minHeight: grr.size.height-120)
-                        
+
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)
@@ -80,7 +80,7 @@ struct ViewPostSessionNotesPage: View {
             }
         }
     }
-    
+
     var footer: some View {
         NavigationLink {
             PostSessionQuestionScreen(viewModel: viewModel)
@@ -92,7 +92,7 @@ struct ViewPostSessionNotesPage: View {
         }
         .buttonStyle(FilledInButtonStyle())
     }
-    
+
     var content: some View {
         VStack {
             HStack {

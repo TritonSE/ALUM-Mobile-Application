@@ -35,7 +35,7 @@ struct PreSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     @State var notesID: String = ""
-    
+
     var body: some View {
         Group {
             if !viewModel.isLoading {

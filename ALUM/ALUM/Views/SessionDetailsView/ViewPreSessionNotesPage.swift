@@ -32,9 +32,9 @@ extension View {
 
 struct ViewPreSessionNotesPage: View {
     @StateObject var viewModel = QuestionViewModel()
-    
+
     @State var notesID: String = ""
-    
+
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -45,7 +45,7 @@ struct ViewPreSessionNotesPage: View {
                                 .padding(.horizontal, 16)
                         }
                         .frame(minHeight: grr.size.height-120)
-                        
+
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)
@@ -69,7 +69,7 @@ struct ViewPreSessionNotesPage: View {
             }
         }
     }
-    
+
     var footer: some View {
         NavigationLink {
             PreSessionQuestionScreen(viewModel: viewModel)
@@ -81,7 +81,7 @@ struct ViewPreSessionNotesPage: View {
         }
         .buttonStyle(FilledInButtonStyle())
     }
-    
+
     var content: some View {
         VStack {
             HStack {
@@ -145,8 +145,7 @@ struct ViewPreSessionNotesPage: View {
 }
 
 struct ViewPreSessionNotesPage_Previews: PreviewProvider {
-    
-    
+
     static var previews: some View {
         ViewPreSessionNotesPage()
     }
