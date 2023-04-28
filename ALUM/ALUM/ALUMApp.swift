@@ -37,14 +37,8 @@ struct ALUMApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
   var body: some Scene {
-    WindowGroup {
-        
-    
-        
-        
-        
-        //SignUpPageView()
-         CalendlyBooking()
-    }
+      WindowGroup {
+          CalendlyBooking()
+      }
   }
 }
