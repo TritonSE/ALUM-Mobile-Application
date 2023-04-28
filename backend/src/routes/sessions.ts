@@ -42,24 +42,32 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,", req.query);
     try {
-      const preNoteId = await createPreSessionNotes();
-      const postMenteeNoteId = await createPostSessionNotes();
-      const postMentorNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
       const meetingTime = new Date(req.body.dateInfo);
       const session = new Session({
-        preSession: preNoteId._id,
-        postSessionMentee: postMenteeNoteId._id,
-        postSessionMentor: postMentorNoteId._id,
-        menteeId,
-        mentorId,
-        dateTime: meetingTime,
-      });
+          preSession: null,
+          postSessionMentee: null,
+          postSessionMentor: null,
+          menteeId,
+          mentorId,
+          dateTime: meetingTime,
+          preSessionCompleted: false,
+          postSessionMentorCompleted: false,
+          postSessionMenteeCompleted: false,
+        });
+      const sessionId=session._id;
+      const preNoteId = await createPreSessionNotes(sessionId);
+      const postMenteeNoteId = await createPostSessionNotes(sessionId, "postMentee");
+      const postMentorNoteId = await createPostSessionNotes(sessionId, "postMentor");
+      session.preSession=preNoteId._id;
+      session.postSessionMentee=postMenteeNoteId._id;
+      session.postSessionMentor=postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
         message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
       });
     } catch (e) {
+      console.log(e);
       next();
       return res.status(400);
     }
