@@ -25,6 +25,7 @@ import { ValidationError } from "../errors";
  */
 const validateReqBodyWithCake =
   (cake: Cake) => async (req: Request, res: Response, next: NextFunction) => {
+    console.log("req body - ", req.body);
     const result = cake.check(req.body);
     if (!result.ok) {
       return next(new ValidationError(4, 400, result.error.toString()));

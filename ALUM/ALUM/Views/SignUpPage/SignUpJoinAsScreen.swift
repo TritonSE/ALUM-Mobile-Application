@@ -20,7 +20,7 @@ struct SignUpJoinAsScreen: View {
 
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 1, activeNode: 2)
                 .background(Color.white)
             ScrollView {
                 content
