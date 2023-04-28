@@ -29,7 +29,7 @@ struct CalendlyBooking: View  {
                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
             }
             .sheet(isPresented: $showWebView) {
-                CalendlyView(url: URL(string: urlString)!)
+                CalendlyView(url: URL(string: urlString)!, menteeId: "6431b99ebcf4420fe9825fe3", mentorId: "6431b9a2bcf4420fe9825fe5")
             }
             .buttonStyle(FilledInButtonStyle())
             .frame(width: 358)
@@ -41,6 +41,8 @@ struct CalendlyBooking: View  {
 
 struct CalendlyView: UIViewRepresentable {
     var url: URL
+    var menteeId: String
+    var mentorId: String
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
@@ -61,19 +63,14 @@ struct CalendlyView: UIViewRepresentable {
     
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         
-        
-
-        
         var webView: CalendlyView
+        var menteeId: String
+        var mentorId: String
         
         init(webView: CalendlyView) {
             self.webView = webView
-        }
-        
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-                  if let domain = webView.url?.host {
-                      print("Domain: \(domain)")
-            }
+            self.menteeId = webView.menteeId
+            self.mentorId = webView.mentorId
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -84,7 +81,10 @@ struct CalendlyView: UIViewRepresentable {
                         var messageBody = "\(message.body)"
                         // Method should be called with proper mentor, mentee ids
                         let result = try await
-                        PostSessionService().postSessionWithId(menteeId: "6431b99ebcf4420fe9825fe3", mentorId: "6431b9a2bcf4420fe9825fe5", calendlyURI: messageBody)
+                        PostSessionService().postSessionWithId(menteeId: menteeId, mentorId: mentorId, calendlyURI: messageBody)
+                        
+                        // menteeId: "6431b99ebcf4420fe9825fe3"
+                        // mentorId: "6431b9a2bcf4420fe9825fe5"
                             
                     } catch {
                         print("Error Posting session")

@@ -71,7 +71,6 @@
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
 		E365F71E29FA0D110055A2F4 /* PostSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365F71D29FA0D110055A2F4 /* PostSessionService.swift */; };
-		E3F4186129E7222B00FDE56D /* CalendlyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */; };
 		E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186529E7246400FDE56D /* CalendlyBooking.swift */; };
 /* End PBXBuildFile section */
 
@@ -139,7 +138,6 @@
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
 		E365F71D29FA0D110055A2F4 /* PostSessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSessionService.swift; sourceTree = "<group>"; };
-		E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBookingViewModel.swift; sourceTree = "<group>"; };
 		E3F4186529E7246400FDE56D /* CalendlyBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBooking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,7 +262,6 @@
 			children = (
 				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
 				97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */,
-				E3F4186029E7222B00FDE56D /* CalendlyBookingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -502,7 +499,6 @@
 				0752D3BC29C4823900E6EEFF /* NavigationHeaderComponent.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
-				E3F4186129E7222B00FDE56D /* CalendlyBookingViewModel.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,
 				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
 				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,

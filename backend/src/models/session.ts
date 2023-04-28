@@ -10,7 +10,9 @@ interface SessionInterface {
   postSession: ObjectId;
   menteeId: string;
   mentorId: string;
-  dateTime: Date;
+  startTime: Date;
+  endTime: Date;
+  calendlyUri: string;
 }
 
 interface SessionDoc extends mongoose.Document {
@@ -18,7 +20,9 @@ interface SessionDoc extends mongoose.Document {
   postSession: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
-  dateTime: Date;
+  startTime: Date;
+  endTime: Date;
+  calendlyUri: string;
 }
 
 interface SessionModelInterface extends mongoose.Model<SessionDoc> {
@@ -42,10 +46,18 @@ const SessionSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dateTime: {
+  startTime: {
     type: Date,
     required: true,
   },
+  endTime: {
+    type: Date,
+    required: true,
+  },
+  calendlyUri: {
+    type: String,
+    required: true,
+  }
 });
 
 const Session = mongoose.model<SessionDoc, SessionModelInterface>("Session", SessionSchema);

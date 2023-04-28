@@ -26,8 +26,13 @@ async function getCalendlyEventDate(uri: String, accessToken: String) {
             }
         });
         const data = response.json();
-        const dateTime = data.then(data => data.resource.start_time);
-        return dateTime
+        /*
+        const startTime = data.then(data => data.resource.start_time);
+        console.log(startTime)
+        const endTime = data.then(data => data.resource.end_time);
+        console.log(endTime)
+        */
+        return data;
     } catch (e) {
         console.log(e)
         throw ServiceError.ERROR_GETTING_EVENT_DATA

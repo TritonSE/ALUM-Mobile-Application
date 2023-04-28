@@ -49,13 +49,15 @@ router.post(
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
       const accessToken = mentor.personalAccessToken;
-      const meetingTime = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
+      const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const session = new Session({
         preSession: preNoteId._id,
         postSession: postNoteId._id,
         menteeId,
         mentorId,
-        dateTime: meetingTime,
+        startTime: data.resource.start_time,
+        endTime: data.resource.end_time,
+        calendlyUri: req.body.calendlyURI
       });
       await session.save();
       return res.status(201).json({

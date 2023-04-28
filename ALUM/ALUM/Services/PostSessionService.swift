@@ -33,9 +33,9 @@ class PostSessionService {
                 print("Could not get auth token")
                 throw APIError.invalidRequest(message: "Could not get auth token")
         }
-        */
+         */
         
-        // Add another authToken
+        // Add Authtoken here for testing and comment above function
         let authToken = ""
         
         request.httpMethod = "POST"
