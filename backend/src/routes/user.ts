@@ -123,13 +123,11 @@ router.post(
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
-      const calendlyLink = "N/A";
       const pairingIds: string[] = [];
       const mentor = new Mentor({
         name,
         imageId,
         about,
-        // calendlyLink,
         status,
         pairingIds,
         ...args,
