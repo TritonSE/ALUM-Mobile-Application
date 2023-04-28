@@ -26,9 +26,10 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-//        ContentView()
-//            .environmentObject(FirebaseAuthenticationService())
-        SignUpPageView()
+      NavigationView {
+        PostSessionView()
+              .environmentObject(FirebaseAuthenticationService())
+      }
     }
   }
 }
