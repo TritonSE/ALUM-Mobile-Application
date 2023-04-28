@@ -12,6 +12,8 @@ const INVALID_MONGO_ID = "Mongo Id was invalid. Please ensure that the id is cor
 const MENTEE_WAS_NOT_FOUND = "Mentee was not found";
 const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
+
+
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
 
@@ -28,6 +30,8 @@ export class ServiceError extends CustomError {
 
   static IMAGE_WAS_NOT_FOUND = new ServiceError(5, 404, IMAGE_WAS_NOT_FOUND);
 
+  
+  
   static INVALID_URI = new ServiceError(6, 404, INVALID_URI);
 
   static ERROR_GETTING_EVENT_DATA = new ServiceError(7, 404, ERROR_GETTING_EVENT_DATA);
