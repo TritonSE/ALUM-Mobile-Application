@@ -68,7 +68,7 @@ router.post(
       });
     } catch (e) {
       console.log(e);
-      next();
+      next(e);
       return res.status(400);
     }
   }
@@ -87,8 +87,17 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
     }
-    const { preSession, postSessionMentee, postSessionMentor, menteeId, mentorId, dateTime } =
-      session;
+    const {
+      preSession,
+      postSessionMentee,
+      postSessionMentor,
+      menteeId,
+      mentorId,
+      dateTime,
+      preSessionCompleted,
+      postSessionMenteeCompleted,
+      postSessionMentorCompleted,
+    } = session;
     return res.status(200).send({
       message: `Here is session ${sessionId}`,
       session: {
@@ -98,6 +107,9 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
         menteeId,
         mentorId,
         dateTime,
+        preSessionCompleted,
+        postSessionMenteeCompleted,
+        postSessionMentorCompleted,
       },
     });
   } catch (e) {
