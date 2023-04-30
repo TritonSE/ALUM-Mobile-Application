@@ -1,10 +1,10 @@
 import { createHash } from "crypto";
+import { ObjectId } from "mongoose";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
-import {ObjectId} from "mongoose";
-import {Session} from "../models/session";
+import { Session } from "../models/session";
 
 interface Question {
   question: string;
@@ -90,7 +90,7 @@ async function createPostSessionNotes(sessionId: ObjectId, type: string) {
   let postNotes = null;
   try {
     const postSessionAnswers = createAnswerArray(postSessionQuestions);
-    postNotes = new Note({ answers: postSessionAnswers, type: type, session: sessionId });
+    postNotes = new Note({ answers: postSessionAnswers, type, session: sessionId });
     return await postNotes.save();
   } catch (e) {
     throw new Error("Unable to create notes!");
@@ -124,10 +124,10 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
       // mongoose does not notice the change so ignores saving it unless we manually mark
       noteDoc.markModified("answers");
       const sessionDoc = await Session.findById(noteDoc.session);
-      if(sessionDoc!=null){
-        if(noteDoc.type==="pre") sessionDoc.preSessionCompleted=true;
-        else if(noteDoc.type==="postMentor") sessionDoc.postSessionMentorCompleted=true;
-        else if(noteDoc.type==="postMentee") sessionDoc.postSessionMenteeCompleted=true;
+      if (sessionDoc != null) {
+        if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
+        else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
+        else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
         await sessionDoc.save();
       }
       return await noteDoc.save();

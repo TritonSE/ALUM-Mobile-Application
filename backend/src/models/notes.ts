@@ -1,7 +1,7 @@
 /**
  * This file contains the model for the Notes.
  */
-import mongoose, {ObjectId} from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { AnswerType } from "../types/notes";
 
 interface NoteInterface {
@@ -32,7 +32,7 @@ const NoteSchema = new mongoose.Schema({
   session: {
     type: mongoose.Types.ObjectId,
     required: true,
-  }
+  },
 });
 
 const Note = mongoose.model<NoteDoc, NoteModelInterface>("Note", NoteSchema);

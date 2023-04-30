@@ -45,23 +45,23 @@ router.post(
       const { menteeId, mentorId } = req.body;
       const meetingTime = new Date(req.body.dateInfo);
       const session = new Session({
-          preSession: null,
-          postSessionMentee: null,
-          postSessionMentor: null,
-          menteeId,
-          mentorId,
-          dateTime: meetingTime,
-          preSessionCompleted: false,
-          postSessionMentorCompleted: false,
-          postSessionMenteeCompleted: false,
-        });
-      const sessionId=session._id;
+        preSession: null,
+        postSessionMentee: null,
+        postSessionMentor: null,
+        menteeId,
+        mentorId,
+        dateTime: meetingTime,
+        preSessionCompleted: false,
+        postSessionMentorCompleted: false,
+        postSessionMenteeCompleted: false,
+      });
+      const sessionId = session._id;
       const preNoteId = await createPreSessionNotes(sessionId);
       const postMenteeNoteId = await createPostSessionNotes(sessionId, "postMentee");
       const postMentorNoteId = await createPostSessionNotes(sessionId, "postMentor");
-      session.preSession=preNoteId._id;
-      session.postSessionMentee=postMenteeNoteId._id;
-      session.postSessionMentor=postMentorNoteId._id;
+      session.preSession = preNoteId._id;
+      session.postSessionMentee = postMenteeNoteId._id;
+      session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
         message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
