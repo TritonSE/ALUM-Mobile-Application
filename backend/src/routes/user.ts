@@ -80,8 +80,8 @@ router.post(
         pairingId,
         ...args,
       });
-      await createUser(mentee._id.toString(), email, password, "mentee");
       await mentee.save();
+      await createUser(mentee._id.toString(), email, password, "mentee");
       res.status(201).json({
         message: `Mentee ${name} was succesfully created.`,
         userID: mentee._id,
@@ -132,8 +132,8 @@ router.post(
         pairingIds,
         ...args,
       });
-      await createUser(mentor._id.toString(), email, password, "mentor");
       await mentor.save();
+      await createUser(mentor._id.toString(), email, password, "mentor");     
       res.status(201).json({
         message: `Mentor ${name} was successfully created.`,
         userID: mentor._id,

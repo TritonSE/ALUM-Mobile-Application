@@ -15,7 +15,6 @@ struct LoginScreen: View {
 
     var body: some View {
         return VStack(spacing: 0) {
-            Text("loading \(self.currentUser.isLoading ? "true" : "false")")
             Image("ALUMLogoBlue")
                 .resizable()
                 .scaledToFit()

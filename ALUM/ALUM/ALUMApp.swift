@@ -30,7 +30,9 @@ struct RootView: View {
                 }
             })
         } else if self.currentUser.isLoggedIn == false {
-            LoginScreen()
+            NavigationView {
+                LoginScreen()
+            }
         } else {
             ALUMTabView()
         }

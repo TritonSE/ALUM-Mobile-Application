@@ -9,23 +9,24 @@ import Foundation
 import SwiftUI
 
 final class MenteeProfileViewmodel: ObservableObject {
-    @Published var menteeGET = MenteeGetData(
-        message: "Hello",
-        mentee: MenteeInfo(
-            id: "u123",
-            name: "Timby Twolf",
-            imageId: "23462",
-            about: "I love caramel",
-            grade: 10,
-            topicsOfInterest: ["AP", "CS"],
-            careerInterests: ["SWE"]))
-    @Published var selfView = false
-    func getMenteeInfo(userID: String) async throws {
-        guard let menteeData = try? await UserService().getMentee(userID: userID) else {
+    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+
+    @Published var mentee: MenteeInfo?
+    @Published var selfView: Bool?
+
+    func fetchMenteeInfo(userID: String) async throws {
+        guard let menteeData = try? await UserService.shared.getMentee(userID: userID) else {
             print("Error getting info")
             return
         }
-        menteeGET = menteeData
-        selfView = (menteeGET.mentee.mentorshipGoal != nil)
+
+        DispatchQueue.main.async {
+            self.mentee = menteeData.mentee
+            self.selfView = self.currentUser.uid == menteeData.mentee.id
+        }
+    }
+
+    func isLoading() -> Bool {
+        return mentee == nil || selfView == nil
     }
 }

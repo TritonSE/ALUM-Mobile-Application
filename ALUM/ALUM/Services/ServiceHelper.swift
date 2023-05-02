@@ -7,22 +7,19 @@
 
 import Foundation
 
-class RequestGenerator {
-    static let shared = RequestGenerator()
+class ServiceHelper {
+    static let shared = ServiceHelper()
 
     func attachAuthTokenToRequest(request: inout URLRequest) async throws {
         guard let authToken = try await FirebaseAuthenticationService.shared.getCurrentAuth() else {
-            throw APIError.authenticationError(
-                message: "Error getting auth token"
-            )
+            throw AppError.actionable(.authenticationError, message: "Error getting auth token")
         }
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     }
 
     func createRequest(urlString: String, method: String, requireAuth: Bool) async throws -> URLRequest {
         guard let url = URL(string: urlString) else {
-            print("Url Failure")
-            throw APIError.invalidRequest()
+            throw AppError.internalError(.unknownError, message: "Invalid URL")
         }
 
         var request = URLRequest(url: url)
@@ -33,5 +30,4 @@ class RequestGenerator {
         }
         return request
     }
-    // Add more functions for PUT, DELETE, etc. as needed
 }

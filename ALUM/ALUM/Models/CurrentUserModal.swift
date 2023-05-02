@@ -44,8 +44,7 @@ class CurrentUserModal: ObservableObject {
     func setForInSessionUser() async {
         do {
             guard let user = Auth.auth().currentUser else {
-                print("No user found")
-                throw ALUMError.noLoggedInUserError
+                throw AppError.actionable(.authenticationError, message: "No user found")
             }
             try await self.setFromFirebaseUser(user: user)
         } catch {
@@ -58,7 +57,10 @@ class CurrentUserModal: ObservableObject {
     func setFromFirebaseUser(user: User) async throws {
         let result = try await user.getIDTokenResult()
         guard let role = result.claims["role"] as? String else {
-            throw ALUMError.invalidUserError
+            throw AppError.actionable(
+                .authenticationError,
+                message: "Expected to have a firebase role for user \(user.uid)"
+            )
         }
         let roleEnum: UserRole
         switch role {
@@ -67,7 +69,10 @@ class CurrentUserModal: ObservableObject {
         case "mentor":
             roleEnum = .mentor
         default:
-            throw ALUMError.invalidUserError
+            throw AppError.actionable(
+                .authenticationError,
+                message: "Expected user role to be mentor OR mentee but found - \(role)"
+            )
         }
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
     }
