@@ -55,10 +55,43 @@ enum APIRoute {
     }
 
     func createURLRequest() async throws -> URLRequest {
-        return try await RequestGenerator.shared.createRequest(
+        return try await ServiceHelper.shared.createRequest(
             urlString: self.url,
             method: self.method,
             requireAuth: self.requireAuth
         )
+    }
+
+    var label: String {
+        return "\(self.method) \(self.url)"
+    }
+
+    var successCode: Int {
+        switch self {
+        case .getMentor, .getMentee:
+            return 200 // 200 Ok
+        case .postMentor, .postMentee:
+            return 201 // 201 Created
+        }
+    }
+
+    func getAppError(statusCode: Int, message: String) -> AppError {
+        let labeledMessage = "\(self.label) - \(message)"
+        let errorMap: [Int: AppError]
+
+        switch self {
+        case .getMentor, .getMentee:
+            errorMap = [
+                401: AppError.actionable(.authenticationError, message: labeledMessage),
+                400: AppError.internalError(.invalidRequest, message: labeledMessage)
+            ]
+        case .postMentor, .postMentee:
+            errorMap = [
+                400: AppError.internalError(.invalidRequest, message: labeledMessage)
+            ]
+        }
+
+        let error = errorMap[statusCode] ?? AppError.internalError(.unknownError, message: labeledMessage)
+        return error
     }
 }

@@ -26,7 +26,6 @@ final class FirebaseAuthenticationService: ObservableObject {
         } catch let error {
             print("error occured in FirebaseAuthenticationService - ", error.localizedDescription)
         }
-
     }
 
     func getCurrentAuth() async throws -> String? {
@@ -36,14 +35,13 @@ final class FirebaseAuthenticationService: ObservableObject {
                 return tokenResult.token
             } catch let error {
                 // Handle the error
-                throw APIError.authenticationError(
+                throw AppError.actionable(
+                    .authenticationError,
                     message: "Error getting auth token: \(error.localizedDescription)"
                 )
             }
         } else {
-            throw APIError.authenticationError(
-                message: "No logged in user found. Please login first"
-            )
+            throw AppError.actionable(.authenticationError, message: "No logged in user found. Please login first")
         }
     }
 

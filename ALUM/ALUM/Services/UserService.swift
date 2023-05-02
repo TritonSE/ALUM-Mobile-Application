@@ -33,100 +33,95 @@ struct MentorPostData: Codable {
     var calendlyLink: String
 }
 
+struct MenteeGetData: Decodable {
+    var message: String
+    var mentee: MenteeInfo
+}
+
+struct MentorGetData: Decodable {
+    var message: String
+    var mentor: MentorInfo
+}
+
+/// This class deals with all communications with mentor / mentee routes on the backend.
+/// Each public method of this service
 class UserService {
     static let shared = UserService()
 
-    func createUser(route: APIRoute, jsonData: Data) async throws {
-        var request = try await route.createURLRequest()
+    /// This function sends the request and performs check on the received response to see if there was
+    /// any error (network error, invalid request, etc.).
+    ///
+    /// If yes, the errors are thrown. Otherwise response data is returned
+    private func sendRequestWithSafety(route: APIRoute, request: URLRequest) async throws -> Data {
+        let responseData: Data, response: URLResponse
+        print("\(route.label) - sending request")
+        // Any transport error (network error etc.) would happen when sending the request,
+        // hence the do-catch
         do {
-            // Encode the data as JSON
-            request.httpBody = jsonData
-            // Make the network request
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            // Check the response status code
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-
-            if httpResponse.statusCode != 201 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("POST \(route.url) was successful.")
-            }
+            (responseData, response) = try await URLSession.shared.data(for: request)
         } catch {
-            print(error)
-            throw error
+            throw AppError.actionable(.networkError, message: route.label)
         }
+
+        // Ensure that response is of corrcet type
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw AppError.internalError(
+                .invalidResponse,
+                message: "Expected HTTPURLResponse for getMentor route but found somrthing else"
+            )
+        }
+
+        // Handle case where response is not success. successCode for each route stored on APIRoute
+        if httpResponse.statusCode != route.successCode {
+            let responseStr = String(decoding: responseData, as: UTF8.self)
+            throw route.getAppError(statusCode: httpResponse.statusCode, message: responseStr)
+        }
+
+        // All good -- so return data
+        return responseData
     }
 
     func createMentee(data: MenteePostData) async throws {
+        let route = APIRoute.postMentee
+        var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
-            throw APIError.invalidRequest(
-                message: "Failed to Encode Data"
-            )
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
-        return try await self.createUser(route: APIRoute.postMentee, jsonData: jsonData)
+        request.httpBody = jsonData
+        let responseData = try await self.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 
     func createMentor(data: MentorPostData) async throws {
+        let route = APIRoute.postMentor
+        var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
-            throw APIError.invalidRequest(
-                message: "Failed to Encode Data"
-            )
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
-        return try await self.createUser(route: APIRoute.postMentor, jsonData: jsonData)
+        request.httpBody = jsonData
+        let responseData = try await self.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 
     func getMentor(userID: String) async throws -> MentorGetData {
         let route = APIRoute.getMentor(userId: userID)
-        var request = try await route.createURLRequest()
-        let (responseData, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            print("Network Error")
-            throw APIError.networkError()
-        }
-
-        if httpResponse.statusCode != 200 {
-            let responseStr = String(decoding: responseData, as: UTF8.self)
-            print("Status code wrong")
-            throw APIError.invalidRequest(
-                message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-            )
-        }
+        let request = try await route.createURLRequest()
+        let responseData = try await self.sendRequestWithSafety(route: route, request: request)
         guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-            print("Failed to Decode Data")
-            throw APIError.invalidRequest(
-                message: "Failed to Decode Data"
-            )
+            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
         }
-        print("GET \(route.url) was successful.")
+        print("SUCCESS - \(route.label)")
         return mentorData
     }
 
     func getMentee(userID: String) async throws -> MenteeGetData {
         let route = APIRoute.getMentee(userId: userID)
-        var request = try await route.createURLRequest()
-        let (responseData, response) = try await URLSession.shared.data(for: request)
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw APIError.networkError()
-        }
-        if httpResponse.statusCode != 200 {
-            let responseStr = String(decoding: responseData, as: UTF8.self)
-            throw APIError.invalidRequest(
-                message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-            )
-        }
-
+        let request = try await route.createURLRequest()
+        let responseData = try await self.sendRequestWithSafety(route: route, request: request)
         guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-            throw APIError.invalidRequest(
-                message: "Failed to Decode Data"
-            )
+            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
         }
-        print("GET \(route.url) was successful.")
+        print("SUCCESS - \(route.label)")
         return menteeData
     }
 }

@@ -8,30 +8,26 @@
 import Foundation
 import SwiftUI
 
-final class MentorProfileViewmodel: ObservableObject {
-    @Published var mentorGET = MentorGetData(
-        message: "Hi I like chocolate",
-        mentor: MentorInfo(
-        id: "123",
-        name: "Timby Twolf",
-        imageId: "34709134",
-        about: "I love chocolate",
-        calendlyLink: "asdasd",
-        graduationYear: 2016,
-        college: "UCSD",
-        major: "CS",
-        minor: "Business",
-        career: "SWE",
-        topicsOfExpertise: ["CS", "AP", "Hi"]))
-    @Published var selfView = false
+final class MentorProfileViewModel: ObservableObject {
+    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
 
-    func getMentorInfo(userID: String) async throws {
-        guard let mentorData = try? await UserService().getMentor(userID: userID) else {
-            print("Error getting info")
-            return
+    @Published var mentor: MentorInfo?
+    @Published var selfView: Bool?
+
+    func fetchMentorInfo(userID: String) async throws {
+        do {
+            let mentorData = try await UserService.shared.getMentor(userID: userID)
+
+            DispatchQueue.main.async {
+                self.mentor = mentorData.mentor
+                self.selfView = self.currentUser.uid == mentorData.mentor.id
+            }
+        } catch {
+            print("An error occurred: \(error.localizedDescription)")
         }
-        mentorGET = mentorData
-        // motivation is an optional parameter, used to check who is viewing profile
-        selfView = (mentorGET.mentor.mentorMotivation != nil)
+    }
+
+    func isLoading() -> Bool {
+        return mentor == nil || selfView == nil
     }
 }

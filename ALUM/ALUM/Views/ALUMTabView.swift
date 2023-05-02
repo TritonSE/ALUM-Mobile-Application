@@ -24,7 +24,12 @@ struct ProfileRouter: View {
 
 struct PlaceHolderHomeScreen: View {
     var body: some View {
-        Text("PlaceHolderHomeScreen")
+        VStack {
+            Text("PlaceHolderHomeScreen")
+            Button("Sign Out", action: {
+                FirebaseAuthenticationService.shared.logout()
+            })
+        }
     }
 }
 
