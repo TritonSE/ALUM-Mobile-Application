@@ -5,6 +5,7 @@ import { questionIDs } from "../config";
 import { updateNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
+import { ServiceError } from "../errors";
 
 const router = express.Router();
 
@@ -39,7 +40,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     const id = req.params.id;
     const note = await Note.findById(id);
     if (note === null) {
-      throw new Error();
+      throw ServiceError.NOTE_WAS_NOT_FOUND;
     }
     const notes: NoteItem[] = note.answers as NoteItem[];
     notes.forEach((note_answer) => {
@@ -49,9 +50,6 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     return res.status(200).json(note.answers);
   } catch (e) {
     next(e);
-    return res.status(400).json({
-      message: "Invalid ID!",
-    });
   }
 });
 
@@ -88,11 +86,7 @@ router.patch(
         updatedDoc: noteDoc,
       });
     } catch (e) {
-      console.log(e);
-      next(e);
-      return res.status(400).json({
-        message: "Invalid",
-      });
+      next(e)
     }
   }
 );

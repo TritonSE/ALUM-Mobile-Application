@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginPageView(),
+                    backDestination: LoginScreen(),
                     title: "Post-session Notes",
                     purple: false
                 )
@@ -48,7 +48,7 @@ struct PostSessionView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadPostNotes()
+                    try await viewModel.loadPostNotes(notesID: "6450d7933551f6470d1f5c9d", otherNotesID: "6450d7933551f6470d1f5c9f")
                 } catch {
                     print("Error")
                 }
