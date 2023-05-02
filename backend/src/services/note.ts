@@ -111,7 +111,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   if (!noteDoc) {
     throw ServiceError.NOTE_WAS_NOT_FOUND;
   }
-  
+
   // Can improve this in future if needed by creating a hashmap
   noteDoc.answers.forEach((_, answerIndex) => {
     const updatedNote = updatedNotes.find(
@@ -135,7 +135,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
     }
     return await noteDoc.save();
   } catch (error) {
-    throw ServiceError.NOTE_WAS_NOT_SAVED
+    throw ServiceError.NOTE_WAS_NOT_SAVED;
   }
 }
 

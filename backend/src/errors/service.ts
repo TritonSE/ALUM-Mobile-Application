@@ -14,7 +14,7 @@ const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
 const SESSION_WAS_NOT_FOUND = "Session was not found";
 const NOTE_WAS_NOT_FOUND = "Note was not found";
-const NOTE_WAS_NOT_SAVED = "Note was not saved"
+const NOTE_WAS_NOT_SAVED = "Note was not saved";
 
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
@@ -34,5 +34,4 @@ export class ServiceError extends CustomError {
   static NOTE_WAS_NOT_FOUND = new ServiceError(7, 404, NOTE_WAS_NOT_FOUND);
 
   static NOTE_WAS_NOT_SAVED = new ServiceError(7, 404, NOTE_WAS_NOT_SAVED);
-
 }

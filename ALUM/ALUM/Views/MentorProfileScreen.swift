@@ -12,7 +12,7 @@ struct MentorProfileScreen: View {
     @StateObject private var viewModel = MentorProfileViewModel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
-    
+
     var body: some View {
         Group {
             if viewModel.isLoading() {
@@ -30,10 +30,10 @@ struct MentorProfileScreen: View {
             }
         })
     }
-    
+
     var content: some View {
         let mentor = viewModel.mentor!
-        
+
         return GeometryReader { grr in
             VStack(spacing: 0) {
                 ScrollView {

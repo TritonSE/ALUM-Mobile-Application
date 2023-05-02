@@ -74,32 +74,22 @@ router.post(
   }
 );
 
-router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const sessionId = req.params.sessionId;
+router.get(
+  "/sessions/:sessionId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const sessionId = req.params.sessionId;
 
-    if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-      throw ServiceError.INVALID_MONGO_ID;
-    }
-  
-    const session = await Session.findById(sessionId);
-    if (!session) {
-      throw ServiceError.SESSION_WAS_NOT_FOUND;
-    }
-    const {
-      preSession,
-      postSessionMentee,
-      postSessionMentor,
-      menteeId,
-      mentorId,
-      dateTime,
-      preSessionCompleted,
-      postSessionMenteeCompleted,
-      postSessionMentorCompleted,
-    } = session;
-    return res.status(200).send({
-      message: `Here is session ${sessionId}`,
-      session: {
+      if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const session = await Session.findById(sessionId);
+      if (!session) {
+        throw ServiceError.SESSION_WAS_NOT_FOUND;
+      }
+      const {
         preSession,
         postSessionMentee,
         postSessionMentor,
@@ -109,12 +99,26 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
-      },
-    });
-  } catch (e) {
-    return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION)
+      } = session;
+      return res.status(200).send({
+        message: `Here is session ${sessionId}`,
+        session: {
+          preSession,
+          postSessionMentee,
+          postSessionMentor,
+          menteeId,
+          mentorId,
+          dateTime,
+          preSessionCompleted,
+          postSessionMenteeCompleted,
+          postSessionMentorCompleted,
+        },
+      });
+    } catch (e) {
+      return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION)
+    } 
   }
-});
+);
 
 router.get(
   "/sessions",

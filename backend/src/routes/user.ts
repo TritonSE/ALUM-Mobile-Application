@@ -133,7 +133,7 @@ router.post(
         ...args,
       });
       await mentor.save();
-      await createUser(mentor._id.toString(), email, password, "mentor");     
+      await createUser(mentor._id.toString(), email, password, "mentor");
       res.status(201).json({
         message: `Mentor ${name} was successfully created.`,
         userID: mentor._id,

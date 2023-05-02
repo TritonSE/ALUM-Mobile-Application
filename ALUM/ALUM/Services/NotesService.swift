@@ -75,7 +75,7 @@ class NotesService {
         let route = APIRoute.getNote(noteId: noteId)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        
+
         do {
             let notesData = try JSONDecoder().decode([QuestionGetData].self, from: responseData)
             print("SUCCESS - \(route.label)")

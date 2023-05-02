@@ -47,7 +47,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
     console.log(note.answers);
-    return res.status(200).json(note.answers);
+    res.status(200).json(note.answers);
   } catch (e) {
     next(e);
   }
@@ -81,12 +81,12 @@ router.patch(
       const updatedNotes: UpdateNoteRequestBodyType = req.body;
       await updateNotes(updatedNotes, documentId);
       const noteDoc = await Note.findById(documentId);
-      return res.status(200).json({
+      res.status(200).json({
         message: "Success",
         updatedDoc: noteDoc,
       });
     } catch (e) {
-      next(e)
+      next(e);
     }
   }
 );

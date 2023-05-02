@@ -12,7 +12,7 @@ struct MenteeProfileScreen: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
-    
+
     var body: some View {
         Group {
             if viewModel.isLoading() {
@@ -30,10 +30,10 @@ struct MenteeProfileScreen: View {
             }
         })
     }
-    
+
     var content: some View {
         let mentee = viewModel.mentee!
-        
+
         return
         GeometryReader { grr in
             VStack(spacing: 0) {

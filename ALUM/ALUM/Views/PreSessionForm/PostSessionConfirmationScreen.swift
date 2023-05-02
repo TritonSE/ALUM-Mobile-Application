@@ -57,7 +57,7 @@ struct PostSessionConfirmationScreen: View {
             Button {
                 Task {
                     do {
-                        // TODO remove hardcoding
+                        // (todo) remove hardcoding
                         try await viewModel.submitNotesPatch(noteID: "6450d7933551f6470d1f5c9d")
                         self.viewModel.submitSuccess = true
                     } catch {
