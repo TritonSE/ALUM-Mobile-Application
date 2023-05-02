@@ -30,7 +30,7 @@ class ServiceHelper {
         }
         return request
     }
-    
+
     /// This function sends the request and performs check on the received response to see if there was
     /// any error (network error, invalid request, etc.).
     ///

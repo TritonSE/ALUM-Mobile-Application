@@ -20,7 +20,7 @@ class CurrentUserModal: ObservableObject {
     @Published var uid: String?
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
-    
+
     init() {
         self.isLoading = true
         self.isLoggedIn = false

@@ -11,7 +11,7 @@ struct MentorCard: View {
     @State var isEmpty = false
     @State var uID: String = ""
     @StateObject private var viewModel = MentorProfileViewModel()
-    
+
     var body: some View {
         Group {
             if viewModel.isLoading() {
@@ -29,7 +29,7 @@ struct MentorCard: View {
             }
         })
     }
-    
+
     var content: some View {
         let mentor = viewModel.mentor!
         return ZStack {

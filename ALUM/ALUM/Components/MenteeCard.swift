@@ -46,7 +46,7 @@ struct MenteeCard: View {
             }
         })
     }
-    
+
     var content: some View {
         let mentee = viewModel.mentee!
         return ZStack {

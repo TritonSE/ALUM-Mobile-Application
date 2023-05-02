@@ -48,7 +48,10 @@ struct PostSessionView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadPostNotes(notesID: "6450d7933551f6470d1f5c9d", otherNotesID: "6450d7933551f6470d1f5c9f")
+                    try await viewModel.loadPostNotes(
+                        notesID: "6450d7933551f6470d1f5c9d",
+                        otherNotesID: "6450d7933551f6470d1f5c9f"
+                    )
                 } catch {
                     print("Error")
                 }

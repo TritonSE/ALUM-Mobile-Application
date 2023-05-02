@@ -19,7 +19,7 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
-    
+
     case getNote(noteId: String)
     case patchNote(noteId: String)
 
