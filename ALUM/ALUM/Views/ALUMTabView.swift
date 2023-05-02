@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileRouter: View {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
-    
+
     var body: some View {
         switch self.currentUser.role {
         case .some(UserRole.mentor):
@@ -29,7 +29,7 @@ struct PlaceHolderHomeScreen: View {
 }
 
 struct ALUMTabView: View {
-    // TODO Needs to be customized to match our design
+    // (todo) Needs to be customized to match our design
     @State private var selection = 0
 
     var body: some View {
@@ -44,7 +44,7 @@ struct ALUMTabView: View {
                     Text("Home")
                 }
                 .tag(0)
-            
+
             ProfileRouter()
                 .tabItem {
                     Image("Profile Tab Icon")

@@ -20,7 +20,7 @@ class CurrentUserModal: ObservableObject {
     @Published var uid: String?
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
-    
+
     init() {
         self.isLoading = true
         self.isLoggedIn = false
@@ -28,7 +28,8 @@ class CurrentUserModal: ObservableObject {
         self.role = nil
     }
 
-    ///  Since async operations are involved, this function will limit updating the current user without using the DispatchQueue logic.
+    ///  Since async operations are involved, this function will limit updating the current 
+    ///  user without using the DispatchQueue logic.
     ///  Not using DispatchQueue can casue race conditions which can crash our app
     func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?) {
         DispatchQueue.main.async {
@@ -38,7 +39,7 @@ class CurrentUserModal: ObservableObject {
             self.role = role
         }
     }
-    
+
     /// Utilizes FirebaseAuth to get data on a logged in user (if any). Otherwise resets to not logged in state
     func setForInSessionUser() async {
         do {
@@ -52,7 +53,8 @@ class CurrentUserModal: ObservableObject {
         }
     }
 
-    /// User is a Firebase User so this function gets the ROLE and UID of the logged in user if a firebase user is passed
+    /// User is a Firebase User so this function gets the ROLE and UID of the 
+    /// logged in user if a firebase user is passed
     func setFromFirebaseUser(user: User) async throws {
         let result = try await user.getIDTokenResult()
         guard let role = result.claims["role"] as? String else {

@@ -19,7 +19,7 @@ final class LoginViewModel: ObservableObject {
     @Published var emailFunc: [(String) -> (Bool, String)] = []
     @Published var passFunc: [(String) -> (Bool, String)] = []
     @Published var isLoading: Bool = false
-    
+
     func login() async {
         do {
             let user = try await FirebaseAuthenticationService.shared.login(email: email, password: password)
@@ -36,7 +36,7 @@ final class LoginViewModel: ObservableObject {
             }
         }
     }
-    
+
     class Functions {
         static let EnterEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
             if string == "" {

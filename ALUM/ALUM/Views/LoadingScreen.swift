@@ -10,7 +10,7 @@ import SwiftUI
 // This is temporary for development
 struct LoadingView: View {
     var text: String
-    
+
     var body: some View {
         VStack {
             Text(text)

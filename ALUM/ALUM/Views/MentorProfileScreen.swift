@@ -33,7 +33,7 @@ struct MentorProfileScreen: View {
 
     var content: some View {
         let mentor = viewModel.mentor!
-        
+
         return NavigationView {
             GeometryReader { grr in
                 VStack(spacing: 0) {
