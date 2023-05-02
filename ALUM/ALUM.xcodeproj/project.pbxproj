@@ -13,6 +13,7 @@
 		0748209329712922004AF547 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209229712922004AF547 /* Assets.xcassets */; };
 		0748209629712922004AF547 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0748209529712922004AF547 /* Preview Assets.xcassets */; };
 		075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075379F629B6A9F100A0DD5E /* TagEditor.swift */; };
+		0757551829F9DB0C008E73FB /* CurrentUserModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757551729F9DB0C008E73FB /* CurrentUserModal.swift */; };
 		0757551F29FAA2AB008E73FB /* DynamicProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757551929FAA2AB008E73FB /* DynamicProgressBarComponent.swift */; };
 		0757552029FAA2AB008E73FB /* StaticProgressBarComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757551A29FAA2AB008E73FB /* StaticProgressBarComponent.swift */; };
 		0757552129FAA2AB008E73FB /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757551B29FAA2AB008E73FB /* Bullet.swift */; };
@@ -32,6 +33,10 @@
 		0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553929FAA380008E73FB /* QuestionViewModel.swift */; };
 		0757553C29FAA387008E73FB /* NotesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553B29FAA387008E73FB /* NotesService.swift */; };
 		0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
+		0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */; };
+		0799ACE52A00924F00EEAFA2 /* ALUMTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* ALUMTabView.swift */; };
+		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
+		0799ACF02A01033700EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACEF2A01033700EEAFA2 /* LoginReviewPage.swift */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
@@ -39,22 +44,21 @@
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EBC29B95D50008B912A /* ProfileModel.swift */; };
 		80210EC129B95F24008B912A /* MenteeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC029B95F24008B912A /* MenteeCard.swift */; };
-		80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC429BA8255008B912A /* MenteeProfileView.swift */; };
+		80210EC529BA8255008B912A /* MenteeProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC429BA8255008B912A /* MenteeProfileScreen.swift */; };
 		80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */; };
 		80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ECB29BA9EBC008B912A /* MentorCard.swift */; };
 		80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */; };
-		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
-		8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileView.swift */; };
-		8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045EEB029F6844A00BD179C /* ServiceConstants.swift */; };
+		80274FF5299DB03900CCB9D0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */; };
+		8041161E29B21BB800529936 /* MentorProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileScreen.swift */; };
+		8045EEB129F6844B00BD179C /* ServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045EEB029F6844A00BD179C /* ServiceHelper.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
-		805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */; };
+		805CF73329B7DFBD0081F89E /* MentorProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */; };
 		8083E73329E0D08400033F22 /* RenderTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083E73229E0D08400033F22 /* RenderTags.swift */; };
-		80938CEA29C51D18006BC120 /* FirebaseContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80938CE929C51D18006BC120 /* FirebaseContentView.swift */; };
 		8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6D29E1F968006AA63C /* NavigationFooter.swift */; };
 		8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */; };
 		8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE7129E41214006AA63C /* NavigationComponent.swift */; };
 		8095FE7529E4153C006AA63C /* ProfileHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */; };
-		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */; };
+		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */; };
 		80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
 		80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
 		80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */; };
@@ -74,7 +78,7 @@
 		80F5388429A6A80500FB5E66 /* Metropolis-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */; };
 		80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
 		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
-		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */; };
+		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */; };
 		80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* UserService.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
@@ -90,7 +94,7 @@
 		97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE832988EF9900405FD6 /* FirebaseAuth */; };
 		97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE852988EF9900405FD6 /* FirebaseFirestore */; };
 		97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE872988EF9900405FD6 /* FirebaseStorage */; };
-		97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginPageView.swift */; };
+		97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginScreen.swift */; };
 		97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */; };
 		97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */; };
 		97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */; };
@@ -111,6 +115,7 @@
 		0748209229712922004AF547 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0748209529712922004AF547 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		075379F629B6A9F100A0DD5E /* TagEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagEditor.swift; sourceTree = "<group>"; };
+		0757551729F9DB0C008E73FB /* CurrentUserModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserModal.swift; sourceTree = "<group>"; };
 		0757551929FAA2AB008E73FB /* DynamicProgressBarComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicProgressBarComponent.swift; sourceTree = "<group>"; };
 		0757551A29FAA2AB008E73FB /* StaticProgressBarComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticProgressBarComponent.swift; sourceTree = "<group>"; };
 		0757551B29FAA2AB008E73FB /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
@@ -129,6 +134,10 @@
 		0757553729FAA350008E73FB /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		0757553929FAA380008E73FB /* QuestionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		0757553B29FAA387008E73FB /* NotesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
+		0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		0799ACE42A00924F00EEAFA2 /* ALUMTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMTabView.swift; sourceTree = "<group>"; };
+		0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
+		0799ACEF2A01033700EEAFA2 /* LoginReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginReviewPage.swift; sourceTree = "<group>"; };
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
@@ -136,23 +145,22 @@
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
 		80210EBC29B95D50008B912A /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		80210EC029B95F24008B912A /* MenteeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeCard.swift; sourceTree = "<group>"; };
-		80210EC429BA8255008B912A /* MenteeProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileView.swift; sourceTree = "<group>"; };
+		80210EC429BA8255008B912A /* MenteeProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileScreen.swift; sourceTree = "<group>"; };
 		80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileViewModel.swift; sourceTree = "<group>"; };
 		80210ECB29BA9EBC008B912A /* MentorCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorCard.swift; sourceTree = "<group>"; };
 		80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
-		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
-		8041161D29B21BB800529936 /* MentorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileView.swift; sourceTree = "<group>"; };
-		8045EEB029F6844A00BD179C /* ServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConstants.swift; sourceTree = "<group>"; };
+		80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		8041161D29B21BB800529936 /* MentorProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileScreen.swift; sourceTree = "<group>"; };
+		8045EEB029F6844A00BD179C /* ServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelper.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
-		805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewmodel.swift; sourceTree = "<group>"; };
+		805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewModel.swift; sourceTree = "<group>"; };
 		8083E73229E0D08400033F22 /* RenderTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTags.swift; sourceTree = "<group>"; };
-		80938CE929C51D18006BC120 /* FirebaseContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseContentView.swift; sourceTree = "<group>"; };
 		8095FE6D29E1F968006AA63C /* NavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFooter.swift; sourceTree = "<group>"; };
 		8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyPairedComponent.swift; sourceTree = "<group>"; };
 		8095FE7129E41214006AA63C /* NavigationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationComponent.swift; sourceTree = "<group>"; };
 		8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderComponent.swift; sourceTree = "<group>"; };
-		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
-		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentor.swift; sourceTree = "<group>"; };
+		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMenteeScreen.swift; sourceTree = "<group>"; };
+		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentorScreen.swift; sourceTree = "<group>"; };
 		80F5388B29B0252F00FB5E66 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputFieldComponent.swift; sourceTree = "<group>"; };
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
@@ -165,7 +173,7 @@
 		979F811F29B8181400D6E964 /* SelectYearComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectYearComponent.swift; sourceTree = "<group>"; };
 		979F812129B842E200D6E964 /* UniversityNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityNames.swift; sourceTree = "<group>"; };
 		979F812329B85DF800D6E964 /* SelectUniversityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUniversityComponent.swift; sourceTree = "<group>"; };
-		97A2FE8B2989C20900405FD6 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
+		97A2FE8B2989C20900405FD6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
 		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
@@ -230,6 +238,7 @@
 			children = (
 				0748208D29712921004AF547 /* ALUM */,
 				0748208C29712921004AF547 /* Products */,
+				0799ACEE2A0102E400EEAFA2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,6 +278,14 @@
 				0748209529712922004AF547 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0799ACEE2A0102E400EEAFA2 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				0757553529FAA340008E73FB /* LoginReviewPage.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		07F9A50C297180D700BC11A8 /* Components */ = {
@@ -313,6 +330,7 @@
 				0757553729FAA350008E73FB /* QuestionModel.swift */,
 				80210EBC29B95D50008B912A /* ProfileModel.swift */,
 				97992B5E29A6E81D00701CC7 /* SignUpModel.swift */,
+				0757551729F9DB0C008E73FB /* CurrentUserModal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,12 +338,15 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0799ACEF2A01033700EEAFA2 /* LoginReviewPage.swift */,
 				97A31AC729BAFA7600B79D30 /* PreSessionForm */,
-				80210EC629BA825B008B912A /* ProfileViews */,
+				97A2FE8B2989C20900405FD6 /* LoginScreen.swift */,
+				8041161D29B21BB800529936 /* MentorProfileScreen.swift */,
+				80210EC429BA8255008B912A /* MenteeProfileScreen.swift */,
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
-				80938CE929C51D18006BC120 /* FirebaseContentView.swift */,
-				80274FF1299DAFF500CCB9D0 /* LoginPage */,
+				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
+				0799ACE42A00924F00EEAFA2 /* ALUMTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -334,9 +355,9 @@
 			isa = PBXGroup;
 			children = (
 				0757553929FAA380008E73FB /* QuestionViewModel.swift */,
-				805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */,
+				805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */,
 				80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */,
-				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
+				80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */,
 				97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */,
 			);
 			path = ViewModels;
@@ -348,27 +369,10 @@
 				0757553B29FAA387008E73FB /* NotesService.swift */,
 				80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */,
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
-				8045EEB029F6844A00BD179C /* ServiceConstants.swift */,
+				8045EEB029F6844A00BD179C /* ServiceHelper.swift */,
+				0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		80210EC629BA825B008B912A /* ProfileViews */ = {
-			isa = PBXGroup;
-			children = (
-				8041161D29B21BB800529936 /* MentorProfileView.swift */,
-				80210EC429BA8255008B912A /* MenteeProfileView.swift */,
-			);
-			path = ProfileViews;
-			sourceTree = "<group>";
-		};
-		80274FF1299DAFF500CCB9D0 /* LoginPage */ = {
-			isa = PBXGroup;
-			children = (
-				0757553529FAA340008E73FB /* LoginReviewPage.swift */,
-				97A2FE8B2989C20900405FD6 /* LoginPageView.swift */,
-			);
-			path = LoginPage;
 			sourceTree = "<group>";
 		};
 		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
@@ -379,8 +383,8 @@
 				97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */,
 				97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */,
 				97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */,
-				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */,
-				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */,
+				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */,
+				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */,
 			);
 			path = SignUpPage;
 			sourceTree = "<group>";
@@ -564,6 +568,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0799ACF02A01033700EEAFA2 /* LoginReviewPage.swift in Sources */,
 				0757553C29FAA387008E73FB /* NotesService.swift in Sources */,
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
@@ -572,10 +577,11 @@
 				0757552D29FAA2D6008E73FB /* PostSessionQuestionScreen.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
-				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
+				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift in Sources */,
 				97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */,
+				0799ACE52A00924F00EEAFA2 /* ALUMTabView.swift in Sources */,
 				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
-				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
+				8041161E29B21BB800529936 /* MentorProfileScreen.swift in Sources */,
 				8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */,
 				0757553629FAA340008E73FB /* LoginReviewPage.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
@@ -596,14 +602,14 @@
 				0757552329FAA2AB008E73FB /* CustomAlertView.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				0757553329FAA2D6008E73FB /* MissedSessionScreen.swift in Sources */,
-				805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */,
+				805CF73329B7DFBD0081F89E /* MentorProfileViewModel.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
-				80938CEA29C51D18006BC120 /* FirebaseContentView.swift in Sources */,
+				0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */,
 				8083E73329E0D08400033F22 /* RenderTags.swift in Sources */,
 				8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */,
 				0757551F29FAA2AB008E73FB /* DynamicProgressBarComponent.swift in Sources */,
 				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
-				8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */,
+				8045EEB129F6844B00BD179C /* ServiceHelper.swift in Sources */,
 				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
 				979F812229B842E200D6E964 /* UniversityNames.swift in Sources */,
 				0757552229FAA2AB008E73FB /* CircleAddButton.swift in Sources */,
@@ -614,7 +620,8 @@
 				97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */,
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
-				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
+				0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */,
+				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
 				0757553229FAA2D6008E73FB /* PreSessionQuestionScreen.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,
@@ -625,13 +632,14 @@
 				0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
 				80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */,
-				80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */,
+				80210EC529BA8255008B912A /* MenteeProfileScreen.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
-				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
+				97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */,
 				80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */,
 				80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */,
-				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
+				80274FF5299DB03900CCB9D0 /* LoginViewModel.swift in Sources */,
+				0757551829F9DB0C008E73FB /* CurrentUserModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
