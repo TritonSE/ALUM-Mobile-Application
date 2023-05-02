@@ -130,7 +130,6 @@ router.post(
         name,
         imageId,
         about,
-        calendlyLink,
         zoomLink,
         status,
         pairingIds,
