@@ -1,41 +1,42 @@
 //
-//  LoginPageViewModel.swift
+//  LoginViewModel.swift
 //  ALUM
 //
 //  Created by Yash Ravipati on 2/15/23.
 //
 
 import Foundation
+import SwiftUI
 import FirebaseCore
 import FirebaseAuth
 
-final class LoginPageViewModel: ObservableObject {
+final class LoginViewModel: ObservableObject {
+    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var disabled: Bool = true
-    @Published var userIsLoggedIn: Bool = false
     @Published var emailFunc: [(String) -> (Bool, String)] = []
     @Published var passFunc: [(String) -> (Bool, String)] = []
-    func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { (_, error) in
-            if let maybeError = error {
-                let errorCode = AuthErrorCode.Code(rawValue: maybeError._code)
-                if errorCode == .invalidEmail {
-                    print("Invalid Email")
-                    self.emailFunc = [Functions.InvalidEmail]
-                } else if errorCode == .wrongPassword {
-                    print("wrong password")
-                    self.passFunc = [Functions.IncorrectPassword]
-                } else if errorCode == .userNotFound {
-                    print("User not found")
-                    self.emailFunc = [Functions.IncorrectEmail]
-                }
-            } else {
-                print("success")
-                self.userIsLoggedIn.toggle()
+    @Published var isLoading: Bool = false
+    
+    func login() async {
+        do {
+            let user = try await FirebaseAuthenticationService.shared.login(email: email, password: password)
+        } catch let error as NSError {
+            switch AuthErrorCode.Code(rawValue: error.code) {
+            case .invalidEmail:
+                self.emailFunc = [Functions.InvalidEmail]
+            case .wrongPassword:
+                self.passFunc = [Functions.IncorrectPassword]
+            case .userNotFound:
+                self.emailFunc = [Functions.IncorrectEmail]
+            default:
+                print("Some unknown error happened")
             }
         }
     }
+    
     class Functions {
         static let EnterEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
             if string == "" {
