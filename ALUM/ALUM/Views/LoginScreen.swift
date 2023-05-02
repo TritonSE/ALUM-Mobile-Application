@@ -10,7 +10,7 @@ import Firebase
 
 struct LoginScreen: View {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
-    
+
     @StateObject private var viewModel = LoginViewModel()
 
     var body: some View {
