@@ -1,5 +1,5 @@
 //
-//  SignUpConfirmation.swift
+//  SignUpConfirmationMenteeScreen.swift
 //  ALUM
 //
 //  Created by Yash Ravipati on 2/15/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import WrappingHStack
 
-struct SignUpConfirmationMentee: View {
+struct SignUpConfirmationMenteeScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
 
@@ -54,7 +54,7 @@ struct SignUpConfirmationMentee: View {
             }
             .buttonStyle(FilledInButtonStyle())
 
-            NavigationLink(destination: LoginPageView(), isActive: $viewModel.submitSuccess) {
+            NavigationLink(destination: LoginScreen(), isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }
         }
@@ -175,11 +175,11 @@ struct SignUpConfirmationMentee: View {
     }
 }
 
-struct SignUpConfirmation_Previews: PreviewProvider {
+struct SignUpConfirmationMenteeScreen_Previews: PreviewProvider {
 
     static private var viewModel = SignUpViewModel()
 
     static var previews: some View {
-        SignUpConfirmationMentee(viewModel: viewModel)
+        SignUpConfirmationMenteeScreen(viewModel: viewModel)
     }
 }

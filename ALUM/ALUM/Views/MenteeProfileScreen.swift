@@ -8,12 +8,33 @@
 import SwiftUI
 import WrappingHStack
 
-struct MenteeProfileView: View {
+struct MenteeProfileScreen: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
+    
     var body: some View {
-        NavigationView {
+        Group {
+            if viewModel.mentee == nil || viewModel.selfView == nil {
+                LoadingView(text: "MenteeProfileScreen")
+            } else {
+                content
+            }
+        }.onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.fetchMenteeInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
+    }
+
+    var content: some View {
+        let mentee = viewModel.mentee!
+        
+        return NavigationView {
             GeometryReader { grr in
                 VStack(spacing: 0) {
                     ScrollView {
@@ -44,14 +65,14 @@ struct MenteeProfileView: View {
                                 }
                                 .padding(.top, 57)
                             }
-                            Text(viewModel.menteeGET.mentee.name)
+                            Text(mentee.name)
                                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                         }
                         HStack {
                             Image(systemName: "graduationcap")
                                 .frame(width: 25.25, height: 11)
                                 .foregroundColor(Color("ALUM Primary Purple"))
-                            Text(String(viewModel.menteeGET.mentee.grade) + "th Grade @ NHS")
+                            Text(String(mentee.grade) + "th Grade @ NHS")
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .padding(.bottom, 18)
@@ -61,19 +82,19 @@ struct MenteeProfileView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        Text(viewModel.menteeGET.mentee.about )
+                        Text(mentee.about )
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .lineSpacing(5)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 32)
-                        RenderTags(tags: viewModel.menteeGET.mentee.careerInterests, title: "Career Interests")
+                        RenderTags(tags: mentee.careerInterests, title: "Career Interests")
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        RenderTags(tags: viewModel.menteeGET.mentee.topicsOfInterest, title: "Topics of Interest")
+                        RenderTags(tags: mentee.topicsOfInterest, title: "Topics of Interest")
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        if viewModel.selfView {
+                        if viewModel.selfView! {
                             Text("My Mentor")
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                                 .foregroundColor(Color("ALUM Primary Purple"))
@@ -82,8 +103,8 @@ struct MenteeProfileView: View {
                                 .padding(.leading, 16)
                                 .padding(.bottom, 8)
                             NavigationLink(destination:
-                                            MentorProfileView(uID: viewModel.menteeGET.mentee.mentorId ?? "")) {
-                                MentorCard(isEmpty: true, uID: viewModel.menteeGET.mentee.mentorId ?? "")
+                                            MentorProfileScreen(uID: mentee.mentorId ?? "")) {
+                                MentorCard(isEmpty: true, uID: mentee.mentorId ?? "")
                                     .padding(.bottom, 10)
                             }
                         }
@@ -92,17 +113,14 @@ struct MenteeProfileView: View {
                     .background(Color("ALUM White2"))
                     .padding(.bottom, 8)
                     .edgesIgnoringSafeArea(.bottom)
-                    if viewModel.selfView {
-                        NavigationFooter(page: "Profile")
-                    }
                 }
                 ZStack {
-                    if !viewModel.selfView {
+                    if !viewModel.selfView! {
                         // params currently placeholders for later navigation
                         if scrollAtTop {
                             NavigationHeaderComponent(
                                 backText: "Login",
-                                backDestination: LoginPageView(),
+                                backDestination: LoginScreen(),
                                 title: "Mentee Profile",
                                 purple: true,
                                 showButton: false
@@ -111,7 +129,7 @@ struct MenteeProfileView: View {
                         } else {
                             NavigationHeaderComponent(
                                 backText: "Login",
-                                backDestination: LoginPageView(),
+                                backDestination: LoginScreen(),
                                 title: "Mentee Profile",
                                 purple: false,
                                 showButton: false
@@ -129,21 +147,12 @@ struct MenteeProfileView: View {
                     }
                 }
             }
-            .onAppear(perform: {
-                Task {
-                    do {
-                        try await viewModel.getMenteeInfo(userID: uID)
-                    } catch {
-                        print("Error")
-                    }
-                }
-            })
         }
     }
 }
 
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        MenteeProfileView(uID: "6431b99ebcf4420fe9825fe3")
+        MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
     }
 }

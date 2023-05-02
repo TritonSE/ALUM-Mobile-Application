@@ -1,5 +1,5 @@
 //
-//  MentorProfileView.swift
+//  MentorProfileScreen.swift
 //  ALUM
 //
 //  Created by Yash Ravipati on 3/3/23.
@@ -8,12 +8,33 @@
 import SwiftUI
 import WrappingHStack
 
-struct MentorProfileView: View {
-    @StateObject private var viewModel = MentorProfileViewmodel()
+struct MentorProfileScreen: View {
+    @StateObject private var viewModel = MentorProfileViewModel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
+
     var body: some View {
-        NavigationView {
+        Group {
+            if viewModel.mentor == nil || viewModel.selfView == nil {
+                LoadingView(text: "MentorProfileScreen")
+            } else {
+                content
+            }
+        }.onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.fetchMentorInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
+    }
+
+    var content: some View {
+        let mentor = viewModel.mentor!
+        
+        return NavigationView {
             GeometryReader { grr in
                 VStack(spacing: 0) {
                     ScrollView {
@@ -44,14 +65,14 @@ struct MentorProfileView: View {
                                 }
                                 .padding(.top, 57)
                             }
-                            Text(viewModel.mentorGET.mentor.name)
+                            Text(mentor.name)
                                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
                         }
                         HStack {
                             Image(systemName: "graduationcap")
                                 .frame(width: 25.25, height: 11)
                                 .foregroundColor(Color("ALUM Primary Purple"))
-                            Text(viewModel.mentorGET.mentor.major + " @ " + viewModel.mentorGET.mentor.college)
+                            Text(mentor.major + " @ " + mentor.college)
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .padding(.bottom, 6)
@@ -59,7 +80,7 @@ struct MentorProfileView: View {
                             Image(systemName: "suitcase")
                                 .frame(width: 25.25, height: 11)
                                 .foregroundColor(Color("ALUM Primary Purple"))
-                            Text(viewModel.mentorGET.mentor.career)
+                            Text(mentor.career)
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .padding(.bottom, 6)
@@ -68,7 +89,7 @@ struct MentorProfileView: View {
                             .padding(.bottom, 6)
                         Button {
                         } label: {
-                            Text(viewModel.selfView ? "View My Calendly" : "Book Session via Calendly")
+                            Text(viewModel.selfView! ? "View My Calendly" : "Book Session via Calendly")
                                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         }
                         .buttonStyle(FilledInButtonStyle())
@@ -80,16 +101,16 @@ struct MentorProfileView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        Text(viewModel.mentorGET.mentor.about)
+                        Text(mentor.about)
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .lineSpacing(5)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 32)
-                        RenderTags(tags: viewModel.mentorGET.mentor.topicsOfExpertise, title: "Topics of Expertise")
+                        RenderTags(tags: mentor.topicsOfExpertise, title: "Topics of Expertise")
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
-                        if viewModel.selfView {
+                        if viewModel.selfView! {
                             Group {
                                 Text("My Mentees")
                                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -97,11 +118,11 @@ struct MentorProfileView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.leading, 16)
                                     .padding(.top, 27)
-                                WrappingHStack(0 ..< viewModel.mentorGET.mentor.menteeIds!.count, id: \.self) { index in
+                                WrappingHStack(0 ..< mentor.menteeIds!.count, id: \.self) { index in
                                     NavigationLink(destination:
-                                                    MenteeProfileView(uID: viewModel.mentorGET.mentor.menteeIds![index])
+                                                    MenteeProfileScreen(uID: mentor.menteeIds![index])
                                     ) {
-                                        MenteeCard(isEmpty: true, uID: viewModel.mentorGET.mentor.menteeIds![index])
+                                        MenteeCard(isEmpty: true, uID: mentor.menteeIds![index])
                                             .padding(.bottom, 15)
                                             .padding(.trailing, 10)
                                     }
@@ -116,17 +137,14 @@ struct MentorProfileView: View {
                     .background(Color("ALUM White2"))
                     .padding(.bottom, 8)
                     .edgesIgnoringSafeArea(.bottom)
-                    if viewModel.selfView {
-                        NavigationFooter(page: "Profile")
-                    }
                 }
                 ZStack {
-                    if !viewModel.selfView {
+                    if !viewModel.selfView! {
                         // params currently placeholders for later navigation
                         if scrollAtTop {
                             NavigationHeaderComponent(
                                 backText: "Login",
-                                backDestination: LoginPageView(),
+                                backDestination: LoginScreen(),
                                 title: "Mentor Profile",
                                 purple: true,
                                 showButton: false)
@@ -134,7 +152,7 @@ struct MentorProfileView: View {
                         } else {
                             NavigationHeaderComponent(
                                 backText: "Login",
-                                backDestination: LoginPageView(),
+                                backDestination: LoginScreen(),
                                 title: "Mentor Profile",
                                 purple: false,
                                 showButton: false)
@@ -151,21 +169,12 @@ struct MentorProfileView: View {
                     }
                 }
             }
-            .onAppear(perform: {
-                Task {
-                    do {
-                        try await viewModel.getMentorInfo(userID: uID)
-                    } catch {
-                        print("Error")
-                    }
-                }
-            })
         }
     }
 }
 
-struct MentorProfileView_Previews: PreviewProvider {
+struct MentorProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        MentorProfileView(uID: "6431b9a2bcf4420fe9825fe5")
+        MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
     }
 }
