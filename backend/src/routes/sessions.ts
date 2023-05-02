@@ -42,25 +42,33 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,", req.query);
     try {
-      const preNoteId = await createPreSessionNotes();
-      const postMenteeNoteId = await createPostSessionNotes();
-      const postMentorNoteId = await createPostSessionNotes();
       const { menteeId, mentorId } = req.body;
       const meetingTime = new Date(req.body.dateInfo);
       const session = new Session({
-        preSession: preNoteId._id,
-        postSessionMentee: postMenteeNoteId._id,
-        postSessionMentor: postMentorNoteId._id,
+        preSession: null,
+        postSessionMentee: null,
+        postSessionMentor: null,
         menteeId,
         mentorId,
         dateTime: meetingTime,
+        preSessionCompleted: false,
+        postSessionMentorCompleted: false,
+        postSessionMenteeCompleted: false,
       });
+      const sessionId = session._id;
+      const preNoteId = await createPreSessionNotes(sessionId);
+      const postMenteeNoteId = await createPostSessionNotes(sessionId, "postMentee");
+      const postMentorNoteId = await createPostSessionNotes(sessionId, "postMentor");
+      session.preSession = preNoteId._id;
+      session.postSessionMentee = postMenteeNoteId._id;
+      session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
         message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
       });
     } catch (e) {
-      next();
+      console.log(e);
+      next(e);
       return res.status(400);
     }
   }
@@ -79,8 +87,17 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
     }
-    const { preSession, postSessionMentee, postSessionMentor, menteeId, mentorId, dateTime } =
-      session;
+    const {
+      preSession,
+      postSessionMentee,
+      postSessionMentor,
+      menteeId,
+      mentorId,
+      dateTime,
+      preSessionCompleted,
+      postSessionMenteeCompleted,
+      postSessionMentorCompleted,
+    } = session;
     return res.status(200).send({
       message: `Here is session ${sessionId}`,
       session: {
@@ -90,6 +107,9 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
         menteeId,
         mentorId,
         dateTime,
+        preSessionCompleted,
+        postSessionMenteeCompleted,
+        postSessionMentorCompleted,
       },
     });
   } catch (e) {
