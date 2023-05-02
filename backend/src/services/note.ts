@@ -3,6 +3,7 @@ import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
+import { ServiceError } from "../errors";
 
 interface Question {
   question: string;
@@ -106,26 +107,26 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
   if (!noteDoc) {
-    throw new Error("Document not found");
-  } else {
-    // Can improve this in future if needed by creating a hashmap
-    noteDoc.answers.forEach((_, answerIndex) => {
-      const updatedNote = updatedNotes.find(
-        (note) => note.questionId === noteDoc.answers[answerIndex].id
-      );
-      if (updatedNote) {
-        noteDoc.answers[answerIndex].answer = updatedNote.answer;
-      }
-    });
-    try {
-      // Since we are modifying noteDoc.answers[index].answer directly,
-      // mongoose does not notice the change so ignores saving it unless we manually mark
-      noteDoc.markModified("answers");
-      return await noteDoc.save();
-    } catch (error) {
-      console.error(error);
-      throw new Error("Save error");
+    throw ServiceError.NOTE_WAS_NOT_FOUND;
+  }
+  
+  // Can improve this in future if needed by creating a hashmap
+  noteDoc.answers.forEach((_, answerIndex) => {
+    const updatedNote = updatedNotes.find(
+      (note) => note.questionId === noteDoc.answers[answerIndex].id
+    );
+    if (updatedNote) {
+      noteDoc.answers[answerIndex].answer = updatedNote.answer;
     }
+  });
+
+  try {
+    // Since we are modifying noteDoc.answers[index].answer directly,
+    // mongoose does not notice the change so ignores saving it unless we manually mark
+    noteDoc.markModified("answers");
+    return await noteDoc.save();
+  } catch (error) {
+    throw ServiceError.NOTE_WAS_NOT_SAVED
   }
 }
 

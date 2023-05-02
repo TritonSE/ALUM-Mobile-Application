@@ -33,7 +33,7 @@ struct PlaceHolderHomeScreen: View {
     }
 }
 
-struct ALUMTabView: View {
+struct LoggedInRouter: View {
     // (todo) Needs to be customized to match our design
     @State private var selection = 0
 
@@ -64,8 +64,8 @@ struct ALUMTabView: View {
     }
 }
 
-struct CustomTabView_Previews: PreviewProvider {
+struct LoggedInRouter_Previews: PreviewProvider {
     static var previews: some View {
-        ALUMTabView()
+        LoggedInRouter()
     }
 }

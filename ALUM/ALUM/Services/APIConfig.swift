@@ -11,6 +11,7 @@ let baseURL: String = "http://localhost:3000"
 struct URLString {
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
+    static let notes = "\(baseURL)/notes"
 }
 
 enum APIRoute {
@@ -18,38 +19,43 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    
+    case getNote(noteId: String)
+    case patchNote(noteId: String)
 
     var url: String {
        switch self {
        case .getMentor(let userId):
-           return "\(URLString.mentor)/\(userId)"
+           return [URLString.mentor, userId].joined(separator: "/")
        case .getMentee(let userId):
-           return "\(URLString.mentee)/\(userId)"
+           return [URLString.mentee, userId].joined(separator: "/")
        case .postMentor:
            return URLString.mentor
        case .postMentee:
            return URLString.mentee
+       case .getNote(noteId: let noteId):
+           return [URLString.notes, noteId].joined(separator: "/")
+       case .patchNote(noteId: let noteId):
+           return [URLString.notes, noteId].joined(separator: "/")
        }
     }
 
     var method: String {
         switch self {
-        case .getMentee:
+        case .getMentee, .getMentor, .getNote:
             return "GET"
-        case .getMentor:
-            return "GET"
-        case .postMentor:
+        case .postMentor, .postMentee:
             return "POST"
-        case .postMentee:
-            return "POST"
+        case .patchNote:
+            return "PATCH"
         }
     }
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee:
+        case .getMentor, .getMentee, .getNote, .patchNote:
             return true
-        default:
+        case .postMentee, .postMentor:
             return false
         }
     }
@@ -68,7 +74,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee:
+        case .getMentor, .getMentee, .getNote, .patchNote:
             return 200 // 200 Ok
         case .postMentor, .postMentee:
             return 201 // 201 Created
@@ -80,10 +86,11 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee:
+        case .getMentor, .getMentee, .getNote, .patchNote:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
-                400: AppError.internalError(.invalidRequest, message: labeledMessage)
+                400: AppError.internalError(.invalidRequest, message: labeledMessage),
+                404: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
         case .postMentor, .postMentee:
             errorMap = [

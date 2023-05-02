@@ -22,7 +22,7 @@ final class LoginViewModel: ObservableObject {
 
     func login() async {
         do {
-            let user = try await FirebaseAuthenticationService.shared.login(email: email, password: password)
+            try await FirebaseAuthenticationService.shared.login(email: email, password: password)
         } catch let error as NSError {
             switch AuthErrorCode.Code(rawValue: error.code) {
             case .invalidEmail:
