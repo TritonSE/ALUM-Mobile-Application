@@ -11,24 +11,30 @@ struct ProfileRouter: View {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
 
     var body: some View {
-        switch self.currentUser.role {
-        case .some(UserRole.mentor):
-            MentorProfileScreen(uID: self.currentUser.uid!)
-        case .some(UserRole.mentee):
-            MenteeProfileScreen(uID: self.currentUser.uid!)
-        case .none:
-            Text("Internal Error: User Role is nil")
+        NavigationView {
+            Group {
+                switch self.currentUser.role {
+                case .some(UserRole.mentor):
+                    MentorProfileScreen(uID: self.currentUser.uid!)
+                case .some(UserRole.mentee):
+                    MenteeProfileScreen(uID: self.currentUser.uid!)
+                case .none:
+                    Text("Internal Error: User Role is nil")
+                }
+            }
         }
     }
 }
 
 struct PlaceHolderHomeScreen: View {
     var body: some View {
-        VStack {
-            Text("PlaceHolderHomeScreen")
-            Button("Sign Out", action: {
-                FirebaseAuthenticationService.shared.logout()
-            })
+        NavigationView {
+            VStack {
+                Text("PlaceHolderHomeScreen")
+                Button("Sign Out", action: {
+                    FirebaseAuthenticationService.shared.logout()
+                })
+            }
         }
     }
 }

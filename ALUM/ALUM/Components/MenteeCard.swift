@@ -30,7 +30,26 @@ struct MenteeCard: View {
     @State var uID: String = ""
     @StateObject private var viewModel = MenteeProfileViewmodel()
     var body: some View {
-        ZStack {
+        Group {
+            if viewModel.isLoading() {
+                LoadingView(text: "MenteeCard")
+            } else {
+                content
+            }
+        }.onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.fetchMenteeInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
+    }
+    
+    var content: some View {
+        let mentee = viewModel.mentee!
+        return ZStack {
             RoundedRectangle(cornerRadius: 12.0)
                 .frame(width: 110, height: 135)
                 .offset(y: 32)
@@ -41,13 +60,13 @@ struct MenteeCard: View {
                     .cornerRadius(12.0, corners: .topRight)
                     .foregroundColor(Color("NeutralGray1"))
             } else {
-                Image(viewModel.menteeGET.mentee.imageId)
+                Image(mentee.imageId)
                     .resizable()
                     .frame(width: 110, height: 75)
                     .cornerRadius(12.0, corners: .topLeft)
                     .cornerRadius(12.0, corners: .topRight)
             }
-            Text(viewModel.menteeGET.mentee.name)
+            Text(mentee.name)
                 .font(.custom("Metropolis-Regular", size: 13, relativeTo: .footnote))
                 .foregroundColor(.white)
                 .offset(y: 65)
@@ -56,15 +75,6 @@ struct MenteeCard: View {
                 .lineSpacing(5)
                 .frame(width: 75, height: 40, alignment: .leading)
         }
-        .onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.getMenteeInfo(userID: uID)
-                } catch {
-                    print("Error")
-                }
-            }
-        })
     }
 }
 

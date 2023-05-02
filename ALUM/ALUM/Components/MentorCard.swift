@@ -10,9 +10,29 @@ import SwiftUI
 struct MentorCard: View {
     @State var isEmpty = false
     @State var uID: String = ""
-    @StateObject private var viewModel = MentorProfileViewmodel()
+    @StateObject private var viewModel = MentorProfileViewModel()
+    
     var body: some View {
-        ZStack {
+        Group {
+            if viewModel.isLoading() {
+                LoadingView(text: "MentorCard")
+            } else {
+                content
+            }
+        }.onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.fetchMentorInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
+    }
+    
+    var content: some View {
+        let mentor = viewModel.mentor!
+        return ZStack {
             RoundedRectangle(cornerRadius: 12.0)
                 .frame(width: 358, height: 118)
                 .foregroundColor(Color("ALUM Primary Purple"))
@@ -30,7 +50,7 @@ struct MentorCard: View {
             }
             VStack {
                 HStack {
-                    Text(viewModel.mentorGET.mentor.name)
+                    Text(mentor.name)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(.white)
                     Spacer()
@@ -42,7 +62,7 @@ struct MentorCard: View {
                         .resizable()
                         .frame(width: 19, height: 18)
                         .foregroundColor(.white)
-                    Text(viewModel.mentorGET.mentor.major + " @ " + viewModel.mentorGET.mentor.college)
+                    Text(mentor.major + " @ " + mentor.college)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .foregroundColor(.white)
                         .frame(width: 200, alignment: .leading)
@@ -55,22 +75,13 @@ struct MentorCard: View {
                     Image(systemName: "suitcase")
                         .resizable()
                         .frame(width: 19, height: 15)
-                    Text(viewModel.mentorGET.mentor.career)
+                    Text(mentor.career)
                     Spacer()
                 }
                 .offset(x: 150)
                 .foregroundColor(.white)
             }
         }
-        .onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.getMentorInfo(userID: uID)
-                } catch {
-                    print("Error")
-                }
-            }
-        })
     }
 }
 
