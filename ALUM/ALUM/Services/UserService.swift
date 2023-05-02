@@ -34,12 +34,10 @@ struct MentorPostData: Codable {
 }
 
 class UserService {
-    func createUser(url: String, jsonData: Data) async throws {
-        // Create a URL request with JSON content type
-        let urlObj = URL(string: url)!
-        var request = URLRequest(url: urlObj)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    static let shared = UserService()
+
+    func createUser(route: APIRoute, jsonData: Data) async throws {
+        var request = try await route.createURLRequest()
         do {
             // Encode the data as JSON
             request.httpBody = jsonData
@@ -57,7 +55,7 @@ class UserService {
                     message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
                 )
             } else {
-                print("POST \(url) was successful.")
+                print("POST \(route.url) was successful.")
             }
         } catch {
             print(error)
@@ -71,7 +69,7 @@ class UserService {
                 message: "Failed to Encode Data"
             )
         }
-        return try await self.createUser(url: APIRoutes.menteePOST, jsonData: jsonData)
+        return try await self.createUser(route: APIRoute.postMentee, jsonData: jsonData)
     }
 
     func createMentor(data: MentorPostData) async throws {
@@ -80,93 +78,55 @@ class UserService {
                 message: "Failed to Encode Data"
             )
         }
-        return try await self.createUser(url: APIRoutes.mentorPOST, jsonData: jsonData)
-    }
-    func getCurrentAuth() async throws -> String? {
-        if let currentUser = Auth.auth().currentUser {
-            do {
-                let tokenResult = try await currentUser.getIDTokenResult()
-                return tokenResult.token
-            } catch let error {
-                // Handle the error
-                throw APIError.authenticationError(
-                    message: "Error getting auth token: \(error.localizedDescription)"
-                )
-            }
-        } else {
-            // User is not logged in
-            print("User is not logged in")
-            return nil
-        }
+        return try await self.createUser(route: APIRoute.postMentor, jsonData: jsonData)
     }
 
-    func attachTokenToRequest(request: URLRequest) async throws -> URLRequest {
-        var finalRequest = request
-        guard let authToken = try await getCurrentAuth() else {
-            throw APIError.authenticationError(
-                message: "Error getting auth token"
+    func getMentor(userID: String) async throws -> MentorGetData {
+        let route = APIRoute.getMentor(userId: userID)
+        var request = try await route.createURLRequest()
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            print("Network Error")
+            throw APIError.networkError()
+        }
+
+        if httpResponse.statusCode != 200 {
+            let responseStr = String(decoding: responseData, as: UTF8.self)
+            print("Status code wrong")
+            throw APIError.invalidRequest(
+                message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
             )
         }
-        finalRequest.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        finalRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        return finalRequest
-    }
-    func getMentor(userID: String) async throws -> MentorGetData? {
-        let urlObj = URL(string: APIRoutes.mentorGET + userID)!
-        var request = URLRequest(url: urlObj)
-        request.httpMethod = "GET"
-        request = try await attachTokenToRequest(request: request)
-        do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("GET \(APIRoutes.mentorGET + userID) was successful.")
-                guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-                    throw APIError.invalidRequest(
-                        message: "Failed to Decode Data"
-                    )
-                }
-                return mentorData
-            }
-        } catch {
-            print(error)
-            throw error
+        guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
+            print("Failed to Decode Data")
+            throw APIError.invalidRequest(
+                message: "Failed to Decode Data"
+            )
         }
+        print("GET \(route.url) was successful.")
+        return mentorData
     }
-    func getMentee(userID: String) async throws -> MenteeGetData? {
-        let urlObj = URL(string: APIRoutes.menteeGET + userID)!
-        var request = URLRequest(url: urlObj)
-        request.httpMethod = "GET"
-        request = try await attachTokenToRequest(request: request)
-        do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("GET \(APIRoutes.menteeGET + userID) was successful.")
-                guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-                    throw APIError.invalidRequest(
-                        message: "Failed to Decode Data"
-                    )
-                }
-                return menteeData
-            }
-        } catch {
-            print(error)
-            throw error
+
+    func getMentee(userID: String) async throws -> MenteeGetData {
+        let route = APIRoute.getMentee(userId: userID)
+        var request = try await route.createURLRequest()
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.networkError()
         }
+        if httpResponse.statusCode != 200 {
+            let responseStr = String(decoding: responseData, as: UTF8.self)
+            throw APIError.invalidRequest(
+                message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
+            )
+        }
+
+        guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
+            throw APIError.invalidRequest(
+                message: "Failed to Decode Data"
+            )
+        }
+        print("GET \(route.url) was successful.")
+        return menteeData
     }
 }
