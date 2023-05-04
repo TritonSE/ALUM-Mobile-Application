@@ -1,8 +1,8 @@
 //
-//  UserModel.swift
+//  CurrentUserModel.swift
 //  ALUM
 //
-//  Created by Aman Aggarwal on 4/26/23.
+//  Created by Yash Ravipati on 5/4/23.
 //
 
 import SwiftUI
@@ -28,7 +28,7 @@ class CurrentUserModal: ObservableObject {
         self.role = nil
     }
 
-    ///  Since async operations are involved, this function will limit updating the current 
+    ///  Since async operations are involved, this function will limit updating the current
     ///  user without using the DispatchQueue logic.
     ///  Not using DispatchQueue can casue race conditions which can crash our app
     func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?) {
@@ -52,7 +52,7 @@ class CurrentUserModal: ObservableObject {
         }
     }
 
-    /// User is a Firebase User so this function gets the ROLE and UID of the 
+    /// User is a Firebase User so this function gets the ROLE and UID of the
     /// logged in user if a firebase user is passed
     func setFromFirebaseUser(user: User) async throws {
         let result = try await user.getIDTokenResult()
@@ -77,3 +77,4 @@ class CurrentUserModal: ObservableObject {
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
     }
 }
+
