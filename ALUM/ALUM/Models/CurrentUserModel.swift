@@ -77,4 +77,3 @@ class CurrentUserModal: ObservableObject {
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
     }
 }
-

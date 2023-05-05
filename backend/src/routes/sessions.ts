@@ -115,8 +115,8 @@ router.get(
         },
       });
     } catch (e) {
-      return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION)
-    } 
+      return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION);
+    }
   }
 );
 
