@@ -48,7 +48,7 @@ struct SignUpMentorInfoScreen: View {
             .padding(.trailing, 16)
             .frame(width: UIScreen.main.bounds.width * 0.3)
 
-            NavigationLink(destination: SignUpConfirmationMentor(viewModel: viewModel), label: {
+            NavigationLink(destination: SignUpConfirmationMentorScreen(viewModel: viewModel), label: {
                 HStack {
                     Text("Continue")
                     Image(systemName: "arrow.right")

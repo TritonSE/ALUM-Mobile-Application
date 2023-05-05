@@ -74,33 +74,22 @@ router.post(
   }
 );
 
-router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const sessionId = req.params.sessionId;
-  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
+router.get(
+  "/sessions/:sessionId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const sessionId = req.params.sessionId;
 
-  try {
-    const session = await Session.findById(sessionId);
-    if (!session) {
-      throw ServiceError.SESSION_WAS_NOT_FOUND;
-    }
-    const {
-      preSession,
-      postSessionMentee,
-      postSessionMentor,
-      menteeId,
-      mentorId,
-      dateTime,
-      preSessionCompleted,
-      postSessionMenteeCompleted,
-      postSessionMentorCompleted,
-    } = session;
-    return res.status(200).send({
-      message: `Here is session ${sessionId}`,
-      session: {
+      if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const session = await Session.findById(sessionId);
+      if (!session) {
+        throw ServiceError.SESSION_WAS_NOT_FOUND;
+      }
+      const {
         preSession,
         postSessionMentee,
         postSessionMentor,
@@ -110,32 +99,39 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
-      },
-    });
-  } catch (e) {
-    console.log(e);
-    if (e instanceof ServiceError) {
-      return res.status(e.status).send(e.displayMessage(true));
+      } = session;
+      return res.status(200).send({
+        message: `Here is session ${sessionId}`,
+        session: {
+          preSession,
+          postSessionMentee,
+          postSessionMentor,
+          menteeId,
+          mentorId,
+          dateTime,
+          preSessionCompleted,
+          postSessionMenteeCompleted,
+          postSessionMentorCompleted,
+        },
+      });
+    } catch (e) {
+      return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION);
     }
-    return res
-      .status(InternalError.ERROR_GETTING_SESSION.status)
-      .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
   }
-});
+);
 
 router.get(
   "/sessions",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    const userID = req.body.uid;
-    const role = req.body.role;
-    let userSessions;
-    if (role === null || userID === null) {
-      return res
-        .status(InternalError.ERROR_GETTING_SESSION.status)
-        .send(InternalError.ERROR_GETTING_SESSION.message);
-    }
     try {
+      const userID = req.body.uid;
+      const role = req.body.role;
+      let userSessions;
+      if (role === null || userID === null) {
+        throw InternalError.ERROR_GETTING_SESSION;
+      }
+
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: { $eq: userID } });
       }

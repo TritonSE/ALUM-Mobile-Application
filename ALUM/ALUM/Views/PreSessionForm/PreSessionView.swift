@@ -13,7 +13,7 @@ struct PreSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginPageView(),
+                    backDestination: LoginScreen(),
                     title: "Pre-session Notes",
                     purple: false
                 )
@@ -50,7 +50,8 @@ struct PreSessionView: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadNotes()
+                    // (todo) remove hardcoded notes ID
+                    try await viewModel.loadNotes(notesID: "6436f1175a9cebd93b899a4f")
                 } catch {
                     print("Error")
                 }
