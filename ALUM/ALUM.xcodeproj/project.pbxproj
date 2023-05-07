@@ -27,11 +27,14 @@
 		0757553229FAA2D6008E73FB /* PreSessionQuestionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757552A29FAA2D6008E73FB /* PreSessionQuestionScreen.swift */; };
 		0757553329FAA2D6008E73FB /* MissedSessionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757552B29FAA2D6008E73FB /* MissedSessionScreen.swift */; };
 		0757553429FAA2D6008E73FB /* SessionConfirmationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757552C29FAA2D6008E73FB /* SessionConfirmationScreen.swift */; };
-		0757553629FAA340008E73FB /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553529FAA340008E73FB /* LoginReviewPage.swift */; };
 		0757553829FAA350008E73FB /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553729FAA350008E73FB /* QuestionModel.swift */; };
 		0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553929FAA380008E73FB /* QuestionViewModel.swift */; };
 		0757553C29FAA387008E73FB /* NotesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0757553B29FAA387008E73FB /* NotesService.swift */; };
 		0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */; };
+		0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */; };
+		0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */; };
+		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
+		0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
@@ -39,22 +42,22 @@
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EBC29B95D50008B912A /* ProfileModel.swift */; };
 		80210EC129B95F24008B912A /* MenteeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC029B95F24008B912A /* MenteeCard.swift */; };
-		80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC429BA8255008B912A /* MenteeProfileView.swift */; };
+		80210EC529BA8255008B912A /* MenteeProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC429BA8255008B912A /* MenteeProfileScreen.swift */; };
 		80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */; };
 		80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ECB29BA9EBC008B912A /* MentorCard.swift */; };
 		80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */; };
-		80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */; };
-		8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileView.swift */; };
-		8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045EEB029F6844A00BD179C /* ServiceConstants.swift */; };
+		80274FF5299DB03900CCB9D0 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */; };
+		8041161E29B21BB800529936 /* MentorProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8041161D29B21BB800529936 /* MentorProfileScreen.swift */; };
+		8045EEB129F6844B00BD179C /* ServiceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045EEB029F6844A00BD179C /* ServiceHelper.swift */; };
 		804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */; };
-		805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */; };
+		805CF73329B7DFBD0081F89E /* MentorProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */; };
+		8071E52D2A044E2900BD11A3 /* CurrentUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8071E52C2A044E2900BD11A3 /* CurrentUserModel.swift */; };
 		8083E73329E0D08400033F22 /* RenderTags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083E73229E0D08400033F22 /* RenderTags.swift */; };
-		80938CEA29C51D18006BC120 /* FirebaseContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80938CE929C51D18006BC120 /* FirebaseContentView.swift */; };
 		8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6D29E1F968006AA63C /* NavigationFooter.swift */; };
 		8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */; };
 		8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE7129E41214006AA63C /* NavigationComponent.swift */; };
 		8095FE7529E4153C006AA63C /* ProfileHeaderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */; };
-		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */; };
+		80C827C6299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */; };
 		80F5387429A6A80500FB5E66 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */; };
 		80F5387529A6A80500FB5E66 /* Metropolis-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6C9298B400E005DDC73 /* Metropolis-Thin.otf */; };
 		80F5387629A6A80500FB5E66 /* Metropolis-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6CA298B400E005DDC73 /* Metropolis-RegularItalic.otf */; };
@@ -74,14 +77,13 @@
 		80F5388429A6A80500FB5E66 /* Metropolis-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D8298B400E005DDC73 /* Metropolis-BoldItalic.otf */; };
 		80F5388529A6A80500FB5E66 /* Metropolis-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 97C0B6D9298B400E005DDC73 /* Metropolis-ExtraBoldItalic.otf */; };
 		80F5388829A80B1D00FB5E66 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 80F5388729A80B1D00FB5E66 /* WrappingHStack */; };
-		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */; };
+		80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */; };
 		80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F5388B29B0252F00FB5E66 /* UserService.swift */; };
 		974D62CF29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */; };
 		974D62D129FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */; };
 		9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */; };
 		9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9756DF742982338300A0BCB5 /* InputValidationText.swift */; };
 		9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9760067B299FFCD2000945E2 /* SignUpPageView.swift */; };
-		97617E0529EFC6E4000FB483 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97617E0429EFC6E4000FB483 /* ProfileModel.swift */; };
 		97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97886D0E29C1964B00548A12 /* ResizingTextBox.swift */; };
 		97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97886D1029C27F4A00548A12 /* ALUMTextFieldComponent.swift */; };
 		979303CB29E7E9460053C30E /* SessionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979303CA29E7E9460053C30E /* SessionDetailViewModel.swift */; };
@@ -100,7 +102,7 @@
 		97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE832988EF9900405FD6 /* FirebaseAuth */; };
 		97A2FE862988EF9900405FD6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE852988EF9900405FD6 /* FirebaseFirestore */; };
 		97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 97A2FE872988EF9900405FD6 /* FirebaseStorage */; };
-		97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginPageView.swift */; };
+		97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A2FE8B2989C20900405FD6 /* LoginScreen.swift */; };
 		97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439EF29AD95FA00F0B7C1 /* SignUpSetUpScreen.swift */; };
 		97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */; };
 		97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */; };
@@ -135,10 +137,13 @@
 		0757552A29FAA2D6008E73FB /* PreSessionQuestionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreSessionQuestionScreen.swift; sourceTree = "<group>"; };
 		0757552B29FAA2D6008E73FB /* MissedSessionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissedSessionScreen.swift; sourceTree = "<group>"; };
 		0757552C29FAA2D6008E73FB /* SessionConfirmationScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionConfirmationScreen.swift; sourceTree = "<group>"; };
-		0757553529FAA340008E73FB /* LoginReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginReviewPage.swift; sourceTree = "<group>"; };
 		0757553729FAA350008E73FB /* QuestionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
 		0757553929FAA380008E73FB /* QuestionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionViewModel.swift; sourceTree = "<group>"; };
 		0757553B29FAA387008E73FB /* NotesService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesService.swift; sourceTree = "<group>"; };
+		0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreen.swift; sourceTree = "<group>"; };
+		0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRouter.swift; sourceTree = "<group>"; };
+		0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
+		0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginReviewPage.swift; sourceTree = "<group>"; };
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
@@ -146,23 +151,23 @@
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
 		80210EBC29B95D50008B912A /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		80210EC029B95F24008B912A /* MenteeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeCard.swift; sourceTree = "<group>"; };
-		80210EC429BA8255008B912A /* MenteeProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileView.swift; sourceTree = "<group>"; };
+		80210EC429BA8255008B912A /* MenteeProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileScreen.swift; sourceTree = "<group>"; };
 		80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenteeProfileViewModel.swift; sourceTree = "<group>"; };
 		80210ECB29BA9EBC008B912A /* MentorCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorCard.swift; sourceTree = "<group>"; };
 		80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthenticationService.swift; sourceTree = "<group>"; };
-		80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageViewModel.swift; sourceTree = "<group>"; };
-		8041161D29B21BB800529936 /* MentorProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileView.swift; sourceTree = "<group>"; };
-		8045EEB029F6844A00BD179C /* ServiceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConstants.swift; sourceTree = "<group>"; };
+		80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		8041161D29B21BB800529936 /* MentorProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileScreen.swift; sourceTree = "<group>"; };
+		8045EEB029F6844A00BD179C /* ServiceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceHelper.swift; sourceTree = "<group>"; };
 		804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledInButtonStyle.swift; sourceTree = "<group>"; };
-		805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewmodel.swift; sourceTree = "<group>"; };
+		805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentorProfileViewModel.swift; sourceTree = "<group>"; };
+		8071E52C2A044E2900BD11A3 /* CurrentUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserModel.swift; sourceTree = "<group>"; };
 		8083E73229E0D08400033F22 /* RenderTags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTags.swift; sourceTree = "<group>"; };
-		80938CE929C51D18006BC120 /* FirebaseContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseContentView.swift; sourceTree = "<group>"; };
 		8095FE6D29E1F968006AA63C /* NavigationFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationFooter.swift; sourceTree = "<group>"; };
 		8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhyPairedComponent.swift; sourceTree = "<group>"; };
 		8095FE7129E41214006AA63C /* NavigationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationComponent.swift; sourceTree = "<group>"; };
 		8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderComponent.swift; sourceTree = "<group>"; };
-		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentee.swift; sourceTree = "<group>"; };
-		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentor.swift; sourceTree = "<group>"; };
+		80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMenteeScreen.swift; sourceTree = "<group>"; };
+		80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConfirmationMentorScreen.swift; sourceTree = "<group>"; };
 		80F5388B29B0252F00FB5E66 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreSessionNotesPage.swift; sourceTree = "<group>"; };
 		974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPostSessionNotesPage.swift; sourceTree = "<group>"; };
@@ -170,7 +175,6 @@
 		9756DF742982338300A0BCB5 /* InputValidationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationText.swift; sourceTree = "<group>"; };
 		9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputValidationComponent.swift; sourceTree = "<group>"; };
 		9760067B299FFCD2000945E2 /* SignUpPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPageView.swift; sourceTree = "<group>"; };
-		97617E0429EFC6E4000FB483 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		97886D0E29C1964B00548A12 /* ResizingTextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTextBox.swift; sourceTree = "<group>"; };
 		97886D1029C27F4A00548A12 /* ALUMTextFieldComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMTextFieldComponent.swift; sourceTree = "<group>"; };
 		979303CA29E7E9460053C30E /* SessionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailViewModel.swift; sourceTree = "<group>"; };
@@ -185,7 +189,7 @@
 		979F811F29B8181400D6E964 /* SelectYearComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectYearComponent.swift; sourceTree = "<group>"; };
 		979F812129B842E200D6E964 /* UniversityNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversityNames.swift; sourceTree = "<group>"; };
 		979F812329B85DF800D6E964 /* SelectUniversityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUniversityComponent.swift; sourceTree = "<group>"; };
-		97A2FE8B2989C20900405FD6 /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
+		97A2FE8B2989C20900405FD6 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ALUM.entitlements; sourceTree = "<group>"; };
 		97C0B6C3298B3D04005DDC73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97C0B6C7298B400E005DDC73 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 			children = (
 				0748208D29712921004AF547 /* ALUM */,
 				0748208C29712921004AF547 /* Products */,
+				0799ACEE2A0102E400EEAFA2 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -289,6 +294,13 @@
 				0748209529712922004AF547 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0799ACEE2A0102E400EEAFA2 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		07F9A50C297180D700BC11A8 /* Components */ = {
@@ -336,7 +348,7 @@
 				80210EBC29B95D50008B912A /* ProfileModel.swift */,
 				97992B5E29A6E81D00701CC7 /* SignUpModel.swift */,
 				979303D729E87E0E0053C30E /* SessionModel.swift */,
-				97617E0429EFC6E4000FB483 /* ProfileModel.swift */,
+				8071E52C2A044E2900BD11A3 /* CurrentUserModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -345,12 +357,15 @@
 			isa = PBXGroup;
 			children = (
 				979303D029E7EA680053C30E /* SessionDetailsView */,
+				0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */,
 				97A31AC729BAFA7600B79D30 /* PreSessionForm */,
-				80210EC629BA825B008B912A /* ProfileViews */,
+				97A2FE8B2989C20900405FD6 /* LoginScreen.swift */,
+				8041161D29B21BB800529936 /* MentorProfileScreen.swift */,
+				80210EC429BA8255008B912A /* MenteeProfileScreen.swift */,
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
-				80938CE929C51D18006BC120 /* FirebaseContentView.swift */,
-				80274FF1299DAFF500CCB9D0 /* LoginPage */,
+				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
+				0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,9 +374,9 @@
 			isa = PBXGroup;
 			children = (
 				0757553929FAA380008E73FB /* QuestionViewModel.swift */,
-				805CF73229B7DFBD0081F89E /* MentorProfileViewmodel.swift */,
+				805CF73229B7DFBD0081F89E /* MentorProfileViewModel.swift */,
 				80210EC929BA82E7008B912A /* MenteeProfileViewModel.swift */,
-				80274FF4299DB03900CCB9D0 /* LoginPageViewModel.swift */,
+				80274FF4299DB03900CCB9D0 /* LoginViewModel.swift */,
 				97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */,
 				979303CA29E7E9460053C30E /* SessionDetailViewModel.swift */,
 			);
@@ -375,27 +390,10 @@
 				80210ED329C3DBD9008B912A /* FirebaseAuthenticationService.swift */,
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
 				979303DF29E8B06E0053C30E /* SessionService.swift */,
-				8045EEB029F6844A00BD179C /* ServiceConstants.swift */,
+				8045EEB029F6844A00BD179C /* ServiceHelper.swift */,
+				0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */,
 			);
 			path = Services;
-			sourceTree = "<group>";
-		};
-		80210EC629BA825B008B912A /* ProfileViews */ = {
-			isa = PBXGroup;
-			children = (
-				8041161D29B21BB800529936 /* MentorProfileView.swift */,
-				80210EC429BA8255008B912A /* MenteeProfileView.swift */,
-			);
-			path = ProfileViews;
-			sourceTree = "<group>";
-		};
-		80274FF1299DAFF500CCB9D0 /* LoginPage */ = {
-			isa = PBXGroup;
-			children = (
-				0757553529FAA340008E73FB /* LoginReviewPage.swift */,
-				97A2FE8B2989C20900405FD6 /* LoginPageView.swift */,
-			);
-			path = LoginPage;
 			sourceTree = "<group>";
 		};
 		979303D029E7EA680053C30E /* SessionDetailsView */ = {
@@ -417,8 +415,8 @@
 				97E439F129AD97B100F0B7C1 /* SignUpJoinAsScreen.swift */,
 				97E439F329AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift */,
 				97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */,
-				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMentee.swift */,
-				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift */,
+				80C827C5299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift */,
+				80F5388929AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift */,
 			);
 			path = SignUpPage;
 			sourceTree = "<group>";
@@ -606,18 +604,18 @@
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
 				0757552029FAA2AB008E73FB /* StaticProgressBarComponent.swift in Sources */,
+				8071E52D2A044E2900BD11A3 /* CurrentUserModel.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
 				979303E029E8B06E0053C30E /* SessionService.swift in Sources */,
 				0757552D29FAA2D6008E73FB /* PostSessionQuestionScreen.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
-				97617E0529EFC6E4000FB483 /* ProfileModel.swift in Sources */,
-				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMentee.swift in Sources */,
+				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift in Sources */,
 				97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */,
+				0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */,
 				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
-				8041161E29B21BB800529936 /* MentorProfileView.swift in Sources */,
+				8041161E29B21BB800529936 /* MentorProfileScreen.swift in Sources */,
 				8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */,
-				0757553629FAA340008E73FB /* LoginReviewPage.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				979303D629E872190053C30E /* FormIncompleteComponent.swift in Sources */,
 				0757552F29FAA2D6008E73FB /* PreSessionView.swift in Sources */,
@@ -635,17 +633,18 @@
 				0757553029FAA2D6008E73FB /* PreSessionConfirmationScreen.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
+				0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */,
 				0757552329FAA2AB008E73FB /* CustomAlertView.swift in Sources */,
 				2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */,
 				0757553329FAA2D6008E73FB /* MissedSessionScreen.swift in Sources */,
-				805CF73329B7DFBD0081F89E /* MentorProfileViewmodel.swift in Sources */,
+				805CF73329B7DFBD0081F89E /* MentorProfileViewModel.swift in Sources */,
 				97992B5F29A6E81D00701CC7 /* SignUpModel.swift in Sources */,
-				80938CEA29C51D18006BC120 /* FirebaseContentView.swift in Sources */,
+				0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */,
 				8083E73329E0D08400033F22 /* RenderTags.swift in Sources */,
 				8095FE6E29E1F968006AA63C /* NavigationFooter.swift in Sources */,
 				0757551F29FAA2AB008E73FB /* DynamicProgressBarComponent.swift in Sources */,
 				97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */,
-				8045EEB129F6844B00BD179C /* ServiceConstants.swift in Sources */,
+				8045EEB129F6844B00BD179C /* ServiceHelper.swift in Sources */,
 				97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */,
 				979F812229B842E200D6E964 /* UniversityNames.swift in Sources */,
 				0757552229FAA2AB008E73FB /* CircleAddButton.swift in Sources */,
@@ -658,7 +657,8 @@
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				979303D829E87E0E0053C30E /* SessionModel.swift in Sources */,
-				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentor.swift in Sources */,
+				0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */,
+				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
 				0757553229FAA2D6008E73FB /* PreSessionQuestionScreen.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,
@@ -672,14 +672,14 @@
 				0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
 				80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */,
-				80210EC529BA8255008B912A /* MenteeProfileView.swift in Sources */,
+				80210EC529BA8255008B912A /* MenteeProfileScreen.swift in Sources */,
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
-				97A2FE8C2989C20900405FD6 /* LoginPageView.swift in Sources */,
 				979303DC29E885140053C30E /* MenteeSessionsDetailsPage.swift in Sources */,
+				97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */,
 				80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */,
 				80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */,
-				80274FF5299DB03900CCB9D0 /* LoginPageViewModel.swift in Sources */,
+				80274FF5299DB03900CCB9D0 /* LoginViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +809,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
+				DEVELOPMENT_TEAM = BV3PZFLX5U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ALUM/Info.plist;
@@ -839,6 +840,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
+				DEVELOPMENT_TEAM = BV3PZFLX5U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ALUM/Info.plist;

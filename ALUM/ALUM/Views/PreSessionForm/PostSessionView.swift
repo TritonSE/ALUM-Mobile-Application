@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginPageView(),
+                    backDestination: LoginScreen(),
                     title: "Post-session Notes",
                     purple: false
                 )

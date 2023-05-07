@@ -49,7 +49,7 @@ struct PreSessionConfirmationScreen: View {
             Button {
                 Task {
                     do {
-                        try await viewModel.submitNotesPatch()
+                        try await viewModel.submitNotesPatch(noteID: "6450d7933551f6470d1f5c9b")
                         self.viewModel.submitSuccess = true
                     } catch {
                         print("Error")

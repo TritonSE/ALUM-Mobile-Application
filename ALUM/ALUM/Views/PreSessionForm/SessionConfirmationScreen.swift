@@ -39,7 +39,7 @@ struct SessionConfirmationScreen: View {
                     .padding(16)
 
                 Spacer()
-                NavigationLink(destination: LoginPageView(), label: {
+                NavigationLink(destination: LoginScreen(), label: {
                     HStack {
                         Text(text[2])
                             .font(.custom("Metropolis-Regular", size: 17))

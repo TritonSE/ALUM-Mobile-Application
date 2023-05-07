@@ -69,7 +69,7 @@ final class QuestionViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    func submitNotesPatch() async throws {
+    func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
         for question in questionList {
             if question.answerBullet.isEmpty && question.answerParagraph != "" {
@@ -80,12 +80,11 @@ final class QuestionViewModel: ObservableObject {
                                                    type: question.type, questionId: question.id))
             }
         }
-        try await NotesService().patchNotesHelper(data: notesData)
+        try await NotesService.shared.patchNotes(noteId: noteID, data: notesData)
     }
 
     func loadNotes(notesID: String) async throws {
-        var notesData: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/" + notesID)
+        var notesData: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: notesID)
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question, type: question.type, id: question.id)
             question.answer.toRaw(question: &questionToAdd)
@@ -95,10 +94,8 @@ final class QuestionViewModel: ObservableObject {
     }
 
     func loadPostNotes(notesID: String, otherNotesID: String) async throws {
-        var notesData: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/" + notesID)
-        var notesDataOther: [QuestionGetData] = try await NotesService().getNotes(
-            url: "http://localhost:3000/notes/" + otherNotesID)
+        var notesData: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: notesID)
+        var notesDataOther: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: otherNotesID)
         for question in notesData {
             var questionToAdd: Question = Question(question: question.question,
                                                    type: question.type, id: question.id)

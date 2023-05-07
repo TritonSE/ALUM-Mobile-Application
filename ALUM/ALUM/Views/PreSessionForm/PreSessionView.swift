@@ -13,7 +13,7 @@ struct PreSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginPageView(),
+                    backDestination: LoginScreen(),
                     title: "Pre-session Notes",
                     purple: false
                 )

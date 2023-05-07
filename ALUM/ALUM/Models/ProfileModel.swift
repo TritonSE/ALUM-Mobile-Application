@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct MentorGetData: Decodable {
-    var message: String
-    var mentor: MentorInfo
-}
-
 struct MentorInfo: Decodable {
     var menteeIds: [String]?
     var id: String
@@ -50,11 +45,6 @@ struct MentorInfo: Decodable {
         case status
         case whyPaired
     }
-}
-
-struct MenteeGetData: Decodable {
-    var message: String
-    var mentee: MenteeInfo
 }
 
 struct MenteeInfo: Decodable {
