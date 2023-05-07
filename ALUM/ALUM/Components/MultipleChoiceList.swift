@@ -104,9 +104,15 @@ struct MultipleChoiceView: View {
                                           "Mentor/ee didn't show up",
                                           "Other:",
                                           "Prefer not to say"]
+    @State var otherText: String = ""
     // index selected var
     var body: some View {
-        Text("asdf")
+        VStack {
+            MultipleChoice(content: "hello", checked: false, otherText: $otherText)
+            MultipleChoice(content: "goodbye", checked: false, otherText: $otherText)
+            MultipleChoice(content: "Other:", checked: false, otherText: $otherText)
+            Text(otherText)
+        }
 
     }
 }
