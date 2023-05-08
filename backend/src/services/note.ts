@@ -139,7 +139,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
         else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
         else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
-        if (missedNote) sessionDoc.missedSessionReason = missedReason;
+        if (missedNote && sessionDoc.missedSessionReason == null) sessionDoc.missedSessionReason = missedReason;
         await sessionDoc.save();
       }
       console.log(noteDoc);

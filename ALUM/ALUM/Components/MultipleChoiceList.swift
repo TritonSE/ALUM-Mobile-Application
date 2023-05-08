@@ -31,6 +31,7 @@ struct MultipleChoice: View {
                     .font(Font.custom("Metropolis-Regular", size: 17))
                     .padding(.init(top: 11, leading: 0, bottom: 11, trailing: 2))
                 TextField("", text: $otherText)
+                    .disabled(checked ? false : true)
                     .padding(.leading, 22)
                     .padding(.trailing, 22)
                     .background(

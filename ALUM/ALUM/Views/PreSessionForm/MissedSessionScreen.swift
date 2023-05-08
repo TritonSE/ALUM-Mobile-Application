@@ -27,7 +27,7 @@ struct MissedSessionScreen: View {
     @State var otherUser: String = "Mentor"
     @State var date: String = "date"
     @State var time: String = "time"
-    
+
     var body: some View {
         VStack {
             ScrollView {
@@ -55,11 +55,15 @@ struct MissedSessionScreen: View {
         .edgesIgnoringSafeArea(.bottom)
         .applyMissedSessionScreenHeaderModifier()
     }
-    
+
     var footer: some View {
         HStack {
             Button {
-                if viewModel.missedOption != "" {
+                if viewModel.missedOption != "" || otherText != "" {
+                    if (otherText != "") {
+                        selectedOption = .other
+                        viewModel.missedOption = otherText
+                    }
                     Task {
                         do {
                             try await viewModel.submitMissedNotesPatch()
@@ -68,14 +72,11 @@ struct MissedSessionScreen: View {
                             print("Error")
                         }
                     }
-                }
-                else {
+                } else {
                     if selectedOption == .other {
                         otherEmpty = true
-                    }
-                    else {
+                    } else {
                         noOption = true
-                        
                     }
                 }
             } label: {
@@ -89,9 +90,9 @@ struct MissedSessionScreen: View {
                 EmptyView()
             }
         }
-    
+
     }
-    
+
     var content: some View {
         VStack {
             ZStack {
@@ -172,9 +173,7 @@ struct MissedSessionScreen: View {
 
         }
     }
-                
 
-                
     }
 
 struct MissedSessionScreen_Previews: PreviewProvider {
