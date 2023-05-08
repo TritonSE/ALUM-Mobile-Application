@@ -7,26 +7,17 @@ import mongoose, { ObjectId } from "mongoose";
 
 interface SessionInterface {
   preSession: ObjectId;
-  postSessionMentee: ObjectId;
-  postSessionMentor: ObjectId;
-  menteeId: string;
-  mentorId: string;
+  postSession: ObjectId;
+  menteeId: ObjectId;
+  mentorId: ObjectId;
   dateTime: Date;
 }
 
 interface SessionDoc extends mongoose.Document {
-<<<<<<< HEAD
-  preSession: string;
-  postSessionMentee: string;
-  postSessionMentor: string;
-  menteeId: ObjectId;
-  mentorId: ObjectId;
-=======
   preSession: ObjectId;
   postSession: ObjectId;
-  menteeId: string;
-  mentorId: string;
->>>>>>> bde31717 (errors)
+  menteeId: ObjectId;
+  mentorId: ObjectId;
   dateTime: Date;
 }
 
@@ -48,11 +39,11 @@ const SessionSchema = new mongoose.Schema({
     required: true,
   },
   menteeId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   mentorId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   dateTime: {

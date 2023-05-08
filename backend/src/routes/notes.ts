@@ -6,7 +6,7 @@ import { questionIDs } from "../config";
 import {createPostSessionNotes, updateNotes} from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
-import { CheckboxBullet } from "../types/notes";
+import { CheckboxBulletItem } from "../types/notes";
 import {ServiceError} from "../errors";
 
 const router = express.Router();
@@ -65,11 +65,11 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
         else{
           const topicsToDiscuss = preSessionNotes.answers[0].answer;
           if(topicsToDiscuss instanceof Array){
-            note.answers[0].type="CheckboxBullet";
-            const topicsArray: CheckboxBullet[] = [];
+            note.answers[0].type="CheckboxBulletItem";
+            const topicsArray: CheckboxBulletItem[] = [];
             topicsToDiscuss.forEach((topic) => {
               if(typeof topic === "string") {
-                let tempTopic: CheckboxBullet =
+                let tempTopic: CheckboxBulletItem =
                 {
                   content: topic,
                   status: "unchecked"

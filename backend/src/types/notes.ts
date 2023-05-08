@@ -8,12 +8,12 @@ export type QuestionType = {
 };
 
 export type AnswerType = {
-  answer: string | Array<string> | Array<CheckboxBullet>;
+  answer: string | Array<string> | Array<CheckboxBulletItem>;
   type: string;
   id: string;
 };
 
-export type CheckboxBullet = {
+export type CheckboxBulletItem = {
   content: string;
   status: string; //checked, unchecked, bullet
 };
