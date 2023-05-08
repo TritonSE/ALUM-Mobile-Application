@@ -60,7 +60,7 @@ struct MissedSessionScreen: View {
         HStack {
             Button {
                 if viewModel.missedOption != "" || otherText != "" {
-                    if (otherText != "") {
+                    if otherText != "" {
                         selectedOption = .other
                         viewModel.missedOption = otherText
                     }

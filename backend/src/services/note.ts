@@ -107,8 +107,8 @@ async function createPostSessionNotes(sessionId: ObjectId, type: string) {
 async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
   console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
-  let missedNote: boolean = false;
-  let missedReason: string = "";
+  let missedNote = false;
+  let missedReason = "";
   if (!noteDoc) {
     throw new Error("Document not found");
   } else {
@@ -127,7 +127,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         (note) => note.questionId === noteDoc.answers[answerIndex].id
       );
       if (updatedNote) {
-          noteDoc.answers[answerIndex].answer = updatedNote.answer;
+        noteDoc.answers[answerIndex].answer = updatedNote.answer;
       }
     });
     try {
@@ -139,7 +139,8 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
         else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
         else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
-        if (missedNote && sessionDoc.missedSessionReason == null) sessionDoc.missedSessionReason = missedReason;
+        if (missedNote && sessionDoc.missedSessionReason == null)
+          sessionDoc.missedSessionReason = missedReason;
         await sessionDoc.save();
       }
       console.log(noteDoc);
