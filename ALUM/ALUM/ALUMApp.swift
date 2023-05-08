@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 }
 
 struct RootView: View {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
         if self.currentUser.isLoading {
