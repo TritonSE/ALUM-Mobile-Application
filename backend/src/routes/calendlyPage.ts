@@ -1,11 +1,11 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 
-const router = express.Router()
+const router = express.Router();
 
 // Add Firebase Auth
-router.get('/calendly', (req: Request, res: Response) => {
-    const calendlyLink = req.query.url;
-    const calendlyPage = `
+router.get("/calendly", (req: Request, res: Response) => {
+  const calendlyLink = req.query.url;
+  const calendlyPage = `
     <html>
     <head>
         <meta name='viewport' content='width=device-width' />
@@ -54,9 +54,9 @@ router.get('/calendly', (req: Request, res: Response) => {
     </div>
      <!-- Calendly inline widget end -->
     </html>
-    `
+    `;
 
-    res.render("index", {calendlyPage: calendlyPage})
-})
+  res.render("index", { calendlyPage });
+});
 
-export { router as calendlyPage }
+export { router as calendlyPage };

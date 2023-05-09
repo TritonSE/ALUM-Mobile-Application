@@ -13,36 +13,8 @@ import SwiftUI
 import WebKit
 
 
-struct CalendlyBooking: View  {
-    @State public var showWebView = false
-    // This should be updated to use the mentors link
-    public var urlString: String = "http://localhost:3000/calendly?url=https://calendly.com/aananthanregina/test"
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            Button {
-                showWebView.toggle()
-                print("Button Pushed")
-            }
-            label: {
-                Text("View My Calendly")
-                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-            }
-            .sheet(isPresented: $showWebView) {
-                CalendlyView(url: URL(string: urlString)!, menteeId: "6431b99ebcf4420fe9825fe3", mentorId: "6431b9a2bcf4420fe9825fe5")
-            }
-            .buttonStyle(FilledInButtonStyle())
-            .frame(width: 358)
-            .padding(.bottom, 26)
-        }
-    }
-    
-}
-
 struct CalendlyView: UIViewRepresentable {
     var url: URL
-    var menteeId: String
-    var mentorId: String
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
@@ -64,27 +36,19 @@ struct CalendlyView: UIViewRepresentable {
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         
         var webView: CalendlyView
-        var menteeId: String
-        var mentorId: String
         
         init(webView: CalendlyView) {
             self.webView = webView
-            self.menteeId = webView.menteeId
-            self.mentorId = webView.mentorId
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
                 Task{
                     do {
-                        print(message.body)
-                        var messageBody = "\(message.body)"
+                        let messageBody = "\(message.body)"
                         // Method should be called with proper mentor, mentee ids
                         let result = try await
-                        PostSessionService().postSessionWithId(menteeId: menteeId, mentorId: mentorId, calendlyURI: messageBody)
-                        
-                        // menteeId: "6431b99ebcf4420fe9825fe3"
-                        // mentorId: "6431b9a2bcf4420fe9825fe5"
+                        SessionService().postSessionWithId(calendlyURI: messageBody)
                             
                     } catch {
                         print("Error Posting session")
@@ -94,11 +58,4 @@ struct CalendlyView: UIViewRepresentable {
         }
     }
         
-}
-
-struct CalendlyBooking_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        CalendlyBooking()
-    }
 }

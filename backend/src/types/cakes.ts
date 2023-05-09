@@ -43,7 +43,5 @@ export const UpdateNoteRequestBodyCake = array(UpdateNoteDetailsCake);
 
 // POST sessions
 export const CreateSessionRequestBodyCake = bake({
-  menteeId: string,
-  mentorId: string,
   calendlyURI: string,
 });

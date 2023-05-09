@@ -12,6 +12,7 @@ struct MentorProfileScreen: View {
     @StateObject private var viewModel = MentorProfileViewModel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
+    @State public var showWebView = false
 
     var body: some View {
         Group {
@@ -87,9 +88,14 @@ struct MentorProfileScreen: View {
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .padding(.bottom, 6)
                     Button {
+                        showWebView.toggle()
+                        print("Viewing Calendly")
                     } label: {
                         Text(viewModel.selfView! ? "View My Calendly" : "Book Session via Calendly")
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    }
+                    .sheet(isPresented: $showWebView) {
+                        CalendlyView(url: URL(string: "http://localhost:3000/calendly?url=https://calendly.com/aananthanregina/test")!)
                     }
                     .buttonStyle(FilledInButtonStyle())
                     .frame(width: 358)

@@ -104,7 +104,7 @@ const mentorSchema = new mongoose.Schema({
   },
   personalAccessToken: {
     type: String,
-    required: true
+    required: true,
   },
   location: {
     type: String,

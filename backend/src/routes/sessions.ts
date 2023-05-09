@@ -13,7 +13,8 @@ import { verifyAuthToken } from "../middleware/auth";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { getCalendlyEventDate } from "../services/calendly";
 import { Mentor } from "../models/mentor";
-
+import { Mentee } from "../models/mentee";
+import { getMentorId } from "../services/user";
 
 /**
  * This is a post route to create a new session. 
@@ -45,9 +46,14 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,");
     try {
-      const { menteeId, mentorId } = req.body;
+      const { uid } = req.body;
+      const mentee = await Mentee.findById(uid);
+      if (!mentee) {
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
+      }
+      const mentorId = await getMentorId(mentee.pairingId);
       const mentor = await Mentor.findById(mentorId);
-      if(!mentor) {
+      if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
       const accessToken = mentor.personalAccessToken;
@@ -56,7 +62,7 @@ router.post(
         preSession: null,
         postSessionMentee: null,
         postSessionMentor: null,
-        menteeId,
+        menteeId: uid,
         mentorId,
         startTime: data.resource.start_time,
         endTime: data.resource.end_time,
@@ -74,7 +80,9 @@ router.post(
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
-        message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
+        sessionId: session._id,
+        mentorId: session.mentorId,
+        menteeId: session.menteeId,
       });
     } catch (e) {
       console.log(e);
@@ -160,7 +168,7 @@ router.get(
         sessions: userSessions,
       });
     } catch (e) {
-      console.log(e)
+      console.log(e);
       next();
       return res.status(400);
     }

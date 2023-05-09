@@ -10,7 +10,6 @@ import { imageRouter } from "./routes/image";
 import { errorHandler } from "./errors/handler";
 import { Pairing } from "./models/pairing";
 
-
 import { calendlyPage } from "./routes/calendlyPage";
 /**
  * Express server application class.
@@ -36,7 +35,7 @@ const pairing = new Pairing({
 pairing.save();
 
 server.app.use(json());
-server.app.set('view engine', 'pug')
+server.app.set("view engine", "pug");
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
 server.app.use(notesRouter);

@@ -12,6 +12,7 @@ struct URLString {
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
     static let notes = "\(baseURL)/notes"
+    static let sessions = "\(baseURL)/sessions"
 }
 
 enum APIRoute {
@@ -19,6 +20,7 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    case postSession
 
     case getNote(noteId: String)
     case patchNote(noteId: String)
@@ -37,6 +39,8 @@ enum APIRoute {
            return [URLString.notes, noteId].joined(separator: "/")
        case .patchNote(noteId: let noteId):
            return [URLString.notes, noteId].joined(separator: "/")
+       case .postSession:
+           return URLString.sessions
        }
     }
 
@@ -44,7 +48,7 @@ enum APIRoute {
         switch self {
         case .getMentee, .getMentor, .getNote:
             return "GET"
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             return "POST"
         case .patchNote:
             return "PATCH"
@@ -53,7 +57,7 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .postSession:
             return true
         case .postMentee, .postMentor:
             return false
@@ -76,7 +80,7 @@ enum APIRoute {
         switch self {
         case .getMentor, .getMentee, .getNote, .patchNote:
             return 200 // 200 Ok
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
         }
     }
@@ -92,7 +96,7 @@ enum APIRoute {
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
                 404: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             errorMap = [
                 400: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]

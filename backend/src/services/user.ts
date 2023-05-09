@@ -4,7 +4,8 @@
 import { Request } from "express";
 import mongoose from "mongoose";
 import { Image } from "../models/image";
-import { ServiceError } from "../errors/service";
+import { InternalError, ServiceError } from "../errors";
+import { Pairing } from "../models/pairing";
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   console.info("Adding an image to the datatbase");
@@ -24,4 +25,20 @@ async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   }
 }
 
-export { saveImage };
+async function getMentorId(pairingId: string): Promise<string> {
+  const pairing = await Pairing.findById(pairingId);
+  if (!pairing) {
+    throw InternalError.ERROR_FINDING_PAIR;
+  }
+  return pairing.mentorId;
+}
+
+async function getMenteeId(pairingId: string): Promise<string> {
+  const pairing = await Pairing.findById(pairingId);
+  if (!pairing) {
+    throw InternalError.ERROR_FINDING_PAIR;
+  }
+  return pairing.menteeId;
+}
+
+export { saveImage, getMentorId, getMenteeId };

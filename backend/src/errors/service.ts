@@ -31,8 +31,6 @@ export class ServiceError extends CustomError {
 
   static IMAGE_WAS_NOT_FOUND = new ServiceError(5, 404, IMAGE_WAS_NOT_FOUND);
 
-  
-  
   static INVALID_URI = new ServiceError(6, 404, INVALID_URI);
 
   static ERROR_GETTING_EVENT_DATA = new ServiceError(7, 404, ERROR_GETTING_EVENT_DATA);

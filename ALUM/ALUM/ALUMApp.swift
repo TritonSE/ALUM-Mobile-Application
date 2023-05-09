@@ -18,19 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        // Check if the URL scheme is your custom scheme
-        if url.scheme == "alumapp" {
-            print("Doing something with uri")
-            print(url)
-            return true
-        }
-        
-        print("Not doing anything")
-        return false
-    }
-}
-
 struct RootView: View {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
 
