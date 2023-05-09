@@ -8,16 +8,16 @@ import mongoose, { ObjectId } from "mongoose";
 interface SessionInterface {
   preSession: ObjectId;
   postSession: ObjectId;
-  menteeId: string;
-  mentorId: string;
+  menteeId: ObjectId;
+  mentorId: ObjectId;
   dateTime: Date;
 }
 
 interface SessionDoc extends mongoose.Document {
   preSession: ObjectId;
   postSession: ObjectId;
-  menteeId: string;
-  mentorId: string;
+  menteeId: ObjectId;
+  mentorId: ObjectId;
   dateTime: Date;
 }
 
