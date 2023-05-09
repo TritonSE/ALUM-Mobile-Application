@@ -14,9 +14,12 @@ struct MentorSessionDetailsHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         VStack {
             VStack {
-                Text("Session with " + mentee)
-                    .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                NavigationHeaderComponent(
+                    backText: "",
+                    backDestination: LoginScreen(),
+                    title: "Session with \(mentee)",
+                    purple: true
+                )
             }
             content
                 .background(Color("ALUM White 2"))
@@ -32,26 +35,24 @@ extension View {
 
 struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
-    @State private var sessionId: String = ""
-    var dateFormatter = DateFormatter()
 
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                GeometryReader { grr in
-                    VStack {
-                        ScrollView {
-                            content
-                                .padding(.horizontal, 16)
+                NavigationView {
+                    GeometryReader { grr in
+                        VStack {
+                            ScrollView {
+                                content
+                                    .padding(.horizontal, 16)
+                            }
+                            .frame(minHeight: grr.size.height-120)
                         }
-                        .frame(minHeight: grr.size.height-120)
-
-                        NavigationFooter(page: "Home")
+                        .applyMentorSessionDetailsHeaderModifier(
+                            date: viewModel.session.dateTime,
+                            mentee: viewModel.session.mentee.mentee.name)
+                        .edgesIgnoringSafeArea(.bottom)
                     }
-                    .applyMentorSessionDetailsHeaderModifier(
-                        date: viewModel.session.dateTime,
-                        mentee: viewModel.session.mentee.mentee.name)
-                    .edgesIgnoringSafeArea(.bottom)
                 }
             } else {
                 ProgressView()
@@ -60,7 +61,9 @@ struct MentorSessionDetailsPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
+                    var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
+                    
+                    try await viewModel.loadSession(sessionID: sessionsArray[0].id)
                 } catch {
                     print(error)
                 }

@@ -111,6 +111,7 @@
 		97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */; };
 		97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */; };
 		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
+		97F1DB6C2A09DD4600DE8DB4 /* SessionButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */; };
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
 /* End PBXBuildFile section */
@@ -219,6 +220,7 @@
 		97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpGradeComponent.swift; sourceTree = "<group>"; };
 		97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFlowErrorFunctions.swift; sourceTree = "<group>"; };
 		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionButtonComponent.swift; sourceTree = "<group>"; };
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -337,6 +339,7 @@
 				8083E73229E0D08400033F22 /* RenderTags.swift */,
 				8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */,
 				8095FE7129E41214006AA63C /* NavigationComponent.swift */,
+				97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				0757552D29FAA2D6008E73FB /* PostSessionQuestionScreen.swift in Sources */,
 				2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */,
 				741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */,
+				97F1DB6C2A09DD4600DE8DB4 /* SessionButtonComponent.swift in Sources */,
 				80C827C6299CE48D00AE12A9 /* SignUpConfirmationMenteeScreen.swift in Sources */,
 				97886D1129C27F4A00548A12 /* ALUMTextFieldComponent.swift in Sources */,
 				0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */,

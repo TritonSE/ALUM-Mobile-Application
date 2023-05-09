@@ -12,6 +12,7 @@ struct URLString {
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
     static let notes = "\(baseURL)/notes"
+    static let session = "\(baseURL)/sessions"
 }
 
 enum APIRoute {
@@ -23,6 +24,9 @@ enum APIRoute {
     case getNote(noteId: String)
     case patchNote(noteId: String)
 
+    case getSession(sessionId: String)
+    case getSessions
+    
     var url: String {
        switch self {
        case .getMentor(let userId):
@@ -37,12 +41,16 @@ enum APIRoute {
            return [URLString.notes, noteId].joined(separator: "/")
        case .patchNote(noteId: let noteId):
            return [URLString.notes, noteId].joined(separator: "/")
+       case .getSession(sessionId: let sessionId):
+           return [URLString.session, sessionId].joined(separator: "/")
+       case .getSessions:
+           return URLString.session
        }
     }
 
     var method: String {
         switch self {
-        case .getMentee, .getMentor, .getNote:
+        case .getMentee, .getMentor, .getNote, .getSession, .getSessions:
             return "GET"
         case .postMentor, .postMentee:
             return "POST"
@@ -53,7 +61,7 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions:
             return true
         case .postMentee, .postMentor:
             return false
@@ -74,7 +82,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions:
             return 200 // 200 Ok
         case .postMentor, .postMentee:
             return 201 // 201 Created
@@ -86,7 +94,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),

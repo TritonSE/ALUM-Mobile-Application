@@ -9,11 +9,14 @@ import Foundation
 
 struct SessionInfo: Decodable {
     var preSession: String
-    var postSessionMentee: String
-    var postSessionMentor: String
+    var postSessionMentee: String?
+    var postSessionMentor: String?
     var menteeId: String
     var mentorId: String
     var dateTime: String
+    var preSessionCompleted: Bool?
+    var postSessionMenteeCompleted: Bool?
+    var postSessionMentorCompleted: Bool?
 }
 
 struct GetSessionData: Decodable {
@@ -21,7 +24,21 @@ struct GetSessionData: Decodable {
     var session: SessionInfo
 }
 
+struct UserSessionInfo: Decodable {
+    var id: String
+    var dateTime: String?
+    var preSessionCompleted: Bool?
+    var postSessionCompleted: Bool?
+    var title: String
+}
+
+struct GetUserSessionsData: Decodable {
+    var message: String
+    var sessions: [UserSessionInfo]
+}
+
 class SessionService {
+    /*
     func getSessionWithID(sessionID: String) async throws -> GetSessionData? {
         let urlObj = URL(string: "http://localhost:3000/sessions/" + sessionID)!
         var request = URLRequest(url: urlObj)
@@ -57,6 +74,37 @@ class SessionService {
         } catch {
             print(error)
             throw error
+        }
+    }
+    */
+    
+    func getSessionWithID(sessionID: String) async throws -> GetSessionData {
+        let route = APIRoute.getSession(sessionId: sessionID)
+        let request = try await route.createURLRequest()
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        
+        do {
+            let sessionData = try JSONDecoder().decode(GetSessionData.self, from: responseData)
+            print("SUCCESS - \(route.label)")
+            return sessionData
+        } catch {
+            print("Failed to decode data")
+            throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
+        }
+    }
+    
+    func getSessionsByUser() async throws -> GetUserSessionsData {
+        let route = APIRoute.getSessions
+        let request = try await route.createURLRequest()
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        
+        do {
+            let sessionsData = try JSONDecoder().decode(GetUserSessionsData.self, from: responseData)
+            print("SUCCESS - \(route.label)")
+            return sessionsData
+        } catch {
+            print("Failed to decode data")
+            throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
         }
     }
 }

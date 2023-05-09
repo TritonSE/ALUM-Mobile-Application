@@ -3,7 +3,7 @@
  */
 
 import express, { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
@@ -134,8 +134,8 @@ router.get(
 
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: { $eq: userID } });
-      }
-      if (role === "mentor") {
+      } else {
+        // role = "mentor"
         userSessions = await Session.find({ mentorId: { $eq: userID } });
       }
       if (userSessions === null) {
@@ -143,9 +143,18 @@ router.get(
           message: `No sessions found for user ${userID}!`,
         });
       }
+      const sessionsArray: {id: ObjectId, dateTime: Date, preSessionCompleted: boolean, postSessionCompleted: boolean, title: String}[] = [];
+      userSessions.forEach((session) => {
+        const {id: _id, dateTime, preSessionCompleted, postSessionMenteeCompleted, postSessionMentorCompleted} = session;
+        if (role === "mentor") {
+          sessionsArray.push({id: session._id, dateTime, preSessionCompleted, postSessionCompleted: postSessionMentorCompleted, title: "Session with Mentee"});
+        } else {
+          sessionsArray.push({id: session._id, dateTime, preSessionCompleted, postSessionCompleted: postSessionMenteeCompleted, title: "Session with Mentor"});
+        }
+      });
       return res.status(200).json({
         message: `Sessions for user ${userID}:`,
-        sessions: userSessions,
+        sessions: sessionsArray,
       });
     } catch (e) {
       next();

@@ -14,9 +14,12 @@ struct MenteeSessionDetailsHeaderModifier: ViewModifier {
     func body(content: Content) -> some View {
         VStack {
             VStack {
-                Text("Session with " + mentor)
-                    .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                NavigationHeaderComponent(
+                    backText: "",
+                    backDestination: LoginScreen(),
+                    title: "Session with \(mentor)",
+                    purple: true
+                )
             }
             content
                 .background(Color("ALUM White 2"))
@@ -60,7 +63,7 @@ struct MenteeSessionsDetailsPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadSession(sessionID: "6436f55ad2548e9e6503bf7f")
+                    try await viewModel.loadSession(sessionID: "644ec8f28955f683b1d360c9")
                 } catch {
                     print("Error")
                 }

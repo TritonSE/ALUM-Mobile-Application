@@ -54,8 +54,8 @@ final class SessionDetailViewModel: ObservableObject {
         }
         self.session.dateTime = sessionData.session.dateTime
         self.session.preSessionID = sessionData.session.preSession
-        self.session.menteePostSessionID = sessionData.session.postSessionMentee
-        self.session.mentorPostSessionID = sessionData.session.postSessionMentor
+        self.session.menteePostSessionID = sessionData.session.postSessionMentee ?? ""
+        self.session.mentorPostSessionID = sessionData.session.postSessionMentor ?? ""
 
         guard let mentorData = try? await UserService().getMentor(userID: sessionData.session.mentorId) else {
             print("Error getting mentor info")

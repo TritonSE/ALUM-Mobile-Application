@@ -45,7 +45,7 @@ struct LoggedInRouter: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            PlaceHolderHomeScreen()
+            MentorSessionDetailsPage()
                 .tabItem {
                     Image("Home Tab Icon")
                         .resizable()
