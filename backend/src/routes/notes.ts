@@ -1,11 +1,21 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Infer } from "caketype";
 import { Note } from "../models/notes";
+import { questionIDs } from "../config";
 import { updateNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
+import { ServiceError } from "../errors";
 
 const router = express.Router();
+
+interface NoteItem {
+  answer: any[] | string;
+  type: string;
+  id: string;
+  question: string;
+}
+
 /**
  * @param id: ObjectID of the notes document to be retreived.
  * This route will get a note document and return it as a JSON in the form
@@ -29,15 +39,17 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     console.log("Getting...");
     const id = req.params.id;
     const note = await Note.findById(id);
-    if (note == null) {
-      throw new Error();
+    if (note === null) {
+      throw ServiceError.NOTE_WAS_NOT_FOUND;
     }
-    return res.status(200).json(note.answers);
+    const notes: NoteItem[] = note.answers as NoteItem[];
+    notes.forEach((note_answer) => {
+      note_answer.question = questionIDs.get(note_answer.id) ?? "";
+    });
+    console.log(note.answers);
+    res.status(200).json(note.answers);
   } catch (e) {
     next(e);
-    return res.status(400).json({
-      message: "Invalid ID!",
-    });
   }
 });
 
@@ -69,16 +81,12 @@ router.patch(
       const updatedNotes: UpdateNoteRequestBodyType = req.body;
       await updateNotes(updatedNotes, documentId);
       const noteDoc = await Note.findById(documentId);
-      return res.status(200).json({
+      res.status(200).json({
         message: "Success",
         updatedDoc: noteDoc,
       });
     } catch (e) {
-      console.log(e);
       next(e);
-      return res.status(400).json({
-        message: "Invalid",
-      });
     }
   }
 );

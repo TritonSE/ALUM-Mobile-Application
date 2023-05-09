@@ -17,9 +17,10 @@ interface MentorInterface {
   career: string;
   topicsOfExpertise: string[];
   mentorMotivation: string;
-  menteeIDs: mongoose.Types.ObjectId[];
+  pairingIds: string[];
   status: string;
   personalAccessToken: string;
+  location: string;
 }
 
 interface MentorDoc extends mongoose.Document {
@@ -34,9 +35,10 @@ interface MentorDoc extends mongoose.Document {
   career: string;
   topicsOfExpertise: string[];
   mentorMotivation: string;
-  menteeIDs: mongoose.Types.ObjectId[];
+  pairingIds: string[];
   status: string;
   personalAccessToken: string;
+  location: string;
 }
 
 interface MentorModelInterface extends mongoose.Model<MentorDoc> {
@@ -88,11 +90,11 @@ const mentorSchema = new mongoose.Schema({
   ],
   mentorMotivation: {
     type: String,
-    required: false,
-  }, // TODO Revisit this field
-  menteeIDs: [
+    required: true,
+  },
+  pairingIds: [
     {
-      type: mongoose.Types.ObjectId,
+      type: String,
       required: false,
     },
   ],
@@ -103,7 +105,11 @@ const mentorSchema = new mongoose.Schema({
   personalAccessToken: {
     type: String,
     required: true
-  }
+  },
+  location: {
+    type: String,
+    required: true,
+  },
 });
 
 const Mentor = mongoose.model<MentorDoc, MentorModelInterface>("Mentor", mentorSchema);

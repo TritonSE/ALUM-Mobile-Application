@@ -26,7 +26,7 @@ struct SignUpMenteeInfoScreen: View {
     @State var selectedGrade: GradeType?
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                 .background(Color.white)
             ScrollView {
                 content
@@ -55,7 +55,7 @@ struct SignUpMenteeInfoScreen: View {
             .padding(.trailing, 16)
             .frame(width: UIScreen.main.bounds.width * 0.3)
 
-            NavigationLink(destination: SignUpConfirmationMentee(viewModel: viewModel), label: {
+            NavigationLink(destination: SignUpConfirmationMenteeScreen(viewModel: viewModel), label: {
                 HStack {
                     Text("Continue")
                     Image(systemName: "arrow.right")
@@ -271,7 +271,7 @@ struct MentorshipGoal: View {
         goalIsShowing = false
     }
 
-    func done(textfield: String) {
+    func done() {
         mentorshipGoal = tempGoal
         goalIsShowing = false
     }

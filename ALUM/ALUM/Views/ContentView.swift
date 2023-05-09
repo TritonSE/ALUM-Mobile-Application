@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var toShow: String = "sign up"
+     @State var toShow: String = "sign up"
 
-    var body: some View {
-        Text("Hello World")
-    }
-}
+     var body: some View {
+         Text("Hello World")
+     }
+ }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ProgressView()
     }
 }

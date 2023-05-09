@@ -1,10 +1,13 @@
 /**
- * This file configures all the enviornment variables
+ * This file configures all the enviornment and global variables
  * to be used throughout the src code
  */
 
 import dotenv from "dotenv";
 import { InternalError } from "./errors/internal";
+import { fillHashMap } from "./services/note";
+import preSessionQuestions from "./models/preQuestionsList.json";
+import postSessionQuestions from "./models/postQuestionsList.json";
 
 // load the environment variables from the .env file
 dotenv.config({
@@ -52,4 +55,7 @@ const mongoURI = mongoURIV;
 const serviceAccountKey = serviceAccountKeyV;
 const defaultImageID = defaultImageIdV;
 
-export { port, mongoURI, serviceAccountKey, defaultImageID };
+const questionIDs = new Map<string, string>();
+fillHashMap(preSessionQuestions, questionIDs);
+fillHashMap(postSessionQuestions, questionIDs);
+export { port, mongoURI, serviceAccountKey, defaultImageID, questionIDs };

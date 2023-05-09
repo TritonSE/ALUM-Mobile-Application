@@ -13,8 +13,8 @@ struct SignUpScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "Login",
-                    backDestination: LoginPageView(),
-                    title: "Signup"
+                    backDestination: LoginScreen(),
+                    title: "Signup", purple: false
                 )
             }
             content

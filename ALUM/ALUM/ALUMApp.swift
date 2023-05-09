@@ -13,12 +13,12 @@ import FirebaseAuth
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-      FirebaseApp.configure()
-      
-      return true
+    FirebaseApp.configure()
+    return true
   }
+}
 
- func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Check if the URL scheme is your custom scheme
         if url.scheme == "alumapp" {
             print("Doing something with uri")
@@ -31,14 +31,35 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+struct RootView: View {
+    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+
+    var body: some View {
+        if self.currentUser.isLoading {
+            LoadingView(text: "RootView")
+            .onAppear(perform: {
+                Task {
+                    await self.currentUser.setForInSessionUser()
+                }
+            })
+        } else if self.currentUser.isLoggedIn == false {
+            NavigationView {
+                LoginScreen()
+            }
+        } else {
+            LoggedInRouter()
+        }
+    }
+}
+
 @main
 struct ALUMApp: App {
   // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
   var body: some Scene {
-      WindowGroup {
-          CalendlyBooking()
-      }
+    WindowGroup {
+        RootView()
+    }
   }
 }

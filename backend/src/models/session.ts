@@ -7,22 +7,30 @@ import mongoose, { ObjectId } from "mongoose";
 
 interface SessionInterface {
   preSession: ObjectId;
-  postSession: ObjectId;
+  postSessionMentee: ObjectId;
+  postSessionMentor: ObjectId;
   menteeId: string;
   mentorId: string;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;
+  preSessionCompleted: boolean;
+  postSessionMentorCompleted: boolean;
+  postSessionMenteeCompleted: boolean;
 }
 
 interface SessionDoc extends mongoose.Document {
   preSession: string;
-  postSession: string;
+  postSessionMentee: string;
+  postSessionMentor: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;
+  preSessionCompleted: boolean;
+  postSessionMentorCompleted: boolean;
+  postSessionMenteeCompleted: boolean;
 }
 
 interface SessionModelInterface extends mongoose.Model<SessionDoc> {
@@ -34,16 +42,20 @@ const SessionSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  postSession: {
+  postSessionMentee: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+  },
+  postSessionMentor: {
     type: mongoose.Types.ObjectId,
     required: true,
   },
   menteeId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   mentorId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   startTime: {
@@ -57,7 +69,19 @@ const SessionSchema = new mongoose.Schema({
   calendlyUri: {
     type: String,
     required: true,
-  }
+  },
+  preSessionCompleted: {
+    type: Boolean,
+    required: true,
+  },
+  postSessionMentorCompleted: {
+    type: Boolean,
+    required: true,
+  },
+  postSessionMenteeCompleted: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const Session = mongoose.model<SessionDoc, SessionModelInterface>("Session", SessionSchema);

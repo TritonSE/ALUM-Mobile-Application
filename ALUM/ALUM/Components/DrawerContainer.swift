@@ -4,13 +4,11 @@
 //
 //  Created by Jenny Mar on 2/17/23.
 //
-
 import SwiftUI
 
 struct DrawerContainer<Content: View>: View {
     var cancelFunc: () -> Void
-    var doneFunc: (String) -> Void
-    @State var text: String = "hi"
+    var doneFunc: () -> Void
     @ViewBuilder var content: Content
 
     var body: some View {
@@ -31,7 +29,7 @@ struct DrawerContainer<Content: View>: View {
                         Spacer()
                         Button("Done") {
                             withAnimation(.spring()) {
-                                doneFunc(text)
+                                doneFunc()
                             }
                         }
                         .foregroundColor(Color("ALUM Dark Blue"))
@@ -50,6 +48,7 @@ struct DrawerTester: View {
     @State private var showingSheet = false
     @State var data: String = "previous text"
     @State var oldText: String = "previous text"
+    @State var question: String = "Why do you want to be a mentor?"
 
     var body: some View {
         NavigationView {
@@ -66,7 +65,7 @@ struct DrawerTester: View {
                         .stroke(Color("NeutralGray3"), lineWidth: 1))
                 .sheet(isPresented: $showingSheet) {
                     DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                        ParagraphInput(question: "Why do you want to be a mentor?", text: $data)
+                        ParagraphInput(question: question, text: $data)
                     }
                 }
 
@@ -75,7 +74,7 @@ struct DrawerTester: View {
         }
     }
 
-    func done(textfield: String) {
+    func done() {
         oldText = data
         showingSheet = false
     }

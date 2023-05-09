@@ -19,7 +19,7 @@ struct SignUpMentorInfoScreen: View {
 
     var body: some View {
         VStack {
-            ProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
+            StaticProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                 .background(Color.white)
             ScrollView {
                 content
@@ -48,7 +48,7 @@ struct SignUpMentorInfoScreen: View {
             .padding(.trailing, 16)
             .frame(width: UIScreen.main.bounds.width * 0.3)
 
-            NavigationLink(destination: SignUpConfirmationMentor(viewModel: viewModel), label: {
+            NavigationLink(destination: SignUpConfirmationMentorScreen(viewModel: viewModel), label: {
                 HStack {
                     Text("Continue")
                     Image(systemName: "arrow.right")
@@ -140,18 +140,25 @@ struct SignUpMentorInfoScreen: View {
                 RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+            Group {
+                ALUMTextFieldComponent(title: "Major",
+                                       suggestion: "e.g. Economics, Statistics",
+                                       text: $viewModel.mentor.major)
 
-            ALUMTextFieldComponent(title: "Major",
-                                   suggestion: "e.g. Economics, Statistics",
-                                   text: $viewModel.mentor.major)
+                ALUMTextFieldComponent(title: "Minor",
+                                       suggestion: "e.g. Literature, Psychology",
+                                       text: $viewModel.mentor.minor)
 
-            ALUMTextFieldComponent(title: "Minor",
-                                   suggestion: "e.g. Literature, Psychology",
-                                   text: $viewModel.mentor.minor)
-
-            ALUMTextFieldComponent(title: "Intended Career",
-                                   suggestion: "e.g. Software Engineer, Product Designer",
-                                   text: $viewModel.mentor.intendedCareer)
+                ALUMTextFieldComponent(title: "Intended Career",
+                                       suggestion: "e.g. Software Engineer, Product Designer",
+                                       text: $viewModel.mentor.intendedCareer)
+                ALUMTextFieldComponent(title: "Location",
+                                       suggestion: "e.g. Meeting ID",
+                                       text: $viewModel.mentor.location)
+                ALUMTextFieldComponent(title: "Calendly Link",
+                                       suggestion: "calendly.com/...",
+                                       text: $viewModel.mentor.calendlyLink)
+            }
 
             Group {
                 HStack {
@@ -250,7 +257,7 @@ struct WhyMentor: View {
         whyMentorIsShowing = false
     }
 
-    func done(textfield: String) {
+    func done() {
         whyMentor = tempGoal
         whyMentorIsShowing = false
     }
