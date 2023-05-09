@@ -59,9 +59,16 @@ struct PostSessionView: View {
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                PostSessionQuestionScreen(viewModel: viewModel)
-                    .navigationBarTitle("", displayMode: .inline)
-                    .navigationBarHidden(true)
+                if viewModel.currentIndex == viewModel.questionList.count {
+                    PostSessionConfirmationScreen(viewModel: viewModel)
+                        .navigationBarTitle("", displayMode: .inline)
+                        .navigationBarHidden(true)
+                }
+                else {
+                    PostSessionQuestionScreen(viewModel: viewModel)
+                        .navigationBarTitle("", displayMode: .inline)
+                        .navigationBarHidden(true)
+                }
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
