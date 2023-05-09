@@ -8,15 +8,9 @@ import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
 import { InternalError } from "../errors/internal";
-import { verifyAuthToken } from "../middleware/auth";
 import { ServiceError } from "../errors/service";
-import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
-
-import {database} from "../app";
-import { verifyAuthToken } from "../middleware/auth";
-import { InternalError } from "../errors/internal";
 /**
  * This is a post route to create a new session. 
  *
@@ -104,31 +98,6 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
   }
   }
 );
-
-router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const sessionId = req.params.sessionId;
-  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-
-  try {
-    const session = await Session.findById(sessionId);
-    if (!session) {
-      throw ServiceError.SESSION_WAS_NOT_FOUND;
-    }
-    const { preSession, postSession, menteeId, mentorId, dateTime } = session;
-    return res.status(200).send({
-      message: `Here is session ${sessionId}`,
-      session: {
-        preSession,
-        postSession,
-        menteeId,
-        mentorId,
-        dateTime,
-      },
-    });
 
 router.get(
   "/sessions",
