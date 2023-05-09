@@ -14,6 +14,9 @@ import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 
+import {database} from "../app";
+import { verifyAuthToken } from "../middleware/auth";
+import { InternalError } from "../errors/internal";
 /**
  * This is a post route to create a new session. 
  *
@@ -71,13 +74,10 @@ router.post(
 
 router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
   const sessionId = req.params.sessionId;
-  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
-
   try {
+  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+   throw ServiceError.INVALID_MONGO_ID;
+  }
     const session = await Session.findById(sessionId);
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
@@ -100,42 +100,67 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
     if (e instanceof ServiceError) {
       return res.status(e.status).send(e.displayMessage(true));
     }
+    throw InternalError.ERROR_GETTING_SESSION;
+  }
+  }
+);
+
+router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
+  const sessionId = req.params.sessionId;
+  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
     return res
-      .status(InternalError.ERROR_GETTING_SESSION.status)
-      .send(InternalError.ERROR_GETTING_SESSION.displayMessage(true));
+      .status(ServiceError.INVALID_MONGO_ID.status)
+      .send(ServiceError.INVALID_MONGO_ID.message);
   }
-});
 
-
-router.get("/sessions", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) =>{
-  const userID = req.body.uid;
-  let role = req.body.role;
-  let userSessions;
-  if(role === null || userID === null){
-    return res.status(InternalError.ERROR_GETTTING_SESSION.status)
-    .send(InternalError.ERROR_GETTTING_SESSION.message);
-  }
-  try{
-  if(role==="mentee"){
-      userSessions = await Session.find({menteeId: {$eq : userID}});
-  }
-  if (role === "mentor"){
-      userSessions = await Session.find({mentorId: {$eq: userID}});
-  }
-  if(userSessions===null){
-      return res.status(400).json({
-        message: `No sessions found for user ${userID}!`
-      })
+  try {
+    const session = await Session.findById(sessionId);
+    if (!session) {
+      throw ServiceError.SESSION_WAS_NOT_FOUND;
     }
-  return res.status(200).json({
-      message: `Sessions for user ${userID}:`,
-      sessions: userSessions
-    })
+    const { preSession, postSession, menteeId, mentorId, dateTime } = session;
+    return res.status(200).send({
+      message: `Here is session ${sessionId}`,
+      session: {
+        preSession,
+        postSession,
+        menteeId,
+        mentorId,
+        dateTime,
+      },
+    });
+
+router.get(
+  "/sessions",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userID = req.body.uid;
+    const role = req.body.role;
+    let userSessions;
+    if (role === null || userID === null) {
+      throw InternalError.ERROR_GETTING_SESSION
+    }
+    try {
+      if (role === "mentee") {
+        userSessions = await Session.find({ menteeId: { $eq: userID } });
+      }
+      if (role === "mentor") {
+        userSessions = await Session.find({ mentorId: { $eq: userID } });
+      }
+      if (userSessions === null) {
+        return res.status(400).json({
+          message: `No sessions found for user ${userID}!`,
+        });
+      }
+      return res.status(200).json({
+        message: `Sessions for user ${userID}:`,
+        sessions: userSessions,
+      });
+    } catch (e) {
+      next();
+      return res.status(400);
+    }
   }
-  catch(e){
-    next();
-    return res.status(400);
-  }
-});
+);
 
 export { router as sessionsRouter };
