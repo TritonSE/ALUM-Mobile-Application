@@ -17,35 +17,7 @@ interface NoteItem {
   id: string;
   question: string;
 }
-    if (note.type==="post"){
-      const temp = await Session.findOne({postSession : id});
-      if(temp == null){
-        return res.status(ServiceError.SESSION_WAS_NOT_FOUND.status)
-            .send(ServiceError.SESSION_WAS_NOT_FOUND);
-      }
-      else {
-        const preSessionNotes = await Note.findById(temp.preSession);
-        if(preSessionNotes==null){
-          return res.status(ServiceError.NOTE_WAS_NOT_FOUND.status)
-              .send(ServiceError.NOTE_WAS_NOT_FOUND.message);
 
-        }
-        else{
-          const topicsToDiscuss = preSessionNotes.answers[0].answer;
-          if(topicsToDiscuss instanceof Array){
-            note.answers[0].type="CheckboxBullet";
-            const topicsArray: CheckboxBullet[] = [];
-            topicsToDiscuss.forEach((topic) => {
-              if(typeof topic === "string") {
-                let tempTopic: CheckboxBullet =
-                {
-                  content: topic,
-                  status: "unchecked"
-                };
-               topicsArray.push(tempTopic);
-              }
-]
- */
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
   try{
     const id = req.params.id;
@@ -98,51 +70,6 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
   }
 });
 
-/**
- * * This route will update the answers of a single note document.
- * @param id: ObjectID of the notes document to be retreived.
- * @body The body should be a JSON in the form:
- * [
-    {
-        question_id: "the hashed ID 1",
-        type: "bullet",
-        answer: "updated answer"
-    },
-    {
-        question_id: "the hashed ID 2",
-        type: "bullet",
-        answer: ["new answer1", "new answer2"]
-    }
-]
- * @response "Success" with new, updated note if successfully updated, "Invalid" otherwise.
- */
-type UpdateNoteRequestBodyType = Infer<typeof UpdateNoteRequestBodyCake>;
-router.patch(
-  "/notes/:id",
-  validateReqBodyWithCake(UpdateNoteRequestBodyCake),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const documentId = req.params.id;
-      const updatedNotes: UpdateNoteRequestBodyType = req.body;
-      await updateNotes(updatedNotes, documentId);
-      const noteDoc = await Note.findById(documentId);
-      return res.status(200).json({
-        message: "Success",
-        updatedDoc: noteDoc,
-      });
-    } catch (e) {
-      console.log(e);
-      next(e);
-      return res.status(400).json({
-        message: "Invalid",
-      });
-    }
-  }
-);
-
-export { router as notesRouter };
-
-<<<<<<< HEAD
 /**
  * * This route will update the answers of a single note document.
  * @param id: ObjectID of the notes document to be retreived.
