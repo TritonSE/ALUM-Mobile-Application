@@ -11,13 +11,9 @@ class ServiceHelper {
     static let shared = ServiceHelper()
 
     func attachAuthTokenToRequest(request: inout URLRequest) async throws {
-        /*
         guard let authToken = try await FirebaseAuthenticationService.shared.getCurrentAuth() else {
             throw AppError.actionable(.authenticationError, message: "Error getting auth token")
         }
-        */
-        // swiftlint:disable:next line_length
-        let authToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2NzE1ZTJmZjcxZDIyMjQ5ODk1MDAyMzY2ODMwNDc3Mjg2Nzg0ZTMiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudG9yIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tbW9iaWxlLWFwcCIsImF1ZCI6ImFsdW0tbW9iaWxlLWFwcCIsImF1dGhfdGltZSI6MTY4MzY2OTM5NSwidXNlcl9pZCI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsInN1YiI6IjY0MzFiOWEyYmNmNDQyMGZlOTgyNWZlNSIsImlhdCI6MTY4MzY2OTM5NSwiZXhwIjoxNjgzNjcyOTk1LCJlbWFpbCI6Im1lbnRvckBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibWVudG9yQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.sGKUhrtjgZUBQKkg7d5Llp8TVTKbmekzxLroZqd6L4csowaLM-6EmgckkTsspII9Dhlrg86nraTBWN9NXn_yGy9LqtCgcleF1G6hIUNHGmHunA_9iDuip8PYJAIbnVT2aTqAe49YUCMy79RbeoYecve63pmCH_U0W6xcKBKncD2tauW-trfsAWVq0B1dy2RHxPGSrLkyH7HK9r9Yc05hHfvlDo2NGqKVNX8Kj_gjm7WU_eiXdXB8_LpkrSWBekBoZzbzdkkpXTOKrr5nmXQ8myKNGujpgxrFfevmNOFCxD4a629louJ9gAIMCKKR_t8uM70R5fLjQluYSYQPRxthog"
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     }
 
