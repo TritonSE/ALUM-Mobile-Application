@@ -27,11 +27,17 @@ struct ForgotPasswordSetUpScreen: View {
                                      functions: viewModel.emailFunc)
                 .padding(.bottom, 32)
             if $viewModel.account.email.wrappedValue != "" {
-                Button("Send Password Reset Email") {
+                Button(action: {
                     Task {
                         await viewModel.resetPassword()
                     }
-                }
+                }, label: { NavigationLink(destination: SessionConfirmationScreen(
+                        text: ["Password Reset email sent!",
+                               "Please check your inbox and click the link to reset your password",
+                               "Login"])) {
+                                   Text("Send Password Reset Email")
+                               }
+                })
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)

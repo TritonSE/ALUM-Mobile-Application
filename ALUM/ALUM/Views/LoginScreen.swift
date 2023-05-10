@@ -48,7 +48,6 @@ struct LoginScreen: View {
 
                 HStack {
                     Spacer()
-                    // Change SignUpPageView to ForgotPasswordView
                     NavigationLink(destination: ForgotPasswordView(), label: {
                         Text("Forgot Password")
                             .underline()
