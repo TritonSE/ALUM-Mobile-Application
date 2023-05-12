@@ -11,6 +11,7 @@ import { ServiceError } from "../errors/service";
 import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
+import { boolean } from "caketype";
 
 /**
  * This is a post route to create a new session. 
@@ -43,8 +44,8 @@ router.post(
     console.info("Posting new session,", req.query);
     try {
       const { menteeId, mentorId } = req.body;
-      const meetingTime = new Date(req.body.dateInfo);
-      const session = new Session({
+      const meetingTime = new Date(req.body.dateInfo.replace(/-/g, '\/').replace(/T.+/, ''));
+      const session = new Session({ 
         preSession: null,
         postSessionMentee: null,
         postSessionMentor: null,
@@ -80,6 +81,8 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const sessionId = req.params.sessionId;
+      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const dateNow = new Date();
 
       if (!mongoose.Types.ObjectId.isValid(sessionId)) {
         throw ServiceError.INVALID_MONGO_ID;
@@ -100,6 +103,7 @@ router.get(
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
       } = session;
+      const hasPassed = dateNow.getTime() - dateTime.getTime() > 0 ? true : false;
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -109,9 +113,11 @@ router.get(
           menteeId,
           mentorId,
           dateTime,
+          day: dayNames[dateTime.getDay()],
           preSessionCompleted,
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
+          hasPassed,
         },
       });
     } catch (e) {
@@ -128,6 +134,8 @@ router.get(
       const userID = req.body.uid;
       const role = req.body.role;
       let userSessions;
+      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const dateNow = new Date();
       if (role === null || userID === null) {
         throw InternalError.ERROR_GETTING_SESSION;
       }
@@ -143,13 +151,14 @@ router.get(
           message: `No sessions found for user ${userID}!`,
         });
       }
-      const sessionsArray: {id: ObjectId, dateTime: Date, preSessionCompleted: boolean, postSessionCompleted: boolean, title: String}[] = [];
+      const sessionsArray: {id: ObjectId, dateTime: Date, day: String, preSessionCompleted: boolean, postSessionCompleted: boolean, title: String, hasPassed: boolean}[] = [];
       userSessions.forEach((session) => {
         const {id: _id, dateTime, preSessionCompleted, postSessionMenteeCompleted, postSessionMentorCompleted} = session;
+        // const hasPassed = dateNow.getTime() - dateTime.getTime() > 0 ? true : false;
         if (role === "mentor") {
-          sessionsArray.push({id: session._id, dateTime, preSessionCompleted, postSessionCompleted: postSessionMentorCompleted, title: "Session with Mentee"});
+          sessionsArray.push({id: session._id, dateTime, day: dayNames[dateTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMentorCompleted, title: "Session with Mentee", hasPassed: true});
         } else {
-          sessionsArray.push({id: session._id, dateTime, preSessionCompleted, postSessionCompleted: postSessionMenteeCompleted, title: "Session with Mentor"});
+          sessionsArray.push({id: session._id, dateTime, day: dayNames[dateTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMenteeCompleted, title: "Session with Mentor", hasPassed: true});
         }
       });
       return res.status(200).json({

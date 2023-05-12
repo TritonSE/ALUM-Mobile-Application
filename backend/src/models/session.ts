@@ -24,6 +24,7 @@ interface SessionDoc extends mongoose.Document {
   menteeId: ObjectId;
   mentorId: ObjectId;
   dateTime: Date;
+  day: String;
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
