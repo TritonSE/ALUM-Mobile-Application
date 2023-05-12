@@ -35,6 +35,7 @@
 		0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */; };
 		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
 		0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */; };
+		2A0608402A0E3128007F38D6 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2A06083F2A0E3128007F38D6 /* FirebaseMessaging */; };
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
@@ -210,6 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0608402A0E3128007F38D6 /* FirebaseMessaging in Frameworks */,
 				97A2FE822988EF9900405FD6 /* FirebaseAnalytics in Frameworks */,
 				97A2FE882988EF9900405FD6 /* FirebaseStorage in Frameworks */,
 				97A2FE842988EF9900405FD6 /* FirebaseAuth in Frameworks */,
@@ -237,6 +239,7 @@
 				0748208D29712921004AF547 /* ALUM */,
 				0748208C29712921004AF547 /* Products */,
 				0799ACEE2A0102E400EEAFA2 /* Recovered References */,
+				2A06083E2A0E3128007F38D6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -372,6 +375,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		2A06083E2A0E3128007F38D6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +477,7 @@
 				97A2FE852988EF9900405FD6 /* FirebaseFirestore */,
 				97A2FE872988EF9900405FD6 /* FirebaseStorage */,
 				80F5388729A80B1D00FB5E66 /* WrappingHStack */,
+				2A06083F2A0E3128007F38D6 /* FirebaseMessaging */,
 			);
 			productName = ALUM;
 			productReference = 0748208B29712921004AF547 /* ALUM.app */;
@@ -861,6 +872,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2A06083F2A0E3128007F38D6 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97A2FE802988EF9900405FD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		80F5388729A80B1D00FB5E66 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 80F5388629A80B1C00FB5E66 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
