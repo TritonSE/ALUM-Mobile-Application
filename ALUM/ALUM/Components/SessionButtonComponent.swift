@@ -10,14 +10,14 @@ import SwiftUI
 struct SessionButtonComponent: View {
     @State var formIsIncomplete: Bool = true
     @State var formType: String = "Pre"
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12.0)
                 .stroke(Color("ALUM Light Purple"))
                 .frame(width: 358, height: 118)
                 .foregroundColor(Color.white)
-            
+
             HStack {
                 VStack {
                     Text("JAN")
@@ -28,9 +28,9 @@ struct SessionButtonComponent: View {
                         .font(.custom("Metropolis-Regular", size: 34, relativeTo: .headline))
                 }
                 .padding(.leading, 18)
-                
+
                 Spacer()
-                
+
                 VStack {
                     HStack {
                         Text("Session with Mentor")
@@ -53,9 +53,9 @@ struct SessionButtonComponent: View {
                     }
                 }
                 .padding(.leading, 25)
-                
+
                 Spacer()
-                
+
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color("NeutralGray3"))
                     .padding(.trailing, 22)

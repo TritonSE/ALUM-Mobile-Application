@@ -42,8 +42,8 @@ struct ViewPreSessionNotesPage: View {
                     ScrollView {
                         content
                     }
-                    
-                    if (viewModel.currentUser.role == UserRole.mentee) {
+
+                    if viewModel.currentUser.role == UserRole.mentee {
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)

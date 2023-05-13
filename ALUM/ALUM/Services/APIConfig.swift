@@ -26,7 +26,7 @@ enum APIRoute {
 
     case getSession(sessionId: String)
     case getSessions
-    
+
     var url: String {
        switch self {
        case .getMentor(let userId):

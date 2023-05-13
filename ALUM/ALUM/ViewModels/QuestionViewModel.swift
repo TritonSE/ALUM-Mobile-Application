@@ -10,7 +10,7 @@ import SwiftUI
 
 final class QuestionViewModel: ObservableObject {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
-    
+
     @Published var questionList: [Question] = []
     @Published var questionListOther: [Question] = []
     @Published var currentIndex: Int = 0

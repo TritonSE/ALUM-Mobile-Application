@@ -10,7 +10,7 @@ import SwiftUI
 
 final class SessionDetailViewModel: ObservableObject {
     @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
-    
+
     @Published var session = Session(
         preSessionID: "abc123",
         menteePostSessionID: "xyz789",
@@ -58,27 +58,27 @@ final class SessionDetailViewModel: ObservableObject {
             print("Error getting session info")
             return
         }
-        
+
         DispatchQueue.main.async {
             self.sessionCompleted = sessionData.session.hasPassed
         }
-        if (!sessionData.session.hasPassed) {
+        if !sessionData.session.hasPassed {
             self.formIsComplete = sessionData.session.preSessionCompleted
         } else {
-            if (self.currentUser.role == UserRole.mentor) {
+            if self.currentUser.role == UserRole.mentor {
                 self.formIsComplete = sessionData.session.postSessionMenteeCompleted
             } else {
                 self.formIsComplete = sessionData.session.postSessionMentorCompleted
             }
         }
-        
+
         self.session.day = sessionData.session.day
         var startDate = SessionService().convertDate(date: sessionData.session.startTime)
         var endDate = SessionService().convertDate(date: sessionData.session.endTime)
         self.session.date = startDate[1] + "/" + startDate[2] + "/" + startDate[0]
         self.session.startTime = startDate[3] + ":" + startDate[4]
         self.session.endTime = endDate[3] + ":" + endDate[4]
-        
+
         self.session.preSessionID = sessionData.session.preSession
         self.session.menteePostSessionID = sessionData.session.postSessionMentee ?? ""
         self.session.mentorPostSessionID = sessionData.session.postSessionMentor ?? ""

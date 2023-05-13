@@ -123,7 +123,7 @@ router.post(
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
-      const calendlyLink = "N/A";
+      // const calendlyLink = "N/A";
       const zoomLink = "N/A";
       const pairingIds: string[] = [];
       const mentor = new Mentor({

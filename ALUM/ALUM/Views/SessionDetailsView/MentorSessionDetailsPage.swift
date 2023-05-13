@@ -62,7 +62,7 @@ struct MentorSessionDetailsPage: View {
             Task {
                 do {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
-                    
+
                     try await viewModel.loadSession(sessionID: sessionsArray[0].id)
                 } catch {
                     print(error)
@@ -84,7 +84,6 @@ struct MentorSessionDetailsPage: View {
                 .padding(.top, 28)
                 .padding(.bottom, 20)
 
-                
                 NavigationLink(destination: MenteeProfileScreen(uID: viewModel.session.mentee.mentee.id)) {
                     HorizontalMenteeCard(
                         name: viewModel.session.mentee.mentee.name,
@@ -113,11 +112,11 @@ struct MentorSessionDetailsPage: View {
                     Spacer()
                 }
                 .padding(.bottom, 5)
-                
+
                 HStack {
                     Text(viewModel.session.startTime + " - " + viewModel.session.endTime)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    
+
                     Spacer()
                 }
                 .padding(.bottom, 20)

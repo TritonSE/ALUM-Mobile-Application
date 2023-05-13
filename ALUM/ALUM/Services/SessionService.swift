@@ -44,12 +44,12 @@ struct GetUserSessionsData: Decodable {
 }
 
 class SessionService {
-    
+
     func getSessionWithID(sessionID: String) async throws -> GetSessionData {
         let route = APIRoute.getSession(sessionId: sessionID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        
+
         do {
             let sessionData = try JSONDecoder().decode(GetSessionData.self, from: responseData)
             print("SUCCESS - \(route.label)")
@@ -59,12 +59,12 @@ class SessionService {
             throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
         }
     }
-    
+
     func getSessionsByUser() async throws -> GetUserSessionsData {
         let route = APIRoute.getSessions
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        
+
         do {
             let sessionsData = try JSONDecoder().decode(GetUserSessionsData.self, from: responseData)
             print("SUCCESS - \(route.label)")
@@ -74,7 +74,7 @@ class SessionService {
             throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
         }
     }
-    
+
     // IMPORTANT: only use this function to pass in dates of format:
     // "YYYY-MM-DDTHH-MM-SS", where
     // Y=>year
