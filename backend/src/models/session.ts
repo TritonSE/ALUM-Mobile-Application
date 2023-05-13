@@ -11,7 +11,8 @@ interface SessionInterface {
   postSessionMentor: ObjectId;
   menteeId: string;
   mentorId: string;
-  dateTime: Date;
+  startTime: Date;
+  endTime: Date;
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
@@ -23,7 +24,8 @@ interface SessionDoc extends mongoose.Document {
   postSessionMentor: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
-  dateTime: Date;
+  startTime: Date;
+  endTime: Date;
   day: String;
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
@@ -55,7 +57,11 @@ const SessionSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true,
   },
-  dateTime: {
+  startTime: {
+    type: Date,
+    required: true,
+  },
+  endTime: {
     type: Date,
     required: true,
   },

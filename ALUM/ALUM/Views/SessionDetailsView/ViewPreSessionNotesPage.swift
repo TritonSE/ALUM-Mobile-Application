@@ -38,23 +38,21 @@ struct ViewPreSessionNotesPage: View {
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                GeometryReader { grr in
-                    VStack {
-                        ScrollView {
-                            content
-                                .padding(.horizontal, 16)
-                        }
-                        .frame(minHeight: grr.size.height-120)
-
+                VStack {
+                    ScrollView {
+                        content
+                    }
+                    
+                    if (viewModel.currentUser.role == UserRole.mentee) {
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)
                             .padding(.bottom, 40)
                             .background(Rectangle().fill(Color.white).shadow(radius: 8))
                     }
-                    .edgesIgnoringSafeArea(.bottom)
-                    .applyViewPreSessionNotesModifier()
                 }
+                .edgesIgnoringSafeArea(.bottom)
+                .applyViewPreSessionNotesModifier()
             } else {
                 ProgressView()
             }

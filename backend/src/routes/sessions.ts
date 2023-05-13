@@ -98,12 +98,13 @@ router.get(
         postSessionMentor,
         menteeId,
         mentorId,
-        dateTime,
+        startTime,
+        endTime,
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
       } = session;
-      const hasPassed = dateNow.getTime() - dateTime.getTime() > 0 ? true : false;
+      const hasPassed = dateNow.getTime() - endTime.getTime() > 0 ? true : false;
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -112,8 +113,9 @@ router.get(
           postSessionMentor,
           menteeId,
           mentorId,
-          dateTime,
-          day: dayNames[dateTime.getDay()],
+          startTime,
+          endTime,
+          day: dayNames[startTime.getDay()],
           preSessionCompleted,
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
@@ -151,14 +153,14 @@ router.get(
           message: `No sessions found for user ${userID}!`,
         });
       }
-      const sessionsArray: {id: ObjectId, dateTime: Date, day: String, preSessionCompleted: boolean, postSessionCompleted: boolean, title: String, hasPassed: boolean}[] = [];
+      const sessionsArray: {id: ObjectId, startTime: Date, endTime: Date, day: String, preSessionCompleted: boolean, postSessionCompleted: boolean, title: String, hasPassed: boolean}[] = [];
       userSessions.forEach((session) => {
-        const {id: _id, dateTime, preSessionCompleted, postSessionMenteeCompleted, postSessionMentorCompleted} = session;
-        // const hasPassed = dateNow.getTime() - dateTime.getTime() > 0 ? true : false;
+        const {id: _id, startTime, endTime, preSessionCompleted, postSessionMenteeCompleted, postSessionMentorCompleted} = session;
+        const hasPassed = dateNow.getTime() - endTime.getTime() > 0 ? true : false;
         if (role === "mentor") {
-          sessionsArray.push({id: session._id, dateTime, day: dayNames[dateTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMentorCompleted, title: "Session with Mentee", hasPassed: true});
+          sessionsArray.push({id: session._id, startTime, endTime, day: dayNames[startTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMentorCompleted, title: "Session with Mentee", hasPassed});
         } else {
-          sessionsArray.push({id: session._id, dateTime, day: dayNames[dateTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMenteeCompleted, title: "Session with Mentor", hasPassed: true});
+          sessionsArray.push({id: session._id, startTime, endTime, day: dayNames[startTime.getDay()], preSessionCompleted, postSessionCompleted: postSessionMenteeCompleted, title: "Session with Mentor", hasPassed});
         }
       });
       return res.status(200).json({

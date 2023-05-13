@@ -33,7 +33,6 @@ extension View {
 struct ViewPostSessionNotesPage: View {
     @StateObject var viewModel = QuestionViewModel()
     @State var currNotes: String = "this" // "this" or "other"
-    @State var user: String = "mentee" // "mentee" or "mentor"
 
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
@@ -49,23 +48,18 @@ struct ViewPostSessionNotesPage: View {
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                GeometryReader { grr in
-                    VStack {
-                        ScrollView {
-                            content
-                                .padding(.horizontal, 16)
-                        }
-                        .frame(minHeight: grr.size.height-120)
-
-                        footer
-                            .padding(.horizontal, 16)
-                            .padding(.top, 32)
-                            .padding(.bottom, 40)
-                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                VStack {
+                    ScrollView {
+                        content
                     }
-                    .edgesIgnoringSafeArea(.bottom)
-                    .applyViewPostSessionNotesModifier()
+                    footer
+                        .padding(.horizontal, 16)
+                        .padding(.top, 32)
+                        .padding(.bottom, 40)
+                        .background(Rectangle().fill(Color.white).shadow(radius: 8))
                 }
+                .edgesIgnoringSafeArea(.bottom)
+                .applyViewPostSessionNotesModifier()
             } else {
                 ProgressView()
             }
@@ -82,15 +76,17 @@ struct ViewPostSessionNotesPage: View {
     }
 
     var footer: some View {
-        NavigationLink {
-            PostSessionQuestionScreen(viewModel: viewModel)
-        } label: {
-            HStack {
-                Image(systemName: "pencil.line")
-                Text("Edit")
+        HStack {
+            NavigationLink {
+                PostSessionQuestionScreen(viewModel: viewModel)
+            } label: {
+                HStack {
+                    Image(systemName: "pencil.line")
+                    Text("Edit")
+                }
             }
+            .buttonStyle(FilledInButtonStyle())
         }
-        .buttonStyle(FilledInButtonStyle())
     }
 
     var content: some View {
@@ -127,12 +123,12 @@ struct ViewPostSessionNotesPage: View {
                     setOtherNotes()
                 } label: {
                     if currNotes == "other" {
-                        Text("MENTOR NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .bold()
                     } else {
-                        Text((user == "mentee") ? "MENTOR NOTES" : "MENTEE NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                     }

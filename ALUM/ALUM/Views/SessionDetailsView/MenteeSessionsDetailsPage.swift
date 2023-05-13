@@ -35,8 +35,6 @@ extension View {
 
 struct MenteeSessionsDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
-    @State private var sessionId: String = ""
-    var dateFormatter = DateFormatter()
 
     var body: some View {
         Group {
@@ -52,7 +50,7 @@ struct MenteeSessionsDetailsPage: View {
                         NavigationFooter(page: "Home")
                     }
                     .applyMenteeSessionDetailsHeaderModifier(
-                        date: viewModel.session.dateTime,
+                        date: viewModel.session.date,
                         mentor: viewModel.session.mentor.mentor.name)
                     .edgesIgnoringSafeArea(.bottom)
                 }
@@ -63,9 +61,11 @@ struct MenteeSessionsDetailsPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadSession(sessionID: "644ec8f28955f683b1d360c9")
+                    var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
+                    
+                    try await viewModel.loadSession(sessionID: sessionsArray[0].id)
                 } catch {
-                    print("Error")
+                    print(error)
                 }
             }
         }
@@ -85,8 +85,10 @@ struct MenteeSessionsDetailsPage: View {
                 .padding(.top, 28)
                 .padding(.bottom, 20)
 
-                MentorCard(isEmpty: true, uID: viewModel.session.mentor.mentor.id)
-                    .padding(.bottom, 28)
+                NavigationLink (destination: MentorProfileScreen(uID: viewModel.session.mentor.mentor.id)) {
+                    MentorCard(isEmpty: true, uID: viewModel.session.mentor.mentor.id)
+                        .padding(.bottom, 28)
+                }
             }
 
             Group {
@@ -100,12 +102,20 @@ struct MenteeSessionsDetailsPage: View {
                 .padding(.bottom, 5)
 
                 HStack {
-                    Text(viewModel.session.dateTime)
+                    Text(viewModel.session.day + ", " + viewModel.session.date)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
 
                     Spacer()
                 }
                 .padding(.bottom, 5)
+                
+                HStack {
+                    Text(viewModel.session.startTime + " - " + viewModel.session.endTime)
+                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    
+                    Spacer()
+                }
+                .padding(.bottom, 20)
             }
 
             if !viewModel.sessionCompleted {
@@ -211,7 +221,6 @@ struct MenteeSessionsDetailsPage: View {
                     if !viewModel.formIsComplete {
                         NavigationLink {
                             PostSessionView(
-                                user: "mentee",
                                 notesID: viewModel.session.menteePostSessionID,
                                 otherNotesID: viewModel.session.mentorPostSessionID
                             )
@@ -224,7 +233,6 @@ struct MenteeSessionsDetailsPage: View {
                     } else {
                         NavigationLink {
                             ViewPostSessionNotesPage(
-                                user: "mentee",
                                 notesID: viewModel.session.menteePostSessionID,
                                 otherNotesID: viewModel.session.mentorPostSessionID
                             )

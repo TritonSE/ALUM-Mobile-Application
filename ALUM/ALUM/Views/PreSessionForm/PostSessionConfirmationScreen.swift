@@ -11,7 +11,6 @@ struct PostSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
     @State var currNotes: String = "this" // "this" or "other"
-    @State var user: String = "mentee" // "mentee" or "mentor"
 
     func setMyNotes() {
         currNotes = "this"
@@ -111,12 +110,12 @@ struct PostSessionConfirmationScreen: View {
                     setOtherNotes()
                 } label: {
                     if currNotes == "other" {
-                        Text("MENTOR NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .bold()
                     } else {
-                        Text((user == "mentee") ? "MENTOR NOTES" : "MENTEE NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                     }

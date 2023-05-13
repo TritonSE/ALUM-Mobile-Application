@@ -49,7 +49,7 @@ struct MentorSessionDetailsPage: View {
                             .frame(minHeight: grr.size.height-120)
                         }
                         .applyMentorSessionDetailsHeaderModifier(
-                            date: viewModel.session.dateTime,
+                            date: viewModel.session.date,
                             mentee: viewModel.session.mentee.mentee.name)
                         .edgesIgnoringSafeArea(.bottom)
                     }
@@ -84,13 +84,16 @@ struct MentorSessionDetailsPage: View {
                 .padding(.top, 28)
                 .padding(.bottom, 20)
 
-                HorizontalMenteeCard(
-                    name: viewModel.session.mentee.mentee.name,
-                    grade: viewModel.session.mentee.mentee.grade,
-                    school: "NHS",
-                    isEmpty: true
-                )
-                .padding(.bottom, 28)
+                
+                NavigationLink(destination: MenteeProfileScreen(uID: viewModel.session.mentee.mentee.id)) {
+                    HorizontalMenteeCard(
+                        name: viewModel.session.mentee.mentee.name,
+                        grade: viewModel.session.mentee.mentee.grade,
+                        school: "NHS",
+                        isEmpty: true
+                    )
+                    .padding(.bottom, 28)
+                }
             }
 
             Group {
@@ -104,12 +107,20 @@ struct MentorSessionDetailsPage: View {
                 .padding(.bottom, 5)
 
                 HStack {
-                    Text(viewModel.session.dateTime)
+                    Text(viewModel.session.day + ", " + viewModel.session.date)
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
 
                     Spacer()
                 }
                 .padding(.bottom, 5)
+                
+                HStack {
+                    Text(viewModel.session.startTime + " - " + viewModel.session.endTime)
+                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                    
+                    Spacer()
+                }
+                .padding(.bottom, 20)
             }
 
             if !viewModel.sessionCompleted {
@@ -154,33 +165,14 @@ struct MentorSessionDetailsPage: View {
                     }
                     .padding(.bottom, viewModel.formIsComplete ? 20 : 5)
 
-                    if !viewModel.formIsComplete {
-                        HStack {
-                            FormIncompleteComponent(type: "Pre")
-                            Spacer()
-                        }
-                        .padding(.bottom, 22)
+                    NavigationLink {
+                        ViewPreSessionNotesPage(notesID: viewModel.session.preSessionID)
+                    } label: {
+                        Text("View Pre-Session Notes")
+                            .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
-
-                    if !viewModel.formIsComplete {
-                        NavigationLink {
-                            PreSessionView(notesID: viewModel.session.preSessionID)
-                        } label: {
-                            Text("Complete Pre-Session Notes")
-                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        }
-                        .buttonStyle(FilledInButtonStyle())
-                        .padding(.bottom, 5)
-                    } else {
-                        NavigationLink {
-                            ViewPreSessionNotesPage(notesID: viewModel.session.preSessionID)
-                        } label: {
-                            Text("View Pre-Session Notes")
-                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        }
-                        .buttonStyle(FilledInButtonStyle())
-                        .padding(.bottom, 5)
-                    }
+                    .buttonStyle(FilledInButtonStyle())
+                    .padding(.bottom, 5)
                 }
 
                 Button {
@@ -215,7 +207,6 @@ struct MentorSessionDetailsPage: View {
                     if !viewModel.formIsComplete {
                         NavigationLink {
                             PostSessionView(
-                                user: "mentor",
                                 notesID: viewModel.session.mentorPostSessionID,
                                 otherNotesID: viewModel.session.menteePostSessionID
                             )
@@ -227,8 +218,7 @@ struct MentorSessionDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         NavigationLink {
-                            ViewPostSessionNotesPage(
-                                user: "mentor",
+                                ViewPostSessionNotesPage(
                                 notesID: viewModel.session.menteePostSessionID,
                                 otherNotesID: viewModel.session.mentorPostSessionID
                             )

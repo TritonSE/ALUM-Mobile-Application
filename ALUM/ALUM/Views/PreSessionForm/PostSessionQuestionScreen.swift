@@ -12,7 +12,6 @@ struct PostSessionQuestionScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
     @State var otherUser: String = "Mentor"
-    @State var user: String = ""
     @State var date: String = "date"
     @State var time: String = "time"
 

@@ -13,10 +13,13 @@ struct SessionInfo: Decodable {
     var postSessionMentor: String?
     var menteeId: String
     var mentorId: String
-    var dateTime: String
-    var preSessionCompleted: Bool?
-    var postSessionMenteeCompleted: Bool?
-    var postSessionMentorCompleted: Bool?
+    var startTime: String
+    var endTime: String
+    var day: String
+    var preSessionCompleted: Bool
+    var postSessionMenteeCompleted: Bool
+    var postSessionMentorCompleted: Bool
+    var hasPassed: Bool
 }
 
 struct GetSessionData: Decodable {
@@ -26,10 +29,13 @@ struct GetSessionData: Decodable {
 
 struct UserSessionInfo: Decodable {
     var id: String
-    var dateTime: String?
-    var preSessionCompleted: Bool?
-    var postSessionCompleted: Bool?
+    var startTime: String
+    var endTime: String
+    var day: String
+    var preSessionCompleted: Bool
+    var postSessionCompleted: Bool
     var title: String
+    var hasPassed: Bool
 }
 
 struct GetUserSessionsData: Decodable {
@@ -78,12 +84,12 @@ class SessionService {
     // M=>Minute
     // S=>Seconds
     // For example: "1995-12-17T03:24:00"
-    func convertDate(date: String) {
+    func convertDate(date: String) -> [String] {
         var newDate = date
             .replacingOccurrences(of: "T", with: " ")
             .replacingOccurrences(of: "-", with: " ")
             .replacingOccurrences(of: ":", with: " ")
         var dateComponents = newDate.components(separatedBy: " ")
-        
+        return dateComponents
     }
 }

@@ -33,15 +33,13 @@ extension View {
 struct PostSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
-    @State var user: String = ""
-
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
 
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                PostSessionQuestionScreen(viewModel: viewModel, user: user)
+                PostSessionQuestionScreen(viewModel: viewModel)
                     .navigationBarTitle("", displayMode: .inline)
                     .navigationBarHidden(true)
             } else {

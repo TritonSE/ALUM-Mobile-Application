@@ -13,7 +13,10 @@ struct Session {
     var mentorPostSessionID: String
     var mentor: MentorGetData
     var mentee: MenteeGetData
-    var dateTime: String
+    var day: String
+    var date: String
+    var startTime: String
+    var endTime: String
     // var location: String
     // we can get location as mentor.zoomLink
 
