@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseAuth
 
 final class LoginViewModel: ObservableObject {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     @Published var email: String = ""
     @Published var password: String = ""

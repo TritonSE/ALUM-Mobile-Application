@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class MentorProfileViewModel: ObservableObject {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     @Published var mentor: MentorInfo?
     @Published var selfView: Bool?
