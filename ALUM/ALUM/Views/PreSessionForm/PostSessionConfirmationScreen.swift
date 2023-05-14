@@ -10,6 +10,7 @@ import SwiftUI
 struct PostSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
+    @State var notesID: String = ""
     @State var currNotes: String = "this" // "this" or "other"
 
     func setMyNotes() {
@@ -57,7 +58,7 @@ struct PostSessionConfirmationScreen: View {
                 Task {
                     do {
                         // (todo) remove hardcoding
-                        try await viewModel.submitNotesPatch(noteID: "6450d7933551f6470d1f5c9d")
+                        try await viewModel.submitNotesPatch(noteID: notesID)
                         self.viewModel.submitSuccess = true
                     } catch {
                         print("Error")

@@ -11,6 +11,7 @@ struct PreSessionQuestionScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
+    @State var notesID: String = ""
     @State var otherUser: String = "Mentor"
     @State var date: String = "date"
     @State var time: String = "time"
@@ -95,7 +96,7 @@ struct PreSessionQuestionScreen: View {
 
                 Spacer()
 
-                NavigationLink(destination: PreSessionConfirmationScreen(viewModel: viewModel), label: {
+                NavigationLink(destination: PreSessionConfirmationScreen(viewModel: viewModel, notesID: notesID), label: {
                     HStack {
                         Text("Continue")
                             .font(.custom("Metropolis-Regular", size: 17))

@@ -18,7 +18,7 @@ struct MentorSessionDetailsHeaderModifier: ViewModifier {
                     backText: "",
                     backDestination: LoginScreen(),
                     title: "Session with \(mentee)",
-                    purple: true
+                    purple: false
                 )
             }
             content
@@ -207,7 +207,10 @@ struct MentorSessionDetailsPage: View {
                         NavigationLink {
                             PostSessionView(
                                 notesID: viewModel.session.mentorPostSessionID,
-                                otherNotesID: viewModel.session.menteePostSessionID
+                                otherNotesID: viewModel.session.menteePostSessionID,
+                                otherName: viewModel.session.mentee.mentee.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
                             )
                         } label: {
                             Text("Complete Post-Session Notes")
@@ -217,9 +220,12 @@ struct MentorSessionDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         NavigationLink {
-                                ViewPostSessionNotesPage(
-                                notesID: viewModel.session.menteePostSessionID,
-                                otherNotesID: viewModel.session.mentorPostSessionID
+                            ViewPostSessionNotesPage(
+                                notesID: viewModel.session.mentorPostSessionID,
+                                otherNotesID: viewModel.session.menteePostSessionID,
+                                otherName: viewModel.session.mentee.mentee.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
                             )
                         } label: {
                             Text("View Post-Session Notes")

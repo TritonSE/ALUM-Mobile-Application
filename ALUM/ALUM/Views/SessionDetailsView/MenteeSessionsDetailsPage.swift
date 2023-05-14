@@ -18,7 +18,7 @@ struct MenteeSessionDetailsHeaderModifier: ViewModifier {
                     backText: "",
                     backDestination: LoginScreen(),
                     title: "Session with \(mentor)",
-                    purple: true
+                    purple: false
                 )
             }
             content
@@ -170,7 +170,12 @@ struct MenteeSessionsDetailsPage: View {
 
                     if !viewModel.formIsComplete {
                         NavigationLink {
-                            PreSessionView(notesID: viewModel.session.preSessionID)
+                            PreSessionView(
+                                notesID: viewModel.session.preSessionID,
+                                otherName: viewModel.session.mentor.mentor.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
+                            )
                         } label: {
                             Text("Complete Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -179,7 +184,12 @@ struct MenteeSessionsDetailsPage: View {
                         .padding(.bottom, 5)
                     } else {
                         NavigationLink {
-                            ViewPreSessionNotesPage(notesID: viewModel.session.preSessionID)
+                            ViewPreSessionNotesPage(
+                                notesID: viewModel.session.preSessionID,
+                                otherName: viewModel.session.mentor.mentor.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
+                            )
                         } label: {
                             Text("View Pre-Session Notes")
                                 .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -222,7 +232,10 @@ struct MenteeSessionsDetailsPage: View {
                         NavigationLink {
                             PostSessionView(
                                 notesID: viewModel.session.menteePostSessionID,
-                                otherNotesID: viewModel.session.mentorPostSessionID
+                                otherNotesID: viewModel.session.mentorPostSessionID,
+                                otherName: viewModel.session.mentor.mentor.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
                             )
                         } label: {
                             Text("Complete Post-Session Notes")
@@ -234,7 +247,10 @@ struct MenteeSessionsDetailsPage: View {
                         NavigationLink {
                             ViewPostSessionNotesPage(
                                 notesID: viewModel.session.menteePostSessionID,
-                                otherNotesID: viewModel.session.mentorPostSessionID
+                                otherNotesID: viewModel.session.mentorPostSessionID,
+                                otherName: viewModel.session.mentor.mentor.name,
+                                date: viewModel.session.date,
+                                time: viewModel.session.startTime
                             )
                         } label: {
                             Text("View Post-Session Notes")

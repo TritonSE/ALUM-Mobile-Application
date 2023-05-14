@@ -35,30 +35,37 @@ struct PreSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     @State var notesID: String = ""
+    
+    @State var otherName: String = ""
+    @State var date: String = ""
+    @State var time: String = ""
 
     var body: some View {
+        print(viewModel.isLoading)
+        return
         Group {
             if !viewModel.isLoading {
-                PreSessionQuestionScreen(viewModel: viewModel)
+                PreSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
                     .navigationBarTitle("", displayMode: .inline)
                     .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
+                    .onAppear {
+                        Task {
+                            do {
+                                try await viewModel.loadNotes(notesID: notesID)
+                            } catch {
+                                print("Error")
+                            }
+                        }
+                        // viewModel.loadTestData()
+                    }
             }
         }
         // .navigationBarBackButtonHidden()
-        .onAppear {
-            Task {
-                do {
-                    try await viewModel.loadNotes(notesID: notesID)
-                } catch {
-                    print("Error")
-                }
-            }
-            // viewModel.loadTestData()
-        }
+        
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 final class SessionDetailViewModel: ObservableObject {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     @Published var session = Session(
         preSessionID: "abc123",
@@ -66,9 +66,9 @@ final class SessionDetailViewModel: ObservableObject {
             self.formIsComplete = sessionData.session.preSessionCompleted
         } else {
             if self.currentUser.role == UserRole.mentor {
-                self.formIsComplete = sessionData.session.postSessionMenteeCompleted
-            } else {
                 self.formIsComplete = sessionData.session.postSessionMentorCompleted
+            } else {
+                self.formIsComplete = sessionData.session.postSessionMenteeCompleted
             }
         }
 

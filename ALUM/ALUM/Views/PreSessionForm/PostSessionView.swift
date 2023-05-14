@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginScreen(),
+                    backDestination: MentorSessionDetailsPage(),
                     title: "Post-session Notes",
                     purple: false
                 )
@@ -35,26 +35,30 @@ struct PostSessionView: View {
 
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
+    
+    @State var otherName: String = ""
+    @State var date: String = ""
+    @State var time: String = ""
 
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                PostSessionQuestionScreen(viewModel: viewModel)
+                PostSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
                     .navigationBarTitle("", displayMode: .inline)
                     .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
-            }
-        }
-        .onAppear {
-            Task {
-                do {
-                    try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
-                } catch {
-                    print("Error")
-                }
+                    .onAppear {
+                        Task {
+                            do {
+                                try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                            } catch {
+                                print("Error")
+                            }
+                        }
+                    }
             }
         }
     }

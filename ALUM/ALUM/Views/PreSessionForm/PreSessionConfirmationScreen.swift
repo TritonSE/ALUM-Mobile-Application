@@ -12,6 +12,7 @@ struct PreSessionConfirmationScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
+    @State var notesID: String = ""
 
     var body: some View {
         VStack {
@@ -49,7 +50,7 @@ struct PreSessionConfirmationScreen: View {
             Button {
                 Task {
                     do {
-                        try await viewModel.submitNotesPatch(noteID: "6450d7933551f6470d1f5c9b")
+                        try await viewModel.submitNotesPatch(noteID: notesID)
                         self.viewModel.submitSuccess = true
                     } catch {
                         print("Error")
