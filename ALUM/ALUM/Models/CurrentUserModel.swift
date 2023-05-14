@@ -13,8 +13,8 @@ enum UserRole {
     case mentee
 }
 
-class CurrentUserModal: ObservableObject {
-    static let shared = CurrentUserModal()
+class CurrentUserModel: ObservableObject {
+    static let shared = CurrentUserModel()
 
     @Published var isLoading: Bool
     @Published var uid: String?
