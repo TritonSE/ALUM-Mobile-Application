@@ -45,7 +45,7 @@ struct LoggedInRouter: View {
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.white) // custom color.
     }
-    
+
     let tabItems = [
             TabBarItem(iconName: "ALUM Home", title: "Home"),
             TabBarItem(iconName: "GrayCircle", title: "Profile")
@@ -61,16 +61,15 @@ struct LoggedInRouter: View {
             default:
                 Text("Error")
             }
-            ZStack(alignment: .bottom) {                
+            ZStack(alignment: .bottom) {
                 HStack(spacing: 0) {
                     ForEach(0..<tabItems.count) { index in
-                        VStack(spacing: 0){
+                        VStack(spacing: 0) {
                             if index == selection {
                                 Rectangle()
                                     .frame(width: 64, height: 3)
                                     .foregroundColor(Color("ALUM Primary Purple"))
-                            }
-                            else {
+                            } else {
                                 Rectangle()
                                     .frame(width: 64, height: 2)
                                     .foregroundColor(.white)
@@ -93,10 +92,10 @@ struct LoggedInRouter: View {
                 }
                 .frame(height: 45)
             }
-                    
+
                 }
     }
-    
+
 }
 
 struct TabBarItem {
