@@ -21,7 +21,7 @@ final class FirebaseAuthenticationService: ObservableObject {
     func logout() {
         do {
             try Auth.auth().signOut()
-            self.currentUser.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
+            self.currentUser.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil, status: nil)
             print("logged out successfuly")
         } catch let error {
             print("error occured in FirebaseAuthenticationService - ", error.localizedDescription)

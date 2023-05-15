@@ -12,6 +12,7 @@ struct MenteeProfileScreen: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
+    @State var prevView: AnyView = AnyView(LoadingView(text: ""))
 
     var body: some View {
         Group {
@@ -19,6 +20,7 @@ struct MenteeProfileScreen: View {
                 LoadingView(text: "MenteeProfileScreen")
             } else {
                 content
+                    .navigationBarBackButtonHidden(true)
             }
         }.onAppear(perform: {
             Task {
@@ -119,20 +121,20 @@ struct MenteeProfileScreen: View {
                     // params currently placeholders for later navigation
                     if scrollAtTop {
                         NavigationHeaderComponent(
-                            backText: "Login",
-                            backDestination: LoginScreen(),
+                            backText: "Back",
+                            backDestination: prevView,
                             title: "Mentee Profile",
                             purple: true,
-                            showButton: false
+                            showButton: true
                         )
                         .background(Color("ALUM Primary Purple"))
                     } else {
                         NavigationHeaderComponent(
-                            backText: "Login",
-                            backDestination: LoginScreen(),
+                            backText: "Back",
+                            backDestination: prevView,
                             title: "Mentee Profile",
                             purple: false,
-                            showButton: false
+                            showButton: true
                         )
                         .background(.white)
                     }

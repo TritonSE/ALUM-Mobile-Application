@@ -20,6 +20,7 @@ struct MentorProfileScreen: View {
                 LoadingView(text: "MentorProfileScreen")
             } else {
                 content
+                    .navigationBarHidden(true)
             }
         }.onAppear(perform: {
             Task {
@@ -125,7 +126,10 @@ struct MentorProfileScreen: View {
                                 .padding(.top, 27)
                             WrappingHStack(0 ..< mentor.menteeIds!.count, id: \.self) { index in
                                 NavigationLink(destination:
-                                                MenteeProfileScreen(uID: mentor.menteeIds![index])
+                                                MenteeProfileScreen(
+                                                    uID: mentor.menteeIds![index],
+                                                    prevView: AnyView(MentorProfileScreen(uID: uID))
+                                                )
                                 ) {
                                     MenteeCard(isEmpty: true, uID: mentor.menteeIds![index])
                                         .padding(.bottom, 15)

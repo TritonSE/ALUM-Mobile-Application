@@ -20,23 +20,26 @@ class CurrentUserModel: ObservableObject {
     @Published var uid: String?
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
+    @Published var status: String?
 
     init() {
         self.isLoading = true
         self.isLoggedIn = false
         self.uid = nil
         self.role = nil
+        self.status = nil
     }
 
     ///  Since async operations are involved, this function will limit updating the current
     ///  user without using the DispatchQueue logic.
     ///  Not using DispatchQueue can casue race conditions which can crash our app
-    func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?) {
+    func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?, status: String?) {
         DispatchQueue.main.async {
             self.isLoading = isLoading
             self.isLoggedIn = isLoggedIn
             self.uid = uid
             self.role = role
+            self.status = status
         }
     }
 
@@ -48,7 +51,7 @@ class CurrentUserModel: ObservableObject {
             }
             try await self.setFromFirebaseUser(user: user)
         } catch {
-            self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
+            self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil, status: nil)
         }
     }
 
@@ -74,6 +77,17 @@ class CurrentUserModel: ObservableObject {
                 message: "Expected user role to be mentor OR mentee but found - \(role)"
             )
         }
-        self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
+        await self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum,
+                                  status: try getStatus(userID: user.uid, roleEnum: roleEnum))
+    }
+    func getStatus(userID: String, roleEnum: UserRole) async throws -> String {
+        let userStatus: String
+        switch roleEnum {
+        case .mentee:
+            userStatus = try await UserService.shared.getMentee(userID: userID).mentee.status ?? ""
+        case .mentor:
+            userStatus = try await UserService.shared.getMentor(userID: userID).mentor.status ?? ""
+        }
+        return userStatus
     }
 }
