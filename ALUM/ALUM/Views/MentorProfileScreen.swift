@@ -13,6 +13,8 @@ struct MentorProfileScreen: View {
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
     @State public var showWebView = false
+    @State var prevView: AnyView = AnyView(LoadingView(text: ""))
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
         Group {
@@ -128,7 +130,13 @@ struct MentorProfileScreen: View {
                                 NavigationLink(destination:
                                                 MenteeProfileScreen(
                                                     uID: mentor.menteeIds![index],
-                                                    prevView: AnyView(MentorProfileScreen(uID: uID))
+                                                    prevView: AnyView(MentorProfileScreen(uID: uID)
+                                                        .onDisappear(perform: {
+                                                            self.currentUser.showTabBar = false
+                                                        })
+                                                        .onAppear(perform: {
+                                                            self.currentUser.showTabBar = true
+                                                        }))
                                                 )
                                 ) {
                                     MenteeCard(isEmpty: true, uID: mentor.menteeIds![index])
@@ -152,19 +160,19 @@ struct MentorProfileScreen: View {
                     // params currently placeholders for later navigation
                     if scrollAtTop {
                         NavigationHeaderComponent(
-                            backText: "Login",
-                            backDestination: LoginScreen(),
+                            backText: "Back",
+                            backDestination: prevView,
                             title: "Mentor Profile",
                             purple: true,
-                            showButton: false)
+                            showButton: true)
                         .background(Color("ALUM Primary Purple"))
                     } else {
                         NavigationHeaderComponent(
-                            backText: "Login",
-                            backDestination: LoginScreen(),
+                            backText: "Back",
+                            backDestination: prevView,
                             title: "Mentor Profile",
                             purple: false,
-                            showButton: false)
+                            showButton: true)
                         .background(.white)
                     }
                 } else {

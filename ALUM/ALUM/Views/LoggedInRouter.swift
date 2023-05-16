@@ -16,8 +16,20 @@ struct ProfileRouter: View {
                 switch self.currentUser.role {
                 case .some(UserRole.mentor):
                     MentorProfileScreen(uID: self.currentUser.uid!)
+                        .onDisappear(perform: {
+                            self.currentUser.showTabBar = false
+                        })
+                        .onAppear(perform: {
+                            self.currentUser.showTabBar = true
+                        })
                 case .some(UserRole.mentee):
                     MenteeProfileScreen(uID: self.currentUser.uid!)
+                        .onDisappear(perform: {
+                            self.currentUser.showTabBar = false
+                        })
+                        .onAppear(perform: {
+                            self.currentUser.showTabBar = true
+                        })
                 case .none:
                     Text("Internal Error: User Role is nil")
                 }
@@ -58,14 +70,22 @@ struct LoggedInRouter: View {
                 LoginReviewPage(text:
                                     ["Application is under review",
                                        "It usually takes 3-5 days to process your application as a mentee."])
-            }
-            else if currentUser.role == .mentor {
+            } else if currentUser.role == .mentor {
                 LoginReviewPage(text:
                                     ["Application is under review",
                                        "It usually takes 3-5 days to process your application as a mentor."])
             }
-        }
-        else {
+        } else if currentUser.status == "approved" {
+            if currentUser.role == .mentee {
+                LoginReviewPage(text:
+                                    ["Matching you with a mentor",
+                                       "We are looking for a perfect mentor for you. Please allow us some time!"])
+            } else if currentUser.role == .mentor {
+                LoginReviewPage(text:
+                                    ["Matching you with a mentee",
+                                       "We are looking for a perfect mentee for you. Please allow us some time!"])
+            }
+        } else {
             VStack(spacing: 0) {
                 switch selection {
                 case 0:
@@ -75,36 +95,38 @@ struct LoggedInRouter: View {
                 default:
                     Text("Error")
                 }
-                ZStack(alignment: .bottom) {
-                    HStack(spacing: 0) {
-                        ForEach(0..<tabItems.count) { index in
-                            VStack(spacing: 0) {
-                                if index == selection {
-                                    Rectangle()
-                                        .frame(width: 64, height: 3)
-                                        .foregroundColor(Color("ALUM Primary Purple"))
-                                } else {
-                                    Rectangle()
-                                        .frame(width: 64, height: 2)
-                                        .foregroundColor(.white)
-                                }
-                                Button(action: {
-                                    selection = index
-                                }, label: {
-                                    VStack(spacing: 4) {
-                                        Image( tabItems[index].iconName)
-                                            .font(.system(size: 20))
-                                        Text(tabItems[index].title)
-                                            .font(.custom("Metropolis-Regular", size: 10, relativeTo: .footnote))
+                if currentUser.showTabBar {
+                    ZStack(alignment: .bottom) {
+                        HStack(spacing: 0) {
+                            ForEach(0..<tabItems.count) { index in
+                                VStack(spacing: 0) {
+                                    if index == selection {
+                                        Rectangle()
+                                            .frame(width: 64, height: 3)
+                                            .foregroundColor(Color("ALUM Primary Purple"))
+                                    } else {
+                                        Rectangle()
+                                            .frame(width: 64, height: 2)
+                                            .foregroundColor(.white)
                                     }
-                                    .foregroundColor(Color("ALUM Primary Purple"))
-                                    .frame(maxWidth: .infinity)
-                                })
-                                .padding(.top, 15)
+                                    Button(action: {
+                                        selection = index
+                                    }, label: {
+                                        VStack(spacing: 4) {
+                                            Image( tabItems[index].iconName)
+                                                .font(.system(size: 20))
+                                            Text(tabItems[index].title)
+                                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .footnote))
+                                        }
+                                        .foregroundColor(Color("ALUM Primary Purple"))
+                                        .frame(maxWidth: .infinity)
+                                    })
+                                    .padding(.top, 15)
+                                }
                             }
                         }
+                        .frame(height: 45)
                     }
-                    .frame(height: 45)
                 }
                 
             }

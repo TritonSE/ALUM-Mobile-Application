@@ -13,6 +13,7 @@ struct MenteeProfileScreen: View {
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
     @State var prevView: AnyView = AnyView(LoadingView(text: ""))
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
         Group {
@@ -105,7 +106,17 @@ struct MenteeProfileScreen: View {
                             .padding(.leading, 16)
                             .padding(.bottom, 8)
                         NavigationLink(destination:
-                                        MentorProfileScreen(uID: mentee.mentorId ?? "")) {
+                                        MentorProfileScreen(
+                                            uID: mentee.mentorId ?? "",
+                                            prevView: AnyView(MenteeProfileScreen(uID: uID)
+                                                .onDisappear(perform: {
+                                                    self.currentUser.showTabBar = false
+                                                })
+                                                    .onAppear(perform: {
+                                                        self.currentUser.showTabBar = true
+                                                    }))
+                                        )
+                                            ) {
                             MentorCard(isEmpty: true, uID: mentee.mentorId ?? "")
                                 .padding(.bottom, 10)
                         }

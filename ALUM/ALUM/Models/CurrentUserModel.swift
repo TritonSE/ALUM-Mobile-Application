@@ -21,6 +21,7 @@ class CurrentUserModel: ObservableObject {
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
     @Published var status: String?
+    @Published var showTabBar: Bool
 
     init() {
         self.isLoading = true
@@ -28,6 +29,7 @@ class CurrentUserModel: ObservableObject {
         self.uid = nil
         self.role = nil
         self.status = nil
+        self.showTabBar = true
     }
 
     ///  Since async operations are involved, this function will limit updating the current
