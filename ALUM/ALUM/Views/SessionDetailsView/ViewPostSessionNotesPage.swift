@@ -36,7 +36,7 @@ struct ViewPostSessionNotesPage: View {
 
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
-    
+
     @State var otherName: String = ""
     @State var date: String = ""
     @State var time: String = ""
@@ -82,7 +82,12 @@ struct ViewPostSessionNotesPage: View {
     var footer: some View {
         HStack {
             NavigationLink {
-                PostSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
+                PostSessionQuestionScreen(
+                    viewModel: viewModel,
+                    notesID: notesID,
+                    otherUser: otherName,
+                    date: date, time: time
+                )
             } label: {
                 HStack {
                     Image(systemName: "pencil.line")

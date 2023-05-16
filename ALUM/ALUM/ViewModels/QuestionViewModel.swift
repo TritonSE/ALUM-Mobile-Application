@@ -74,7 +74,7 @@ final class QuestionViewModel: ObservableObject {
 
     func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
-        
+
         for question in questionList {
             if question.type ==  "text" {
                 notesData.append(QuestionPatchData(answer: PatchAnswer.string(question.answerParagraph),

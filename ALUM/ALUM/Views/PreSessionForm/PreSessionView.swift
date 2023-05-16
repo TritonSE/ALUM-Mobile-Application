@@ -35,7 +35,7 @@ struct PreSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
     @State var notesID: String = ""
-    
+
     @State var otherName: String = ""
     @State var date: String = ""
     @State var time: String = ""
@@ -45,9 +45,15 @@ struct PreSessionView: View {
         return
         Group {
             if !viewModel.isLoading {
-                PreSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
-                    .navigationBarTitle("", displayMode: .inline)
-                    .navigationBarHidden(true)
+                PreSessionQuestionScreen(
+                    viewModel: viewModel,
+                    notesID: notesID,
+                    otherUser: otherName,
+                    date: date,
+                    time: time
+                )
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
@@ -65,7 +71,7 @@ struct PreSessionView: View {
             }
         }
         // .navigationBarBackButtonHidden()
-        
+
     }
 }
 

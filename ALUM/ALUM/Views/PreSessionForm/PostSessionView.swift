@@ -35,7 +35,7 @@ struct PostSessionView: View {
 
     @State var notesID: String = ""
     @State var otherNotesID: String = ""
-    
+
     @State var otherName: String = ""
     @State var date: String = ""
     @State var time: String = ""
@@ -43,9 +43,15 @@ struct PostSessionView: View {
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                PostSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
-                    .navigationBarTitle("", displayMode: .inline)
-                    .navigationBarHidden(true)
+                PostSessionQuestionScreen(
+                    viewModel: viewModel,
+                    notesID: notesID,
+                    otherUser: otherName,
+                    date: date,
+                    time: time
+                )
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")

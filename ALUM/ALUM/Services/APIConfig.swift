@@ -89,7 +89,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .patchNote, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -101,7 +101,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .patchNote, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),

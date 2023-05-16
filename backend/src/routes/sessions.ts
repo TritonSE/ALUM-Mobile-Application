@@ -5,19 +5,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose, { ObjectId } from "mongoose";
 // import { boolean } from "caketype";
-import { Session } from "../models/session";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
-import { ServiceError } from "../errors/service";
-import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentor, Mentee, Session } from "../models";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
-import { validateReqBodyWithCake } from "../middleware/validation";
-import { verifyAuthToken } from "../middleware/auth";
 import { getCalendlyEventDate } from "../services/calendly";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { getMentorId } from "../services/user";
 
 /**

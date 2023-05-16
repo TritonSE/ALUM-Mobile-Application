@@ -104,7 +104,7 @@ class SessionService {
         var dateComponents = newDate.components(separatedBy: " ")
         return dateComponents
     }
-  
+
     func postSessionWithId(calendlyURI: String) async throws -> PostSessionData? {
           let route = APIRoute.postSession
           var request = try await route.createURLRequest()

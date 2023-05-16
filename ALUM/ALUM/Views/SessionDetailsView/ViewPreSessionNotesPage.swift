@@ -38,7 +38,7 @@ struct ViewPreSessionNotesPage: View {
     @State var otherName: String = ""
     @State var date: String = ""
     @State var time: String = ""
-    
+
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -74,7 +74,13 @@ struct ViewPreSessionNotesPage: View {
 
     var footer: some View {
         NavigationLink {
-            PreSessionQuestionScreen(viewModel: viewModel, notesID: notesID, otherUser: otherName, date: date, time: time)
+            PreSessionQuestionScreen(
+                viewModel: viewModel,
+                notesID: notesID,
+                otherUser: otherName,
+                date: date,
+                time: time
+            )
         } label: {
             HStack {
                 Image(systemName: "pencil.line")

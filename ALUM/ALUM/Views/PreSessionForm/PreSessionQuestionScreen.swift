@@ -96,15 +96,18 @@ struct PreSessionQuestionScreen: View {
 
                 Spacer()
 
-                NavigationLink(destination: PreSessionConfirmationScreen(viewModel: viewModel, notesID: notesID), label: {
-                    HStack {
-                        Text("Continue")
-                            .font(.custom("Metropolis-Regular", size: 17))
-                        Image(systemName: "arrow.right")
-                            .font(.system(size: 17))
-                            .foregroundColor(Color.white)
+                NavigationLink(
+                    destination: PreSessionConfirmationScreen(viewModel: viewModel, notesID: notesID),
+                    label: {
+                        HStack {
+                            Text("Continue")
+                                .font(.custom("Metropolis-Regular", size: 17))
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 17))
+                                .foregroundColor(Color.white)
+                        }
                     }
-                })
+                )
                 .buttonStyle(FilledInButtonStyle())
             }
         }
