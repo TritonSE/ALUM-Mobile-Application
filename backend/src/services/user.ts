@@ -7,7 +7,7 @@ import { Image } from "../models/image";
 import { InternalError, ServiceError } from "../errors";
 import { Pairing } from "../models/pairing";
 
-async function saveImage(req: Request) {
+async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   console.info("Adding an image to the datatbase");
   console.log(req.file?.mimetype);
   const image = new Image({
