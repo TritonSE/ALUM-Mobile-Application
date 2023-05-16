@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Infer } from "caketype";
-import { Note } from "../models/notes";
+import { Note } from "../models";
 import { questionIDs } from "../config";
 import { updateNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";

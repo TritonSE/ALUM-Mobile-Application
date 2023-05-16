@@ -5,10 +5,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
-// import multer from "multer";
-import { Mentee } from "../models/mentee";
-import { Mentor } from "../models/mentor";
-import { Pairing } from "../models/pairing";
+import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
 import {
   CreateMenteeRequestBodyCake,
@@ -24,8 +21,6 @@ import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 
 const router = express.Router();
-
-// const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 /**
  * Validators used for routes

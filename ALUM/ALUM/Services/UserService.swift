@@ -30,6 +30,7 @@ struct MentorPostData: Codable {
     var mentorMotivation: String
     var location: String
     var calendlyLink: String
+    var personalAccessToken: String
 }
 
 struct MenteeGetData: Decodable {

@@ -13,6 +13,7 @@ interface SessionInterface {
   mentorId: string;
   startTime: Date;
   endTime: Date;
+  calendlyUri: string;
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
@@ -26,7 +27,7 @@ interface SessionDoc extends mongoose.Document {
   mentorId: ObjectId;
   startTime: Date;
   endTime: Date;
-  day: string;
+  calendlyUri: string;
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
@@ -63,6 +64,10 @@ const SessionSchema = new mongoose.Schema({
   },
   endTime: {
     type: Date,
+    required: true,
+  },
+  calendlyUri: {
+    type: String,
     required: true,
   },
   preSessionCompleted: {

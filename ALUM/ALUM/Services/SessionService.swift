@@ -2,7 +2,9 @@
 //  SessionService.swift
 //  ALUM
 //
-//  Created by Neelam Gurnani on 4/13/23.
+//  Created by Harsh Gurnani on 4/13/23.
+//  PostSessionService.swift
+//  ALUM
 //
 
 import Foundation
@@ -41,6 +43,16 @@ struct UserSessionInfo: Decodable {
 struct GetUserSessionsData: Decodable {
     var message: String
     var sessions: [UserSessionInfo]
+}
+
+struct SessionLink: Codable {
+    var calendlyURI: String
+}
+
+struct PostSessionData: Codable {
+    var sessionId: String
+    var menteeId: String
+    var mentorId: String
 }
 
 class SessionService {
@@ -91,5 +103,22 @@ class SessionService {
             .replacingOccurrences(of: ":", with: " ")
         var dateComponents = newDate.components(separatedBy: " ")
         return dateComponents
+    }
+  
+    func postSessionWithId(calendlyURI: String) async throws -> PostSessionData? {
+          let route = APIRoute.postSession
+          var request = try await route.createURLRequest()
+          let sessionBodyData = SessionLink(calendlyURI: calendlyURI)
+          guard let jsonData = try? JSONEncoder().encode(sessionBodyData) else {
+              throw AppError.internalError(.invalidRequest, message: "Error encoding JSON Data")
+          }
+          request.httpBody = jsonData
+          let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+          guard let sessionData = try? JSONDecoder().decode(PostSessionData.self, from: responseData) else {
+              print("Failed to decode data")
+              throw AppError.internalError(.invalidRequest, message: "Could not decode data")
+          }
+          print("SUCCESS - \(route.label)")
+          return sessionData
     }
 }

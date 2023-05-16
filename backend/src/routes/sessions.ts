@@ -11,7 +11,14 @@ import { verifyAuthToken } from "../middleware/auth";
 import { ServiceError } from "../errors/service";
 import { InternalError } from "../errors/internal";
 import { validateReqBodyWithCake } from "../middleware/validation";
+import { Mentor, Mentee, Session } from "../models";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
+import { InternalError, ServiceError } from "../errors";
+import { validateReqBodyWithCake } from "../middleware/validation";
+import { verifyAuthToken } from "../middleware/auth";
+import { getCalendlyEventDate } from "../services/calendly";
+import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import { getMentorId } from "../services/user";
 
 /**
  * This is a post route to create a new session. 
@@ -21,7 +28,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
  postSession: string;
  menteeId: string;
  mentorId: string;
- dateTime: Date;
+ calendlyURI: string;
 }
 
 IMPORTANT: Date should be passed in with the format:
@@ -39,19 +46,31 @@ const router = express.Router();
 
 router.post(
   "/sessions",
-  validateReqBodyWithCake(CreateSessionRequestBodyCake),
+  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    console.info("Posting new session,", req.query);
+    console.info("Posting new session,");
     try {
-      const { menteeId, mentorId } = req.body;
-      const meetingTime = new Date(req.body.dateInfo.replace(/-/g, "/").replace(/T.+/, ""));
+      const { uid } = req.body;
+      const mentee = await Mentee.findById(uid);
+      if (!mentee) {
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
+      }
+      const mentorId = await getMentorId(mentee.pairingId);
+      const mentor = await Mentor.findById(mentorId);
+      if (!mentor) {
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
+      }
+      const accessToken = mentor.personalAccessToken;
+      const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const session = new Session({
         preSession: null,
         postSessionMentee: null,
         postSessionMentor: null,
-        menteeId,
+        menteeId: uid,
         mentorId,
-        dateTime: meetingTime,
+        startTime: data.resource.start_time,
+        endTime: data.resource.end_time,
+        calendlyUri: req.body.calendlyURI,
         preSessionCompleted: false,
         postSessionMentorCompleted: false,
         postSessionMenteeCompleted: false,
@@ -65,7 +84,9 @@ router.post(
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
-        message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
+        sessionId: session._id,
+        mentorId: session.mentorId,
+        menteeId: session.menteeId,
       });
     } catch (e) {
       console.log(e);
@@ -217,6 +238,7 @@ router.get(
         sessions: sessionsArray,
       });
     } catch (e) {
+      console.log(e);
       next();
       return res.status(400);
     }
