@@ -4,16 +4,13 @@
 
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { Session } from "../models/session";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
-import { InternalError } from "../errors/internal";
-import { ServiceError } from "../errors/service";
+import { Mentor, Mentee, Session } from "../models";
+import { CreateSessionRequestBodyCake } from "../types/cakes";
+import { InternalError, ServiceError } from "../errors";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { verifyAuthToken } from "../middleware/auth";
-import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { getCalendlyEventDate } from "../services/calendly";
-import { Mentor } from "../models/mentor";
-import { Mentee } from "../models/mentee";
+import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { getMentorId } from "../services/user";
 
 /**

@@ -95,7 +95,7 @@ struct MentorProfileScreen: View {
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .sheet(isPresented: $showWebView) {
-                        CalendlyView(url: URL(string: "http://localhost:3000/calendly?url=https://calendly.com/aananthanregina/test")!)
+                        CalendlyView()
                     }
                     .buttonStyle(FilledInButtonStyle())
                     .frame(width: 358)

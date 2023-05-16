@@ -14,7 +14,6 @@ import WebKit
 
 
 struct CalendlyView: UIViewRepresentable {
-    var url: URL
     
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
@@ -24,9 +23,15 @@ struct CalendlyView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: Context) {
-        let request = URLRequest(url: url)
-        uiView.load(request)
-        uiView.load(request)
+        let route = APIRoute.getCalendly
+        Task {
+            do {
+                let request = try await route.createURLRequest()
+                uiView.load(request)
+            } catch {
+                throw AppError.internalError(.unknownError, message: "Error Loading Calendly Link")
+            }
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -49,9 +54,8 @@ struct CalendlyView: UIViewRepresentable {
                         // Method should be called with proper mentor, mentee ids
                         let result = try await
                         SessionService().postSessionWithId(calendlyURI: messageBody)
-                            
                     } catch {
-                        print("Error Posting session")
+                        throw AppError.internalError(.unknownError, message: "Error posting a new session")
                     }
                 }
             }
