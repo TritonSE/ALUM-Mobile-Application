@@ -1,7 +1,6 @@
 import { Infer } from "caketype";
 import { UpdateNoteDetailsCake } from "./cakes";
 
-
 export type QuestionType = {
   question: string;
   type: string;
@@ -15,7 +14,7 @@ export type AnswerType = {
 
 export type CheckboxBulletItem = {
   content: string;
-  status: string; //checked, unchecked, bullet
+  status: string; // checked, unchecked, bullet
 };
 
 export type UpdateNoteDetailsType = Infer<typeof UpdateNoteDetailsCake>;

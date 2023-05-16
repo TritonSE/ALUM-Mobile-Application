@@ -60,7 +60,7 @@ router.post(
     } catch (e) {
       next();
       return res.status(400).json({
-        error: e
+        error: e,
       });
     }
   }
@@ -69,9 +69,9 @@ router.post(
 router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
   const sessionId = req.params.sessionId;
   try {
-  if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-   throw ServiceError.INVALID_MONGO_ID;
-  }
+    if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+      throw ServiceError.INVALID_MONGO_ID;
+    }
     const session = await Session.findById(sessionId);
     if (!session) {
       throw ServiceError.SESSION_WAS_NOT_FOUND;
@@ -96,8 +96,7 @@ router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: 
     }
     throw InternalError.ERROR_GETTING_SESSION;
   }
-  }
-);
+});
 
 router.get(
   "/sessions",
@@ -107,7 +106,7 @@ router.get(
     const role = req.body.role;
     let userSessions;
     if (role === null || userID === null) {
-      throw InternalError.ERROR_GETTING_SESSION
+      throw InternalError.ERROR_GETTING_SESSION;
     }
     try {
       if (role === "mentee") {

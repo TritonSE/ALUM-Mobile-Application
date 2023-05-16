@@ -1,13 +1,13 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Infer } from "caketype";
 import { Note } from "../models/notes";
-import {Session} from "../models/session";
+import { Session } from "../models/session";
 import { questionIDs } from "../config";
-import {createPostSessionNotes, updateNotes} from "../services/note";
+import { updateNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
 import { CheckboxBulletItem } from "../types/notes";
-import {ServiceError} from "../errors";
+import { ServiceError } from "../errors";
 
 const router = express.Router();
 
@@ -19,48 +19,35 @@ interface NoteItem {
 }
 
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
-  try{
+  try {
     const id = req.params.id;
     const note = await Note.findById(id);
-    if (note == null) {
-      throw ServiceError.NOTE_WAS_NOT_FOUND
-    }
-    if (note.type==="post"){
-      const temp = await Session.findOne({postSession : id});
-      if(temp == null){
-        throw ServiceError.SESSION_WAS_NOT_FOUND
-      }
-      else {
-        const preSessionNotes = await Note.findById(temp.preSession);
-        if(preSessionNotes==null){
-          throw ServiceError.NOTE_WAS_NOT_FOUND
-
-        }
-        else{
-          const topicsToDiscuss = preSessionNotes.answers[0].answer;
-          if(topicsToDiscuss instanceof Array){
-            note.answers[0].type="CheckboxBulletItem";
-            const topicsArray: CheckboxBulletItem[] = [];
-            topicsToDiscuss.forEach((topic) => {
-              if(typeof topic === "string") {
-                let tempTopic: CheckboxBulletItem =
-                {
-                  content: topic,
-                  status: "unchecked"
-                };
-               topicsArray.push(tempTopic);
-              }
-              });
-            note.answers[0].answer=topicsArray;
+    if (note == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
+    if (note.type === "post") {
+      const temp = await Session.findById(note.session);
+      if (temp == null) throw ServiceError.SESSION_WAS_NOT_FOUND;
+      const preSessionNotes = await Note.findById(temp.preSession);
+      if (preSessionNotes == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
+      const topicsToDiscuss = preSessionNotes.answers[0].answer;
+      if (topicsToDiscuss instanceof Array) {
+        note.answers[0].type = "CheckboxBulletItem";
+        const topicsArray: CheckboxBulletItem[] = [];
+        topicsToDiscuss.forEach((topic) => {
+          if (typeof topic === "string") {
+            const tempTopic: CheckboxBulletItem = {
+              content: topic,
+              status: "unchecked",
+            };
+            topicsArray.push(tempTopic);
           }
-        }
+        });
+        note.answers[0].answer = topicsArray;
       }
     }
     const notesAnswers: NoteItem[] = note.answers as NoteItem[];
     notesAnswers.forEach((note_answer) => {
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
-    console.log(note.answers);
     return res.status(200).json(note.answers);
   } catch (e) {
     next(e);

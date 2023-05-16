@@ -7,10 +7,8 @@ import { notesRouter } from "./routes/notes";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
 import { imageRouter } from "./routes/image";
-import { database } from "firebase-admin";
 import { errorHandler } from "./errors/handler";
 import { Pairing } from "./models/pairing";
-import { database } from "firebase-admin";
 
 /**
  * Express server application class.
