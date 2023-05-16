@@ -193,18 +193,19 @@ router.patch(
       const personalAccessToken = mentor.personalAccessToken;
       const deleteResponse = await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
       const newEventData = await getCalendlyEventDate(newCalendlyURI, personalAccessToken);
-      const filter = { _id: sessionId };
       const updates = {
         startTime: newEventData.resource.start_time,
         endTime: newEventData.resource.end_time,
         calendlyUri: newCalendlyURI
       }
-      Session.updateOne(filter, updates);
+      await Session.findByIdAndUpdate(sessionId, { $set: updates }, { new: true });
       return res.status(200).json({
         message: "Successfuly updated the session!"
       })
     } catch (e) {
-
+      console.log(e);
+      next();
+      return res.status(400)
     }
   }
 );
