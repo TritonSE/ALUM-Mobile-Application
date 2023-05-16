@@ -1,10 +1,3 @@
-//
-//  MenteePostSessionQuestionScreen.swift
-//  ALUM
-//
-//  Created by Jenny Mar on 4/5/23.
-//
-
 import SwiftUI
 
 struct PostSessionQuestionScreen: View {
@@ -39,19 +32,48 @@ struct PostSessionQuestionScreen: View {
 
     @ViewBuilder
     var footer: some View {
-        if viewModel.currentIndex == 0 {
-            Button {
-                viewModel.nextQuestion()
-            } label: {
+        if !viewModel.lastQuestion {
+            if viewModel.currentIndex == 0 {
+                Button {
+                    viewModel.nextQuestion()
+                } label: {
+                    HStack {
+                        Text("Continue")
+                            .font(.custom("Metropolis-Regular", size: 17))
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 17))
+                            .foregroundColor(Color.white)
+                    }
+                }
+                .buttonStyle(FilledInButtonStyle())
+            } else {
                 HStack {
-                    Text("Continue")
-                        .font(.custom("Metropolis-Regular", size: 17))
-                    Image(systemName: "arrow.right")
-                        .font(.system(size: 17))
-                        .foregroundColor(Color.white)
+                    Button {
+                        viewModel.prevQuestion()
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                    }
+                    .buttonStyle(OutlinedButtonStyle())
+
+                    Spacer()
+
+                    Button {
+                        viewModel.nextQuestion()
+                    } label: {
+                        HStack {
+                            Text("Continue")
+                                .font(.custom("Metropolis-Regular", size: 17))
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 17))
+                                .foregroundColor(Color.white)
+                        }
+                    }
+                    .buttonStyle(FilledInButtonStyle())
                 }
             }
-            .buttonStyle(FilledInButtonStyle())
         } else {
             HStack {
                 Button {
@@ -66,9 +88,7 @@ struct PostSessionQuestionScreen: View {
 
                 Spacer()
 
-                Button {
-                    viewModel.nextQuestion()
-                } label: {
+                NavigationLink(destination: PostSessionConfirmationScreen(viewModel: viewModel), label: {
                     HStack {
                         Text("Continue")
                             .font(.custom("Metropolis-Regular", size: 17))
@@ -76,7 +96,7 @@ struct PostSessionQuestionScreen: View {
                             .font(.system(size: 17))
                             .foregroundColor(Color.white)
                     }
-                }
+                })
                 .buttonStyle(FilledInButtonStyle())
             }
         }

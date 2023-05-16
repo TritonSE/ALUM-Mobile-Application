@@ -36,8 +36,7 @@ struct MissedSessionScreen: View {
             footer
                 .padding(.horizontal, 16)
                 .padding(.top, 32)
-                .padding(.bottom, 40)
-                .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                .padding(.bottom, 34)
         }
         .onAppear {
             if viewModel.missedOption == "Mentor/ee and I decided to cancel" {
@@ -101,7 +100,7 @@ struct MissedSessionScreen: View {
                 Text("You have successfully booked a session with \(otherUser) on \(date) at \(time).")
                     .font(.custom("Metropolis-Regular", size: 17))
                     .lineSpacing(10)
-                    .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
@@ -157,7 +156,7 @@ struct MissedSessionScreen: View {
                 .onTapGesture {selectedOption = .notShowed
                     viewModel.missedOption = "Mentor/ee didn't show"
                     noOption = false; otherEmpty = false}
-                .padding(.bottom, 12)
+                .padding(.bottom, 6)
             MultipleChoice(content: "Other:",
                            checked: selectedOption == .other, otherText: $otherText)
                 .onTapGesture {selectedOption = .other
