@@ -12,15 +12,24 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userUid = req.body.uid;
-      const mentee = await Mentee.findById(userUid);
-      if (!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND;
+      const userRole = req.body.role;
+
+      let mentorId = null;
+      if (userRole == "mentee") {
+        const mentee = await Mentee.findById(userUid);
+        if (!mentee) {
+          throw ServiceError.MENTEE_WAS_NOT_FOUND;
+        }
+        mentorId = await getMentorId(mentee.pairingId);
+      } else if (userRole == "mentor") {
+        mentorId = userUid
       }
-      const mentorId = await getMentorId(mentee.pairingId);
+
       const mentor = await Mentor.findById(mentorId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
+      
       const calendlyLink = mentor.calendlyLink;
       res.render("index", { calendlyLink });
     } catch (e) {
