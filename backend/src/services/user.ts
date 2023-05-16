@@ -7,22 +7,22 @@ import { Image } from "../models/image";
 import { InternalError, ServiceError } from "../errors";
 import { Pairing } from "../models/pairing";
 
-async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
-  console.info("Adding an image to the datatbase");
-  console.log(req.file?.mimetype);
-  const image = new Image({
-    buffer: req.file?.buffer,
-    originalname: req.file?.originalname,
-    mimetype: req.file?.mimetype,
-    encoding: req.file?.encoding,
-    size: req.file?.size,
-  });
-  try {
-    const newImage = await image.save();
-    return newImage._id;
-  } catch (e) {
-    throw ServiceError.IMAGE_NOT_SAVED;
-  }
+async function saveImage(req: Request) {
+  // console.info("Adding an image to the datatbase");
+  // console.log(req.file?.mimetype);
+  // const image = new Image({
+  //   buffer: req.file?.buffer,
+  //   originalname: req.file?.originalname,
+  //   mimetype: req.file?.mimetype,
+  //   encoding: req.file?.encoding,
+  //   size: req.file?.size,
+  // });
+  // try {
+  //   const newImage = await image.save();
+  //   return newImage._id;
+  // } catch (e) {
+  //   throw ServiceError.IMAGE_NOT_SAVED;
+  // }
 }
 
 async function getMentorId(pairingId: string): Promise<string> {

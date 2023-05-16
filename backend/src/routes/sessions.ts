@@ -10,7 +10,7 @@ import { InternalError, ServiceError } from "../errors";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { verifyAuthToken } from "../middleware/auth";
 import { getCalendlyEventDate, deleteCalendlyEvent } from "../services/calendly";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import { createPreSessionNotes, createPostSessionNotes, deleteNotes } from "../services/note";
 import { getMentorId } from "../services/user";
 
 /**
@@ -176,7 +176,8 @@ router.delete(
   "/sessions/:sessionId",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    const session = await Session.findById(req.params.sessionId);
+    const sessionId=req.params.sessionId
+    const session = await Session.findById(sessionId);
     if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
     const uri = session.calendlyUri;
     const mentor = await Mentor.findById(session.mentorId);
@@ -184,8 +185,10 @@ router.delete(
     const personalAccessToken = mentor.personalAccessToken;
     try {
       deleteCalendlyEvent(uri, personalAccessToken);
+      await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
+      await Session.findByIdAndDelete(sessionId);
       return res.status(200).json({
-        message: "successfully cancelled",
+        message: "calendly successfully cancelled, notes deleted, session deleted.",
       });
     } catch (e) {
       console.log(e);

@@ -9,8 +9,8 @@ interface SessionInterface {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;
-  menteeId: string;
-  mentorId: string;
+  menteeId: ObjectId;
+  mentorId: ObjectId;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;
@@ -20,9 +20,9 @@ interface SessionInterface {
 }
 
 interface SessionDoc extends mongoose.Document {
-  preSession: string;
-  postSessionMentee: string;
-  postSessionMentor: string;
+  preSession: ObjectId;
+  postSessionMentee: ObjectId;
+  postSessionMentor: ObjectId;
   menteeId: ObjectId;
   mentorId: ObjectId;
   startTime: Date;

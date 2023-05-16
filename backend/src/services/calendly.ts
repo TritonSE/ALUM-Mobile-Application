@@ -32,7 +32,7 @@ async function getCalendlyEventDate(uri: string, accessToken: string) {
   }
 }
 
-async function deleteCalendlyEvent(uri: string, accessToken: string) {
+async function deleteCalendlyEvent(uri: string, accessToken: string, reason: string) {
   const regex = /\/scheduled_events\/(\w+-\w+-\w+-\w+-\w+)/;
   const match = uri.match(regex);
 
@@ -48,7 +48,7 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ reason: "string" }),
+    body: JSON.stringify({ reason: reason }),
   };
   fetch(`https://api.calendly.com/scheduled_events/${uuid}/cancellation`, options)
     .then((response) => response.json())
