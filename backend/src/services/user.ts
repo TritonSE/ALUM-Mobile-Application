@@ -1,10 +1,10 @@
 /**
  * This file will contain helper functions pertaining to user routes
  */
-import { Request } from "express";
-import mongoose from "mongoose";
-import { Image } from "../models/image";
-import { InternalError, ServiceError } from "../errors";
+// import { Request } from "express";
+// import mongoose from "mongoose";
+// import { Image } from "../models/image";
+import { InternalError } from "../errors";
 import { Pairing } from "../models/pairing";
 
 // TODO need to add this back in when implementing EDIT profile

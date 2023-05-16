@@ -158,7 +158,7 @@ struct SignUpMentorInfoScreen: View {
                 ALUMTextFieldComponent(title: "Calendly Link",
                                        suggestion: "calendly.com/...",
                                        text: $viewModel.mentor.calendlyLink)
-                
+
                 ALUMTextFieldComponent(title: "Personal Access Token",
                                        suggestion: "ey...",
                                        text: $viewModel.mentor.personalAccessToken)
