@@ -12,16 +12,15 @@ import Foundation
 import SwiftUI
 import WebKit
 
-
 struct CalendlyView: UIViewRepresentable {
-    
+
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         webView.configuration.userContentController.add(context.coordinator, name: "calendlyURI")
         webView.navigationDelegate = context.coordinator
         return webView
     }
-    
+
     func updateUIView(_ uiView: UIViewType, context: Context) {
         let route = APIRoute.getCalendly
         Task {
@@ -33,22 +32,22 @@ struct CalendlyView: UIViewRepresentable {
             }
         }
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(webView: self)
     }
-    
+
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-        
+
         var webView: CalendlyView
-        
+
         init(webView: CalendlyView) {
             self.webView = webView
         }
-        
+
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
-                Task{
+                Task {
                     do {
                         let messageBody = "\(message.body)"
                         // Method should be called with proper mentor, mentee ids
@@ -61,5 +60,5 @@ struct CalendlyView: UIViewRepresentable {
             }
         }
     }
-        
+
 }

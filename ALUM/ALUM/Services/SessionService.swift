@@ -10,7 +10,6 @@
 
 import Foundation
 
-
 struct SessionLink: Codable {
     var calendlyURI: String
 }
@@ -22,7 +21,7 @@ struct PostSessionData: Codable {
 }
 
 class SessionService {
-    func postSessionWithId(calendlyURI: String) async throws -> PostSessionData?  {
+    func postSessionWithId(calendlyURI: String) async throws -> PostSessionData? {
         let route = APIRoute.postSession
         var request = try await route.createURLRequest()
         let sessionBodyData = SessionLink(calendlyURI: calendlyURI)
@@ -37,6 +36,6 @@ class SessionService {
         }
         print("SUCCESS - \(route.label)")
         return sessionData
-        
+
     }
 }
