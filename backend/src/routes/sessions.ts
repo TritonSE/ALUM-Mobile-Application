@@ -9,7 +9,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { verifyAuthToken } from "../middleware/auth";
-import { getCalendlyEventDate } from "../services/calendly";
+import { getCalendlyEventDate, deleteCalendlyEvent } from "../services/calendly";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { getMentorId } from "../services/user";
 
@@ -163,6 +163,29 @@ router.get(
       return res.status(200).json({
         message: `Sessions for user ${userID}:`,
         sessions: userSessions,
+      });
+    } catch (e) {
+      console.log(e);
+      next();
+      return res.status(400);
+    }
+  }
+);
+
+router.delete(
+  "/sessions/:sessionId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const session = await Session.findById(req.params.sessionId);
+    if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
+    const uri = session.calendlyUri;
+    const mentor = await Mentor.findById(session.mentorId);
+    if (!mentor) throw ServiceError.MENTOR_WAS_NOT_FOUND;
+    const personalAccessToken = mentor.personalAccessToken;
+    try {
+      deleteCalendlyEvent(uri, personalAccessToken);
+      return res.status(200).json({
+        message: "successfully cancelled",
       });
     } catch (e) {
       console.log(e);

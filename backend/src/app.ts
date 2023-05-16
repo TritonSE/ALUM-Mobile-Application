@@ -11,6 +11,7 @@ import { errorHandler } from "./errors/handler";
 import { Pairing } from "./models/pairing";
 
 import { calendlyPage } from "./routes/calendlyPage";
+import { calendlyRouter } from "./routes/calendly";
 /**
  * Express server application class.
  * @description Will later contain the routing system.
