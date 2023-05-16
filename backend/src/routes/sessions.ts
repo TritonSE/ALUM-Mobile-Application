@@ -9,12 +9,6 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { verifyAuthToken } from "../middleware/auth";
-import { getCalendlyEventDate } from "../services/calendly";
-import { Mentor, Mentee, Session } from "../models";
-import { CreateSessionRequestBodyCake } from "../types/cakes";
-import { InternalError, ServiceError } from "../errors";
-import { validateReqBodyWithCake } from "../middleware/validation";
-import { verifyAuthToken } from "../middleware/auth";
 import { getCalendlyEventDate, deleteCalendlyEvent } from "../services/calendly";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { getMentorId } from "../services/user";
@@ -47,23 +41,10 @@ const router = express.Router();
 router.post(
   "/sessions",
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
-  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,");
     console.info("Posting new session,");
     try {
-      const { uid } = req.body;
-      const mentee = await Mentee.findById(uid);
-      if (!mentee) {
-        throw ServiceError.MENTEE_WAS_NOT_FOUND;
-      }
-      const mentorId = await getMentorId(mentee.pairingId);
-      const mentor = await Mentor.findById(mentorId);
-      if (!mentor) {
-        throw ServiceError.MENTOR_WAS_NOT_FOUND;
-      }
-      const accessToken = mentor.personalAccessToken;
-      const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const { uid } = req.body;
       const mentee = await Mentee.findById(uid);
       if (!mentee) {
@@ -81,11 +62,7 @@ router.post(
         postSessionMentee: null,
         postSessionMentor: null,
         menteeId: uid,
-        menteeId: uid,
         mentorId,
-        startTime: data.resource.start_time,
-        endTime: data.resource.end_time,
-        calendlyUri: req.body.calendlyURI,
         startTime: data.resource.start_time,
         endTime: data.resource.end_time,
         calendlyUri: req.body.calendlyURI,
@@ -102,9 +79,6 @@ router.post(
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
-        sessionId: session._id,
-        mentorId: session.mentorId,
-        menteeId: session.menteeId,
         sessionId: session._id,
         mentorId: session.mentorId,
         menteeId: session.menteeId,
@@ -140,8 +114,6 @@ router.get(
         mentorId,
         startTime,
         endTime,
-        startTime,
-        endTime,
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
@@ -154,8 +126,6 @@ router.get(
           postSessionMentor,
           menteeId,
           mentorId,
-          startTime,
-          endTime,
           startTime,
           endTime,
           preSessionCompleted,
