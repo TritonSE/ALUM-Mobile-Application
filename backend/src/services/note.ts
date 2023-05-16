@@ -5,6 +5,7 @@ import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
 import { Session } from "../models/session";
+import { ServiceError } from "../errors";
 
 interface Question {
   question: string;
@@ -110,10 +111,11 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   let missedNote = false;
   let missedReason = "";
   if (!noteDoc) {
-    throw new Error("Document not found");
-  } else {
-    // Can improve this in future if needed by creating a hashmap
-    noteDoc.answers.forEach((_, answerIndex) => {
+    throw ServiceError.NOTE_WAS_NOT_FOUND;
+  }
+
+  // Can improve this in future if needed by creating a hashmap
+  noteDoc.answers.forEach((_, answerIndex) => {
       const checkMissedNote = updatedNotes.find(
         (note) => note.questionId === "missedSessionQuestionId"
       );
@@ -123,32 +125,31 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         missedNote = true;
         missedReason = <string>checkMissedNote.answer;
       }
-      const updatedNote = updatedNotes.find(
-        (note) => note.questionId === noteDoc.answers[answerIndex].id
-      );
-      if (updatedNote) {
-        noteDoc.answers[answerIndex].answer = updatedNote.answer;
-      }
-    });
-    try {
-      // Since we are modifying noteDoc.answers[index].answer directly,
-      // mongoose does not notice the change so ignores saving it unless we manually mark
-      noteDoc.markModified("answers");
-      const sessionDoc = await Session.findById(noteDoc.session);
-      if (sessionDoc != null) {
-        if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
-        else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
-        else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
+    const updatedNote = updatedNotes.find(
+      (note) => note.questionId === noteDoc.answers[answerIndex].id
+    );
+    if (updatedNote) {
+      noteDoc.answers[answerIndex].answer = updatedNote.answer;
+    }
+  });
+
+  try {
+    // Since we are modifying noteDoc.answers[index].answer directly,
+    // mongoose does not notice the change so ignores saving it unless we manually mark
+    noteDoc.markModified("answers");
+    const sessionDoc = await Session.findById(noteDoc.session);
+    if (sessionDoc != null) {
+      if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
+      else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
+      else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
         if (missedNote && sessionDoc.missedSessionReason == null)
           sessionDoc.missedSessionReason = missedReason;
-        await sessionDoc.save();
-      }
-      console.log(noteDoc);
-      return await noteDoc.save();
-    } catch (error) {
-      console.error(error);
-      throw new Error("Save error");
+      await sessionDoc.save();
     }
+      console.log(noteDoc);
+    return await noteDoc.save();
+  } catch (error) {
+    throw ServiceError.NOTE_WAS_NOT_SAVED;
   }
 }
 

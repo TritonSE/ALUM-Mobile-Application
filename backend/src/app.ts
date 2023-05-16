@@ -10,6 +10,7 @@ import { imageRouter } from "./routes/image";
 import { errorHandler } from "./errors/handler";
 import { Pairing } from "./models/pairing";
 
+import { calendlyPage } from "./routes/calendlyPage";
 /**
  * Express server application class.
  * @description Will later contain the routing system.
@@ -34,10 +35,12 @@ const pairing = new Pairing({
 pairing.save();
 
 server.app.use(json());
+server.app.set("view engine", "pug");
 server.app.use(userRouter);
 server.app.use(sessionsRouter);
 server.app.use(notesRouter);
 server.app.use(imageRouter);
+server.app.use(calendlyPage);
 server.app.use(errorHandler); // This handler is reached whenever there is some error in our middleware chain
 
 // make server listen on some port

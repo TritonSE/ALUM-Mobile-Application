@@ -58,75 +58,31 @@ struct QuestionGetData: Identifiable, Decodable {
 }
 
 class NotesService {
-    func patchNotes(url: String, jsonData: Data) async throws {
-        let urlObj = URL(string: url)!
-        var request = URLRequest(url: urlObj)
+    static let shared = NotesService()
 
-        request.httpMethod = "PATCH"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        do {
-            // Encode the data as JSON
-            request.httpBody = jsonData
-            // Make the network request
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            // Check the response status code
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                print("PATCH \(url) was successful.")
-            }
-        } catch {
-            print(error)
-            throw error
-        }
-    }
-
-    func patchNotesHelper(data: [QuestionPatchData]) async throws {
+    func patchNotes(noteId: String, data: [QuestionPatchData]) async throws {
+        let route = APIRoute.patchNote(noteId: noteId)
+        var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
-           print("Failed to encode order")
-           return
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
-        // need to add
-        return try await self.patchNotes(
-            url: "http://localhost:3000/notes/64584acafa780caceb47e343", jsonData: jsonData)
+        request.httpBody = jsonData
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 
-    func getNotes(url: String) async throws -> [QuestionGetData] {
-        let urlObj = URL(string: url)!
-        var request = URLRequest(url: urlObj)
-
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    func getNotes(noteId: String) async throws -> [QuestionGetData] {
+        let route = APIRoute.getNote(noteId: noteId)
+        let request = try await route.createURLRequest()
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
 
         do {
-            let (responseData, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw APIError.networkError()
-            }
-            if httpResponse.statusCode != 200 {
-                let responseStr = String(decoding: responseData, as: UTF8.self)
-                throw APIError.invalidRequest(
-                    message: "Error { code: \(httpResponse.statusCode), message: \(responseStr) }"
-                )
-            } else {
-                guard let notesData = try JSONDecoder().decode([QuestionGetData].self, from: responseData)
-                        as? [QuestionGetData] else {
-                    print("Failed to decode data")
-                    throw APIError.invalidRequest(message: "Could not decode data")
-                }
-                return notesData
-            }
+            let notesData = try JSONDecoder().decode([QuestionGetData].self, from: responseData)
+            print("SUCCESS - \(route.label)")
+            return notesData
         } catch {
-            print(error)
-            throw error
+            print("Failed to decode data")
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Decode Data")
         }
     }
 }
