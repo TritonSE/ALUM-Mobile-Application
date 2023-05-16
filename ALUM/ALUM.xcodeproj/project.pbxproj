@@ -104,6 +104,8 @@
 		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
+		E365F71E29FA0D110055A2F4 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365F71D29FA0D110055A2F4 /* SessionService.swift */; };
+		E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186529E7246400FDE56D /* CalendlyBooking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -203,6 +205,8 @@
 		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
+		E365F71D29FA0D110055A2F4 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		E3F4186529E7246400FDE56D /* CalendlyBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBooking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +344,7 @@
 				97A2FE8B2989C20900405FD6 /* LoginScreen.swift */,
 				8041161D29B21BB800529936 /* MentorProfileScreen.swift */,
 				80210EC429BA8255008B912A /* MenteeProfileScreen.swift */,
+				E3F4186229E7234A00FDE56D /* CalendlyBooking */,
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
@@ -368,6 +373,7 @@
 				80F5388B29B0252F00FB5E66 /* UserService.swift */,
 				8045EEB029F6844A00BD179C /* ServiceHelper.swift */,
 				0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */,
+				E365F71D29FA0D110055A2F4 /* SessionService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -442,6 +448,14 @@
 				97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */,
 			);
 			path = ErrorFunctions;
+			sourceTree = "<group>";
+		};
+		E3F4186229E7234A00FDE56D /* CalendlyBooking */ = {
+			isa = PBXGroup;
+			children = (
+				E3F4186529E7246400FDE56D /* CalendlyBooking.swift */,
+			);
+			path = CalendlyBooking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,6 +594,7 @@
 				80210ECA29BA82E7008B912A /* MenteeProfileViewModel.swift in Sources */,
 				8041161E29B21BB800529936 /* MentorProfileScreen.swift in Sources */,
 				8095FE7029E20C89006AA63C /* WhyPairedComponent.swift in Sources */,
+				E365F71E29FA0D110055A2F4 /* SessionService.swift in Sources */,
 				97E439F229AD97B100F0B7C1 /* SignUpJoinAsScreen.swift in Sources */,
 				0757552F29FAA2D6008E73FB /* PreSessionView.swift in Sources */,
 				97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */,
@@ -594,6 +609,7 @@
 				0757553129FAA2D6008E73FB /* PostSessionView.swift in Sources */,
 				0757553029FAA2D6008E73FB /* PreSessionConfirmationScreen.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
+				E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */,
 				0757552329FAA2AB008E73FB /* CustomAlertView.swift in Sources */,

@@ -4,7 +4,7 @@
 
 import express, { Request, Response } from "express";
 import mongoose from "mongoose";
-import { Image } from "../models/image";
+import { Image } from "../models";
 import { verifyAuthToken } from "../middleware/auth";
 import { ServiceError } from "../errors/service";
 import { InternalError } from "../errors/internal";

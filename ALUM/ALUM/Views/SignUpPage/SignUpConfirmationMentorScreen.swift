@@ -8,6 +8,7 @@
 import SwiftUI
 import WrappingHStack
 
+// swiftlint:disable type_body_length
 struct SignUpConfirmationMentorScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
@@ -205,6 +206,24 @@ struct SignUpConfirmationMentorScreen: View {
                     Spacer()
                 }
                 .padding(.bottom, 32)
+                HStack {
+                    Text("Personal Access Token")
+                        .padding(.leading)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .padding(.trailing, 37)
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 8)
+                HStack {
+                    Text(viewModel.mentor.personalAccessToken)
+                        .padding(.leading)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
             }
             VStack {
                 HStack {
@@ -259,3 +278,4 @@ struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
         SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
+// swiftlint:enable type_body_length
