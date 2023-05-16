@@ -45,7 +45,8 @@ struct CalendlyView: UIViewRepresentable {
             self.webView = webView
         }
 
-        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        func userContentController(_ userContentController: WKUserContentController,
+                                   didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
                 Task {
                     do {
