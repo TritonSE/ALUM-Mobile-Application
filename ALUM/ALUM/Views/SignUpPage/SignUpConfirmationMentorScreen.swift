@@ -278,3 +278,4 @@ struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
         SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
+// swiftlint:enable type_body_length
