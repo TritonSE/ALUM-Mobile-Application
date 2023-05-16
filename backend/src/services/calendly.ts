@@ -42,18 +42,23 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
   } else {
     throw ServiceError.INVALID_URI;
   }
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ reason: "string" }),
-  };
-  fetch(`https://api.calendly.com/scheduled_events/${uuid}/cancellation`, options)
-    .then((response) => response.json())
-    .then((response) => response)
-    .catch((err) => err);
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reason: "string" }),
+    };
+    const response = await fetch(`https://api.calendly.com/scheduled_events/${uuid}/cancellation`, options)
+    const data = response.json()
+    return await data;
+  } catch (e) {
+    console.log(e);
+    throw ServiceError.ERROR_DELETING_EVENT;
+  }
+
 }
 
 export { getCalendlyEventDate, deleteCalendlyEvent };

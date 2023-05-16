@@ -43,7 +43,6 @@ router.post(
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     console.info("Posting new session,");
-    console.info("Posting new session,");
     try {
       const { uid } = req.body;
       const mentee = await Mentee.findById(uid);
@@ -170,6 +169,42 @@ router.get(
       console.log(e);
       next();
       return res.status(400);
+    }
+  }
+);
+
+router.patch(
+  "/sessions/:sessionId",
+  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    console.log("Updating a session");
+    try{
+      const sessionId = req.params.sessionId;
+      const newCalendlyURI = req.body.calendlyURI;
+      const currSession = await Session.findById(sessionId);
+      if(!currSession) {
+        throw InternalError.ERROR_GETTING_SESSION
+      }
+      const oldCalendlyURI = currSession.calendlyUri;
+      const mentor = await Mentor.findById(currSession.mentorId);
+      if(!mentor) {
+        throw InternalError.ERROR_GETTING_MENTOR;
+      }
+      const personalAccessToken = mentor.personalAccessToken;
+      const deleteResponse = await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
+      const newEventData = await getCalendlyEventDate(newCalendlyURI, personalAccessToken);
+      const filter = { _id: sessionId };
+      const updates = {
+        startTime: newEventData.resource.start_time,
+        endTime: newEventData.resource.end_time,
+        calendlyUri: newCalendlyURI
+      }
+      Session.updateOne(filter, updates);
+      return res.status(200).json({
+        message: "Successfuly updated the session!"
+      })
+    } catch (e) {
+
     }
   }
 );
