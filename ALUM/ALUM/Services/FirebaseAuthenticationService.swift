@@ -11,7 +11,7 @@ import FirebaseAuth
 final class FirebaseAuthenticationService: ObservableObject {
     static let shared = FirebaseAuthenticationService()
 
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     func login(email: String, password: String) async throws {
         let result = try await Auth.auth().signIn(withEmail: email, password: password)
