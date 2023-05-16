@@ -66,7 +66,7 @@ struct MissedSessionScreen: View {
                     }
                     Task {
                         do {
-                            try await viewModel.submitMissedNotesPatch()
+                            try await viewModel.submitMissedNotesPatch(noteID: "6450d7933551f6470d1f5c9b")
                             self.viewModel.submitSuccess = true
                         } catch {
                             print("Error")

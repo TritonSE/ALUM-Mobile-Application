@@ -69,8 +69,7 @@ final class QuestionViewModel: ObservableObject {
         self.isLoading = false
     }
 
-    
-    func submitMissedNotesPatch(noteId: String) async throws {
+    func submitMissedNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
         notesData.append(QuestionPatchData(answer: PatchAnswer.string(missedOption),
                                            type: "text", questionId: "missedSessionQuestionId"))

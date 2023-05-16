@@ -36,7 +36,7 @@ struct MissedSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginPageView(),
+                    backDestination: LoginScreen(),
                     title: "Missed Session",
                     purple: false
                 )
@@ -63,8 +63,7 @@ struct PostSessionView: View {
                     PostSessionConfirmationScreen(viewModel: viewModel)
                         .navigationBarTitle("", displayMode: .inline)
                         .navigationBarHidden(true)
-                }
-                else {
+                } else {
                     PostSessionQuestionScreen(viewModel: viewModel)
                         .navigationBarTitle("", displayMode: .inline)
                         .navigationBarHidden(true)
