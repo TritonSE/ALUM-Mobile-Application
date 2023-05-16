@@ -178,13 +178,14 @@ router.delete(
   async (req: Request, res: Response, next: NextFunction) => {
     const sessionId=req.params.sessionId
     const session = await Session.findById(sessionId);
+    const reason = req.body.reason;
     if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
     const uri = session.calendlyUri;
     const mentor = await Mentor.findById(session.mentorId);
     if (!mentor) throw ServiceError.MENTOR_WAS_NOT_FOUND;
     const personalAccessToken = mentor.personalAccessToken;
     try {
-      deleteCalendlyEvent(uri, personalAccessToken);
+      deleteCalendlyEvent(uri, personalAccessToken, reason);
       await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
       await Session.findByIdAndDelete(sessionId);
       return res.status(200).json({
