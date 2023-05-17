@@ -1,0 +1,36 @@
+html
+  head
+    meta(name='viewport', content='width=device-width')
+    script. 
+      function sendMessage(message) {
+        webkit.messageHandlers.calendlyURI.postMessage(message);
+        fetch('http://127.0.0.1:5000/')
+        .then(response => {
+            console.log(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+      }
+
+      function isCalendlyEvent(e) {
+        return e.data.event &&
+            e.data.event.indexOf('calendly') === 0;
+      }
+
+      window.addEventListener('message', function(e) {
+        if(isCalendlyEvent(e)) {
+            var uri = e.data.payload.event.uri;
+            sendMessage(uri);
+        } else {
+            sendMessage(e.data);
+        }
+      });
+    body
+      div.calendly-inline-widget(data-auto-load='false')
+        script(src='https://assets.calendly.com/assets/external/widget.js')
+        script.
+          Calendly.initInlineWidget({
+              url: "#{calendlyLink}",
+          });
+        

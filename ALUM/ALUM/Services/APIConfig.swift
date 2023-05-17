@@ -12,6 +12,8 @@ struct URLString {
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
     static let notes = "\(baseURL)/notes"
+    static let sessions = "\(baseURL)/sessions"
+    static let calendly = "\(baseURL)/calendly"
 }
 
 enum APIRoute {
@@ -19,6 +21,8 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    case postSession
+    case getCalendly
 
     case getNote(noteId: String)
     case patchNote(noteId: String)
@@ -37,14 +41,18 @@ enum APIRoute {
            return [URLString.notes, noteId].joined(separator: "/")
        case .patchNote(noteId: let noteId):
            return [URLString.notes, noteId].joined(separator: "/")
+       case .postSession:
+           return URLString.sessions
+       case .getCalendly:
+           return URLString.calendly
        }
     }
 
     var method: String {
         switch self {
-        case .getMentee, .getMentor, .getNote:
+        case .getMentee, .getMentor, .getNote, .getCalendly:
             return "GET"
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             return "POST"
         case .patchNote:
             return "PATCH"
@@ -53,7 +61,7 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .postSession, .getCalendly:
             return true
         case .postMentee, .postMentor:
             return false
@@ -74,9 +82,9 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getCalendly:
             return 200 // 200 Ok
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
         }
     }
@@ -86,13 +94,13 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getCalendly:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
                 404: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
-        case .postMentor, .postMentee:
+        case .postMentor, .postMentee, .postSession:
             errorMap = [
                 400: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
