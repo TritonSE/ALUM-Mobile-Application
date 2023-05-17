@@ -56,7 +56,7 @@ struct ViewPostSessionNotesPage: View {
                     ScrollView {
                         content
                     }
-                    if (currNotes == "this") {
+                    if currNotes == "this" {
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)
