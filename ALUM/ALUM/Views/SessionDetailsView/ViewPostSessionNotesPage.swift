@@ -56,11 +56,13 @@ struct ViewPostSessionNotesPage: View {
                     ScrollView {
                         content
                     }
-                    footer
-                        .padding(.horizontal, 16)
-                        .padding(.top, 32)
-                        .padding(.bottom, 40)
-                        .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                    if (currNotes == "this") {
+                        footer
+                            .padding(.horizontal, 16)
+                            .padding(.top, 32)
+                            .padding(.bottom, 40)
+                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                    }
                 }
                 .edgesIgnoringSafeArea(.bottom)
                 .applyViewPostSessionNotesModifier()
