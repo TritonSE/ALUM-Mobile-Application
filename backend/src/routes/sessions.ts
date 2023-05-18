@@ -41,7 +41,6 @@ router.post(
   "/sessions",
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    console.info("Posting new session,");
     try {
       const { uid } = req.body;
       const mentee = await Mentee.findById(uid);
@@ -82,12 +81,15 @@ router.post(
         menteeId: session.menteeId,
       });
     } catch (e) {
-      console.log(e);
-      next(e);
-      return res.status(400);
+      next();
+      return res.status(400).json({
+        error: e,
+      });
+
     }
   }
 );
+
 
 router.get(
   "/sessions/:sessionId",
