@@ -91,7 +91,11 @@ struct LoggedInRouter: View {
                 case 0:
                     PlaceHolderHomeScreen()
                 case 1:
-                    ProfileRouter()
+                    CustomNavView {
+                        ProfileRouter()
+                            .customNavigationTitle("Title")
+                            .customNavigationBarBackButtonHidden(true)
+                    }
                 default:
                     Text("Error")
                 }
