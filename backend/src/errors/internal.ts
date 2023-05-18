@@ -14,6 +14,7 @@ const NO_SERVICE_ACCOUNT_KEY = "Could not find service account key env variable"
 const NO_DEFAULT_IMAGE_ID = "Could not find default image id env variable";
 const ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED =
   "Any roles other than mentor/mentee has not been implemented.";
+const ERROR_FINDING_PAIR = "There was an error getting the mentee/mentor pairing";
 export class InternalError extends CustomError {
   static ERROR_GETTING_MENTEE = new InternalError(0, 500, ERROR_GETTING_MENTEE);
 
@@ -36,4 +37,6 @@ export class InternalError extends CustomError {
     500,
     ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED
   );
+
+  static ERROR_FINDING_PAIR = new InternalError(9, 500, ERROR_FINDING_PAIR);
 }

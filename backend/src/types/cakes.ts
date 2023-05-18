@@ -28,6 +28,7 @@ export const CreateMentorRequestBodyCake = bake({
   career: string,
   topicsOfExpertise: array(string),
   mentorMotivation: string,
+  personalAccessToken: string,
   location: string,
   calendlyLink: string,
 });
@@ -42,7 +43,5 @@ export const UpdateNoteRequestBodyCake = array(UpdateNoteDetailsCake);
 
 // POST sessions
 export const CreateSessionRequestBodyCake = bake({
-  menteeId: string,
-  mentorId: string,
-  dateInfo: string,
+  calendlyURI: string,
 });

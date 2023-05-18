@@ -4,13 +4,15 @@
 
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import { Session } from "../models/session";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
-import { verifyAuthToken } from "../middleware/auth";
-import { InternalError } from "../errors/internal";
-import { ServiceError } from "../errors/service";
-import { validateReqBodyWithCake } from "../middleware/validation";
+import { Mentor, Mentee, Session } from "../models";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
+import { InternalError, ServiceError } from "../errors";
+import { validateReqBodyWithCake } from "../middleware/validation";
+import { verifyAuthToken } from "../middleware/auth";
+import { getCalendlyEventDate } from "../services/calendly";
+import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import { getMentorId } from "../services/user";
+
 /**
  * This is a post route to create a new session. 
  *
@@ -19,7 +21,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
  postSession: string;
  menteeId: string;
  mentorId: string;
- dateTime: Date;
+ calendlyURI: string;
 }
 
 IMPORTANT: Date should be passed in with the format:
@@ -37,78 +39,118 @@ const router = express.Router();
 
 router.post(
   "/sessions",
-  validateReqBodyWithCake(CreateSessionRequestBodyCake),
+  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const preNoteId = await createPreSessionNotes();
-      const postMenteeNoteId = await createPostSessionNotes();
-      const postMentorNoteId = await createPostSessionNotes();
-      const { menteeId, mentorId } = req.body;
-      const meetingTime = new Date(req.body.dateInfo);
+      const { uid } = req.body;
+      const mentee = await Mentee.findById(uid);
+      if (!mentee) {
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
+      }
+      const mentorId = await getMentorId(mentee.pairingId);
+      const mentor = await Mentor.findById(mentorId);
+      if (!mentor) {
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
+      }
+      const accessToken = mentor.personalAccessToken;
+      const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const session = new Session({
-        preSession: preNoteId._id,
-        postSessionMentee: postMenteeNoteId._id,
-        postSessionMentor: postMentorNoteId._id,
-        menteeId,
+        preSession: null,
+        postSessionMentee: null,
+        postSessionMentor: null,
+        menteeId: uid,
         mentorId,
-        dateTime: meetingTime,
+        startTime: data.resource.start_time,
+        endTime: data.resource.end_time,
+        calendlyUri: req.body.calendlyURI,
+        preSessionCompleted: false,
+        postSessionMentorCompleted: false,
+        postSessionMenteeCompleted: false,
       });
+      const sessionId = session._id;
+      const preNoteId = await createPreSessionNotes(sessionId);
+      const postMenteeNoteId = await createPostSessionNotes(sessionId, "postMentee");
+      const postMentorNoteId = await createPostSessionNotes(sessionId, "postMentor");
+      session.preSession = preNoteId._id;
+      session.postSessionMentee = postMenteeNoteId._id;
+      session.postSessionMentor = postMentorNoteId._id;
       await session.save();
       return res.status(201).json({
-        message: `Session ${session.id} with mentee ${menteeId} and mentor ${mentorId} was successfully created.`,
+        sessionId: session._id,
+        mentorId: session.mentorId,
+        menteeId: session.menteeId,
       });
     } catch (e) {
       next();
       return res.status(400).json({
         error: e,
       });
+
     }
   }
 );
 
-router.get("/sessions/:sessionId", [verifyAuthToken], async (req: Request, res: Response) => {
-  const sessionId = req.params.sessionId;
-  try {
-    if (!mongoose.Types.ObjectId.isValid(sessionId)) {
-      throw ServiceError.INVALID_MONGO_ID;
-    }
-    const session = await Session.findById(sessionId);
-    if (!session) {
-      throw ServiceError.SESSION_WAS_NOT_FOUND;
-    }
-    const { preSession, postSessionMentee, postSessionMentor, menteeId, mentorId, dateTime } =
-      session;
-    return res.status(200).send({
-      message: `Here is session ${sessionId}`,
-      session: {
+
+router.get(
+  "/sessions/:sessionId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const sessionId = req.params.sessionId;
+
+      if (!mongoose.Types.ObjectId.isValid(sessionId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const session = await Session.findById(sessionId);
+      if (!session) {
+        throw ServiceError.SESSION_WAS_NOT_FOUND;
+      }
+      const {
         preSession,
         postSessionMentee,
         postSessionMentor,
         menteeId,
         mentorId,
-        dateTime,
-      },
-    });
-  } catch (e) {
-    console.log(e);
-    if (e instanceof ServiceError) {
-      return res.status(e.status).send(e.displayMessage(true));
+        startTime,
+        endTime,
+        preSessionCompleted,
+        postSessionMenteeCompleted,
+        postSessionMentorCompleted,
+      } = session;
+      return res.status(200).send({
+        message: `Here is session ${sessionId}`,
+        session: {
+          preSession,
+          postSessionMentee,
+          postSessionMentor,
+          menteeId,
+          mentorId,
+          startTime,
+          endTime,
+          preSessionCompleted,
+          postSessionMenteeCompleted,
+          postSessionMentorCompleted,
+        },
+      });
+    } catch (e) {
+      return next(e instanceof ServiceError ? e : InternalError.ERROR_GETTING_SESSION);
     }
-    throw InternalError.ERROR_GETTING_SESSION;
   }
-});
+);
 
 router.get(
   "/sessions",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    const userID = req.body.uid;
-    const role = req.body.role;
-    let userSessions;
-    if (role === null || userID === null) {
-      throw InternalError.ERROR_GETTING_SESSION;
-    }
     try {
+      const userID = req.body.uid;
+      const role = req.body.role;
+      let userSessions;
+      if (role === null || userID === null) {
+        throw InternalError.ERROR_GETTING_SESSION;
+      }
+
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: { $eq: userID } });
       }
@@ -125,6 +167,7 @@ router.get(
         sessions: userSessions,
       });
     } catch (e) {
+      console.log(e);
       next();
       return res.status(400);
     }

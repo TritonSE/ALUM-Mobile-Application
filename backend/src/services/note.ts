@@ -1,8 +1,11 @@
 import { createHash } from "crypto";
+import { ObjectId } from "mongoose";
 import preSessionQuestions from "../models/preQuestionsList.json";
 import postSessionQuestions from "../models/postQuestionsList.json";
 import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
+import { Session } from "../models/session";
+import { ServiceError } from "../errors";
 
 interface Question {
   question: string;
@@ -70,11 +73,11 @@ function fillHashMap(questions: Question[], map: Map<string, string>): void {
 /**
  * Stores pre-session answers document in MongoDB
  */
-async function createPreSessionNotes() {
+async function createPreSessionNotes(sessionId: ObjectId) {
   let preNotes = null;
   try {
     const preSessionAnswers = createAnswerArray(preSessionQuestions);
-    preNotes = new Note({ answers: preSessionAnswers, type: "pre" });
+    preNotes = new Note({ answers: preSessionAnswers, type: "pre", session: sessionId });
     return await preNotes.save();
   } catch (e) {
     throw new Error("Unable to create notes!");
@@ -84,11 +87,11 @@ async function createPreSessionNotes() {
 /**
  * Stores post-session answers document in MongoDB
  */
-async function createPostSessionNotes() {
+async function createPostSessionNotes(sessionId: ObjectId, type: string) {
   let postNotes = null;
   try {
     const postSessionAnswers = createAnswerArray(postSessionQuestions);
-    postNotes = new Note({ answers: postSessionAnswers, type: "post" });
+    postNotes = new Note({ answers: postSessionAnswers, type, session: sessionId });
     return await postNotes.save();
   } catch (e) {
     throw new Error("Unable to create notes!");
@@ -106,26 +109,33 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
   if (!noteDoc) {
-    throw new Error("Document not found");
-  } else {
-    // Can improve this in future if needed by creating a hashmap
-    noteDoc.answers.forEach((_, answerIndex) => {
-      const updatedNote = updatedNotes.find(
-        (note) => note.questionId === noteDoc.answers[answerIndex].id
-      );
-      if (updatedNote) {
-        noteDoc.answers[answerIndex].answer = updatedNote.answer;
-      }
-    });
-    try {
-      // Since we are modifying noteDoc.answers[index].answer directly,
-      // mongoose does not notice the change so ignores saving it unless we manually mark
-      noteDoc.markModified("answers");
-      return await noteDoc.save();
-    } catch (error) {
-      console.error(error);
-      throw new Error("Save error");
+    throw ServiceError.NOTE_WAS_NOT_FOUND;
+  }
+
+  // Can improve this in future if needed by creating a hashmap
+  noteDoc.answers.forEach((_, answerIndex) => {
+    const updatedNote = updatedNotes.find(
+      (note) => note.questionId === noteDoc.answers[answerIndex].id
+    );
+    if (updatedNote) {
+      noteDoc.answers[answerIndex].answer = updatedNote.answer;
     }
+  });
+
+  try {
+    // Since we are modifying noteDoc.answers[index].answer directly,
+    // mongoose does not notice the change so ignores saving it unless we manually mark
+    noteDoc.markModified("answers");
+    const sessionDoc = await Session.findById(noteDoc.session);
+    if (sessionDoc != null) {
+      if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
+      else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
+      else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
+      await sessionDoc.save();
+    }
+    return await noteDoc.save();
+  } catch (error) {
+    throw ServiceError.NOTE_WAS_NOT_SAVED;
   }
 }
 

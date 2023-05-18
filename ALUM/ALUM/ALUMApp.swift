@@ -14,9 +14,29 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     FirebaseApp.configure()
-
     return true
   }
+}
+
+struct RootView: View {
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
+
+    var body: some View {
+        if self.currentUser.isLoading {
+            LoadingView(text: "RootView")
+            .onAppear(perform: {
+                Task {
+                    await self.currentUser.setForInSessionUser()
+                }
+            })
+        } else if self.currentUser.isLoggedIn == false {
+            NavigationView {
+                LoginScreen()
+            }
+        } else {
+            LoggedInRouter()
+        }
+    }
 }
 
 @main
@@ -26,10 +46,7 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-      NavigationView {
-        PostSessionView()
-              .environmentObject(FirebaseAuthenticationService())
-      }
+        RootView()
     }
   }
 }

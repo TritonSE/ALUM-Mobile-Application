@@ -59,7 +59,7 @@ struct NavigationHeaderComponent_Previews: PreviewProvider {
     static var previews: some View {
         NavigationHeaderComponent(
             backText: "Login",
-            backDestination: LoginPageView(),
+            backDestination: LoginScreen(),
             title: "Signup",
             purple: false
         )

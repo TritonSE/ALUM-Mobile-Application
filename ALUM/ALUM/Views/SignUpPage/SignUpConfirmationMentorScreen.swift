@@ -1,5 +1,5 @@
 //
-//  SignUpConfirmationMentor.swift
+//  SignUpConfirmationMentorScreen.swift
 //  ALUM
 //
 //  Created by Yash Ravipati on 3/1/23.
@@ -8,7 +8,8 @@
 import SwiftUI
 import WrappingHStack
 
-struct SignUpConfirmationMentor: View {
+// swiftlint:disable type_body_length
+struct SignUpConfirmationMentorScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
     var body: some View {
@@ -53,7 +54,7 @@ struct SignUpConfirmationMentor: View {
             }
             .buttonStyle(FilledInButtonStyle())
 
-            NavigationLink(destination: LoginPageView(), isActive: $viewModel.submitSuccess) {
+            NavigationLink(destination: LoginScreen(), isActive: $viewModel.submitSuccess) {
                 EmptyView()
             }
         }
@@ -205,6 +206,24 @@ struct SignUpConfirmationMentor: View {
                     Spacer()
                 }
                 .padding(.bottom, 32)
+                HStack {
+                    Text("Personal Access Token")
+                        .padding(.leading)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .padding(.trailing, 37)
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 8)
+                HStack {
+                    Text(viewModel.mentor.personalAccessToken)
+                        .padding(.leading)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
             }
             VStack {
                 HStack {
@@ -253,9 +272,10 @@ struct SignUpConfirmationMentor: View {
     }
 }
 
-struct SignUpConfirmationMentor_Previews: PreviewProvider {
+struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
     static private var viewModel = SignUpViewModel()
     static var previews: some View {
-        SignUpConfirmationMentor(viewModel: viewModel)
+        SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
+// swiftlint:enable type_body_length

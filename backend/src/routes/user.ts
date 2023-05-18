@@ -5,10 +5,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
-// import multer from "multer";
-import { Mentee } from "../models/mentee";
-import { Mentor } from "../models/mentor";
-import { Pairing } from "../models/pairing";
+import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
 import {
   CreateMenteeRequestBodyCake,
@@ -24,8 +21,6 @@ import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 
 const router = express.Router();
-
-// const upload = multer({ storage: multer.memoryStorage() }).single("image");
 
 /**
  * Validators used for routes
@@ -80,8 +75,8 @@ router.post(
         pairingId,
         ...args,
       });
-      await createUser(mentee._id.toString(), email, password, "mentee");
       await mentee.save();
+      await createUser(mentee._id.toString(), email, password, "mentee");
       res.status(201).json({
         message: `Mentee ${name} was succesfully created.`,
         userID: mentee._id,
@@ -132,8 +127,8 @@ router.post(
         pairingIds,
         ...args,
       });
-      await createUser(mentor._id.toString(), email, password, "mentor");
       await mentor.save();
+      await createUser(mentor._id.toString(), email, password, "mentor");
       res.status(201).json({
         message: `Mentor ${name} was successfully created.`,
         userID: mentor._id,

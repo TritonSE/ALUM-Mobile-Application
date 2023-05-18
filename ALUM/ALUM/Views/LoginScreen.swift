@@ -1,5 +1,5 @@
 //
-//  LoginPageView.swift
+//  LoginScreen.swift
 //  ALUM
 //
 //  Created by Harsh Gurnani on 1/31/23.
@@ -8,20 +8,13 @@
 import SwiftUI
 import Firebase
 
-struct LoginPageView: View {
-    @StateObject private var viewModel = LoginPageViewModel()
+struct LoginScreen: View {
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
+
+    @StateObject private var viewModel = LoginViewModel()
 
     var body: some View {
-        if viewModel.userIsLoggedIn {
-            ContentView()
-        } else {
-            content
-        }
-    }
-
-    var content: some View {
-        return
-        VStack(spacing: 0) {
+        return VStack(spacing: 0) {
             Image("ALUMLogoBlue")
                 .resizable()
                 .scaledToFit()
@@ -70,7 +63,9 @@ struct LoginPageView: View {
                 Button("Login") {
                     viewModel.emailFunc = []
                     viewModel.passFunc = []
-                    viewModel.login()
+                    Task {
+                        await viewModel.login()
+                    }
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.leading, 16)
@@ -78,8 +73,8 @@ struct LoginPageView: View {
                 .padding(.bottom, 32)
             } else {
                 Button("Login") {
-                    viewModel.emailFunc = [LoginPageViewModel.Functions.EnterEmail]
-                    viewModel.passFunc = [LoginPageViewModel.Functions.EnterPassword]
+                    viewModel.emailFunc = [LoginViewModel.Functions.EnterEmail]
+                    viewModel.passFunc = [LoginViewModel.Functions.EnterPassword]
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .padding(.leading, 16)
@@ -102,8 +97,8 @@ struct LoginPageView: View {
     }
 }
 
-struct LoginPageView_Previews: PreviewProvider {
+struct LoginScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPageView()
+        LoginScreen()
     }
 }

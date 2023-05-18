@@ -72,8 +72,9 @@ final class SignUpViewModel: ObservableObject {
             topicsOfExpertise: mentor.topicsOfExpertise,
             mentorMotivation: mentor.mentorMotivation,
             location: mentor.location,
-            calendlyLink: mentor.calendlyLink
+            calendlyLink: mentor.calendlyLink,
+            personalAccessToken: mentor.personalAccessToken
         )
-        try await UserService().createMentor(data: mentorData)
+        try await UserService.shared.createMentor(data: mentorData)
     }
 }
