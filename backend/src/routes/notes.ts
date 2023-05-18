@@ -79,6 +79,7 @@ router.patch(
   validateReqBodyWithCake(UpdateNoteRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
       const documentId = req.params.id;
       const updatedNotes: UpdateNoteRequestBodyType = req.body;
       await updateNotes(updatedNotes, documentId);

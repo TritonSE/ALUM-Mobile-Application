@@ -1,72 +1,93 @@
 //
-//  PreSessionConfirmationScreen.swift
+//  ViewPreSessionNotesPage.swift
 //  ALUM
 //
-//  Created by Neelam Gurnani on 3/9/23.
+//  Created by Neelam Gurnani on 4/27/23.
 //
-// Notes:
-// The button titled "XXX" currently leads back to the login page, check where it should actually be leading back to.
+
 import SwiftUI
 
-struct PreSessionConfirmationScreen: View {
+struct ViewPreSessionNotesModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "",
+                    backDestination: LoginScreen(),
+                    title: "Pre-session Notes",
+                    purple: false
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
 
-    @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
+extension View {
+    func applyViewPreSessionNotesModifier() -> some View {
+        self.modifier(ViewPreSessionNotesModifier())
+    }
+}
+
+struct ViewPreSessionNotesPage: View {
+    @StateObject var viewModel = QuestionViewModel()
+
     @State var notesID: String = ""
 
-    var body: some View {
-        VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count,
-                                       filledNodes: viewModel.questionList.count, activeNode: 0)
-                .background(Color.white)
+    @State var otherName: String = ""
+    @State var date: String = ""
+    @State var time: String = ""
 
-            ScrollView {
-                content
+    var body: some View {
+        Group {
+            if !viewModel.isLoading {
+                VStack {
+                    ScrollView {
+                        content
+                    }
+
+                    if viewModel.currentUser.role == UserRole.mentee {
+                        footer
+                            .padding(.horizontal, 16)
+                            .padding(.top, 32)
+                            .padding(.bottom, 40)
+                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                    }
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .applyViewPreSessionNotesModifier()
+            } else {
+                ProgressView()
             }
-            footer
-                .padding(.horizontal, 16)
-                .padding(.top, 32)
-                .padding(.bottom, 40)
-                .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .applyPreSessionScreenHeaderModifier()
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.loadNotes(notesID: notesID)
+                } catch {
+                    print("Error")
+                }
+            }
+        }
     }
 
     var footer: some View {
-        HStack {
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-            }
-            .buttonStyle(OutlinedButtonStyle())
-
-            Spacer()
-
-            Button {
-                Task {
-                    do {
-                        try await viewModel.submitNotesPatch(noteID: notesID)
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
-                }
-            } label: {
-                Text("Save")
-            }
-            .buttonStyle(FilledInButtonStyle())
-            NavigationLink(destination: SessionConfirmationScreen(
-                text: ["Pre-session form saved!",
-                       "You can continue on the notes later under \"Sessions\".", "Great"]),
-                           isActive: $viewModel.submitSuccess) {
-                EmptyView()
+        NavigationLink {
+            PreSessionQuestionScreen(
+                viewModel: viewModel,
+                notesID: notesID,
+                otherUser: otherName,
+                date: date,
+                time: time
+            )
+        } label: {
+            HStack {
+                Image(systemName: "pencil.line")
+                Text("Edit")
             }
         }
+        .buttonStyle(FilledInButtonStyle())
     }
 
     var content: some View {
@@ -131,10 +152,9 @@ struct PreSessionConfirmationScreen: View {
     }
 }
 
-struct PreSessionConfirmationScreen_Previews: PreviewProvider {
-    static private var viewModel = QuestionViewModel()
+struct ViewPreSessionNotesPage_Previews: PreviewProvider {
 
     static var previews: some View {
-        PreSessionConfirmationScreen(viewModel: viewModel)
+        ViewPreSessionNotesPage()
     }
 }

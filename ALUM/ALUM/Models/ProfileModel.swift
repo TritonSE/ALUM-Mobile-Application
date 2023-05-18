@@ -15,6 +15,7 @@ struct MentorInfo: Decodable {
     var imageId: String
     var about: String
     var calendlyLink: String
+    var zoomLink: String
     var graduationYear: Int
     var college: String
     var major: String
@@ -33,6 +34,7 @@ struct MentorInfo: Decodable {
         case imageId
         case about
         case calendlyLink
+        case zoomLink
         case graduationYear
         case college
         case major

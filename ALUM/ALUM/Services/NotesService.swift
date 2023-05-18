@@ -61,6 +61,7 @@ class NotesService {
     static let shared = NotesService()
 
     func patchNotes(noteId: String, data: [QuestionPatchData]) async throws {
+        print(data.count)
         let route = APIRoute.patchNote(noteId: noteId)
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {

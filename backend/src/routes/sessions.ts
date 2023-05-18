@@ -3,14 +3,15 @@
  */
 
 import express, { NextFunction, Request, Response } from "express";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
+// import { boolean } from "caketype";
+import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
+import { verifyAuthToken } from "../middleware/auth";
+import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentor, Mentee, Session } from "../models";
 import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
-import { validateReqBodyWithCake } from "../middleware/validation";
-import { verifyAuthToken } from "../middleware/auth";
 import { getCalendlyEventDate } from "../services/calendly";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { getMentorId } from "../services/user";
 
 /**
@@ -97,6 +98,16 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const sessionId = req.params.sessionId;
+      const dayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const dateNow = new Date();
 
       if (!mongoose.Types.ObjectId.isValid(sessionId)) {
         throw ServiceError.INVALID_MONGO_ID;
@@ -118,6 +129,7 @@ router.get(
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
       } = session;
+      const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -128,9 +140,11 @@ router.get(
           mentorId,
           startTime,
           endTime,
+          day: dayNames[startTime.getDay()],
           preSessionCompleted,
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
+          hasPassed,
         },
       });
     } catch (e) {
@@ -147,14 +161,24 @@ router.get(
       const userID = req.body.uid;
       const role = req.body.role;
       let userSessions;
+      const dayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const dateNow = new Date();
       if (role === null || userID === null) {
         throw InternalError.ERROR_GETTING_SESSION;
       }
 
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: { $eq: userID } });
-      }
-      if (role === "mentor") {
+      } else {
+        // role = "mentor"
         userSessions = await Session.find({ mentorId: { $eq: userID } });
       }
       if (userSessions === null) {
@@ -162,9 +186,52 @@ router.get(
           message: `No sessions found for user ${userID}!`,
         });
       }
+      const sessionsArray: {
+        id: ObjectId;
+        startTime: Date;
+        endTime: Date;
+        day: string;
+        preSessionCompleted: boolean;
+        postSessionCompleted: boolean;
+        title: string;
+        hasPassed: boolean;
+      }[] = [];
+      userSessions.forEach((session) => {
+        const {
+          startTime,
+          endTime,
+          preSessionCompleted,
+          postSessionMenteeCompleted,
+          postSessionMentorCompleted,
+        } = session;
+        const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
+        if (role === "mentor") {
+          sessionsArray.push({
+            id: session._id,
+            startTime,
+            endTime,
+            day: dayNames[startTime.getDay()],
+            preSessionCompleted,
+            postSessionCompleted: postSessionMentorCompleted,
+            title: "Session with Mentee",
+            hasPassed,
+          });
+        } else {
+          sessionsArray.push({
+            id: session._id,
+            startTime,
+            endTime,
+            day: dayNames[startTime.getDay()],
+            preSessionCompleted,
+            postSessionCompleted: postSessionMenteeCompleted,
+            title: "Session with Mentor",
+            hasPassed,
+          });
+        }
+      });
       return res.status(200).json({
         message: `Sessions for user ${userID}:`,
-        sessions: userSessions,
+        sessions: sessionsArray,
       });
     } catch (e) {
       console.log(e);

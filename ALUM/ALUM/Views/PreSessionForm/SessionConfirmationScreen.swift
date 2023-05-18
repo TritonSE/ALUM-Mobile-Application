@@ -39,12 +39,15 @@ struct SessionConfirmationScreen: View {
                     .padding(16)
 
                 Spacer()
-                NavigationLink(destination: LoginScreen(), label: {
-                    HStack {
-                        Text(text[2])
-                            .font(.custom("Metropolis-Regular", size: 17))
+                NavigationLink(
+                    destination: MentorSessionDetailsPage().navigationBarHidden(true),
+                    label: {
+                        HStack {
+                            Text(text[2])
+                                .font(.custom("Metropolis-Regular", size: 17))
+                        }
                     }
-                })
+                )
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.bottom, 32)
                 .frame(width: geometry.size.width * 0.9)
@@ -53,8 +56,8 @@ struct SessionConfirmationScreen: View {
             .padding(.trailing, 16)
             .frame(alignment: .bottom)
             .frame(maxWidth: .infinity)
-
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
