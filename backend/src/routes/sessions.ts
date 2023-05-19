@@ -5,14 +5,14 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose, { ObjectId } from "mongoose";
 // import { boolean } from "caketype";
-import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
-import { verifyAuthToken } from "../middleware/auth";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentor, Mentee, Session } from "../models";
-import { CreateSessionRequestBodyCake } from "../types/cakes";
-import { InternalError, ServiceError } from "../errors";
-import { getCalendlyEventDate } from "../services/calendly";
+import { CreateSessionRequestBodyCake } from "../types";
+import { verifyAuthToken } from "../middleware/auth";
+import { getCalendlyEventDate, deleteCalendlyEvent } from "../services/calendly";
+import { createPreSessionNotes, createPostSessionNotes, deleteNotes } from "../services/note";
 import { getMentorId } from "../services/user";
+import { InternalError, ServiceError } from "../errors";
 
 /**
  * This is a post route to create a new session. 
@@ -40,6 +40,7 @@ const router = express.Router();
 
 router.post(
   "/sessions",
+  [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -232,6 +233,33 @@ router.get(
       return res.status(200).json({
         message: `Sessions for user ${userID}:`,
         sessions: sessionsArray,
+      });
+    } catch (e) {
+      console.log(e);
+      next();
+      return res.status(400);
+    }
+  }
+);
+
+router.delete(
+  "/sessions/:sessionId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const sessionId=req.params.sessionId
+    const session = await Session.findById(sessionId);
+    const reason = req.body.reason;
+    if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
+    const uri = session.calendlyUri;
+    const mentor = await Mentor.findById(session.mentorId);
+    if (!mentor) throw ServiceError.MENTOR_WAS_NOT_FOUND;
+    const personalAccessToken = mentor.personalAccessToken;
+    try {
+      deleteCalendlyEvent(uri, personalAccessToken, reason);
+      await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
+      await Session.findByIdAndDelete(sessionId);
+      return res.status(200).json({
+        message: "calendly successfully cancelled, notes deleted, session deleted.",
       });
     } catch (e) {
       console.log(e);

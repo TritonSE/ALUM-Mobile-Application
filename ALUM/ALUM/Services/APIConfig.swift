@@ -60,6 +60,7 @@ enum APIRoute {
         case .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
             return "GET"
         case .postMentor, .postMentee, .postSession:
+        case .postMentor, .postMentee, .postSession:
             return "POST"
         case .patchNote:
             return "PATCH"

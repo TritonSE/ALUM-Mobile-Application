@@ -12,10 +12,9 @@ const INVALID_MONGO_ID = "Mongo Id was invalid. Please ensure that the id is cor
 const MENTEE_WAS_NOT_FOUND = "Mentee was not found";
 const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
-const NOTE_WAS_NOT_FOUND = "Note was not found";
-const NOTE_WAS_NOT_SAVED = "Note was not saved";
 const SESSION_WAS_NOT_FOUND = "Session was not found";
 const NOTE_WAS_NOT_FOUND = "Note was not found";
+const NOTE_WAS_NOT_SAVED = "Note was not saved";
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
 

@@ -11,9 +11,6 @@ interface SessionInterface {
   postSessionMentor: ObjectId;
   menteeId: ObjectId;
   mentorId: ObjectId;
-  dateTime: Date;
-  menteeId: string;
-  mentorId: string;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;
