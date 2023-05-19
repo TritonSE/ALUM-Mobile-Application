@@ -16,6 +16,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // TODO add a check for whether user is authorized and if not, return to /login
   return (
     <html lang="en" className={styles.rootHtml}>
       <body className={`${inter.className} ${styles.mainContainer}`}>
