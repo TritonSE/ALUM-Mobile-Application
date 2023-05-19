@@ -25,8 +25,8 @@ struct CustomNavView<Content:View>:  View {
 
 struct CustomNavView_Previews: PreviewProvider {
     static var previews: some View {
-        CustomNavView{
-            LoginReviewPage(text: ["Hello", "Hi"])
+        CustomNavView {
+            MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
                 .customNavigationTitle("Title 2")
                 .customNavigationBarBackButtonHidden(false)
         }

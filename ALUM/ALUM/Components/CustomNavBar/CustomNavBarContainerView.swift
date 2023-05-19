@@ -39,10 +39,9 @@ struct CustomNavBarContainerView<Content: View>: View {
 struct CustomNavBarContainerView_Previews: PreviewProvider {
     static var previews: some View {
         CustomNavBarContainerView {
-            LoginReviewPage(text: ["Hello", "Hi"])
-                .customNavigationTitle("Title 2")
-                .customNavigationIsPurple(true)
-                .customNavigationBarBackButtonHidden(false)
+            VStack(spacing: 0) {
+                LoginReviewPage(text: ["Hello", "Hi"])
+            }
         }
     }
 }

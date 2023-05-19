@@ -12,7 +12,6 @@ struct MenteeProfileScreen: View {
     @StateObject private var viewModel = MenteeProfileViewmodel()
     @State var scrollAtTop: Bool = true
     @State var uID: String = ""
-    @State var prevView: AnyView = AnyView(LoadingView(text: ""))
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
@@ -21,7 +20,9 @@ struct MenteeProfileScreen: View {
                 LoadingView(text: "MenteeProfileScreen")
             } else {
                 content
+                    .customNavigationIsPurple(scrollAtTop)
                     .navigationBarBackButtonHidden(true)
+                    .padding(.top, 0)
             }
         }.onAppear(perform: {
             Task {
@@ -46,80 +47,14 @@ struct MenteeProfileScreen: View {
                             .frame(width: 0, height: 0)
                             .foregroundColor(Color("ALUM Primary Purple"))
                             .onChange(of: geo.frame(in: .global).midY) { midY in
-                                scrollAtTop = midY >= -60.0
+                                scrollAtTop = midY >= -30.0
                             }
                     }
                     .frame(width: 0, height: 0)
-                    VStack {
-                        ZStack {
-                            Rectangle()
-                                .frame(height: 150)
-                                .foregroundColor(Color("ALUM Primary Purple"))
-                                .padding(.bottom, 76)
-                            Group {
-                                Circle()
-                                    .frame(width: 135, height: 145)
-                                    .foregroundColor(Color("ALUM White2"))
-                                Image("ALUMLogoBlue")
-                                    .resizable()
-                                    .frame(width: 135, height: 135)
-                                    .clipShape(Circle())
-                                    .scaledToFit()
-                            }
-                            .padding(.top, 57)
-                        }
-                        Text(mentee.name)
-                            .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
-                    }
-                    HStack {
-                        Image(systemName: "graduationcap")
-                            .frame(width: 25.25, height: 11)
-                            .foregroundColor(Color("ALUM Primary Purple"))
-                        Text(String(mentee.grade) + "th Grade @ NHS")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                    }
-                    .padding(.bottom, 18)
-                    Text("About")
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .foregroundColor(Color("ALUM Primary Purple"))
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
-                    Text(mentee.about )
-                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .lineSpacing(5)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 32)
-                    RenderTags(tags: mentee.careerInterests, title: "Career Interests")
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
-                    RenderTags(tags: mentee.topicsOfInterest, title: "Topics of Interest")
-                        .padding(.leading, 16)
-                        .padding(.bottom, 8)
+                    header
+                    description
                     if viewModel.selfView! {
-                        Text("My Mentor")
-                            .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(Color("ALUM Primary Purple"))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 16)
-                            .padding(.leading, 16)
-                            .padding(.bottom, 8)
-                        NavigationLink(destination:
-                                        MentorProfileScreen(
-                                            uID: mentee.mentorId ?? "",
-                                            prevView: AnyView(MenteeProfileScreen(uID: uID)
-                                                .onDisappear(perform: {
-                                                    self.currentUser.showTabBar = false
-                                                })
-                                                    .onAppear(perform: {
-                                                        self.currentUser.showTabBar = true
-                                                    }))
-                                        )
-                                            ) {
-                            MentorCard(isEmpty: true, uID: mentee.mentorId ?? "")
-                                .padding(.bottom, 10)
-                        }
+                        mentor
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)
@@ -128,28 +63,8 @@ struct MenteeProfileScreen: View {
                 .edgesIgnoringSafeArea(.bottom)
             }
             ZStack {
-                if !viewModel.selfView! {
+                if viewModel.selfView! {
                     // params currently placeholders for later navigation
-                    if scrollAtTop {
-                        NavigationHeaderComponent(
-                            backText: "Back",
-                            backDestination: prevView,
-                            title: "Mentee Profile",
-                            purple: true,
-                            showButton: true
-                        )
-                        .background(Color("ALUM Primary Purple"))
-                    } else {
-                        NavigationHeaderComponent(
-                            backText: "Back",
-                            backDestination: prevView,
-                            title: "Mentee Profile",
-                            purple: false,
-                            showButton: true
-                        )
-                        .background(.white)
-                    }
-                } else {
                     if scrollAtTop {
                         ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
                             .background(Color("ALUM Primary Purple"))
@@ -158,11 +73,101 @@ struct MenteeProfileScreen: View {
                             .background(.white)
                     }
                 }
+                else {
+                    if scrollAtTop {
+                        Rectangle()
+                            .frame(height: 10)
+                            .foregroundColor(Color("ALUM Primary Purple"))
+                            .frame(maxHeight: .infinity, alignment: .top)
+                    }
+                }
             }
         }
     }
 }
 
+extension MenteeProfileScreen {
+    private var header: some View {
+        VStack {
+            ZStack {
+                Rectangle()
+                    .frame(height: 130)
+                    .foregroundColor(Color("ALUM Primary Purple"))
+                    .padding(.bottom, 76)
+                Group {
+                    Circle()
+                        .frame(width: 135, height: 145)
+                        .foregroundColor(Color("ALUM White2"))
+                    Image("ALUMLogoBlue")
+                        .resizable()
+                        .frame(width: 135, height: 135)
+                        .clipShape(Circle())
+                        .scaledToFit()
+                }
+                .padding(.top, 57)
+            }
+            Text(viewModel.mentee!.name)
+                .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
+        }
+    }
+    private var description: some View {
+        Group {
+            HStack {
+                Image(systemName: "graduationcap")
+                    .frame(width: 25.25, height: 11)
+                    .foregroundColor(Color("ALUM Primary Purple"))
+                Text(String(viewModel.mentee!.grade) + "th Grade @ NHS")
+                    .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+            }
+            .padding(.bottom, 18)
+            Text("About")
+                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                .foregroundColor(Color("ALUM Primary Purple"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 16)
+                .padding(.bottom, 8)
+            Text(viewModel.mentee!.about )
+                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                .lineSpacing(5)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                .padding(.bottom, 32)
+            RenderTags(tags: viewModel.mentee!.careerInterests, title: "Career Interests")
+                .padding(.leading, 16)
+                .padding(.bottom, 8)
+            RenderTags(tags: viewModel.mentee!.topicsOfInterest, title: "Topics of Interest")
+                .padding(.leading, 16)
+                .padding(.bottom, 8)
+        }
+    }
+    
+    private var mentor: some View {
+        Group {
+            Text("My Mentor")
+                .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                .foregroundColor(Color("ALUM Primary Purple"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 16)
+                .padding(.leading, 16)
+                .padding(.bottom, 8)
+            CustomNavLink(destination:
+                            MentorProfileScreen(
+                                uID: viewModel.mentee!.mentorId ?? ""
+                            )
+                                .onAppear(perform: {
+                                    currentUser.showTabBar = false
+                                })
+                                    .onDisappear(perform: {
+                                        currentUser.showTabBar = true
+                                    })
+                                        .customNavigationTitle("Mentor Profile")
+            ) {
+                MentorCard(isEmpty: true, uID: viewModel.mentee!.mentorId ?? "")
+                    .padding(.bottom, 10)
+            }
+        }
+    }
+}
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")

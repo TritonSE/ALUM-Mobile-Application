@@ -16,20 +16,8 @@ struct ProfileRouter: View {
                 switch self.currentUser.role {
                 case .some(UserRole.mentor):
                     MentorProfileScreen(uID: self.currentUser.uid!)
-                        .onDisappear(perform: {
-                            self.currentUser.showTabBar = false
-                        })
-                        .onAppear(perform: {
-                            self.currentUser.showTabBar = true
-                        })
                 case .some(UserRole.mentee):
                     MenteeProfileScreen(uID: self.currentUser.uid!)
-                        .onDisappear(perform: {
-                            self.currentUser.showTabBar = false
-                        })
-                        .onAppear(perform: {
-                            self.currentUser.showTabBar = true
-                        })
                 case .none:
                     Text("Internal Error: User Role is nil")
                 }
@@ -90,12 +78,14 @@ struct LoggedInRouter: View {
                 switch selection {
                 case 0:
                     PlaceHolderHomeScreen()
+                        .onAppear(perform: {
+                            currentUser.showTabBar = true
+                        })
                 case 1:
-                    CustomNavView {
-                        ProfileRouter()
-                            .customNavigationTitle("Title")
-                            .customNavigationBarBackButtonHidden(true)
-                    }
+                    ProfileRouter()
+                        .onAppear(perform: {
+                            currentUser.showTabBar = true
+                        })
                 default:
                     Text("Error")
                 }
@@ -132,7 +122,6 @@ struct LoggedInRouter: View {
                         .frame(height: 45)
                     }
                 }
-                
             }
         }
     }
