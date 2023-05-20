@@ -1,17 +1,45 @@
 //
-//  PostSessionConfirmationScreen.swift
+//  ViewPostSessionNotesPage.swift
 //  ALUM
 //
-//  Created by Jenny Mar on 4/11/23.
+//  Created by Neelam Gurnani on 4/27/23.
 //
 
 import SwiftUI
 
-struct PostSessionConfirmationScreen: View {
-    @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
-    @State var notesID: String = ""
+struct ViewPostSessionNotesModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "",
+                    backDestination: LoginScreen(),
+                    title: "Post-session Notes",
+                    purple: false
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
+
+extension View {
+    func applyViewPostSessionNotesModifier() -> some View {
+        self.modifier(ViewPostSessionNotesModifier())
+    }
+}
+
+struct ViewPostSessionNotesPage: View {
+    @StateObject var viewModel = QuestionViewModel()
     @State var currNotes: String = "this" // "this" or "other"
+
+    @State var notesID: String = ""
+    @State var otherNotesID: String = ""
+
+    @State var otherName: String = ""
+    @State var date: String = ""
+    @State var time: String = ""
 
     func setMyNotes() {
         currNotes = "this"
@@ -22,58 +50,53 @@ struct PostSessionConfirmationScreen: View {
     }
 
     var body: some View {
-        VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count,
-                                       filledNodes: viewModel.questionList.count, activeNode: 0)
-                .background(Color.white)
-
-            ScrollView {
-                content
+        Group {
+            if !viewModel.isLoading {
+                VStack {
+                    ScrollView {
+                        content
+                    }
+                    if currNotes == "this" {
+                        footer
+                            .padding(.horizontal, 16)
+                            .padding(.top, 32)
+                            .padding(.bottom, 40)
+                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                    }
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .applyViewPostSessionNotesModifier()
+            } else {
+                ProgressView()
             }
-            footer
-                .padding(.horizontal, 16)
-                .padding(.top, 32)
-                .padding(.bottom, 40)
-                .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .applyPostSessionScreenHeaderModifier()
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                } catch {
+                    print("Error")
+                }
+            }
+        }
     }
 
     var footer: some View {
         HStack {
-            Button {
-                dismiss()
+            NavigationLink {
+                PostSessionQuestionScreen(
+                    viewModel: viewModel,
+                    notesID: notesID,
+                    otherUser: otherName,
+                    date: date, time: time
+                )
             } label: {
                 HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
+                    Image(systemName: "pencil.line")
+                    Text("Edit")
                 }
-            }
-            .buttonStyle(OutlinedButtonStyle())
-
-            Spacer()
-
-            Button {
-                Task {
-                    do {
-                        // (todo) remove hardcoding
-                        try await viewModel.submitNotesPatch(noteID: notesID)
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
-                }
-            } label: {
-                Text("Save")
             }
             .buttonStyle(FilledInButtonStyle())
-            NavigationLink(destination: SessionConfirmationScreen(
-                text: ["Post-session form saved!",
-                       "You can continue on the notes later under \"Sessions\".", "Great"]),
-                           isActive: $viewModel.submitSuccess) {
-                EmptyView()
-            }
         }
     }
 
@@ -194,10 +217,8 @@ struct PostSessionConfirmationScreen: View {
     }
 }
 
-struct PostSessionConfirmationScreen_Previews: PreviewProvider {
-    static private var viewModel = QuestionViewModel()
-
+struct ViewPostSessionNotesPage_Previews: PreviewProvider {
     static var previews: some View {
-        PostSessionConfirmationScreen(viewModel: viewModel)
+        ViewPostSessionNotesPage()
     }
 }

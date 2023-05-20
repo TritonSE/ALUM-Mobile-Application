@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: LoginScreen(),
+                    backDestination: MentorSessionDetailsPage(),
                     title: "Post-session Notes",
                     purple: false
                 )
@@ -56,9 +56,17 @@ extension View {
 struct PostSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
+    @State var notesID: String = ""
+    @State var otherNotesID: String = ""
+
+    @State var otherName: String = ""
+    @State var date: String = ""
+    @State var time: String = ""
+
     var body: some View {
         Group {
             if !viewModel.isLoading {
+<<<<<<< HEAD
                 if viewModel.currentIndex == viewModel.questionList.count {
                     PostSessionConfirmationScreen(viewModel: viewModel)
                         .navigationBarTitle("", displayMode: .inline)
@@ -68,22 +76,30 @@ struct PostSessionView: View {
                         .navigationBarTitle("", displayMode: .inline)
                         .navigationBarHidden(true)
                 }
+=======
+                PostSessionQuestionScreen(
+                    viewModel: viewModel,
+                    notesID: notesID,
+                    otherUser: otherName,
+                    date: date,
+                    time: time
+                )
+                .navigationBarTitle("", displayMode: .inline)
+                .navigationBarHidden(true)
+>>>>>>> main
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
                     .navigationBarHidden(true)
-            }
-        }
-        .onAppear {
-            Task {
-                do {
-                    try await viewModel.loadPostNotes(
-                        notesID: "6450d7933551f6470d1f5c9d",
-                        otherNotesID: "6450d7933551f6470d1f5c9f"
-                    )
-                } catch {
-                    print("Error")
-                }
+                    .onAppear {
+                        Task {
+                            do {
+                                try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                            } catch {
+                                print("Error")
+                            }
+                        }
+                    }
             }
         }
     }

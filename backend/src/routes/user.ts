@@ -118,11 +118,14 @@ router.post(
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
+      // const calendlyLink = "N/A";
+      const zoomLink = "N/A";
       const pairingIds: string[] = [];
       const mentor = new Mentor({
         name,
         imageId,
         about,
+        zoomLink,
         status,
         pairingIds,
         ...args,
@@ -241,6 +244,7 @@ router.get(
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("Inside mentor get try");
       const userId = req.params.userId;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
@@ -265,6 +269,7 @@ router.get(
         career,
         graduationYear,
         calendlyLink,
+        zoomLink,
         topicsOfExpertise,
         pairingIds,
         mentorMotivation,
@@ -295,6 +300,7 @@ router.get(
             career,
             graduationYear,
             calendlyLink,
+            zoomLink,
             topicsOfExpertise,
             whyPaired,
           },
@@ -307,6 +313,24 @@ router.get(
           return pairing?.menteeId;
         });
         const menteeIds = await Promise.all(promises);
+        console.log({
+          mentorId,
+          name,
+          imageId,
+          about,
+          calendlyLink,
+          zoomLink,
+          graduationYear,
+          college,
+          major,
+          minor,
+          career,
+          topicsOfExpertise,
+          mentorMotivation,
+          menteeIds,
+          status,
+        });
+
         res.status(200).send({
           message: `Here is mentor ${mentor.name}`,
           mentor: {
@@ -315,6 +339,7 @@ router.get(
             imageId,
             about,
             calendlyLink,
+            zoomLink: zoomLink === undefined ? "N/A" : zoomLink,
             graduationYear,
             college,
             major,

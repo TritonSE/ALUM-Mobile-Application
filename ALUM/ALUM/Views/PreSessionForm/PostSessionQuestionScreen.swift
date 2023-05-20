@@ -4,6 +4,7 @@ struct PostSessionQuestionScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
     @Environment(\.dismiss) var dismiss
+    @State var notesID: String = ""
     @State var otherUser: String = "Mentor"
     @State var date: String = "date"
     @State var time: String = "time"
@@ -88,15 +89,18 @@ struct PostSessionQuestionScreen: View {
 
                 Spacer()
 
-                NavigationLink(destination: PostSessionConfirmationScreen(viewModel: viewModel), label: {
-                    HStack {
-                        Text("Continue")
-                            .font(.custom("Metropolis-Regular", size: 17))
-                        Image(systemName: "arrow.right")
-                            .font(.system(size: 17))
-                            .foregroundColor(Color.white)
+                NavigationLink(
+                    destination: PostSessionConfirmationScreen(viewModel: viewModel, notesID: notesID),
+                    label: {
+                        HStack {
+                            Text("Continue")
+                                .font(.custom("Metropolis-Regular", size: 17))
+                            Image(systemName: "arrow.right")
+                                .font(.system(size: 17))
+                                .foregroundColor(Color.white)
+                        }
                     }
-                })
+                )
                 .buttonStyle(FilledInButtonStyle())
             }
         }
@@ -109,7 +113,7 @@ struct PostSessionQuestionScreen: View {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color("ALUM Light Blue"))
                     VStack {
-                        Text("You have successfully booked a session with \(otherUser) on \(date) at \(time).")
+                        Text("Let's reflect on your session with \(otherUser) on \(date) at \(time).")
                             .font(.custom("Metropolis-Regular", size: 17))
                             .lineSpacing(10)
                             .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
