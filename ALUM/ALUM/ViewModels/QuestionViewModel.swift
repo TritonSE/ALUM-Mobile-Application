@@ -6,8 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class QuestionViewModel: ObservableObject {
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
+
     @Published var questionList: [Question] = []
     @Published var questionListOther: [Question] = []
     @Published var currentIndex: Int = 0
@@ -71,11 +74,12 @@ final class QuestionViewModel: ObservableObject {
 
     func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
+
         for question in questionList {
-            if question.answerBullet.isEmpty && question.answerParagraph != "" {
+            if question.type ==  "text" {
                 notesData.append(QuestionPatchData(answer: PatchAnswer.string(question.answerParagraph),
                                                    type: question.type, questionId: question.id))
-            } else if question.answerParagraph == "" && !question.answerBullet.isEmpty {
+            } else if question.type == "bullet" {
                 notesData.append(QuestionPatchData(answer: PatchAnswer.listString(question.answerBullet),
                                                    type: question.type, questionId: question.id))
             }

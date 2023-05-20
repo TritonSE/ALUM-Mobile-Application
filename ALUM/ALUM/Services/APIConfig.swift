@@ -27,6 +27,9 @@ enum APIRoute {
     case getNote(noteId: String)
     case patchNote(noteId: String)
 
+    case getSession(sessionId: String)
+    case getSessions
+
     var url: String {
        switch self {
        case .getMentor(let userId):
@@ -41,6 +44,10 @@ enum APIRoute {
            return [URLString.notes, noteId].joined(separator: "/")
        case .patchNote(noteId: let noteId):
            return [URLString.notes, noteId].joined(separator: "/")
+       case .getSession(sessionId: let sessionId):
+           return [URLString.sessions, sessionId].joined(separator: "/")
+       case .getSessions:
+           return URLString.sessions
        case .postSession:
            return URLString.sessions
        case .getCalendly:
@@ -50,7 +57,7 @@ enum APIRoute {
 
     var method: String {
         switch self {
-        case .getMentee, .getMentor, .getNote, .getCalendly:
+        case .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
             return "GET"
         case .postMentor, .postMentee, .postSession:
             return "POST"
@@ -61,7 +68,7 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .postSession, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
             return true
         case .postMentee, .postMentor:
             return false
@@ -82,7 +89,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -94,7 +101,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),

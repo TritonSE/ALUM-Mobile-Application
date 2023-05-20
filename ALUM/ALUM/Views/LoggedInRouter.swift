@@ -55,7 +55,7 @@ struct LoggedInRouter: View {
         VStack(spacing: 0) {
             switch selection {
             case 0:
-                PlaceHolderHomeScreen()
+                MentorSessionDetailsPage()
             case 1:
                 ProfileRouter()
             default:
