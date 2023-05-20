@@ -15,7 +15,6 @@ const IMAGE_WAS_NOT_FOUND = "Image was not found";
 const NOTE_WAS_NOT_FOUND = "Note was not found";
 const NOTE_WAS_NOT_SAVED = "Note was not saved";
 const SESSION_WAS_NOT_FOUND = "Session was not found";
-const NOTE_WAS_NOT_FOUND = "Note was not found";
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
 
@@ -36,7 +35,9 @@ export class ServiceError extends CustomError {
 
   static ERROR_GETTING_EVENT_DATA = new ServiceError(7, 404, ERROR_GETTING_EVENT_DATA);
 
-  static SESSION_WAS_NOT_FOUND = new ServiceError(6, 404, SESSION_WAS_NOT_FOUND);
+  static SESSION_WAS_NOT_FOUND = new ServiceError(8, 404, SESSION_WAS_NOT_FOUND);
 
-  static NOTE_WAS_NOT_FOUND = new ServiceError(7, 404, NOTE_WAS_NOT_FOUND);
+  static NOTE_WAS_NOT_FOUND = new ServiceError(9, 404, NOTE_WAS_NOT_FOUND);
+
+  static NOTE_WAS_NOT_SAVED = new ServiceError(10, 404, NOTE_WAS_NOT_SAVED);
 }
