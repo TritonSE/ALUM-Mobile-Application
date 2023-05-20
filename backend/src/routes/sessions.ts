@@ -1,5 +1,5 @@
 /**
- * This file contains the route that will create a session
+ * This file contains routes pertaining to sessions
  */
 
 import express, { NextFunction, Request, Response } from "express";
@@ -15,17 +15,7 @@ import { getMentorId } from "../services/user";
 import { InternalError, ServiceError } from "../errors";
 
 /**
- * This is a post route to create a new session. 
- *
- * Session: {
- preSession: string;
- postSession: string;
- menteeId: string;
- mentorId: string;
- calendlyURI: string;
- calendlyURI: string;
-}
-
+This is a post route to create a new session. 
 IMPORTANT: Date should be passed in with the format:
 "YYYY-MM-DDTHH-MM-SS", where 
 Y=>year
@@ -92,7 +82,10 @@ router.post(
   }
 );
 
-
+/**
+ * This route returns a Session body when given param
+ * sessionId
+ */
 router.get(
   "/sessions/:sessionId",
   [verifyAuthToken],
@@ -154,6 +147,9 @@ router.get(
   }
 );
 
+/**
+ * This route returns all the sessions a user has
+ */
 router.get(
   "/sessions",
   [verifyAuthToken],
@@ -242,6 +238,10 @@ router.get(
   }
 );
 
+/**
+ * This route updates a session time. Note that it does not edit
+ * other elements of a session (notes)
+ */
 router.patch(
   "/sessions/:sessionId",
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
@@ -279,10 +279,15 @@ router.patch(
   }
 );
 
+/**
+ * This route deletes a session and all components associated with it
+ * (pre and post session notes)
+ */
 router.delete(
   "/sessions/:sessionId",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log("Deleting a session")
     const sessionId=req.params.sessionId
     const session = await Session.findById(sessionId);
     const reason = req.body.reason;
