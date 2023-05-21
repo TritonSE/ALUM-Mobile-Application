@@ -49,7 +49,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
     return res.status(200).json(note.answers);
-    res.status(200).json(note.answers);
+    // res.status(200).json(note.answers);
   } catch (e) {
     next(e);
   }
