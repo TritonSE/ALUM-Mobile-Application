@@ -54,10 +54,6 @@ struct EditMenteeProfileScreen: View {
         })
     }
 
-    func handleEditPictureClick() {
-        print("handle edit clicked")
-    }
-
     func handleSaveClick() {
         viewModel.mentee!.about = about
         viewModel.mentee!.careerInterests = Array(careerInterests)
@@ -67,11 +63,11 @@ struct EditMenteeProfileScreen: View {
 
     var content: some View {
         VStack {
-            profilePictureSection
+            EditProfileImage()
 
             gradeSection
 
-            aboutSection
+            AboutInput(show: $showAboutInputSheet, value: $about)
 
             careerInterestsSection
 
@@ -85,31 +81,6 @@ struct EditMenteeProfileScreen: View {
                     .foregroundColor(Color("ALUM Dark Blue"))
             }
 
-        }
-    }
-
-    var profilePictureSection: some View {
-        Group {
-            HStack {
-                Text("Profile Picture")
-                    .font(.custom("Metropolis-Regular", size: 17))
-                    .foregroundColor(Color("ALUM Dark Blue"))
-                Spacer()
-                Button(action: handleEditPictureClick) {
-                    Text("Edit")
-                        .font(.custom("Metropolis-Regular", size: 17))
-                        .foregroundColor(Color("ALUM Dark Blue"))
-                }
-            }
-            .padding(.top, 25)
-            .padding(.leading, 16)
-            .padding(.trailing, 16)
-
-            HStack {
-                Image("DefaultProfileImage")
-            }
-            .padding(.top, 10)
-            .padding(.bottom, 40)
         }
     }
 
@@ -133,44 +104,6 @@ struct EditMenteeProfileScreen: View {
             .padding(.leading, 16)
             .padding(.trailing, 16)
             .padding(.bottom, 32)
-        }
-    }
-
-    var aboutSection: some View {
-        VStack {
-            HStack {
-                Text("About")
-                    .font(.custom("Metropolis-Regular", size: 17))
-                    .foregroundColor(Color("ALUM Dark Blue"))
-
-                Spacer()
-            }
-            .padding(.leading, 16)
-            .padding(.bottom, 2)
-
-            AboutInput(show: $showAboutInputSheet, value: $about)
-        }
-    }
-
-    struct AboutInput: View {
-        @Binding var show: Bool
-        @Binding var value: String
-
-        func close() {
-            show = false
-        }
-
-        var body: some View {
-            Button {
-                show = true
-            } label: {
-                ResizingTextBox(text: $value)
-            }
-            .sheet(isPresented: $show, content: {
-                DrawerContainer(cancelFunc: close, doneFunc: close) {
-                    ParagraphInput(question: "About", text: $value)
-                }
-            })
         }
     }
 
