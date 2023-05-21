@@ -64,10 +64,6 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  zoomLink: {
-    type: String,
-    required: true,
-  },
   graduationYear: {
     type: Number,
     required: true,
