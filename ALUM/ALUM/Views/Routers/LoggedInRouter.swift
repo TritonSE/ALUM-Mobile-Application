@@ -51,7 +51,7 @@ struct LoggedInRouter: View {
             TabBarItem(iconName: "ALUM Home", title: "Home"),
             TabBarItem(iconName: "GrayCircle", title: "Profile")
         ]
-
+    
     var body: some View {
         if currentUser.status == "under review" {
             if currentUser.role == .mentee {
@@ -74,58 +74,66 @@ struct LoggedInRouter: View {
                                        "We are looking for a perfect mentee for you. Please allow us some time!"])
             }
         } else {
-            VStack(spacing: 0) {
-                switch selection {
-                case 0:
-                    PlaceHolderHomeScreen()
-                        .onAppear(perform: {
-                            currentUser.showTabBar = true
-                        })
-                case 1:
-                    ProfileRouter()
-                        .onAppear(perform: {
-                            currentUser.showTabBar = true
-                        })
-                default:
-                    Text("Error")
-                }
-                if currentUser.showTabBar {
-                    ZStack(alignment: .bottom) {
-                        HStack(spacing: 0) {
-                            ForEach(0..<tabItems.count) { index in
-                                VStack(spacing: 0) {
-                                    if index == selection {
-                                        Rectangle()
-                                            .frame(width: 64, height: 3)
-                                            .foregroundColor(Color("ALUM Primary Purple"))
-                                    } else {
-                                        Rectangle()
-                                            .frame(width: 64, height: 2)
-                                            .foregroundColor(.white)
-                                    }
-                                    Button(action: {
-                                        selection = index
-                                    }, label: {
-                                        VStack(spacing: 4) {
-                                            Image( tabItems[index].iconName)
-                                                .font(.system(size: 20))
-                                            Text(tabItems[index].title)
-                                                .font(.custom("Metropolis-Regular", size: 10, relativeTo: .footnote))
-                                        }
-                                        .foregroundColor(Color("ALUM Primary Purple"))
-                                        .frame(maxWidth: .infinity)
-                                    })
-                                    .padding(.top, 15)
-                                }
-                            }
-                        }
-                        .frame(height: 45)
-                    }
-                }
-            }
+            pairedUserView
         }
     }
 
+    // once user is approved and paired
+    var pairedUserView: some View {
+        VStack(spacing: 0) {
+            switch selection {
+            case 0:
+                PlaceHolderHomeScreen()
+                    .onAppear(perform: {
+                        currentUser.showTabBar = true
+                    })
+            case 1:
+                ProfileRouter()
+                    .onAppear(perform: {
+                        currentUser.showTabBar = true
+                    })
+            default:
+                Text("Error")
+            }
+            if currentUser.showTabBar {
+                tabsDisplay
+            }
+        }
+    }
+    
+    var tabsDisplay: some View {
+        ZStack(alignment: .bottom) {
+            HStack(spacing: 0) {
+                ForEach(0..<tabItems.count) { index in
+                    VStack(spacing: 0) {
+                        if index == selection {
+                            Rectangle()
+                                .frame(width: 64, height: 3)
+                                .foregroundColor(Color("ALUM Primary Purple"))
+                        } else {
+                            Rectangle()
+                                .frame(width: 64, height: 2)
+                                .foregroundColor(.white)
+                        }
+                        Button(action: {
+                            selection = index
+                        }, label: {
+                            VStack(spacing: 4) {
+                                Image( tabItems[index].iconName)
+                                    .font(.system(size: 20))
+                                Text(tabItems[index].title)
+                                    .font(.custom("Metropolis-Regular", size: 10, relativeTo: .footnote))
+                            }
+                            .foregroundColor(Color("ALUM Primary Purple"))
+                            .frame(maxWidth: .infinity)
+                        })
+                        .padding(.top, 15)
+                    }
+                }
+            }
+            .frame(height: 45)
+        }
+    }
 }
 
 struct TabBarItem {
