@@ -15,6 +15,7 @@ struct EditMenteeProfileScreen: View {
     @State var careerIsShowing: Bool = false
     @State var careerInterests: Set<String> = []
     @State var topicsOfInterest: Set<String> = []
+    @State var about: String = ""
     @State var showAboutInputSheet: Bool = false
 
     var body: some View {
@@ -36,6 +37,7 @@ struct EditMenteeProfileScreen: View {
                             .onAppear {
                                 careerInterests = Set(viewModel.mentee!.careerInterests)
                                 topicsOfInterest = Set(viewModel.mentee!.topicsOfInterest)
+                                about = viewModel.mentee!.about
                             }
                     }
                 }
@@ -56,8 +58,38 @@ struct EditMenteeProfileScreen: View {
         print("handle edit clicked")
     }
 
+    func handleSaveClick() {
+        viewModel.mentee!.about = about
+        viewModel.mentee!.careerInterests = Array(careerInterests)
+        viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
+        viewModel.updateMenteeInfo()
+    }
+
     var content: some View {
         VStack {
+            profilePictureSection
+
+            gradeSection
+
+            aboutSection
+
+            careerInterestsSection
+
+            topicsOfInterestSection
+
+            Button {
+                handleSaveClick()
+            }  label: {
+                Text("Save")
+                    .font(.custom("Metropolis-Regular", size: 17))
+                    .foregroundColor(Color("ALUM Dark Blue"))
+            }
+
+        }
+    }
+
+    var profilePictureSection: some View {
+        Group {
             HStack {
                 Text("Profile Picture")
                     .font(.custom("Metropolis-Regular", size: 17))
@@ -78,7 +110,11 @@ struct EditMenteeProfileScreen: View {
             }
             .padding(.top, 10)
             .padding(.bottom, 40)
+        }
+    }
 
+    var gradeSection: some View {
+        Group {
             HStack {
                 Text("Grade")
                     .font(.custom("Metropolis-Regular", size: 17))
@@ -97,18 +133,49 @@ struct EditMenteeProfileScreen: View {
             .padding(.leading, 16)
             .padding(.trailing, 16)
             .padding(.bottom, 32)
+        }
+    }
 
+    var aboutSection: some View {
+        VStack {
             HStack {
                 Text("About")
                     .font(.custom("Metropolis-Regular", size: 17))
                     .foregroundColor(Color("ALUM Dark Blue"))
+
                 Spacer()
             }
             .padding(.leading, 16)
             .padding(.bottom, 2)
 
-            AboutInput(show: $showAboutInputSheet, value: viewModel.mentee!.about)
+            AboutInput(show: $showAboutInputSheet, value: $about)
+        }
+    }
 
+    struct AboutInput: View {
+        @Binding var show: Bool
+        @Binding var value: String
+
+        func close() {
+            show = false
+        }
+
+        var body: some View {
+            Button {
+                show = true
+            } label: {
+                ResizingTextBox(text: $value)
+            }
+            .sheet(isPresented: $show, content: {
+                DrawerContainer(cancelFunc: close, doneFunc: close) {
+                    ParagraphInput(question: "About", text: $value)
+                }
+            })
+        }
+    }
+
+    var careerInterestsSection: some View {
+        Group {
             HStack {
                 Text("Career Interests")
                     .lineSpacing(4.0)
@@ -129,7 +196,7 @@ struct EditMenteeProfileScreen: View {
                             tagString: interest,
                             crossShowing: true,
                             crossAction: {
-                                 careerInterests.remove(interest)
+                                careerInterests.remove(interest)
                             }
                         )
                         .padding(.bottom, 16)
@@ -154,8 +221,12 @@ struct EditMenteeProfileScreen: View {
                           screenTitle: "Career Interests",
                           predefinedTags: CareerInterests.menteeCareerInterests)
                 .padding(.top, 22)
-            }
-            )
+            })
+        }
+    }
+
+    var topicsOfInterestSection: some View {
+        Group {
             HStack {
                 Text("Topics of Interest")
                     .lineSpacing(4.0)
@@ -203,36 +274,7 @@ struct EditMenteeProfileScreen: View {
                           predefinedTags: TopicsOfInterest.topicsOfInterest)
                 .padding(.top, 22)
             })
-
         }
-    }
-}
-
-struct AboutInput: View {
-    @Binding var show: Bool
-    @State var value: String
-
-    func cancel() {
-        show = false
-    }
-
-    func done() {
-        show = false
-    }
-
-    var body: some View {
-        Button {
-            show = true
-        } label: {
-            ResizingTextBox(text: $value)
-        }
-        .sheet(isPresented: $show,
-               content: {
-            DrawerContainer(cancelFunc: cancel, doneFunc: done) {
-                ParagraphInput(question: "About", text: $value)
-            }
-        }
-        )
     }
 }
 

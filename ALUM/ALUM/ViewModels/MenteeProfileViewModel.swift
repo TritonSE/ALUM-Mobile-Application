@@ -26,6 +26,10 @@ final class MenteeProfileViewmodel: ObservableObject {
         }
     }
 
+    func updateMenteeInfo() {
+        print("updating: ", self.mentee)
+    }
+
     func isLoading() -> Bool {
         return mentee == nil || selfView == nil
     }
