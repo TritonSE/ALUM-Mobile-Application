@@ -87,11 +87,9 @@ router.post(
       return res.status(400).json({
         error: e,
       });
-
     }
   }
 );
-
 
 router.get(
   "/sessions/:sessionId",
