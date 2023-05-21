@@ -74,9 +74,9 @@ class UserService {
         let route = APIRoute.getMentor(userId: userID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
-        }
+        let mentorData = try handleDecodingErrors({
+            try JSONDecoder().decode(MentorGetData.self, from: responseData)
+        })
         print("SUCCESS - \(route.label)")
         return mentorData
     }
@@ -85,9 +85,11 @@ class UserService {
         let route = APIRoute.getMentee(userId: userID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
-        }
+        
+        let menteeData = try handleDecodingErrors({
+            try JSONDecoder().decode(MenteeGetData.self, from: responseData)
+        })
+        
         print("SUCCESS - \(route.label)")
         return menteeData
     }

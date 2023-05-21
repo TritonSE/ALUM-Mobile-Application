@@ -339,7 +339,7 @@ router.get(
             imageId,
             about,
             calendlyLink,
-            location: location ?? "N/A",
+            zoomLink: location ?? "N/A",
             graduationYear,
             college,
             major,
