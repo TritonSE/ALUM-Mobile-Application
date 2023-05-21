@@ -16,13 +16,12 @@ struct EditMenteeProfileScreen: View {
     @State var careerInterests: Set<String> = []
     @State var topicsOfInterest: Set<String> = []
     @State var showAboutInputSheet: Bool = false
-    @State var selectedGrade: Int?
 
     var body: some View {
-//        Group {
-//            if viewModel.isLoading() {
-//                LoadingView(text: "EditMenteeProfile")
-//            } else {
+        Group {
+            if viewModel.isLoading() {
+                LoadingView(text: "EditMenteeProfile")
+            } else {
                 VStack {
                     VStack {
                         NavigationHeaderComponent(
@@ -34,39 +33,23 @@ struct EditMenteeProfileScreen: View {
                     ScrollView {
                         content
                             .background(Color("ALUM White 2"))
+                            .onAppear {
+                                careerInterests = Set(viewModel.mentee!.careerInterests)
+                                topicsOfInterest = Set(viewModel.mentee!.topicsOfInterest)
+                            }
                     }
                 }
-//            }
-//        }
-//        .onAppear(perform: {
-//            Task {
-//                do {
-//                    try await viewModel.fetchMenteeInfo(userID: uID)
-//                } catch {
-//                    print("Error")
-//                }
-//            }
-//        })
-        //        VStack {
-        //            StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
-        //                .background(Color.white)
-        //            ScrollView {
-        //                content
-        //            }
-        //            footer
-        //                .padding(.horizontal, 16)
-        //                .padding(.top, 32)
-        //                .padding(.bottom, 40)
-        //                .background(Rectangle().fill(Color.white).shadow(radius: 8))
-        //        }
-        //            .applySignUpScreenHeaderModifier()
-        //            .onAppear {
-        //                viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
-        //                viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
-        //                                      SignUpFlowErrorFunctions.OneNumber,
-        //                                      SignUpFlowErrorFunctions.SpecialChar]
-        //            }
-        //            .edgesIgnoringSafeArea(.bottom)
+            }
+        }
+        .onAppear(perform: {
+            Task {
+                do {
+                    try await viewModel.fetchMenteeInfo(userID: uID)
+                } catch {
+                    print("Error")
+                }
+            }
+        })
     }
 
     func handleEditPictureClick() {
@@ -74,9 +57,7 @@ struct EditMenteeProfileScreen: View {
     }
 
     var content: some View {
-//        var mentee = viewModel.mentee!
-
-        return VStack {
+        VStack {
             HStack {
                 Text("Profile Picture")
                     .font(.custom("Metropolis-Regular", size: 17))
@@ -109,16 +90,9 @@ struct EditMenteeProfileScreen: View {
 
             HStack {
                 ForEach(9...12, id: \.self) { grade in
-                    SignUpGradeComponent(grade: String(grade), isSelected: selectedGrade == grade)
-                        .onTapGesture {selectedGrade = grade; }//mentee.grade = grade}
+                    SignUpGradeComponent(grade: String(grade), isSelected: viewModel.mentee!.grade == grade)
+                        .onTapGesture {viewModel.mentee!.grade = grade}
                 }
-
-//                SignUpGradeComponent(grade: "10", isSelected: selectedGrade == .ten)
-//                    .onTapGesture {selectedGrade = .ten; viewModel.mentee.grade = 10}
-//                SignUpGradeComponent(grade: "11", isSelected: selectedGrade == .eleven)
-//                    .onTapGesture {selectedGrade = .eleven; viewModel.mentee.grade = 11}
-//                SignUpGradeComponent(grade: "12", isSelected: selectedGrade == .twelve)
-//                    .onTapGesture {selectedGrade = .twelve; viewModel.mentee.grade = 12}
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
@@ -133,7 +107,7 @@ struct EditMenteeProfileScreen: View {
             .padding(.leading, 16)
             .padding(.bottom, 2)
 
-            AboutInput(show: $showAboutInputSheet, value: "mentee.about")
+            AboutInput(show: $showAboutInputSheet, value: viewModel.mentee!.about)
 
             HStack {
                 Text("Career Interests")
@@ -150,12 +124,12 @@ struct EditMenteeProfileScreen: View {
                 careerIsShowing = true
             }  label: {
                 VStack {
-                    WrappingHStack(["test", "ygy", "vgjhklk"], id: \.self) { interest in
+                    WrappingHStack(Array(careerInterests), id: \.self) { interest in
                         TagDisplay(
                             tagString: interest,
                             crossShowing: true,
                             crossAction: {
-                                //viewModel.mentee.careerInterests.removeAll { $0 == interest }
+                                 careerInterests.remove(interest)
                             }
                         )
                         .padding(.bottom, 16)
@@ -176,13 +150,12 @@ struct EditMenteeProfileScreen: View {
             .sheet(isPresented: $careerIsShowing,
                    content: {
                 TagEditor(selectedTags: $careerInterests,
-                          tempTags: Set<String>(),
+                          tempTags: careerInterests,
                           screenTitle: "Career Interests",
                           predefinedTags: CareerInterests.menteeCareerInterests)
                 .padding(.top, 22)
             }
             )
-            
             HStack {
                 Text("Topics of Interest")
                     .lineSpacing(4.0)
@@ -193,26 +166,26 @@ struct EditMenteeProfileScreen: View {
             }
             .padding(.leading, 16)
             .padding(.bottom, 2)
-            
+
             Button {
                 interestsIsShowing = true
             }  label: {
                 VStack {
-                    WrappingHStack(["hjk","kjlk"].sorted(), id: \.self) { interest in
+                    WrappingHStack(Array(topicsOfInterest), id: \.self) { interest in
                         TagDisplay(
                             tagString: interest,
                             crossShowing: true,
                             crossAction: {
-                                //viewModel.mentee.topicsOfInterest.remove(interest)
+                                topicsOfInterest.remove(interest)
                             }
                         )
                         .padding(.bottom, 16)
                     }
-                    
+
                     HStack {
                         AddTagButton(text: "Add Topic", isShowing: $interestsIsShowing)
                             .padding(.bottom, 16)
-                        
+
                         Spacer()
                     }
                 }
@@ -225,7 +198,7 @@ struct EditMenteeProfileScreen: View {
                 interestsIsShowing = false
             }, content: {
                 TagEditor(selectedTags: $topicsOfInterest,
-                          tempTags: Set<String>(),
+                          tempTags: topicsOfInterest,
                           screenTitle: "Topics of Interest",
                           predefinedTags: TopicsOfInterest.topicsOfInterest)
                 .padding(.top, 22)
@@ -234,16 +207,6 @@ struct EditMenteeProfileScreen: View {
         }
     }
 }
-
-//
-
-//
-
-//
-
-//
-
-//        }
 
 struct AboutInput: View {
     @Binding var show: Bool
@@ -276,5 +239,11 @@ struct AboutInput: View {
 struct EditMenteeProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
         EditMenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
+            .onAppear {
+                Task {
+                    try await FirebaseAuthenticationService.shared
+                        .login(email: "mentee@gmail.com", password: "123456")
+                }
+            }
     }
 }
