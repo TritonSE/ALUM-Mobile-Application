@@ -64,6 +64,7 @@
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
+		2C27FDC82A1854CF007F66A9 /* EditMenteeProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		7439C6892A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */; };
@@ -191,6 +192,7 @@
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
+		2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenteeProfile.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
 		7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordSetUpScreen.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */,
 				07ECF5F82A22A94A0093C37B /* PostSessionForm */,
 				07E885342A19F0B800B7AD27 /* Routers */,
+				2C27FDC62A18544E007F66A9 /* EditProfile */,
 				0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */,
 				97A31AC729BAFA7600B79D30 /* PreSessionForm */,
 				97A2FE8B2989C20900405FD6 /* LoginScreen.swift */,
@@ -516,6 +519,14 @@
 				0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2C27FDC62A18544E007F66A9 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
@@ -758,6 +769,7 @@
 				0757553029FAA2D6008E73FB /* PreSessionConfirmationScreen.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
 				E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */,
+				2C27FDC82A1854CF007F66A9 /* EditMenteeProfile.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				07E885362A19F0D300B7AD27 /* RootRouter.swift in Sources */,
 				0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */,
