@@ -15,7 +15,7 @@ struct MentorInfo: Decodable {
     var imageId: String
     var about: String
     var calendlyLink: String
-    var zoomLink: String
+    var zoomLink: String?
     var graduationYear: Int
     var college: String
     var major: String
