@@ -13,7 +13,6 @@ struct EditProfileImage: View {
     @State private var image: UIImage?
     @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
 
-
     var body: some View {
         VStack {
             HStack {
