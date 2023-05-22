@@ -123,29 +123,50 @@ struct EditMenteeProfileScreen: View {
             Button {
                 careerIsShowing = true
             }  label: {
-                VStack {
-                    WrappingHStack(Array(careerInterests), id: \.self) { interest in
-                        TagDisplay(
-                            tagString: interest,
-                            crossShowing: true,
-                            crossAction: {
-                                careerInterests.remove(interest)
-                            }
-                        )
-                        .padding(.bottom, 16)
-                    }
-
+                if careerInterests.isEmpty {
                     HStack {
-                        AddTagButton(text: "Add Career", isShowing: $careerIsShowing)
-                            .padding(.bottom, 16)
+                        Text("Search to add interests")
+                            .font(.custom("Metropolis-Regular", size: 17))
+                            .foregroundColor(Color("NeutralGray3"))
+                            .padding(.leading, 16)
 
                         Spacer()
                     }
+                    .frame(height: 48.0)
+                    .background(
+                        Color("ALUM White")
+                            .cornerRadius(8.0)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8.0)
+                            .stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                    )
+                    .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                } else {
+                    VStack {
+                        WrappingHStack(Array(careerInterests), id: \.self) { interest in
+                            TagDisplay(
+                                tagString: interest,
+                                crossShowing: true,
+                                crossAction: {
+                                    careerInterests.remove(interest)
+                                }
+                            )
+                            .padding(.bottom, 16)
+                        }
+
+                        HStack {
+                            AddTagButton(text: "Add Career", isShowing: $careerIsShowing)
+                                .padding(.bottom, 16)
+
+                            Spacer()
+                        }
+                    }
+                    .padding(.leading)
+                    .padding(.trailing)
+                    .padding(.bottom, 32)
+                    .padding(.top, 14)
                 }
-                .padding(.leading)
-                .padding(.trailing)
-                .padding(.bottom, 32)
-                .padding(.top, 14)
             }
             .sheet(isPresented: $careerIsShowing,
                    content: {
@@ -174,29 +195,44 @@ struct EditMenteeProfileScreen: View {
             Button {
                 interestsIsShowing = true
             }  label: {
-                VStack {
-                    WrappingHStack(Array(topicsOfInterest), id: \.self) { interest in
-                        TagDisplay(
-                            tagString: interest,
-                            crossShowing: true,
-                            crossAction: {
-                                topicsOfInterest.remove(interest)
-                            }
-                        )
-                        .padding(.bottom, 16)
-                    }
-
+                if topicsOfInterest.isEmpty {
                     HStack {
-                        AddTagButton(text: "Add Topic", isShowing: $interestsIsShowing)
-                            .padding(.bottom, 16)
+                        Text("Search to add topics").font(.custom("Metropolis-Regular", size: 17))
+                            .foregroundColor(Color("NeutralGray3")).padding(.leading, 16)
 
                         Spacer()
                     }
+                    .frame(height: 48.0)
+                    .background(Color("ALUM White").cornerRadius(8.0))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
+                    )
+                    .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
+                } else {
+                    VStack {
+                        WrappingHStack(Array(topicsOfInterest), id: \.self) { interest in
+                            TagDisplay(
+                                tagString: interest,
+                                crossShowing: true,
+                                crossAction: {
+                                    topicsOfInterest.remove(interest)
+                                }
+                            )
+                            .padding(.bottom, 16)
+                        }
+
+                        HStack {
+                            AddTagButton(text: "Add Topic", isShowing: $interestsIsShowing)
+                                .padding(.bottom, 16)
+
+                            Spacer()
+                        }
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 32)
+                    .padding(.top, 14)
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .padding(.bottom, 32)
-                .padding(.top, 14)
             }
             .sheet(isPresented: $interestsIsShowing, onDismiss: {
                 interestsIsShowing = false

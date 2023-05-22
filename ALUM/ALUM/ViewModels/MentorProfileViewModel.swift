@@ -27,6 +27,10 @@ final class MentorProfileViewModel: ObservableObject {
         }
     }
 
+    func updateMentorInfo() {
+        print("updating:", self.mentor)
+    }
+
     func isLoading() -> Bool {
         return mentor == nil || selfView == nil
     }
