@@ -29,7 +29,7 @@ struct EditMentorProfileScreen: View {
                     VStack {
                         NavigationHeaderComponent(
                             backText: "Cancel",
-                            backDestination: LoginScreen(),
+                            backDestination: MentorProfileScreen(uID: uID),
                             title: "Edit Profile", purple: false
                         )
                     }

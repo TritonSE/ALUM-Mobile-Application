@@ -130,6 +130,12 @@ extension MentorProfileScreen {
             }
             Text(viewModel.mentor!.name)
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
+            // FIXME: temporary, move to header
+            NavigationLink(destination:
+                EditMentorProfileScreen(uID: uID)
+            ) {
+                Text("Edit").padding()
+            }
         }
     }
 

@@ -27,7 +27,7 @@ struct EditMenteeProfileScreen: View {
                     VStack {
                         NavigationHeaderComponent(
                             backText: "Cancel",
-                            backDestination: LoginScreen(),
+                            backDestination: MenteeProfileScreen(uID: uID),
                             title: "Edit Profile", purple: false
                         )
                     }

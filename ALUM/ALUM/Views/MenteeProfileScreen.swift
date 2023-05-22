@@ -111,6 +111,12 @@ extension MenteeProfileScreen {
             }
             Text(viewModel.mentee!.name)
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
+            // FIXME: temporary, move to header
+            NavigationLink(destination:
+                EditMenteeProfileScreen(uID: uID)
+            ) {
+                Text("Edit").padding()
+            }
         }
     }
     private var description: some View {
