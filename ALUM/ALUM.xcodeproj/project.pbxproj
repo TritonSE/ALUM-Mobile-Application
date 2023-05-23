@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0723BB862A1C995700911948 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB852A1C995700911948 /* HomeScreen.swift */; };
+		0723BB8F2A1CDF7500911948 /* UnpairedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB8E2A1CDF7500911948 /* UnpairedScreen.swift */; };
+		0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */; };
+		0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB922A1D576800911948 /* ProfileTabRouter.swift */; };
+		0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB942A1D578400911948 /* HomeTabRouter.swift */; };
 		0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0726C9EE29DC4B120042A486 /* CustomErrors.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
@@ -128,6 +132,10 @@
 
 /* Begin PBXFileReference section */
 		0723BB852A1C995700911948 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		0723BB8E2A1CDF7500911948 /* UnpairedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnpairedScreen.swift; sourceTree = "<group>"; };
+		0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSessionFormRouter.swift; sourceTree = "<group>"; };
+		0723BB922A1D576800911948 /* ProfileTabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabRouter.swift; sourceTree = "<group>"; };
+		0723BB942A1D578400911948 /* HomeTabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabRouter.swift; sourceTree = "<group>"; };
 		0726C9EE29DC4B120042A486 /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
@@ -342,6 +350,8 @@
 			children = (
 				0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */,
 				07E885352A19F0D300B7AD27 /* RootRouter.swift */,
+				0723BB922A1D576800911948 /* ProfileTabRouter.swift */,
+				0723BB942A1D578400911948 /* HomeTabRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -413,6 +423,7 @@
 				0748209029712921004AF547 /* ContentView.swift */,
 				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
 				0723BB852A1C995700911948 /* HomeScreen.swift */,
+				0723BB8E2A1CDF7500911948 /* UnpairedScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -478,6 +489,7 @@
 				0757552A29FAA2D6008E73FB /* PreSessionQuestionScreen.swift */,
 				0757552729FAA2D5008E73FB /* PreSessionView.swift */,
 				0757552C29FAA2D6008E73FB /* SessionConfirmationScreen.swift */,
+				0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */,
 			);
 			path = PreSessionForm;
 			sourceTree = "<group>";
@@ -658,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0757553C29FAA387008E73FB /* NotesService.swift in Sources */,
+				0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */,
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
 				07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */,
@@ -723,11 +736,13 @@
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				979303D829E87E0E0053C30E /* SessionModel.swift in Sources */,
 				0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */,
+				0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
 				0757553229FAA2D6008E73FB /* PreSessionQuestionScreen.swift in Sources */,
 				97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */,
 				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
+				0723BB8F2A1CDF7500911948 /* UnpairedScreen.swift in Sources */,
 				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
@@ -735,6 +750,7 @@
 				974D62CF29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift in Sources */,
 				979303CB29E7E9460053C30E /* SessionDetailViewModel.swift in Sources */,
 				0757553A29FAA380008E73FB /* QuestionViewModel.swift in Sources */,
+				0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */,
 				80210EC129B95F24008B912A /* MenteeCard.swift in Sources */,
 				80210ECC29BA9EBC008B912A /* MentorCard.swift in Sources */,
 				0793B4222A19FA7200AF78C8 /* CustomNavBarPreferenceKeys.swift in Sources */,

@@ -20,7 +20,7 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
-import { getUpcomingSession } from "../services/session";
+import { getUpcomingSession, getLastSession } from "../services/session";
 
 const router = express.Router();
 
@@ -385,6 +385,7 @@ router.get(
       const role = req.body.role;
       
       const getUpcomingSessionPromise = getUpcomingSession(userId, role)
+      const getPastSessionPromise = getLastSession(userId, role)
       if (role == "mentee") {
         // GET mentee document
         const mentee = await Mentee.findById(userId);
@@ -398,15 +399,15 @@ router.get(
           })
         }
         const getPairedMentorIdPromise = getMentorId(mentee.pairingId)
-        const [sessionId, pairedMentorId] = await Promise.all([getUpcomingSessionPromise, getPairedMentorIdPromise])
+        const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([getUpcomingSessionPromise, getPastSessionPromise, getPairedMentorIdPromise])
         console.log({
           status: mentee.status,
-          upcomingSessionId: sessionId,
+          sessionId: upcomingSessionId ?? pastSessionId,
           pairedMentorId
         })
         res.status(200).send({
           status: mentee.status,
-          upcomingSessionId: sessionId,
+          sessionId: upcomingSessionId ?? pastSessionId,
           pairedMentorId
         })
       } else if (role == "mentor") {
@@ -426,11 +427,11 @@ router.get(
         // For MVP, we assume there is only 1 mentee 1 mentor pairing
         const getMenteeIdsPromise = getMenteeIdsPromises[0]
   
-        const [sessionId, pairedMenteeId] = await Promise.all([getUpcomingSessionPromise, getMenteeIdsPromise]);
+        const [upcomingSessionId, pastSessionId, pairedMenteeId] = await Promise.all([getUpcomingSessionPromise, getPastSessionPromise, getMenteeIdsPromise])
         
         res.status(200).send({
           status: mentor.status,
-          upcomingSessionId: sessionId,
+          sessionId: upcomingSessionId ?? pastSessionId,
           pairedMenteeId
         })
       }

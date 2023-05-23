@@ -39,8 +39,8 @@ struct SessionConfirmationScreen: View {
                     .padding(16)
 
                 Spacer()
-                NavigationLink(
-                    destination: Text("TODO Blank").navigationBarHidden(true),
+                CustomNavLink(
+                    destination: LoggedInRouter(defaultSelection: 0),
                     label: {
                         HStack {
                             Text(text[2])

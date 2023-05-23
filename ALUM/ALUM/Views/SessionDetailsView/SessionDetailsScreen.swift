@@ -20,6 +20,7 @@ struct SessionDetailsScreen: View {
 
     var body: some View {
         return loadingAbstraction
+            .customNavigationIsPurple(false)
     }
     
     var loadingAbstraction: some View {
@@ -58,11 +59,7 @@ struct SessionDetailsScreen: View {
         return ScrollView {
             screenContent
         }
-        .customNavBarItems(
-            title: "\(session.dateShortHandString) Session with \(otherName)", 
-            isPurple: false, 
-            backButtonHidden: false
-        )
+        .customNavigationTitle("\(session.dateShortHandString) Session with \(otherName)")
         .background(ALUMColor.beige.color)
     }
     
@@ -201,44 +198,47 @@ struct SessionDetailsScreen: View {
             }
             
             if !formIsComplete {
-                NavigationLink {
-                    PostSessionView(
+                CustomNavLink(
+                    destination: PostSessionView(
                         notesID: editableNoteId,
                         otherNotesID: otherNoteId,
                         otherName: otherName,
                         date: session.dateShortHandString,
                         time: session.startTimeString
-                    )
-                } label: {
-                    ALUMText(text: "Complete Post-Session Notes", textColor: ALUMColor.white)
-                }
+                    ), 
+                    label: {
+                        ALUMText(text: "Complete Post-Session Notes", textColor: ALUMColor.white)
+                    }
+                )
                 .buttonStyle(FilledInButtonStyle())
                 .padding(.bottom, 5)
             } else {
-                NavigationLink {
-                    ViewPostSessionNotesPage(
+                CustomNavLink(
+                    destination: ViewPostSessionNotesPage(
                         notesID: editableNoteId,
                         otherNotesID: otherNoteId,
                         otherName: otherName,
                         date: session.dateShortHandString,
                         time: session.startTimeString
-                    )
-                } label: {
-                    ALUMText(text: "View Post-Session Notes", textColor: ALUMColor.white)
-                }
+                    ),  
+                    label: {
+                        ALUMText(text: "View Post-Session Notes", textColor: ALUMColor.white)
+                    }
+                )
                 .buttonStyle(FilledInButtonStyle())
                 .padding(.bottom, 5)
             }
             
-            NavigationLink {
-                ViewPreSessionNotesPage(
+            CustomNavLink(
+                destination: ViewPreSessionNotesPage(
                     allowEditing: false, 
                     notesID: session.preSession, 
                     otherName: otherName
-                )
-            } label: {
-                ALUMText(text: "View Pre-Session Notes")
-            }
+                ),
+                label: {
+                    ALUMText(text: "View Pre-Session Notes")
+                }
+            )
             .buttonStyle(OutlinedButtonStyle())
             .padding(.bottom, 5)
         }
@@ -257,7 +257,7 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 5)
             
-            NavigationLink(destination: MenteeProfileScreen(uID: session.menteeId)) {
+            CustomNavLink(destination: MenteeProfileScreen(uID: session.menteeId)) {
                 HorizontalMenteeCard(
                     menteeId: session.menteeId,
                     isEmpty: true
@@ -297,11 +297,14 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 20)
             
-            NavigationLink {
-                ViewPreSessionNotesPage(allowEditing: false, notesID: session.preSession, otherName: session.menteeName)
-            } label: {
-                ALUMText(text: "View Pre-Session Form", textColor: ALUMColor.white)
-            }
+            CustomNavLink(
+                destination: ViewPreSessionNotesPage(
+                    allowEditing: false, 
+                    notesID: session.preSession, 
+                    otherName: session.menteeName
+                ), label: {
+                    ALUMText(text: "View Pre-Session Form", textColor: ALUMColor.white)
+                })
             .buttonStyle(FilledInButtonStyle())
             .padding(.bottom, 5)
         }
@@ -322,7 +325,7 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 5)
             
-            NavigationLink(destination: MentorProfileScreen(uID: session.mentorId)) {
+            CustomNavLink(destination: MentorProfileScreen(uID: session.mentorId)) {
                 MentorCard(isEmpty: true, uID: session.mentorId)
                     .padding(.bottom, 28)
             }
@@ -376,32 +379,34 @@ extension SessionDetailsScreen {
             }
 
             if !session.preSessionCompleted {
-                NavigationLink {
-                    PreSessionView(
-                        notesID: session.preSession,
-                        otherName: session.mentorName,
-                        date: session.dateShortHandString,
-                        time: session.startTimeString
-                    )
-                } label: {
-                    ALUMText(text: "Complete Pre-Session Notes", textColor: ALUMColor.white)
-                }
+                
+                CustomNavLink(
+                    destination: 
+                        PreSessionFormRouter(
+                            notesID: session.preSession, 
+                            otherName: session.mentorName, 
+                            date: session.dateShortHandString, 
+                            time: session.startTimeString
+                        ), 
+                    label: {
+                        ALUMText(text: "Complete Pre-Session Notes", textColor: ALUMColor.white)
+                    }
+                )
                 .buttonStyle(FilledInButtonStyle())
                 .padding(.bottom, 5)
             } else {
-                NavigationLink {
-                    ViewPreSessionNotesPage(
+                CustomNavLink(
+                    destination: ViewPreSessionNotesPage(
                         allowEditing: true,
                         notesID: session.preSession,
                         otherName: session.mentorName,
                         date: session.dateShortHandString,
                         time: session.startTimeString
-                    )
-                } label: {
-                    ALUMText(text: "View Pre-Session Notes", textColor: ALUMColor.white)
-                }
-                .buttonStyle(FilledInButtonStyle())
-                .padding(.bottom, 5)
+                    ), label: {
+                        ALUMText(text: "View Pre-Session Notes", textColor: ALUMColor.white)
+                    })
+                    .buttonStyle(FilledInButtonStyle())
+                    .padding(.bottom, 5)
             }
         }
     }

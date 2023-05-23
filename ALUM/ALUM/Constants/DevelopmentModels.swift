@@ -40,4 +40,31 @@ class DevelopmentModels {
         status: nil, 
         whyPaired: Optional("Modified Why Paired")
     )
+    
+    static var preSessionFormModel: [Question] = [
+        Question(
+            question: "What topic(s) would you like to discuss?", 
+            type: "bullet", 
+            id: "3486cca0ff5e75620cb5cded01041c45751d0ac93a068de3f4cd925b87cdff5f", 
+            answerBullet: [], 
+            answerCheckboxBullet: [], 
+            answerParagraph: ""
+        ), 
+        Question(
+            question: "Do you have any specifc question(s)?", 
+            type: "bullet", 
+            id: "f929836eee49ca458ae32ad89164bdb31e5749a5606c15b147a61d69c7cac8fd", 
+            answerBullet: [], 
+            answerCheckboxBullet: [], 
+            answerParagraph: ""
+        ), 
+        Question(
+            question: "Anything else that you want your mentor to know?", 
+            type: "text", 
+            id: "9bb08261232461b5dfbdea48578c6054adf7fd8639d815b4143080d0c16ec590", 
+            answerBullet: [], 
+            answerCheckboxBullet: [], 
+            answerParagraph: ""
+        )
+    ]
 }

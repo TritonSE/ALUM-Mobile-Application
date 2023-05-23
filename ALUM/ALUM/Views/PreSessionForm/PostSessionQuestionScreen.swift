@@ -35,7 +35,6 @@ struct PostSessionQuestionScreen: View {
 
         }
         .edgesIgnoringSafeArea(.bottom)
-        .applyPostSessionScreenHeaderModifier()
     }
 
     @ViewBuilder

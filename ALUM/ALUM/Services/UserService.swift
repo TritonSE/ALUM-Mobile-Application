@@ -35,7 +35,7 @@ struct MentorPostData: Codable {
 
 struct SelfGetData: Decodable {
     var status: String
-    var upcomingSessionId: String?
+    var sessionId: String?
     var pairedMentorId: String?
     var pairedMenteeId: String?
 }

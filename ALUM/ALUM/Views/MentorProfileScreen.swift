@@ -23,7 +23,6 @@ struct MentorProfileScreen: View {
             } else {
                 content
                     .customNavigationIsPurple(scrollAtTop)
-                    .navigationBarHidden(true)
                     .padding(.top, 0)
             }
         }
@@ -79,26 +78,7 @@ struct MentorProfileScreen: View {
                 .padding(.bottom, 8)
                 .edgesIgnoringSafeArea(.bottom)
             }
-            ZStack {
-                if viewModel.selfView! {
-                    // params currently placeholders for later navigation
-                    if scrollAtTop {
-                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
-                            .background(Color("ALUM Primary Purple"))
-                    } else {
-                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
-                            .background(.white)
-                    }
-                }
-                else {
-                    if scrollAtTop {
-                        Rectangle()
-                            .frame(height: 10)
-                            .foregroundColor(Color("ALUM Primary Purple"))
-                            .frame(maxHeight: .infinity, alignment: .top)
-                    }
-                }
-            }
+            
         }
     }
 }

@@ -148,12 +148,6 @@ extension MenteeProfileScreen {
         }
     }
 }
-//struct MenteeProfileView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
-//    }
-//}
-//
 
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {

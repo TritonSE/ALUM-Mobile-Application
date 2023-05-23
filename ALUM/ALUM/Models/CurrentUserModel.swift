@@ -22,8 +22,8 @@ class CurrentUserModel: ObservableObject {
     @Published var isLoggedIn: Bool
     @Published var status: String?
     @Published var showTabBar: Bool
-    
-    @Published var upcomingSessionId: String?
+
+    @Published var sessionId: String?
     @Published var pairedMentorId: String?
     @Published var pairedMenteeId: String?
 
@@ -122,7 +122,7 @@ class CurrentUserModel: ObservableObject {
         } 
         
         DispatchQueue.main.async {
-            self.upcomingSessionId = userData.upcomingSessionId
+            self.sessionId = userData.sessionId
         }
     }
     

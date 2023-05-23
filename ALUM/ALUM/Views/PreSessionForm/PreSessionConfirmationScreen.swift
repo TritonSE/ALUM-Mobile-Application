@@ -11,15 +11,10 @@ import SwiftUI
 struct PreSessionConfirmationScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
-    @State var notesID: String = ""
+    var notesID: String
 
     var body: some View {
         VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count,
-                                       filledNodes: viewModel.questionList.count, activeNode: 0)
-                .background(Color.white)
-
             ScrollView {
                 content
             }
@@ -30,17 +25,16 @@ struct PreSessionConfirmationScreen: View {
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
         .edgesIgnoringSafeArea(.bottom)
-        .applyPreSessionScreenHeaderModifier()
     }
 
     var footer: some View {
         HStack {
             Button {
-                dismiss()
+                viewModel.prevQuestion()
             } label: {
                 HStack {
                     Image(systemName: "arrow.left")
-                    Text("Back")
+                    ALUMText(text: "Back")
                 }
             }
             .buttonStyle(OutlinedButtonStyle())
@@ -57,9 +51,10 @@ struct PreSessionConfirmationScreen: View {
                     }
                 }
             } label: {
-                Text("Save")
+                ALUMText(text: "Save", textColor: ALUMColor.white)
             }
             .buttonStyle(FilledInButtonStyle())
+            // TODO change this to custom nav link
             NavigationLink(destination: SessionConfirmationScreen(
                 text: ["Pre-session form saved!",
                        "You can continue on the notes later under \"Sessions\".", "Great"]),
@@ -135,6 +130,6 @@ struct PreSessionConfirmationScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
 
     static var previews: some View {
-        PreSessionConfirmationScreen(viewModel: viewModel)
+        PreSessionConfirmationScreen(viewModel: viewModel, notesID: "6464276b6f05d9703f069761")
     }
 }

@@ -7,9 +7,6 @@
 
 import Foundation
 import SwiftUI
-//@State private var showBackButton: Bool = true
-//@State private var title: String = "Title"
-//@State private var isPurple: Bool = true
 
 struct CustomNavBarTitlePreferenceKey: PreferenceKey {
     static var defaultValue: String = ""
@@ -20,7 +17,7 @@ struct CustomNavBarTitlePreferenceKey: PreferenceKey {
 }
 
 struct CustomNavBarIsPurplePreferenceKey: PreferenceKey {
-    static var defaultValue: Bool = true
+    static var defaultValue: Bool = false
     
     static func reduce(value: inout Bool, nextValue: () -> Bool) {
         value = nextValue()
@@ -28,7 +25,7 @@ struct CustomNavBarIsPurplePreferenceKey: PreferenceKey {
 }
 
 struct CustomNavBarBackButtonHiddenPreferenceKey: PreferenceKey {
-    static var defaultValue: Bool = false
+    static var defaultValue: Bool = true
     
     static func reduce(value: inout Bool, nextValue: () -> Bool) {
         value = nextValue()

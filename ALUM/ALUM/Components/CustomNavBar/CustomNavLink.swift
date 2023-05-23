@@ -16,10 +16,13 @@ struct CustomNavLink<Label: View, Destination: View>: View {
     }
     var body: some View {
         NavigationLink(
-            destination: CustomNavBarContainerView(content: {
-                destination
+            destination: 
+                CustomNavBarContainerView(content: {
+                    destination
                 })
-            .navigationBarHidden(true)
+                .navigationBarHidden(true)
+                .customNavigationBarBackButtonHidden(false)
+                
             ,
             label: { label
             })

@@ -7,29 +7,6 @@
 
 import SwiftUI
 
-struct PreSessionScreenHeaderModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        VStack {
-            VStack {
-                NavigationHeaderComponent(
-                    backText: "XXX",
-                    backDestination: LoginScreen(),
-                    title: "Pre-session Notes",
-                    purple: false
-                )
-            }
-            content
-                .background(Color("ALUM White 2"))
-        }
-    }
-}
-
-extension View {
-    func applyPreSessionScreenHeaderModifier() -> some View {
-        self.modifier(PreSessionScreenHeaderModifier())
-    }
-}
-
 struct PreSessionView: View {
 
     @StateObject private var viewModel = QuestionViewModel()
@@ -41,19 +18,23 @@ struct PreSessionView: View {
     @State var time: String = ""
 
     var body: some View {
-        print(viewModel.isLoading)
+        content
+            .customNavBarItems(
+                title: "\(date) Pre-session Notes", 
+                isPurple: false, 
+                backButtonHidden: false
+            )
+    }
+    var content: some View {
         return
         Group {
             if !viewModel.isLoading {
                 PreSessionQuestionScreen(
                     viewModel: viewModel,
-                    notesID: notesID,
                     otherUser: otherName,
                     date: date,
                     time: time
                 )
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
@@ -61,7 +42,7 @@ struct PreSessionView: View {
                     .onAppear {
                         Task {
                             do {
-                                try await viewModel.loadNotes(notesID: notesID)
+                                try await viewModel.fetchNotes(noteId: notesID)
                             } catch {
                                 print("Error")
                             }

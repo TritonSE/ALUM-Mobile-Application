@@ -9,14 +9,14 @@ import SwiftUI
 
 struct CustomNavBarContainerView<Content: View>: View {
     let content: Content
-    @State private var showBackButton: Bool = true
-    @State private var title: String = "Title"
-    @State private var isPurple: Bool = true
+    @State private var showBackButton: Bool = false
+    @State private var title: String = ""
+    @State private var isPurple: Bool = false
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     var body: some View {
-        VStack(spacing: 0) {
+        return VStack(spacing: 0) {
             CustomNavBarView(showBackButton: showBackButton, title: title, isPurple: isPurple)
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

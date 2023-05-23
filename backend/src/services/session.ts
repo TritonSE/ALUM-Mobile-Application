@@ -27,6 +27,31 @@ export async function getUpcomingSession(userId: string, role: 'mentor' | 'mente
   }
 }
 
+export async function getLastSession(userId: string, role: 'mentor' | 'mentee'): Promise<Types.ObjectId | null> {
+  const now = new Date();
+
+  let matchField: string;
+
+  if (role === 'mentor') {
+    matchField = 'mentorId';
+  } else if (role === 'mentee') {
+    matchField = 'menteeId';
+  } else {
+    throw ServiceError.INVALID_ROLE_WAS_FOUND;
+  }
+
+  try {
+    const lastSession = await Session.findOne({
+      endTime: { $lt: now },
+      [matchField]: new Types.ObjectId(userId),
+    }).sort({ endTime: -1 });
+
+    return lastSession?._id;
+  } catch (error) {
+    throw InternalError.ERROR_FINDING_PAST_SESSION;
+  }
+}
+
 /**
  * Function takes in startTime and endTime date objects and formats it to give:
  * [
