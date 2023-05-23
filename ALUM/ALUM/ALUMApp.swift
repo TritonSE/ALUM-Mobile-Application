@@ -101,6 +101,7 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         // let deviceToken:[String: String] = ["token": fcmToken ?? ""]
         currentUser.fcmToken = fcmToken
+        print(fcmToken ?? "")
     }
 }
 

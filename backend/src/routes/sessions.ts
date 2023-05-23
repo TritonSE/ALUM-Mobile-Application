@@ -13,6 +13,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
 import { getCalendlyEventDate } from "../services/calendly";
 import { getMentorId } from "../services/user";
+import {sendNotification} from "../services/notifications";
 
 /**
  * This is a post route to create a new session. 
@@ -76,6 +77,7 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
+      await sendNotification("Testing", "Hello Harsh", "");
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,
