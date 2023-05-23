@@ -27,6 +27,7 @@ struct MissedSessionScreen: View {
     @State var otherUser: String = "Mentor"
     @State var date: String = "date"
     @State var time: String = "time"
+    @State var notesID: String = ""
 
     var body: some View {
         VStack {
@@ -65,7 +66,7 @@ struct MissedSessionScreen: View {
                     }
                     Task {
                         do {
-                            try await viewModel.submitMissedNotesPatch(noteID: "6450d7933551f6470d1f5c9b")
+                            try await viewModel.submitMissedNotesPatch(noteID: notesID)
                             self.viewModel.submitSuccess = true
                         } catch {
                             print("Error")
