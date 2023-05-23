@@ -21,7 +21,6 @@ struct MenteeProfileScreen: View {
             } else {
                 content
                     .customNavigationIsPurple(scrollAtTop)
-                    .navigationBarBackButtonHidden(true)
                     .padding(.top, 0)
             }
         }.onAppear(perform: {

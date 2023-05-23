@@ -166,12 +166,6 @@ extension MentorProfileScreen {
                                     uID: viewModel.mentor!.menteeIds![index]
                                 )
                                     .customNavigationTitle("Mentee Profile")
-                                    .onAppear(perform: {
-                                        currentUser.showTabBar = false
-                                    })
-                                    .onDisappear(perform: {
-                                                currentUser.showTabBar = true
-                                            })
                 ) {
                     MenteeCard(isEmpty: true, uID: viewModel.mentor!.menteeIds![index])
                         .padding(.bottom, 15)

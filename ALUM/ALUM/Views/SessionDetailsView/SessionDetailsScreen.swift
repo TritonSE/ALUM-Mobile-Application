@@ -257,7 +257,7 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 5)
             
-            CustomNavLink(destination: MenteeProfileScreen(uID: session.menteeId)) {
+            CustomNavLink(destination: MenteeProfileScreen(uID: session.menteeId).customNavigationTitle("Mentee Profile")) {
                 HorizontalMenteeCard(
                     menteeId: session.menteeId,
                     isEmpty: true
@@ -325,7 +325,10 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 5)
             
-            CustomNavLink(destination: MentorProfileScreen(uID: session.mentorId)) {
+            CustomNavLink(destination: 
+                MentorProfileScreen(uID: session.mentorId)
+                .customNavigationTitle("Mentor Profile")
+            ) {
                 MentorCard(isEmpty: true, uID: session.mentorId)
                     .padding(.bottom, 28)
             }
