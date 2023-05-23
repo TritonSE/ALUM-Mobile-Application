@@ -16,12 +16,14 @@ enum UserRole {
 class CurrentUserModel: ObservableObject {
     static let shared = CurrentUserModel()
 
+    @Published var fcmToken: String?
     @Published var isLoading: Bool
     @Published var uid: String?
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
 
     init() {
+        self.fcmToken = nil
         self.isLoading = true
         self.isLoggedIn = false
         self.uid = nil
@@ -75,5 +77,9 @@ class CurrentUserModel: ObservableObject {
             )
         }
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
+    }
+    
+    func sendFcmToken(fcmToken: String) async {
+        
     }
 }
