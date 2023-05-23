@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: MentorSessionDetailsPage(),
+                    backDestination: Text("TODO Blank"),
                     title: "Post-session Notes",
                     purple: false
                 )
@@ -27,6 +27,29 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
 extension View {
     func applyPostSessionScreenHeaderModifier() -> some View {
         self.modifier(PostSessionScreenHeaderModifier())
+    }
+}
+
+struct MissedSessionScreenHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "XXX",
+                    backDestination: LoginScreen(),
+                    title: "Missed Session",
+                    purple: false
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
+
+extension View {
+    func applyMissedSessionScreenHeaderModifier() -> some View {
+        self.modifier(MissedSessionScreenHeaderModifier())
     }
 }
 
@@ -45,13 +68,10 @@ struct PostSessionView: View {
             if !viewModel.isLoading {
                 PostSessionQuestionScreen(
                     viewModel: viewModel,
-                    notesID: notesID,
                     otherUser: otherName,
                     date: date,
                     time: time
                 )
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")
@@ -59,9 +79,9 @@ struct PostSessionView: View {
                     .onAppear {
                         Task {
                             do {
-                                try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                                try await viewModel.fetchPostSessionNotes(notesId: notesID, otherNotesId: otherNotesID)
                             } catch {
-                                print("Error")
+                                print("Error \(error)")
                             }
                         }
                     }
