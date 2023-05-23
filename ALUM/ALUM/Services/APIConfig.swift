@@ -21,6 +21,8 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    case patchMentor(userId: String)
+    case patchMentee(userId: String)
     case postSession
     case getCalendly
 
@@ -52,6 +54,10 @@ enum APIRoute {
            return URLString.sessions
        case .getCalendly:
            return URLString.calendly
+       case .patchMentor(let userId):
+           return [URLString.mentor, userId].joined(separator: "/")
+       case .patchMentee(let userId):
+           return [URLString.mentor, userId].joined(separator: "/")
        }
     }
 
@@ -61,14 +67,14 @@ enum APIRoute {
             return "GET"
         case .postMentor, .postMentee, .postSession:
             return "POST"
-        case .patchNote:
+        case .patchNote, .patchMentee, .patchMentor:
             return "PATCH"
         }
     }
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly, .patchMentee, .patchMentor:
             return true
         case .postMentee, .postMentor:
             return false
@@ -89,7 +95,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly, .patchMentee, .patchMentor:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -101,7 +107,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly, .patchMentor, .patchMentee:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),

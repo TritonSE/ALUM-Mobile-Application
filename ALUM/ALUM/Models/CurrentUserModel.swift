@@ -13,6 +13,10 @@ enum UserRole {
     case mentee
 }
 
+struct FCMToken: Codable {
+    var fcmToken: String
+}
+
 class CurrentUserModel: ObservableObject {
     static let shared = CurrentUserModel()
 
@@ -79,7 +83,15 @@ class CurrentUserModel: ObservableObject {
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
     }
     
-    func sendFcmToken(fcmToken: String) async {
-        
+    func sendFcmToken(fcmToken: String) async throws {
+        var tokenToSend: FCMToken = FCMToken(fcmToken: fcmToken)
+        let route = self.role == .mentor ? APIRoute.patchMentor(userId: self.uid ?? "") : APIRoute.patchMentee(userId: self.uid ?? "")
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(tokenToSend) else {
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 }

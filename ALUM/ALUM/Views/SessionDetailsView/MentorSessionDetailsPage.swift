@@ -64,6 +64,10 @@ struct MentorSessionDetailsPage: View {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
 
                     try await viewModel.loadSession(sessionID: sessionsArray[0].id)
+                    
+                    try await viewModel.currentUser.sendFcmToken(
+                        fcmToken: viewModel.currentUser.fcmToken ?? ""
+                    )
                 } catch {
                     print(error)
                 }
