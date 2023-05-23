@@ -3,6 +3,7 @@
  * new users
  */
 import express, { NextFunction, Request, Response } from "express";
+import { Infer } from "caketype";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
@@ -12,6 +13,8 @@ import {
   CreateMentorRequestBodyCake,
   CreateMenteeRequestBodyType,
   CreateMentorRequestBodyType,
+  UpdateMentorCake,
+  UpdateMenteeCake,
 } from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
@@ -19,6 +22,7 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
+import { updateMentorFCMToken, updateMenteeFCMToken } from "../services/user";
 
 const router = express.Router();
 
@@ -67,12 +71,14 @@ router.post(
       const imageId = defaultImageID;
       const about = "N/A";
       const pairingId = "N/A";
+      const fcmToken = "N/A";
       const mentee = new Mentee({
         name,
         imageId,
         about,
         status,
         pairingId,
+        fcmToken,
         ...args,
       });
       await mentee.save();
@@ -121,6 +127,7 @@ router.post(
       // const calendlyLink = "N/A";
       const zoomLink = "N/A";
       const pairingIds: string[] = [];
+      const fcmToken = "N/A";
       const mentor = new Mentor({
         name,
         imageId,
@@ -128,6 +135,7 @@ router.post(
         zoomLink,
         status,
         pairingIds,
+        fcmToken,
         ...args,
       });
       await mentor.save();
@@ -363,5 +371,49 @@ router.get(
     }
   }
 );
+
+type UpdateMentorType = Infer<typeof UpdateMentorCake>;
+router.patch(
+  "/mentor/:userId",
+  validateReqBodyWithCake(UpdateMentorCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log(req.body);
+      const userId = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+      const updatedToken: UpdateMentorType = req.body;
+      await updateMentorFCMToken(updatedToken.fcmToken, userId);
+      res.status(200).json({
+        message: "Success",
+      })
+    } catch(e) {
+      next(e);
+    }
+  }
+)
+
+type UpdateMenteeType = Infer<typeof UpdateMenteeCake>;
+router.patch(
+  "/mentee/:userId",
+  validateReqBodyWithCake(UpdateMenteeCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log(req.body);
+      const userId = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+      const updatedToken: UpdateMenteeType = req.body;
+      await updateMenteeFCMToken(updatedToken.fcmToken, userId);
+      res.status(200).json({
+        message: "Success",
+      })
+    } catch(e) {
+      next(e);
+    }
+  }
+)
 
 export { router as userRouter };

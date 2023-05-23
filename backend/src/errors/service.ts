@@ -17,6 +17,8 @@ const NOTE_WAS_NOT_SAVED = "Note was not saved";
 const SESSION_WAS_NOT_FOUND = "Session was not found";
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
+const MENTOR_WAS_NOT_SAVED = "Mentor update was not saved";
+const MENTEE_WAS_NOT_SAVED = "Mentee update was not saved";
 
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
@@ -40,4 +42,8 @@ export class ServiceError extends CustomError {
   static NOTE_WAS_NOT_FOUND = new ServiceError(9, 404, NOTE_WAS_NOT_FOUND);
 
   static NOTE_WAS_NOT_SAVED = new ServiceError(10, 404, NOTE_WAS_NOT_SAVED);
+
+  static MENTOR_WAS_NOT_SAVED = new ServiceError(11, 404, MENTOR_WAS_NOT_SAVED);
+
+  static MENTEE_WAS_NOT_SAVED = new ServiceError(11, 404, MENTEE_WAS_NOT_SAVED);
 }

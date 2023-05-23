@@ -10,6 +10,7 @@ interface MenteeInterface {
   mentorshipGoal: string;
   pairingId: string;
   status: string;
+  fcmToken: string;
 }
 
 interface MenteeDoc extends mongoose.Document {
@@ -22,6 +23,7 @@ interface MenteeDoc extends mongoose.Document {
   mentorshipGoal: string;
   pairingId: string;
   status: string;
+  fcmToken: string;
 }
 
 interface MenteeModelInterface extends mongoose.Model<MenteeDoc> {
@@ -66,6 +68,10 @@ const MenteeSchema = new mongoose.Schema({
     required: false,
   },
   status: {
+    type: String,
+    required: true,
+  },
+  fcmToken: {
     type: String,
     required: true,
   },
