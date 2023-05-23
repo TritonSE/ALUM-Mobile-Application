@@ -62,26 +62,6 @@ struct MenteeProfileScreen: View {
                 .padding(.bottom, 8)
                 .edgesIgnoringSafeArea(.bottom)
             }
-            ZStack {
-                if viewModel.selfView! {
-                    // params currently placeholders for later navigation
-                    if scrollAtTop {
-                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
-                            .background(Color("ALUM Primary Purple"))
-                    } else {
-                        ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
-                            .background(.white)
-                    }
-                }
-                else {
-                    if scrollAtTop {
-                        Rectangle()
-                            .frame(height: 10)
-                            .foregroundColor(Color("ALUM Primary Purple"))
-                            .frame(maxHeight: .infinity, alignment: .top)
-                    }
-                }
-            }
         }
     }
 }
@@ -168,8 +148,23 @@ extension MenteeProfileScreen {
         }
     }
 }
+//struct MenteeProfileView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
+//    }
+//}
+//
+
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
+        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b99ebcf4420fe9825fe3", role: .mentor, status: "paired")
+        return CustomNavView {
+            MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
+                .onAppear {
+                    Task {
+                        try await FirebaseAuthenticationService.shared.login(email: "mentor@gmail.com", password: "123456")
+                    }
+                }
+        }
     }
 }

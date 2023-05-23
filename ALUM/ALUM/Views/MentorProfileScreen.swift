@@ -36,7 +36,6 @@ struct MentorProfileScreen: View {
                 }
             }
         })
-        
     }
 
     var content: some View {
@@ -101,12 +100,6 @@ struct MentorProfileScreen: View {
                 }
             }
         }
-    }
-}
-
-struct MentorProfileScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
     }
 }
 
@@ -208,6 +201,20 @@ extension MentorProfileScreen {
             .padding(.bottom, 30)
             .padding(.leading, 16)
             .offset(y: -20)
+        }
+    }
+}
+
+struct MentorProfileScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentor, status: "paired")
+        return CustomNavView {
+            MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
+                .onAppear {
+                    Task {
+                        try await FirebaseAuthenticationService.shared.login(email: "mentor@gmail.com", password: "123456")
+                    }
+                }
         }
     }
 }
