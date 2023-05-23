@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: MentorSessionDetailsPage(),
+                    backDestination: Text("TODO Blank"),
                     title: "Post-session Notes",
                     purple: false
                 )

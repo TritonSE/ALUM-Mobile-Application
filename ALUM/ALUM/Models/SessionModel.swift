@@ -21,3 +21,22 @@ struct Session {
     // we can get location as mentor.zoomLink
 
 }
+
+struct SessionModel: Decodable {
+    var preSession: String
+    var postSessionMentee: String?
+    var postSessionMentor: String?
+    var menteeId: String
+    var mentorId: String
+    var menteeName: String
+    var mentorName: String
+    var fullDateString: String
+    var dateShortHandString: String
+    var startTimeString: String
+    var endTimeString: String
+    var preSessionCompleted: Bool
+    var postSessionMenteeCompleted: Bool
+    var postSessionMentorCompleted: Bool
+    var hasPassed: Bool
+    var location: String
+}

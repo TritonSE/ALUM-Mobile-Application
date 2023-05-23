@@ -40,7 +40,7 @@ struct SessionConfirmationScreen: View {
 
                 Spacer()
                 NavigationLink(
-                    destination: MentorSessionDetailsPage().navigationBarHidden(true),
+                    destination: Text("TODO Blank").navigationBarHidden(true),
                     label: {
                         HStack {
                             Text(text[2])

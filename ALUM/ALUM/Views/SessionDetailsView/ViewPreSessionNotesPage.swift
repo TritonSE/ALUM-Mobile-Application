@@ -31,13 +31,13 @@ extension View {
 }
 
 struct ViewPreSessionNotesPage: View {
+    var allowEditing: Bool
+    var notesID: String
+    var otherName: String 
+    var date: String = ""
+    var time: String = ""
+    
     @StateObject var viewModel = QuestionViewModel()
-
-    @State var notesID: String = ""
-
-    @State var otherName: String = ""
-    @State var date: String = ""
-    @State var time: String = ""
 
     var body: some View {
         Group {
@@ -47,7 +47,7 @@ struct ViewPreSessionNotesPage: View {
                         content
                     }
 
-                    if viewModel.currentUser.role == UserRole.mentee {
+                    if allowEditing {
                         footer
                             .padding(.horizontal, 16)
                             .padding(.top, 32)
@@ -155,6 +155,6 @@ struct ViewPreSessionNotesPage: View {
 struct ViewPreSessionNotesPage_Previews: PreviewProvider {
 
     static var previews: some View {
-        ViewPreSessionNotesPage()
+        ViewPreSessionNotesPage(allowEditing: false, notesID: "", otherName: "mentor")
     }
 }

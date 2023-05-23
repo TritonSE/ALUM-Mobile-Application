@@ -26,7 +26,7 @@ struct SessionInfo: Decodable {
 
 struct GetSessionData: Decodable {
     var message: String
-    var session: SessionInfo
+    var session: SessionModel
 }
 
 struct UserSessionInfo: Decodable {
@@ -56,20 +56,18 @@ struct PostSessionData: Codable {
 }
 
 class SessionService {
+    static let shared = SessionService()
 
-    func getSessionWithID(sessionID: String) async throws -> GetSessionData {
-        let route = APIRoute.getSession(sessionId: sessionID)
+    func getSessionWithId(sessionId: String) async throws -> GetSessionData {
+        let route = APIRoute.getSession(sessionId: sessionId)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
 
-        do {
-            let sessionData = try JSONDecoder().decode(GetSessionData.self, from: responseData)
-            print("SUCCESS - \(route.label)")
-            return sessionData
-        } catch {
-            print("Failed to decode data")
-            throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
-        }
+        let sessionData = try handleDecodingErrors({
+            try JSONDecoder().decode(GetSessionData.self, from: responseData)
+        })
+        print("SUCCESS - \(route.label)")
+        return sessionData
     }
 
     func getSessionsByUser() async throws -> GetUserSessionsData {
@@ -77,14 +75,11 @@ class SessionService {
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
 
-        do {
-            let sessionsData = try JSONDecoder().decode(GetUserSessionsData.self, from: responseData)
-            print("SUCCESS - \(route.label)")
-            return sessionsData
-        } catch {
-            print("Failed to decode data")
-            throw AppError.internalError(.jsonParsingError, message: "Failed to decode data")
-        }
+        let sessionsData = try handleDecodingErrors({
+            try JSONDecoder().decode(GetUserSessionsData.self, from: responseData)
+        })
+        print("SUCCESS - \(route.label)")
+        return sessionsData
     }
 
     // IMPORTANT: only use this function to pass in dates of format:

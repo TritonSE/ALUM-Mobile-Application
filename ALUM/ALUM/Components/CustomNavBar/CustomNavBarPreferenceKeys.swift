@@ -48,7 +48,7 @@ extension View {
         preference(key: CustomNavBarBackButtonHiddenPreferenceKey.self, value: hidden)
     }
     
-    func customNavBarItems(title: String = "", isPurple: Bool = true, backButtonHidden: Bool = false) -> some View {
+    func customNavBarItems(title: String, isPurple: Bool, backButtonHidden: Bool) -> some View {
         self
             .customNavigationTitle(title)
             .customNavigationIsPurple(isPurple)
