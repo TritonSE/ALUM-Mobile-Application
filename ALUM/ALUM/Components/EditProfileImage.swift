@@ -22,11 +22,11 @@ struct EditProfileImage: View {
                 Spacer()
                 Button(action: {
                     showChooseSheet = true
-                }) {
+                }, label: {
                     Text("Edit")
                         .font(.custom("Metropolis-Regular", size: 17))
                         .foregroundColor(Color("ALUM Dark Blue"))
-                }
+                })
                 .sheet(isPresented: $showChooseSheet) {
                     if #available(iOS 16.0, *) {
                         choosePictureSheet
@@ -66,20 +66,20 @@ struct EditProfileImage: View {
     var choosePictureSheet: some View {
         VStack {
             HStack {
-                Button(action: {showChooseSheet = false}) {
+                Button(action: {showChooseSheet = false}, label: {
                     Text("Cancel")
                         .font(.custom("Metropolis-Regular", size: 13))
                         .foregroundColor(Color("ALUM Dark Blue"))
-                }
+                })
                 Text("Profile Picture")
                     .font(.custom("Metropolis-Regular", size: 17))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(Color.black)
-                Button(action: {showChooseSheet = false}) {
+                Button(action: {showChooseSheet = false}, label: {
                     Text("Done")
                         .font(.custom("Metropolis-Regular", size: 13))
                         .foregroundColor(Color("ALUM Dark Blue"))
-                }
+                })
             }
 
             profilePicture
@@ -87,18 +87,18 @@ struct EditProfileImage: View {
             Button(action: {
                 sourceType = .photoLibrary
                 showImagePicker = true
-            }) {
+            }, label: {
                 Image("LibraryIcon")
                 Text("Choose from library")
                     .font(.custom("Metropolis-Regular", size: 17))
                     .foregroundColor(Color.black)
                 Spacer()
-            }
+            })
 
             Button(action: {
                 sourceType = .camera
                 showImagePicker = true
-            }) {
+            }, label: {
                 HStack {
                     Image("CameraIcon")
                     Text("Take photo")
@@ -106,14 +106,14 @@ struct EditProfileImage: View {
                         .foregroundColor(Color.black)
                     Spacer()
                 }
-            }
+            })
             .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
                 ImagePicker(image: $image, sourceType: $sourceType)
             }
 
             Button(action: {
                 image = nil
-            }) {
+            }, label: {
                 HStack {
                     Image("TrashIcon")
                     Text("Remove current profile picture")
@@ -121,7 +121,7 @@ struct EditProfileImage: View {
                         .foregroundColor(Color("ALUM Alert Red"))
                     Spacer()
                 }
-            }
+            })
 
             Spacer()
         }
