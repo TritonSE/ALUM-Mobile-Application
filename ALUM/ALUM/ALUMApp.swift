@@ -36,6 +36,7 @@ struct RootView: View {
         } else {
             LoggedInRouter()
         }
+        
     }
 }
 

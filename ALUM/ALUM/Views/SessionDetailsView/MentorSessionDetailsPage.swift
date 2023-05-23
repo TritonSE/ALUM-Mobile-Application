@@ -37,6 +37,7 @@ struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
     @State public var showRescheduleAlert = false
     @State public var showCancelAlert = false
+    @State public var showCalendly = false
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -64,7 +65,7 @@ struct MentorSessionDetailsPage: View {
                 do {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
                     //try await viewModel.loadSession(sessionID: sessionsArray[0].id
-                    try await viewModel.loadSession(sessionID: "6462d0876b00add5156ebc47")
+                    try await viewModel.loadSession(sessionID: "646d3173300fcffdfc16507a")
                 } catch {
                     print(error)
                 }
@@ -125,7 +126,7 @@ struct MentorSessionDetailsPage: View {
 
             if !viewModel.sessionCompleted {
                 //Reschedule
-                /*
+                
                 Button {
                     showRescheduleAlert = true
                 } label: {
@@ -135,14 +136,17 @@ struct MentorSessionDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
                 
-                if(showRescheduleAlert) {
+                if showRescheduleAlert {
                     CustomAlertView(isAlert: true,
                                     leftButtonLabel: "Yes, reschedule",
                                     rightButtonLabel: "No",
                                     titleText: "Reschedule this session?",
                                     errorMessage: "Your pre-session notes will be transferred to your next scheduled session",
                                     leftButtonAction: {
-                        let calendlyView = CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                        //let calendlyView = CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                        print(showCalendly)
+                        print("Left button pressed")
+                        showCalendly = true
                     }, rightButtonAction: {
                         print("right button pressed")
                     })
@@ -151,7 +155,11 @@ struct MentorSessionDetailsPage: View {
                     .cornerRadius(16)
                     .shadow(radius: 10)
                 }
-                 */
+                NavigationLink(destination: CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID), isActive: $showCalendly) {
+                    }
+                .hidden()
+                 
+                /*
                 
                 NavigationLink {
                     CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
@@ -161,6 +169,7 @@ struct MentorSessionDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
+                 */
                 
                 Group {
                     HStack {
@@ -203,6 +212,8 @@ struct MentorSessionDetailsPage: View {
                 }
 
                 Button {
+                    showCancelAlert = true
+                    /*
                     Task{
                         do {
                             try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
@@ -210,6 +221,7 @@ struct MentorSessionDetailsPage: View {
                             print(error)
                         }
                     }
+                     */
                 } label: {
                     Text("Cancel Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -218,6 +230,30 @@ struct MentorSessionDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .border(Color("FunctionalError"))
                 .cornerRadius(8.0)
+                
+                if showCancelAlert {
+                    CustomAlertView(isAlert: true,
+                                    leftButtonLabel: "Yes, cancel it",
+                                    rightButtonLabel: "No",
+                                    titleText: "Cancel this session?",
+                                    errorMessage: "Your pre-session notes will be lost",
+                                    leftButtonAction: {
+                        //let calendlyView = CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                        Task{
+                            do {
+                                try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }, rightButtonAction: {
+                        print("right button pressed")
+                    })
+                    .frame(width: 326, height: 230)
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+                }
             } else {
                 Group {
                     HStack {
