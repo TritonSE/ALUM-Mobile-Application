@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileRouter: View {
+struct ProfileTabRouter: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
@@ -21,6 +21,20 @@ struct ProfileRouter: View {
                 case .none:
                     Text("Internal Error: User Role is nil")
                 }
+            }
+        }
+    }
+}
+
+struct HomeTabRouter: View {
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
+
+    var body: some View {
+        CustomNavView {
+            if currentUser.upcomingSessionId == nil {
+                HomeScreen()
+            } else {
+                SessionDetailsScreen(sessionId: currentUser.upcomingSessionId!)
             }
         }
     }
@@ -53,28 +67,30 @@ struct LoggedInRouter: View {
         ]
     
     var body: some View {
-        if currentUser.status == "under review" {
-            if currentUser.role == .mentee {
-                LoginReviewPage(text:
-                                    ["Application is under review",
-                                       "It usually takes 3-5 days to process your application as a mentee."])
-            } else if currentUser.role == .mentor {
-                LoginReviewPage(text:
-                                    ["Application is under review",
-                                       "It usually takes 3-5 days to process your application as a mentor."])
+        Group {
+            if currentUser.status == "under review" {
+                if currentUser.role == .mentee {
+                    LoginReviewPage(text:
+                                        ["Application is under review",
+                                           "It usually takes 3-5 days to process your application as a mentee."])
+                } else if currentUser.role == .mentor {
+                    LoginReviewPage(text:
+                                        ["Application is under review",
+                                           "It usually takes 3-5 days to process your application as a mentor."])
+                }
+            } else if currentUser.status == "approved" {
+                if currentUser.role == .mentee {
+                    LoginReviewPage(text:
+                                        ["Matching you with a mentor",
+                                           "We are looking for a perfect mentor for you. Please allow us some time!"])
+                } else if currentUser.role == .mentor {
+                    LoginReviewPage(text:
+                                        ["Matching you with a mentee",
+                                           "We are looking for a perfect mentee for you. Please allow us some time!"])
+                }
+            } else {
+                pairedUserView
             }
-        } else if currentUser.status == "approved" {
-            if currentUser.role == .mentee {
-                LoginReviewPage(text:
-                                    ["Matching you with a mentor",
-                                       "We are looking for a perfect mentor for you. Please allow us some time!"])
-            } else if currentUser.role == .mentor {
-                LoginReviewPage(text:
-                                    ["Matching you with a mentee",
-                                       "We are looking for a perfect mentee for you. Please allow us some time!"])
-            }
-        } else {
-            pairedUserView
         }
     }
 
@@ -83,12 +99,12 @@ struct LoggedInRouter: View {
         VStack(spacing: 0) {
             switch selection {
             case 0:
-                PlaceHolderHomeScreen()
+                HomeTabRouter()
                     .onAppear(perform: {
                         currentUser.showTabBar = true
                     })
             case 1:
-                ProfileRouter()
+                ProfileTabRouter()
                     .onAppear(perform: {
                         currentUser.showTabBar = true
                     })

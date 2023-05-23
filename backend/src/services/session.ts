@@ -1,3 +1,32 @@
+import { Types } from 'mongoose';
+import { InternalError, ServiceError } from "../errors";
+import { Session, SessionDoc } from '../models';
+
+export async function getUpcomingSession(userId: string, role: 'mentor' | 'mentee'): Promise<Types.ObjectId | null> {
+  const now = new Date();
+
+  let matchField: string;
+
+  if (role === 'mentor') {
+    matchField = 'mentorId';
+  } else if (role === 'mentee') {
+    matchField = 'menteeId';
+  } else {
+    throw ServiceError.INVALID_ROLE_WAS_FOUND
+  }
+
+  try {
+    const upcomingSession = await Session.findOne({
+      startTime: { $gt: now },
+      [matchField]: new Types.ObjectId(userId),
+    }).sort({ startTime: 1 });
+
+    return upcomingSession?._id;
+  } catch (error) {
+    throw InternalError.ERROR_FINDING_UPCOMING_SESSION
+  }
+}
+
 /**
  * Function takes in startTime and endTime date objects and formats it to give:
  * [

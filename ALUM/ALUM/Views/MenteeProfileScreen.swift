@@ -157,7 +157,7 @@ extension MenteeProfileScreen {
 
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b99ebcf4420fe9825fe3", role: .mentor, status: "paired")
+        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b99ebcf4420fe9825fe3", role: .mentor)
         return CustomNavView {
             MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
                 .onAppear {

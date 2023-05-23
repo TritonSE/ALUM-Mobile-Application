@@ -33,6 +33,13 @@ struct MentorPostData: Codable {
     var personalAccessToken: String
 }
 
+struct SelfGetData: Decodable {
+    var status: String
+    var upcomingSessionId: String?
+    var pairedMentorId: String?
+    var pairedMenteeId: String?
+}
+
 struct MenteeGetData: Decodable {
     var message: String
     var mentee: MenteeInfo
@@ -48,6 +55,19 @@ struct MentorGetData: Decodable {
 class UserService {
     static let shared = UserService()
 
+    func getSelf() async throws -> SelfGetData {
+        let route = APIRoute.getSelf
+        var request = try await route.createURLRequest()
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+
+        let userData = try handleDecodingErrors({
+            try JSONDecoder().decode(SelfGetData.self, from: responseData)
+        })
+        
+        print("SUCCESS - \(route.label) - \(userData.pairedMenteeId) - \(userData.pairedMentorId)")
+        return userData
+    }
+    
     func createMentee(data: MenteePostData) async throws {
         let route = APIRoute.postMentee
         var request = try await route.createURLRequest()

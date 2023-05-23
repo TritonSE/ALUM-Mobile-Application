@@ -9,6 +9,7 @@ import Foundation
 
 let baseURL: String = "http://localhost:3000"
 struct URLString {
+    static let user = "\(baseURL)/user"
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
     static let notes = "\(baseURL)/notes"
@@ -17,6 +18,7 @@ struct URLString {
 }
 
 enum APIRoute {
+    case getSelf
     case getMentor(userId: String)
     case getMentee(userId: String)
     case postMentor
@@ -32,6 +34,8 @@ enum APIRoute {
 
     var url: String {
        switch self {
+       case .getSelf:
+           return [URLString.user, "me"].joined(separator: "/")
        case .getMentor(let userId):
            return [URLString.mentor, userId].joined(separator: "/")
        case .getMentee(let userId):
@@ -57,7 +61,7 @@ enum APIRoute {
 
     var method: String {
         switch self {
-        case .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
+        case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
             return "GET"
         case .postMentor, .postMentee, .postSession:
             return "POST"
@@ -68,7 +72,7 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
             return true
         case .postMentee, .postMentor:
             return false
@@ -89,7 +93,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -101,7 +105,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),

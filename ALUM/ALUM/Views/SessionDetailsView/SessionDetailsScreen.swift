@@ -11,7 +11,7 @@ let isMVP: Bool = true
 
 struct SessionDetailsScreen: View {
     var sessionId: String
-    var hideBookSessionButtonOverride: Bool
+
     @StateObject private var viewModel = SessionDetailViewModel()
     // Shows/Hides the calendly web view
     @State public var showCalendlyWebView = false
@@ -19,7 +19,7 @@ struct SessionDetailsScreen: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     var body: some View {
-        return navigationBarConfig
+        return loadingAbstraction
     }
     
     var loadingAbstraction: some View {
@@ -36,7 +36,7 @@ struct SessionDetailsScreen: View {
                         }
                     })
             } else {
-                screenContent
+                navigationBarConfig
             }
         }
     }
@@ -55,13 +55,15 @@ struct SessionDetailsScreen: View {
             // TODO Internal error
         }
         
-        return screenContent
-            .customNavBarItems(
-                title: "\(session.dateShortHandString) Session with \(otherName)", 
-                isPurple: false, 
-                backButtonHidden: false
-            )
-            .background(ALUMColor.beige.color)
+        return ScrollView {
+            screenContent
+        }
+        .customNavBarItems(
+            title: "\(session.dateShortHandString) Session with \(otherName)", 
+            isPurple: false, 
+            backButtonHidden: false
+        )
+        .background(ALUMColor.beige.color)
     }
     
     var screenContent: some View {
@@ -118,7 +120,7 @@ struct SessionDetailsScreen: View {
     
     var bookSessionButton: some View {
         let session = viewModel.session!
-        let buttonDisabled: Bool = hideBookSessionButtonOverride || !session.postSessionMenteeCompleted
+        let buttonDisabled: Bool = !session.postSessionMenteeCompleted
 
         
         return Button {
@@ -406,10 +408,10 @@ extension SessionDetailsScreen {
 }
 struct SessionDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentee, status: "paired")
+        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentee)
         
         return CustomNavView {
-            SessionDetailsScreen(sessionId: "6464276b6f05d9703f069760", hideBookSessionButtonOverride: false)
+            SessionDetailsScreen(sessionId: "6464276b6f05d9703f069760")
         }
     }
 }

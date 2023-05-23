@@ -207,7 +207,7 @@ extension MentorProfileScreen {
 
 struct MentorProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentor, status: "paired")
+        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentor)
         return CustomNavView {
             MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
                 .onAppear {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0723BB862A1C995700911948 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB852A1C995700911948 /* HomeScreen.swift */; };
 		0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0726C9EE29DC4B120042A486 /* CustomErrors.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
@@ -126,6 +127,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0723BB852A1C995700911948 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		0726C9EE29DC4B120042A486 /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				97992B5D29A6E7E200701CC7 /* SignUpPage */,
 				0748209029712921004AF547 /* ContentView.swift */,
 				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
+				0723BB852A1C995700911948 /* HomeScreen.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */,
 				07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */,
 				80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */,
+				0723BB862A1C995700911948 /* HomeScreen.swift in Sources */,
 				0793B4212A19FA7200AF78C8 /* CustomNavBarView.swift in Sources */,
 				80F5388C29B0252F00FB5E66 /* UserService.swift in Sources */,
 				80274FF5299DB03900CCB9D0 /* LoginViewModel.swift in Sources */,

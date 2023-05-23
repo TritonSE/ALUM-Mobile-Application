@@ -22,6 +22,10 @@ class CurrentUserModel: ObservableObject {
     @Published var isLoggedIn: Bool
     @Published var status: String?
     @Published var showTabBar: Bool
+    
+    @Published var upcomingSessionId: String?
+    @Published var pairedMentorId: String?
+    @Published var pairedMenteeId: String?
 
     init() {
         self.isLoading = true
@@ -35,13 +39,12 @@ class CurrentUserModel: ObservableObject {
     ///  Since async operations are involved, this function will limit updating the current
     ///  user without using the DispatchQueue logic.
     ///  Not using DispatchQueue can casue race conditions which can crash our app
-    func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?, status: String?) {
+    func setCurrentUser(isLoading: Bool, isLoggedIn: Bool, uid: String?, role: UserRole?) {
         DispatchQueue.main.async {
             self.isLoading = isLoading
             self.isLoggedIn = isLoggedIn
             self.uid = uid
             self.role = role
-            self.status = status
         }
     }
 
@@ -53,7 +56,7 @@ class CurrentUserModel: ObservableObject {
             }
             try await self.setFromFirebaseUser(user: user)
         } catch {
-            self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil, status: nil)
+            self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
         }
     }
 
@@ -79,9 +82,50 @@ class CurrentUserModel: ObservableObject {
                 message: "Expected user role to be mentor OR mentee but found - \(role)"
             )
         }
-        await self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum,
-                                  status: try getStatus(userID: user.uid, roleEnum: roleEnum))
+        self.setCurrentUser(isLoading: true, isLoggedIn: true, uid: user.uid, role: roleEnum)
+        try await self.fetchUserInfoFromServer(userId: user.uid, role: roleEnum)
+        print("loading done", roleEnum)
+        DispatchQueue.main.async {
+            self.isLoading = false
+        }
     }
+    
+    func fetchUserInfoFromServer(userId: String, role: UserRole) async throws {
+        let userData = try await UserService.shared.getSelf()
+        let userStatus = userData.status
+        
+        DispatchQueue.main.async {
+            self.status = userStatus
+        }
+        
+        if userStatus != "paired" {
+            print("early return")
+            return
+        }
+        
+        if self.role == .mentee {
+            guard let userPairedMentorId = userData.pairedMentorId else {
+                throw AppError.internalError(.invalidResponse, message: "Expected mentee to have a paired mentor Id")
+            }
+            print("userPairedMentorId - \(userPairedMentorId)")
+            DispatchQueue.main.async {
+                self.pairedMentorId = userPairedMentorId
+            }
+        } else if self.role == .mentor {
+            guard let userPairedMenteeId = userData.pairedMenteeId else {
+                throw AppError.internalError(.invalidResponse, message: "Expected mentor to have a paired mentee Id")
+            }
+            print("userPairedMenteeId - \(userPairedMenteeId)")
+            DispatchQueue.main.async {
+                self.pairedMenteeId = userPairedMenteeId
+            }
+        } 
+        
+        DispatchQueue.main.async {
+            self.upcomingSessionId = userData.upcomingSessionId
+        }
+    }
+    
     func getStatus(userID: String, roleEnum: UserRole) async throws -> String {
         let userStatus: String
         switch roleEnum {
