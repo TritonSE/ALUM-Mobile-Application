@@ -1,18 +1,28 @@
-"use client";
-
-import Image from 'next/image'
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-// import styles from '@/styles/Page.module.css'
+import { useRouter } from 'next/router';
+import { Login } from './login/page';
 
+const RootLayout = ({ children }) => {
+  // Your root layout content and structure goes here
+  return (
+    <div>
+      {/* Add any header, footer, or other common components */}
+      {children}
+    </div>
+  );
+};
 
-export default function Home() {
-  const router = useRouter();
+export default function Home{  
+const router = useRouter();
 
   useEffect(() => {
-    router.push('/login');
-  });
+    router.push('/mentors');
+  }, []);
 
-  return
-    null;
-  }
+  return (
+    <RootLayout>
+      <Login />
+    </RootLayout>
+  );
+};
+
