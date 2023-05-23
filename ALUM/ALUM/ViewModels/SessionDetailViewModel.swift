@@ -52,6 +52,7 @@ final class SessionDetailViewModel: ObservableObject {
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     @Published var isLoading: Bool = true
+    @Published var sessionID: String = ""
 
     func loadSession(sessionID: String) async throws {
         guard let sessionData = try? await SessionService().getSessionWithID(sessionID: sessionID) else {
@@ -59,6 +60,7 @@ final class SessionDetailViewModel: ObservableObject {
             return
         }
 
+        self.sessionID = sessionID
         DispatchQueue.main.async {
             self.sessionCompleted = sessionData.session.hasPassed
         }

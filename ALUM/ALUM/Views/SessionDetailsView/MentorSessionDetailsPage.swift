@@ -35,7 +35,8 @@ extension View {
 
 struct MentorSessionDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
-
+    @State public var showRescheduleAlert = false
+    @State public var showCancelAlert = false
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -62,8 +63,8 @@ struct MentorSessionDetailsPage: View {
             Task {
                 do {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
-                
-                    try await viewModel.loadSession(sessionID: sessionsArray[0].id)
+                    //try await viewModel.loadSession(sessionID: sessionsArray[0].id
+                    try await viewModel.loadSession(sessionID: "6462d0876b00add5156ebc47")
                 } catch {
                     print(error)
                 }
@@ -123,18 +124,44 @@ struct MentorSessionDetailsPage: View {
             }
 
             if !viewModel.sessionCompleted {
-                
                 //Reschedule
+                /*
                 Button {
-                    
+                    showRescheduleAlert = true
                 } label: {
                     Text("Reschedule Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
-
-
+                
+                if(showRescheduleAlert) {
+                    CustomAlertView(isAlert: true,
+                                    leftButtonLabel: "Yes, reschedule",
+                                    rightButtonLabel: "No",
+                                    titleText: "Reschedule this session?",
+                                    errorMessage: "Your pre-session notes will be transferred to your next scheduled session",
+                                    leftButtonAction: {
+                        let calendlyView = CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                    }, rightButtonAction: {
+                        print("right button pressed")
+                    })
+                    .frame(width: 326, height: 230)
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+                }
+                 */
+                
+                NavigationLink {
+                    CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                } label: {
+                    Text("Reschedule Session")
+                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                }
+                .buttonStyle(OutlinedButtonStyle())
+                .padding(.bottom, 20)
+                
                 Group {
                     HStack {
                         Text("Location")
@@ -176,7 +203,13 @@ struct MentorSessionDetailsPage: View {
                 }
 
                 Button {
-
+                    Task{
+                        do {
+                            try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
+                        } catch {
+                            print(error)
+                        }
+                    }
                 } label: {
                     Text("Cancel Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))

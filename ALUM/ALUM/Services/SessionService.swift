@@ -55,6 +55,10 @@ struct PostSessionData: Codable {
     var mentorId: String
 }
 
+struct DefaultSessionData: Codable {
+    var message: String
+}
+
 class SessionService {
 
     func getSessionWithID(sessionID: String) async throws -> GetSessionData {
@@ -120,5 +124,36 @@ class SessionService {
           }
           print("SUCCESS - \(route.label)")
           return sessionData
+    }
+    
+    func patchSessionWithId(sessionId: String, newCalendlyURI: String) async throws -> DefaultSessionData? {
+        let route = APIRoute.patchSession(sessionId: sessionId)
+        var request = try await route.createURLRequest()
+        let sessionBodyData = SessionLink(calendlyURI: newCalendlyURI)
+        guard let jsonData = try? JSONEncoder().encode(sessionBodyData) else {
+            throw AppError.internalError(.invalidRequest, message: "Error encoding JSON Data")
+        }
+        request.httpBody = jsonData
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        guard let sessionData = try? JSONDecoder().decode(DefaultSessionData.self, from: responseData) else {
+            print("Failed to decode data")
+            throw AppError.internalError(.invalidRequest, message: "Could not decode data")
+        }
+        print("SUCCESS - \(route.label)")
+        return sessionData
+    }
+    
+    func deleteSessionWithId(sessionId: String) async throws -> DefaultSessionData? {
+        let route = APIRoute.deleteSession(sessionId: sessionId)
+        var request = try await route.createURLRequest()
+        let responseData = try await
+        ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        guard let sessionData = try? JSONDecoder().decode(DefaultSessionData.self, from: responseData) else {
+            print("Failed to decode data")
+            throw AppError.internalError(.invalidRequest, message: "Could not decode data")
+        }
+        print("SUCCESS - \(route.label)")
+        return sessionData
+                
     }
 }

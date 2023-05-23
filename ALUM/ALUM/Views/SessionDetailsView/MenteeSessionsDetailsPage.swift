@@ -35,7 +35,7 @@ extension View {
 
 struct MenteeSessionsDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
-
+    
     var body: some View {
         Group {
             if !viewModel.isLoading {
@@ -63,7 +63,8 @@ struct MenteeSessionsDetailsPage: View {
                 do {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
 
-                    try await viewModel.loadSession(sessionID: sessionsArray[0].id)
+                    //try await viewModel.loadSession(sessionID: sessionsArray[0].id)
+                    try await viewModel.loadSession(sessionID: "6462d0876b00add5156ebc47")
                 } catch {
                     print(error)
                 }
@@ -129,6 +130,15 @@ struct MenteeSessionsDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
                  */
+                
+                NavigationLink {
+                    CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
+                } label: {
+                    Text("Reschedule Session")
+                        .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                }
+                .buttonStyle(OutlinedButtonStyle())
+                .padding(.bottom, 20)
 
                 Group {
                     HStack {
@@ -200,7 +210,13 @@ struct MenteeSessionsDetailsPage: View {
                 }
 
                 Button {
-
+                    Task{
+                        do {
+                            try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
+                        } catch {
+                            print(error)
+                        }
+                    }
                 } label: {
                     Text("Cancel Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -209,6 +225,7 @@ struct MenteeSessionsDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .border(Color("FunctionalError"))
                 .cornerRadius(8.0)
+                 
             } else {
                 Group {
                     HStack {
