@@ -34,24 +34,26 @@ router.post(
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { uid } = req.body;
+      const { uid }  =  req.body;
       const mentee = await Mentee.findById(uid);
+      const menteeMongoId = new mongoose.Types.ObjectId(uid);
       if (!mentee) {
         throw ServiceError.MENTEE_WAS_NOT_FOUND;
       }
       const mentorId = await getMentorId(mentee.pairingId);
+      const mentorMongoId = new mongoose.Types.ObjectId(mentorId);
       const mentor = await Mentor.findById(mentorId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
-      const accessToken = mentor.personalAccessToken;
+      const accessToken =  mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const session = new Session({
         preSession: null,
         postSessionMentee: null,
         postSessionMentor: null,
-        menteeId: uid,
-        mentorId,
+        menteeId: menteeMongoId,
+        mentorId: mentorMongoId,
         startTime: data.resource.start_time,
         endTime: data.resource.end_time,
         calendlyUri: req.body.calendlyURI,
@@ -173,10 +175,14 @@ router.get(
       }
 
       if (role === "mentee") {
-        userSessions = await Session.find({ menteeId: { $eq: userID } });
+        userSessions = await Session.find({ menteeId: userID }).exec();
+        console.log(userID)
+        console.log(userSessions)
       } else {
         // role = "mentor"
-        userSessions = await Session.find({ mentorId: { $eq: userID } });
+        userSessions = await Session.find({ mentorId: userID }).exec();
+        console.log(userID)
+        console.log(userSessions)
       }
       if (userSessions === null) {
         return res.status(400).json({

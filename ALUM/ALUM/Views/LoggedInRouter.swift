@@ -41,7 +41,7 @@ struct PlaceHolderHomeScreen: View {
 
 struct LoggedInRouter: View {
     // (todo) Needs to be customized to match our design
-    @State private var selection = 0
+    @State private var selection = 1
     init() {
         UITabBar.appearance().backgroundColor = UIColor(Color.white) // custom color.
     }

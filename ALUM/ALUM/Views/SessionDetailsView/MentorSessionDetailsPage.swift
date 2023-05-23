@@ -62,7 +62,7 @@ struct MentorSessionDetailsPage: View {
             Task {
                 do {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
-
+                
                     try await viewModel.loadSession(sessionID: sessionsArray[0].id)
                 } catch {
                     print(error)
@@ -123,7 +123,8 @@ struct MentorSessionDetailsPage: View {
             }
 
             if !viewModel.sessionCompleted {
-                /*
+                
+                //Reschedule
                 Button {
                     
                 } label: {
@@ -132,7 +133,7 @@ struct MentorSessionDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
-                 */
+
 
                 Group {
                     HStack {

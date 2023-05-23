@@ -10,7 +10,6 @@ interface MentorInterface {
   imageId: string;
   about: string;
   calendlyLink: string;
-  zoomLink: string;
   graduationYear: number;
   college: string;
   major: string;
@@ -29,7 +28,6 @@ interface MentorDoc extends mongoose.Document {
   imageId: string;
   about: string;
   calendlyLink: string;
-  zoomLink: string;
   graduationYear: number;
   college: string;
   major: string;
@@ -61,10 +59,6 @@ const mentorSchema = new mongoose.Schema({
     required: true,
   },
   calendlyLink: {
-    type: String,
-    required: true,
-  },
-  zoomLink: {
     type: String,
     required: true,
   },

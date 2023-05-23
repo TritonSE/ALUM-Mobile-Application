@@ -22,6 +22,7 @@ enum APIRoute {
     case postMentor
     case postMentee
     case postSession
+    case deleteSession(sessionId: String)
     case getCalendly
 
     case getNote(noteId: String)
@@ -50,6 +51,8 @@ enum APIRoute {
            return URLString.sessions
        case .postSession:
            return URLString.sessions
+       case .deleteSession(sessionId: let sessionId):
+           return [URLString.sessions, sessionId].joined(separator: "/")
        case .getCalendly:
            return URLString.calendly
        }
@@ -60,8 +63,9 @@ enum APIRoute {
         case .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
             return "GET"
         case .postMentor, .postMentee, .postSession:
-        case .postMentor, .postMentee, .postSession:
             return "POST"
+        case .deleteSession:
+            return "DELETE"
         case .patchNote:
             return "PATCH"
         }
@@ -69,7 +73,8 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote, .getSession,
+                .getSessions, .postSession, .getCalendly, .deleteSession:
             return true
         case .postMentee, .postMentor:
             return false
@@ -90,7 +95,9 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote,
+                .getSession, .getSessions, .getCalendly,
+                .deleteSession:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -102,7 +109,9 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly:
+        case .getMentor, .getMentee, .getNote, .patchNote,
+                .getSession, .getSessions, .getCalendly,
+                .deleteSession:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
