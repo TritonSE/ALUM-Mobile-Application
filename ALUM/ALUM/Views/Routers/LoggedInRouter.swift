@@ -26,6 +26,10 @@ struct LoggedInRouter: View {
     // once user is approved and paired
     var body: some View {
         return ZStack(alignment: .bottom) {
+            // Turns out for preference keys to work you need to run the mutate preference key function from either the view directly
+            // inside the navigation view OR from an inner view which is traversed last. 
+            // Swift runs the preference key functions in a DFS manner. That's why we had to display the tab bar this way so that content is
+            // the last item traversed
             VStack {
                 Spacer()
                 if currentUser.showTabBar {
