@@ -16,6 +16,14 @@ struct CustomNavBarTitlePreferenceKey: PreferenceKey {
     }
 }
 
+struct CustomNavBarIsHiddenPreferenceKey: PreferenceKey {
+    static var defaultValue: Bool = false
+    
+    static func reduce(value: inout Bool, nextValue: () -> Bool) {
+        value = nextValue()
+    }
+}
+
 struct CustomNavBarIsPurplePreferenceKey: PreferenceKey {
     static var defaultValue: Bool = false
     
@@ -33,6 +41,10 @@ struct CustomNavBarBackButtonHiddenPreferenceKey: PreferenceKey {
 }
 
 extension View {
+    func customNavigationIsHidden(_ isHidden: Bool) -> some View {
+        preference(key: CustomNavBarIsHiddenPreferenceKey.self, value: isHidden)
+    }
+    
     func customNavigationTitle(_ title: String) -> some View {
         preference(key: CustomNavBarTitlePreferenceKey.self, value: title)
     }

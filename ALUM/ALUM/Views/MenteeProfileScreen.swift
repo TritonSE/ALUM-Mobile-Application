@@ -61,6 +61,29 @@ struct MenteeProfileScreen: View {
                 .padding(.bottom, 8)
                 .edgesIgnoringSafeArea(.bottom)
             }
+            ZStack {
+                // Removing this Z-stack causes a white rectangle to appear between the top of screen 
+                // and start of this screen due to GeometryReader
+                
+                if viewModel.selfView! {
+                  // params like settings and edit profile currently placeholders for later navigation
+                  if scrollAtTop {
+                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
+                      .background(Color("ALUM Primary Purple"))
+                  } else {
+                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
+                      .background(.white)
+                  }
+                }
+                else {
+                  if scrollAtTop {
+                    Rectangle()
+                      .frame(height: 10)
+                      .foregroundColor(Color("ALUM Primary Purple"))
+                      .frame(maxHeight: .infinity, alignment: .top)
+                  }
+                }
+            }
         }
     }
 }

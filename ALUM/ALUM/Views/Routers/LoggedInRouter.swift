@@ -23,8 +23,6 @@ struct LoggedInRouter: View {
             TabBarItem(iconName: "GrayCircle", title: "Profile")
         ]
     
-   
-
     // once user is approved and paired
     var body: some View {
         return ZStack(alignment: .bottom) {
@@ -48,6 +46,7 @@ struct LoggedInRouter: View {
                     HomeTabRouter()
                 case 1:
                     ProfileTabRouter()
+                        .customNavigationIsHidden(true) // We shall use our own header component here so that we can easily add the edit buttons
                 default:
                     Text("Error")
                 }
