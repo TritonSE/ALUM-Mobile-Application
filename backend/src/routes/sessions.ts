@@ -77,7 +77,16 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
-      await sendNotification("Testing", "Hello Harsh", "");
+      await sendNotification(
+        "New session booked!", 
+        "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}", 
+        mentor.fcmToken 
+      );
+      await sendNotification(
+        "New session booked!", 
+        "You have a new session with " + mentor.name + ". Fill out your pre-session notes now \u{1F60E}", 
+        mentee.fcmToken 
+      );
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,
