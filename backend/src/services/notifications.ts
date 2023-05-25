@@ -3,10 +3,10 @@ import * as admin from 'firebase-admin';
 async function sendNotification(title: string, body: string, deviceToken: string) {
     const message = {
         notification: {
-          title: 'Notification Title',
-          body: 'Notification Body',
+          title: title,
+          body: body,
         },
-        token: 'device_registration_token',
+        token: deviceToken,
       };
 
       admin.messaging().send(message)
@@ -17,3 +17,5 @@ async function sendNotification(title: string, body: string, deviceToken: string
             console.error('Error sending notification:', error);
         });
 }
+
+export {sendNotification};
