@@ -108,12 +108,23 @@ async function createPostSessionNotes(sessionId: ObjectId, type: string) {
 async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: string) {
   console.log("updatedNotes", updatedNotes);
   const noteDoc = await Note.findById(documentId);
+  let missedNote = false;
+  let missedReason = "";
   if (!noteDoc) {
     throw ServiceError.NOTE_WAS_NOT_FOUND;
   }
 
   // Can improve this in future if needed by creating a hashmap
   noteDoc.answers.forEach((_, answerIndex) => {
+    const checkMissedNote = updatedNotes.find(
+      (note) => note.questionId === "missedSessionQuestionId"
+    );
+    console.log("here");
+    if (checkMissedNote) {
+      console.log("checkMissedNote is true");
+      missedNote = true;
+      missedReason = <string>checkMissedNote.answer;
+    }
     const updatedNote = updatedNotes.find(
       (note) => note.questionId === noteDoc.answers[answerIndex].id
     );
@@ -131,8 +142,11 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
       if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
       else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
       else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
+      if (missedNote && sessionDoc.missedSessionReason == null)
+        sessionDoc.missedSessionReason = missedReason;
       await sessionDoc.save();
     }
+    console.log(noteDoc);
     return await noteDoc.save();
   } catch (error) {
     throw ServiceError.NOTE_WAS_NOT_SAVED;
