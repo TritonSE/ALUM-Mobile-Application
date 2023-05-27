@@ -63,6 +63,8 @@ struct EditMentorProfileScreen: View {
 
     var content: some View {
         VStack {
+            calendlyZoomSection
+
             EditProfileImage()
 
             detailsSection
@@ -80,6 +82,23 @@ struct EditMentorProfileScreen: View {
             }
 
         }
+    }
+
+    var calendlyZoomSection: some View {
+        VStack {
+            ALUMTextFieldComponent(title: "Calendly Link",
+                                   suggestion: "eg. https://calendly.com/timby",
+                                   text: $mentor.calendlyLink)
+
+            ALUMTextFieldComponent(title: "Calendly Access Token",
+                                   suggestion: "ey...",
+                                   text: $mentor.personalAccessToken)
+
+            ALUMTextFieldComponent(title: "Zoom Link",
+                                   suggestion: "eg. https://ucsd.zoom.us/t/1234567890",
+                                   text: $mentor.zoomLink)
+        }
+        .padding(.top, 20)
     }
 
     var detailsSection: some View {
@@ -138,18 +157,6 @@ struct EditMentorProfileScreen: View {
                 RoundedRectangle(cornerRadius: 8.0).stroke(Color("NeutralGray3"), lineWidth: 1.0)
             )
             .padding(.init(top: 0.0, leading: 16.0, bottom: 32.0, trailing: 16.0))
-
-            ALUMTextFieldComponent(title: "Location",
-                                   suggestion: "e.g. Meeting ID",
-                                   text: $mentor.zoomLink)
-
-            ALUMTextFieldComponent(title: "Calendly Link",
-                                   suggestion: "calendly.com/...",
-                                   text: $mentor.calendlyLink)
-
-            ALUMTextFieldComponent(title: "Personal Access Token",
-                                   suggestion: "ey...",
-                                   text: $mentor.personalAccessToken)
         }
     }
 
