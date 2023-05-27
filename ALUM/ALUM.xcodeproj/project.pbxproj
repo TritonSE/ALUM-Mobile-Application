@@ -357,6 +357,7 @@
 		07ECF5F82A22A94A0093C37B /* PostSessionForm */ = {
 			isa = PBXGroup;
 			children = (
+				974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */,
 				0757552B29FAA2D6008E73FB /* MissedSessionScreen.swift */,
 				0757552629FAA2D5008E73FB /* PostSessionConfirmationScreen.swift */,
 				0757552529FAA2D5008E73FB /* PostSessionQuestionScreen.swift */,
@@ -420,8 +421,8 @@
 		07F9A50E297180F000BC11A8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */,
 				07ECF5F82A22A94A0093C37B /* PostSessionForm */,
-				979303D029E7EA680053C30E /* SessionDetailsView */,
 				07E885342A19F0B800B7AD27 /* Routers */,
 				0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */,
 				97A31AC729BAFA7600B79D30 /* PreSessionForm */,
@@ -465,16 +466,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		979303D029E7EA680053C30E /* SessionDetailsView */ = {
-			isa = PBXGroup;
-			children = (
-				07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */,
-				974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */,
-				974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */,
-			);
-			path = SessionDetailsView;
-			sourceTree = "<group>";
-		};
 		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +483,7 @@
 		97A31AC729BAFA7600B79D30 /* PreSessionForm */ = {
 			isa = PBXGroup;
 			children = (
+				974D62CE29FAF0A00096FE80 /* ViewPreSessionNotesPage.swift */,
 				0757552829FAA2D5008E73FB /* PreSessionConfirmationScreen.swift */,
 				0757552A29FAA2D6008E73FB /* PreSessionQuestionScreen.swift */,
 				0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */,
