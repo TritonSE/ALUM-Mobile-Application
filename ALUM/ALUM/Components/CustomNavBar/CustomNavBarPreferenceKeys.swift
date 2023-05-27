@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CustomNavBarTitlePreferenceKey: PreferenceKey {
-    static var defaultValue: String = ""
+    static var defaultValue: String = CustomNavBarDefaultValues.title
     
     static func reduce(value: inout String, nextValue: () -> String) {
         value = nextValue()
@@ -17,7 +17,7 @@ struct CustomNavBarTitlePreferenceKey: PreferenceKey {
 }
 
 struct CustomNavBarIsHiddenPreferenceKey: PreferenceKey {
-    static var defaultValue: Bool = false
+    static var defaultValue: Bool = CustomNavBarDefaultValues.barIsHidden
     
     static func reduce(value: inout Bool, nextValue: () -> Bool) {
         value = nextValue()
@@ -25,7 +25,7 @@ struct CustomNavBarIsHiddenPreferenceKey: PreferenceKey {
 }
 
 struct CustomNavBarIsPurplePreferenceKey: PreferenceKey {
-    static var defaultValue: Bool = false
+    static var defaultValue: Bool = CustomNavBarDefaultValues.barIsPurple
     
     static func reduce(value: inout Bool, nextValue: () -> Bool) {
         value = nextValue()
@@ -33,7 +33,7 @@ struct CustomNavBarIsPurplePreferenceKey: PreferenceKey {
 }
 
 struct CustomNavBarBackButtonHiddenPreferenceKey: PreferenceKey {
-    static var defaultValue: Bool = true
+    static var defaultValue: Bool = !CustomNavBarDefaultValues.showBackButton
     
     static func reduce(value: inout Bool, nextValue: () -> Bool) {
         value = nextValue()
