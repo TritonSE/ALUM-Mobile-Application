@@ -9,6 +9,7 @@ interface SessionInterface {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;
+  missedSessionReason: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
   startTime: Date;
@@ -23,6 +24,7 @@ interface SessionDoc extends mongoose.Document {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;
+  missedSessionReason: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
   startTime: Date;
@@ -49,6 +51,10 @@ const SessionSchema = new mongoose.Schema({
   postSessionMentor: {
     type: mongoose.Types.ObjectId,
     required: true,
+  },
+  missedSessionReason: {
+    type: String,
+    required: false,
   },
   menteeId: {
     type: String,

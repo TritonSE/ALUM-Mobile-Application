@@ -149,7 +149,7 @@ struct MentorSessionDetailsPage: View {
                     .padding(.bottom, 5)
 
                     HStack {
-                        Text(viewModel.session.mentor.mentor.zoomLink)
+                        Text(viewModel.session.mentor.mentor.zoomLink ?? "zoom.com")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Dark Blue"))
 
