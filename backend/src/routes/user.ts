@@ -281,6 +281,7 @@ router.get(
         pairingIds,
         mentorMotivation,
         status,
+        personalAccessToken,
       } = mentor;
 
       if (role === "mentee") {
@@ -305,7 +306,7 @@ router.get(
             minor,
             college,
             career,
-            personalAccessToken: "",
+            personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
             graduationYear,
             calendlyLink,
             zoomLink: location,
@@ -328,7 +329,7 @@ router.get(
           about,
           calendlyLink,
           zoomLink: location,
-          personalAccessToken: "",
+          personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
           graduationYear,
           college,
           major,
@@ -349,7 +350,7 @@ router.get(
             about,
             calendlyLink,
             zoomLink: location ?? "N/A",
-            personalAccessToken: "",
+            personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
             graduationYear,
             college,
             major,

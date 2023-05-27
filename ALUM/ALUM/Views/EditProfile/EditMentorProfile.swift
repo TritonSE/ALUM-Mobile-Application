@@ -92,7 +92,8 @@ struct EditMentorProfileScreen: View {
 
             ALUMTextFieldComponent(title: "Calendly Access Token",
                                    suggestion: "ey...",
-                                   text: $mentor.personalAccessToken)
+                                   text: $mentor.personalAccessToken,
+                                   isSecure: true)
 
             ALUMTextFieldComponent(title: "Zoom Link",
                                    suggestion: "eg. https://ucsd.zoom.us/t/1234567890",
