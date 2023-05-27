@@ -70,6 +70,8 @@ router.post(
         preSessionCompleted: false,
         postSessionMentorCompleted: false,
         postSessionMenteeCompleted: false,
+        upcomingSessionNotifSent: false,
+        postSessionNotifSent: false,
       });
       const sessionId = session._id;
       const preNoteId = await createPreSessionNotes(sessionId);
@@ -161,6 +163,8 @@ router.get(
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
+        upcomingSessionNotifSent,
+        postSessionNotifSent,
       } = session;
       const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
       return res.status(200).send({
@@ -179,6 +183,8 @@ router.get(
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
           hasPassed,
+          upcomingSessionNotifSent,
+          postSessionNotifSent,
         },
       });
     } catch (e) {
