@@ -169,7 +169,7 @@ struct SessionDetailsScreen: View {
             otherNoteId = session.postSessionMentor!
             otherName = session.mentorName
         case .mentor:
-            formIsComplete = session.postSessionMenteeCompleted
+            formIsComplete = session.postSessionMentorCompleted
             editableNoteId = session.postSessionMentor!
             otherNoteId = session.postSessionMentee!
             otherName = session.menteeName
@@ -178,7 +178,6 @@ struct SessionDetailsScreen: View {
             editableNoteId = ""
             otherNoteId = ""
             otherName = ""
-            // TODO Internal error
         }
         
         return Group {
@@ -199,11 +198,11 @@ struct SessionDetailsScreen: View {
             
             if !formIsComplete {
                 CustomNavLink(
-                    destination: PostSessionView(
+                    destination: PostSessionFormRouter(
                         notesID: editableNoteId,
-                        otherNotesID: otherNoteId,
-                        otherName: otherName,
-                        date: session.dateShortHandString,
+                        otherNotesId: otherNoteId,
+                        otherName: otherName, 
+                        date: session.dateShortHandString, 
                         time: session.startTimeString
                     ), 
                     label: {

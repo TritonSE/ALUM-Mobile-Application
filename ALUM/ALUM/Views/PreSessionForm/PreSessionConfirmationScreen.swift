@@ -55,7 +55,7 @@ struct PreSessionConfirmationScreen: View {
             }
             .buttonStyle(FilledInButtonStyle())
             // TODO change this to custom nav link
-            NavigationLink(destination: SessionConfirmationScreen(
+            NavigationLink(destination: ConfirmationScreen(
                 text: ["Pre-session form saved!",
                        "You can continue on the notes later under \"Sessions\".", "Great"]),
                            isActive: $viewModel.submitSuccess) {
@@ -130,6 +130,6 @@ struct PreSessionConfirmationScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
 
     static var previews: some View {
-        PreSessionConfirmationScreen(viewModel: viewModel, notesID: "6464276b6f05d9703f069761")
+        PreSessionConfirmationScreen(viewModel: viewModel, notesID: "646a6e164082520f4fcf2f92")
     }
 }

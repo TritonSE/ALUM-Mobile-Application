@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SessionConfirmationScreen: View {
+struct ConfirmationScreen: View {
     @State var text: [String] // [primary text, subtext, button text]
     var body: some View {
         GeometryReader { geometry in
@@ -67,7 +67,7 @@ struct SessionConfirmationTester: View {
         "Thank you for your feedback!",
         "Close"]
     var body: some View {
-        SessionConfirmationScreen(text: text)
+        ConfirmationScreen(text: text)
     }
 }
 

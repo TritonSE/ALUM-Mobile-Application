@@ -34,7 +34,7 @@ struct PreSessionQuestionScreen: View {
         }
         let currentQuestion = viewModel.questionList[currentIndex]
     
-        print("currentQuestion", currentQuestion)
+
         return VStack {
             if viewModel.currentIndex == 0 {
                 firstQuestionBanner

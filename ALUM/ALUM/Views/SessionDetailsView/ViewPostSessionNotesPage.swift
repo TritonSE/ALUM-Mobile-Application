@@ -7,39 +7,17 @@
 
 import SwiftUI
 
-struct ViewPostSessionNotesModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        VStack {
-            VStack {
-                NavigationHeaderComponent(
-                    backText: "",
-                    backDestination: LoginScreen(),
-                    title: "Post-session Notes",
-                    purple: false
-                )
-            }
-            content
-                .background(Color("ALUM White 2"))
-        }
-    }
-}
-
-extension View {
-    func applyViewPostSessionNotesModifier() -> some View {
-        self.modifier(ViewPostSessionNotesModifier())
-    }
-}
-
 struct ViewPostSessionNotesPage: View {
     @StateObject var viewModel = QuestionViewModel()
+
+    var notesID: String
+    var otherNotesID: String
+    var otherName: String
+    var date: String
+    var time: String
+    
     @State var currNotes: String = "this" // "this" or "other"
 
-    @State var notesID: String = ""
-    @State var otherNotesID: String = ""
-
-    @State var otherName: String = ""
-    @State var date: String = ""
-    @State var time: String = ""
 
     func setMyNotes() {
         currNotes = "this"
@@ -50,30 +28,24 @@ struct ViewPostSessionNotesPage: View {
     }
 
     var body: some View {
+        loadingAbstraction
+            .customNavBarItems(title: "\(date) Post-session Notes", isPurple: false, backButtonHidden: false)
+    }
+    var loadingAbstraction: some View {
         Group {
             if !viewModel.isLoading {
-                VStack {
-                    ScrollView {
-                        content
-                    }
-                    if currNotes == "this" {
-                        footer
-                            .padding(.horizontal, 16)
-                            .padding(.top, 32)
-                            .padding(.bottom, 40)
-                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
-                    }
-                }
-                .edgesIgnoringSafeArea(.bottom)
-                .applyViewPostSessionNotesModifier()
+                loadedView
             } else {
-                ProgressView()
+                LoadingView(text: "ViewPostSessionNotesPage")
             }
         }
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                    try await viewModel.fetchPostSessionNotes(
+                        notesId: notesID, 
+                        otherNotesId: otherNotesID
+                    ) 
                 } catch {
                     print("Error")
                 }
@@ -81,23 +53,38 @@ struct ViewPostSessionNotesPage: View {
         }
     }
 
-    var footer: some View {
-        HStack {
-            NavigationLink {
-                PostSessionQuestionScreen(
-                    viewModel: viewModel,
-                    notesID: notesID,
-                    otherUser: otherName,
-                    date: date, time: time
-                )
-            } label: {
-                HStack {
-                    Image(systemName: "pencil.line")
-                    Text("Edit")
-                }
+    var loadedView: some View {
+        VStack {
+            ScrollView {
+                content
             }
-            .buttonStyle(FilledInButtonStyle())
+            if currNotes == "this" {
+                footer
+                    .padding(.horizontal, 16)
+                    .padding(.top, 32)
+                    .padding(.bottom, 40)
+                    .background(Rectangle().fill(Color.white).shadow(radius: 8))
+            }
         }
+        .edgesIgnoringSafeArea(.bottom)
+    }
+    var footer: some View {
+        return CustomNavLink (
+            destination: 
+                PostSessionFormRouter(
+                    notesID: notesID, 
+                    otherNotesId: otherNotesID,
+                    otherName: otherName, 
+                    date: date, 
+                    time: time
+                ), 
+            label: {
+                HStack {
+                   Image(systemName: "pencil.line")
+                   Text("Edit")
+               }
+            }) 
+            .buttonStyle(FilledInButtonStyle())
     }
 
     var content: some View {
@@ -219,6 +206,6 @@ struct ViewPostSessionNotesPage: View {
 
 struct ViewPostSessionNotesPage_Previews: PreviewProvider {
     static var previews: some View {
-        ViewPostSessionNotesPage()
+        ViewPostSessionNotesPage(notesID: "646c8ea5004999f332c55f84", otherNotesID: "646c8ea5004999f332c55f86", otherName: "Mentor", date: "5/23", time: "9:30 AM")
     }
 }

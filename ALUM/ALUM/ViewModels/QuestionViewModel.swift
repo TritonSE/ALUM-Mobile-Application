@@ -34,10 +34,7 @@ final class QuestionViewModel: ObservableObject {
         try await NotesService.shared.patchNotes(noteId: noteID, data: notesData)
     }
 
-    func fetchNotes(noteId: String) async throws {
-        DispatchQueue.main.async {
-            self.isLoading = true
-        }
+    func fetchNotes(noteId: String) async throws -> [Question] {
         let notesData: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: noteId)
         var newQuestions: [Question] = []
         for question in notesData {
@@ -45,31 +42,34 @@ final class QuestionViewModel: ObservableObject {
             question.answer.toRaw(question: &questionToAdd)
             newQuestions.append(questionToAdd)
         }
+        return newQuestions
+    }
+    
+    func fetchPreSessionNotes(noteId: String) async throws {
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
+        let questions = try await self.fetchNotes(noteId: noteId)
         DispatchQueue.main.async {
             self.isLoading = false
-            self.questionList = newQuestions
+            self.questionList = questions
         }
     }
 
-    func loadPostNotes(notesID: String, otherNotesID: String) async throws {
-        var notesData: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: notesID)
-        var notesDataOther: [QuestionGetData] = try await NotesService.shared.getNotes(noteId: otherNotesID)
-        for question in notesData {
-            var questionToAdd: Question = Question(question: question.question,
-                                                   type: question.type, id: question.id)
-            question.answer.toRaw(question: &questionToAdd)
-            self.questionList.append(questionToAdd)
+    func fetchPostSessionNotes(notesId: String, otherNotesId: String) async throws {
+        DispatchQueue.main.async {
+            self.isLoading = true
         }
-        for question in notesDataOther {
-            var questionToAdd: Question = Question(question: question.question,
-                                                   type: question.type, id: question.id)
-            question.answer.toRaw(question: &questionToAdd)
-            self.questionListOther.append(questionToAdd)
+        let primaryQuestions = try await self.fetchNotes(noteId: notesId)
+        let otherQuestions = try await self.fetchNotes(noteId: otherNotesId)
+        
+        DispatchQueue.main.async {
+            self.isLoading = false
+            self.questionList = primaryQuestions
+            self.questionListOther = otherQuestions
         }
-        self.isLoading = false
-        // TODO set currentIndex to 0
     }
-
+    
     func nextQuestion() {
         self.currentIndex += 1
         if self.currentIndex == self.questionList.count - 1 {

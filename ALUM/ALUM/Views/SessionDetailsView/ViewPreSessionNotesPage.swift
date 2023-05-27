@@ -32,7 +32,7 @@ struct ViewPreSessionNotesPage: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.fetchNotes(noteId: notesID)
+                    try await viewModel.fetchPreSessionNotes(noteId: notesID)
                 } catch {
                     print("Error")
                 }
