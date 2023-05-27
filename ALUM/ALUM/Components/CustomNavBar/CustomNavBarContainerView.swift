@@ -9,7 +9,11 @@ import SwiftUI
 
 struct CustomNavBarContainerView<Content: View>: View {
     let content: Content
-    @State private var showBackButton: Bool = false
+    
+    // By default, we show the back button unless some view explicitly sets 
+    // this to false
+    @State private var showBackButton: Bool = true 
+    
     @State private var title: String = ""
     @State private var isPurple: Bool = false
     @State private var isHidden: Bool = false

@@ -19,7 +19,6 @@ struct CustomNavLink<Label: View, Destination: View>: View {
             destination: 
                 CustomNavBarContainerView(content: {
                     destination
-                        .customNavigationBarBackButtonHidden(false)
                 })
                 .navigationBarHidden(true)
                 
