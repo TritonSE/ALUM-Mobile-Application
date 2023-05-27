@@ -4,6 +4,7 @@
 
 import express, { NextFunction, Request, Response } from "express";
 import mongoose, { ObjectId } from "mongoose";
+import schedule from "node-schedule";
 // import { boolean } from "caketype";
 import { createPreSessionNotes, createPostSessionNotes } from "../services/note";
 import { verifyAuthToken } from "../middleware/auth";
@@ -13,7 +14,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
 import { getCalendlyEventDate } from "../services/calendly";
 import { getMentorId } from "../services/user";
-import {sendNotification} from "../services/notifications";
+import { sendNotification } from "../services/notifications";
 
 /**
  * This is a post route to create a new session. 
@@ -78,16 +79,37 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
+
+      const job = schedule.scheduleJob("*/1 * * * *", async () => {
+        try {
+          const result = await sendNotification(
+            "New session booked!",
+            "You have a new session with " +
+              mentee.name +
+              ". Check out your session details \u{1F60E}",
+            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+          );
+          console.log("Function executed successfully:", result);
+        } catch (error) {
+          console.error("Error executing function:", error);
+        }
+      });
+      console.log(job);
+      
+      /*
       await sendNotification(
-        "New session booked!", 
-        "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}", 
-        mentor.fcmToken 
+        "New session booked!",
+        "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
+        mentor.fcmToken
       );
       await sendNotification(
-        "New session booked!", 
-        "You have a new session with " + mentor.name + ". Fill out your pre-session notes now \u{1F60E}", 
-        mentee.fcmToken 
+        "New session booked!",
+        "You have a new session with " +
+          mentor.name +
+          ". Fill out your pre-session notes now \u{1F60E}",
+        mentee.fcmToken
       );
+      */
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,

@@ -387,12 +387,12 @@ router.patch(
       await updateMentorFCMToken(updatedToken.fcmToken, userId);
       res.status(200).json({
         message: "Success",
-      })
-    } catch(e) {
+      });
+    } catch (e) {
       next(e);
     }
   }
-)
+);
 
 type UpdateMenteeType = Infer<typeof UpdateMenteeCake>;
 router.patch(
@@ -409,11 +409,11 @@ router.patch(
       await updateMenteeFCMToken(updatedToken.fcmToken, userId);
       res.status(200).json({
         message: "Success",
-      })
-    } catch(e) {
+      });
+    } catch (e) {
       next(e);
     }
   }
-)
+);
 
 export { router as userRouter };

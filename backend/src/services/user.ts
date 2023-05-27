@@ -4,11 +4,10 @@
 // import { Request } from "express";
 // import mongoose from "mongoose";
 // import { Image } from "../models/image";
-import { InternalError } from "../errors";
-import { Mentor , Mentee} from "../models";
+import { InternalError, ServiceError } from "../errors";
+import { Mentor, Mentee } from "../models";
 import { Pairing } from "../models/pairing";
-import { User } from "../models/users";
-import { ServiceError } from "../errors";
+// import { User } from "../models/users";
 
 // TODO need to add this back in when implementing EDIT profile
 // async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
@@ -51,11 +50,11 @@ async function updateMentorFCMToken(fcmToken: string, userId: string) {
   if (!user) {
     throw ServiceError.MENTOR_WAS_NOT_FOUND;
   }
-  
+
   try {
     user.fcmToken = fcmToken;
     return await user.save();
-  } catch(error) {
+  } catch (error) {
     throw ServiceError.MENTOR_WAS_NOT_SAVED;
   }
 }
@@ -66,11 +65,11 @@ async function updateMenteeFCMToken(fcmToken: string, userId: string) {
   if (!user) {
     throw ServiceError.MENTEE_WAS_NOT_FOUND;
   }
-  
+
   try {
     user.fcmToken = fcmToken;
     return await user.save();
-  } catch(error) {
+  } catch (error) {
     throw ServiceError.MENTEE_WAS_NOT_SAVED;
   }
 }
