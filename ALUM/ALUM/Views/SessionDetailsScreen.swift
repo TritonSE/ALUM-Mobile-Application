@@ -256,7 +256,12 @@ extension SessionDetailsScreen {
             }
             .padding(.bottom, 5)
             
-            CustomNavLink(destination: MenteeProfileScreen(uID: session.menteeId).customNavigationTitle("Mentee Profile")) {
+            CustomNavLink(
+                destination: 
+                    MenteeProfileScreen(
+                        uID: session.menteeId
+                    ).customNavigationTitle("Mentee Profile")
+                ) {
                 HorizontalMenteeCard(
                     menteeId: session.menteeId,
                     isEmpty: true
