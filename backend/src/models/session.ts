@@ -12,6 +12,7 @@ interface SessionInterface {
   missedSessionReason: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
+  dateTime: Date;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;
@@ -20,7 +21,7 @@ interface SessionInterface {
   postSessionMenteeCompleted: boolean;
 }
 
-interface SessionDoc extends mongoose.Document {
+export interface SessionDoc extends mongoose.Document {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;

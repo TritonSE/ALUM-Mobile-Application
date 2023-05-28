@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
+import { getMenteeId, getMentorId } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
@@ -19,6 +20,7 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
+import { getUpcomingSession, getLastSession } from "../services/session";
 
 const router = express.Router();
 
@@ -339,7 +341,7 @@ router.get(
             imageId,
             about,
             calendlyLink,
-            zoomLink: location === undefined ? "N/A" : location,
+            zoomLink: location ?? "N/A",
             graduationYear,
             college,
             major,
@@ -363,5 +365,84 @@ router.get(
     }
   }
 );
+
+/**
+ * Route to setup mobile app for any logged in user (mentor or mentee)
+ * 
+ * This route returns the following
+ * If user is a mentor, 
+ *  menteeIds, status, upcomingSessionId
+ * 
+ * If user is mentee,
+ *  mentorId, status, upcomingSessionId
+ */
+router.get(
+  "/user/me",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.body.uid;
+      const role = req.body.role;
+      
+      const getUpcomingSessionPromise = getUpcomingSession(userId, role)
+      const getPastSessionPromise = getLastSession(userId, role)
+      if (role == "mentee") {
+        // GET mentee document
+        const mentee = await Mentee.findById(userId);
+        if (!mentee) {
+          throw ServiceError.MENTEE_WAS_NOT_FOUND;
+        }
+  
+        if (mentee.status != "paired") {
+          res.status(200).send({
+            status: mentee.status
+          })
+        }
+        const getPairedMentorIdPromise = getMentorId(mentee.pairingId)
+        const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([getUpcomingSessionPromise, getPastSessionPromise, getPairedMentorIdPromise])
+        console.log({
+          status: mentee.status,
+          sessionId: upcomingSessionId ?? pastSessionId,
+          pairedMentorId
+        })
+        res.status(200).send({
+          status: mentee.status,
+          sessionId: upcomingSessionId ?? pastSessionId,
+          pairedMentorId
+        })
+      } else if (role == "mentor") {
+        const mentor = await Mentor.findById(userId);
+        if (!mentor) {
+          throw ServiceError.MENTOR_WAS_NOT_FOUND;
+        }
+        
+        if (mentor.status != "paired") {
+          res.status(200).send({
+            status: mentor.status
+          })
+        }
+        
+        const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) => getMenteeId(pairingId));
+        
+        // For MVP, we assume there is only 1 mentee 1 mentor pairing
+        const getMenteeIdsPromise = getMenteeIdsPromises[0]
+  
+        const [upcomingSessionId, pastSessionId, pairedMenteeId] = await Promise.all([getUpcomingSessionPromise, getPastSessionPromise, getMenteeIdsPromise])
+        
+        res.status(200).send({
+          status: mentor.status,
+          sessionId: upcomingSessionId ?? pastSessionId,
+          pairedMenteeId
+        })
+      }
+    } catch (e) {
+      if (e instanceof CustomError) {
+        next(e);
+        return;
+      }
+      next(InternalError.ERROR_GETTING_MENTEE);
+    }
+  }
+)
 
 export { router as userRouter };

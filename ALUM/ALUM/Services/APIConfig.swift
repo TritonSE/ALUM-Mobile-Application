@@ -9,6 +9,7 @@ import Foundation
 
 let baseURL: String = "http://localhost:3000"
 struct URLString {
+    static let user = "\(baseURL)/user"
     static let mentor = "\(baseURL)/mentor"
     static let mentee = "\(baseURL)/mentee"
     static let notes = "\(baseURL)/notes"
@@ -17,6 +18,7 @@ struct URLString {
 }
 
 enum APIRoute {
+    case getSelf
     case getMentor(userId: String)
     case getMentee(userId: String)
     case postMentor
@@ -34,6 +36,8 @@ enum APIRoute {
 
     var url: String {
        switch self {
+       case .getSelf:
+           return [URLString.user, "me"].joined(separator: "/")
        case .getMentor(let userId):
            return [URLString.mentor, userId].joined(separator: "/")
        case .getMentee(let userId):
@@ -63,7 +67,7 @@ enum APIRoute {
 
     var method: String {
         switch self {
-        case .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
+        case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
             return "GET"
         case .postMentor, .postMentee, .postSession:
             return "POST"

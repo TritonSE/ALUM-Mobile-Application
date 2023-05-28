@@ -87,6 +87,10 @@ struct MentorCard: View {
 
 struct MentorCard_Previews: PreviewProvider {
     static var previews: some View {
-        MentorCard(isEmpty: true)
+        Button(action: {
+            print("print")
+        }, label: {
+            MentorCard(uID: "6431b9a2bcf4420fe9825fe5")
+        })
     }
 }

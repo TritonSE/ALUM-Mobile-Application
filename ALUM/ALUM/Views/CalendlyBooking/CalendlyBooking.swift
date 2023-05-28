@@ -60,6 +60,9 @@ struct CalendlyView: UIViewRepresentable {
                             let messageBody = "\(message.body)"
                             let result = try await
                             SessionService().postSessionWithId(calendlyURI: messageBody)
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.isLoading = true
+                            }
                         } catch {
                             throw AppError.internalError(.unknownError, message: "Error posting a new session")
                         }
@@ -72,6 +75,9 @@ struct CalendlyView: UIViewRepresentable {
                             let resule = try await
                             SessionService().patchSessionWithId(sessionId: sessionId,
                                                                 newCalendlyURI: messageBody)
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.isLoading = true
+                            }
                         } catch {
                             throw AppError.internalError(.unknownError, message: "Error updating a session")
                         }

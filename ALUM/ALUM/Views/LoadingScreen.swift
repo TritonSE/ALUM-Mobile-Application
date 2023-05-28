@@ -13,8 +13,10 @@ struct LoadingView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             Text(text)
             ProgressView()
+            Spacer()
         }
     }
 }
