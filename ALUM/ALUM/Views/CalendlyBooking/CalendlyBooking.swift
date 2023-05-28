@@ -59,7 +59,7 @@ struct CalendlyView: UIViewRepresentable {
                         do {
                             let messageBody = "\(message.body)"
                             let result = try await
-                            SessionService().postSessionWithId(calendlyURI: messageBody)
+                            SessionService.shared.postSessionWithId(calendlyURI: messageBody)
                             DispatchQueue.main.async {
                                 CurrentUserModel.shared.isLoading = true
                             }
@@ -73,7 +73,7 @@ struct CalendlyView: UIViewRepresentable {
                         do {
                             let messageBody = "\(message.body)"
                             let resule = try await
-                            SessionService().patchSessionWithId(sessionId: sessionId,
+                            SessionService.shared.patchSessionWithId(sessionId: sessionId,
                                                                 newCalendlyURI: messageBody)
                             DispatchQueue.main.async {
                                 CurrentUserModel.shared.isLoading = true

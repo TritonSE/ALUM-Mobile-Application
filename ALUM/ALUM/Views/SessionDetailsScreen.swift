@@ -459,12 +459,15 @@ extension SessionDetailsScreen {
                         leftButtonAction: {
             Task {
                 do {
-                    try await SessionService().deleteSessionWithId(sessionId: sessionId)
+                    try await SessionService.shared.deleteSessionWithId(sessionId: sessionId)
+                    cancelCalendlyEventAlert = false
+                    DispatchQueue.main.async {
+                        CurrentUserModel.shared.isLoading = true
+                    }
                 } catch {
                     print(error)
                 }
             }
-            cancelCalendlyEventAlert = false
         },
             rightButtonAction: { cancelCalendlyEventAlert = false })
             .frame(width: 326, height: 230)
