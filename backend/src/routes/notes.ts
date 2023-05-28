@@ -22,7 +22,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
   try {
     const id = req.params.id;
     const note = await Note.findById(id);
-    console.log(`GETTING note - ID ${note?.id}`)
+    console.log(`GETTING note - ID ${note?.id}`);
     if (note == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
     if (note.type === "post") {
       const temp = await Session.findById(note.session);

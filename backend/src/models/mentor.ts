@@ -5,6 +5,7 @@
  */
 import mongoose from "mongoose";
 import { UserStatusType } from "../types";
+
 interface MentorInterface {
   name: string;
   imageId: string;

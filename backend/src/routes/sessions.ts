@@ -13,8 +13,7 @@ import { CreateSessionRequestBodyCake } from "../types/cakes";
 import { InternalError, ServiceError } from "../errors";
 import { getCalendlyEventDate } from "../services/calendly";
 import { getMentorId } from "../services/user";
-import {formatDateTimeRange} from "../services/session";
-
+import { formatDateTimeRange } from "../services/session";
 
 /**
  * This is a post route to create a new session. 
@@ -136,10 +135,11 @@ router.get(
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
       } = session;
-      const [fullDateString, dateShortHandString, startTimeString, endTimeString]= formatDateTimeRange(startTime, endTime);
+      const [fullDateString, dateShortHandString, startTimeString, endTimeString] =
+        formatDateTimeRange(startTime, endTime);
 
       const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
-      
+
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -159,7 +159,7 @@ router.get(
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
           hasPassed,
-          location: mentor.location
+          location: mentor.location,
         },
       });
     } catch (e) {
