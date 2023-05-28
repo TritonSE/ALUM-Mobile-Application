@@ -43,6 +43,7 @@
 		0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */; };
 		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
 		0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */; };
+		07A15DD52A23FB5F00C52798 /* FullWidthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */; };
 		07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */; };
 		07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */; };
 		07CA49962A1C53DA00A81153 /* ALUMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49942A1C53DA00A81153 /* ALUMColor.swift */; };
@@ -166,6 +167,7 @@
 		0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRouter.swift; sourceTree = "<group>"; };
 		0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginReviewPage.swift; sourceTree = "<group>"; };
+		07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWidthButtonStyle.swift; sourceTree = "<group>"; };
 		07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsScreen.swift; sourceTree = "<group>"; };
 		07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentModels.swift; sourceTree = "<group>"; };
 		07CA49942A1C53DA00A81153 /* ALUMColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ALUMColor.swift; sourceTree = "<group>"; };
@@ -343,6 +345,16 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		07A15DD32A23F69100C52798 /* ButtonStyles */ = {
+			isa = PBXGroup;
+			children = (
+				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
+				2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */,
+				07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */,
+			);
+			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
 		07E885342A19F0B800B7AD27 /* Routers */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +381,7 @@
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				07A15DD32A23F69100C52798 /* ButtonStyles */,
 				0793B4182A19FA7200AF78C8 /* CustomNavBar */,
 				0757551B29FAA2AB008E73FB /* Bullet.swift */,
 				0757551C29FAA2AB008E73FB /* CircleAddButton.swift */,
@@ -376,12 +389,10 @@
 				0757551929FAA2AB008E73FB /* DynamicProgressBarComponent.swift */,
 				0757551E29FAA2AB008E73FB /* MultipleChoiceList.swift */,
 				0757551A29FAA2AB008E73FB /* StaticProgressBarComponent.swift */,
-				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
 				8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */,
 				8095FE6D29E1F968006AA63C /* NavigationFooter.swift */,
 				80210ECB29BA9EBC008B912A /* MentorCard.swift */,
 				80210EC029B95F24008B912A /* MenteeCard.swift */,
-				2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */,
 				9752A4E92978B90F001E0AAB /* TextInputFieldComponent.swift */,
 				9756DF742982338300A0BCB5 /* InputValidationText.swift */,
 				9756DF76298233B500A0BCB5 /* InputValidationComponent.swift */,
@@ -754,6 +765,7 @@
 				0748208F29712921004AF547 /* ALUMApp.swift in Sources */,
 				80210EBD29B95D50008B912A /* ProfileModel.swift in Sources */,
 				97A2FE8C2989C20900405FD6 /* LoginScreen.swift in Sources */,
+				07A15DD52A23FB5F00C52798 /* FullWidthButtonStyle.swift in Sources */,
 				07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */,
 				80210ED429C3DBD9008B912A /* FirebaseAuthenticationService.swift in Sources */,
 				0723BB862A1C995700911948 /* HomeScreen.swift in Sources */,

@@ -71,6 +71,7 @@ struct MentorProfileScreen: View {
                     about
                     if viewModel.selfView! {
                         mentees
+                        logOutButton
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)
@@ -196,6 +197,18 @@ extension MentorProfileScreen {
             .padding(.leading, 16)
             .offset(y: -20)
         }
+    }
+    
+    private var logOutButton: some View {
+        Button(action: {
+            FirebaseAuthenticationService.shared.logout()
+        }, label: {
+            HStack {
+                ALUMText(text: "Log out", textColor: ALUMColor.red)
+                Image("Logout Icon")
+            }
+        })
+        .buttonStyle(FullWidthButtonStyle())
     }
 }
 
