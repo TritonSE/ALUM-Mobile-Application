@@ -19,6 +19,13 @@ final class QuestionViewModel: ObservableObject {
     @Published var submitSuccess: Bool = false
     @Published var missedOption: String = ""
 
+    func submitMissedNotesPatch(noteID: String) async throws {
+        var notesData: [QuestionPatchData] = []
+        notesData.append(QuestionPatchData(answer: PatchAnswer.string(missedOption),
+                                           type: "text", questionId: "missedSessionQuestionId"))
+        try await NotesService.shared.patchNotes(noteId: noteID, data: notesData)
+    }
+    
     func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
 

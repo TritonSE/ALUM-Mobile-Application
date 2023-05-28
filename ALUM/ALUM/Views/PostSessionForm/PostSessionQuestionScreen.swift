@@ -46,7 +46,8 @@ struct PostSessionQuestionScreen: View {
                             .lineSpacing(10)
                             .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
                         Spacer()
-                        NavigationLink(destination: MissedSessionScreen(viewModel: viewModel), label: {
+                        NavigationLink(destination: MissedSessionScreen(
+                            viewModel: viewModel, notesID: notesID), label: {
                                     HStack {
                                         Text("Session didn't happen?")
                                             .foregroundColor(Color("ALUM Dark Blue"))

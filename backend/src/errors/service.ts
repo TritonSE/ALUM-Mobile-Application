@@ -42,6 +42,4 @@ export class ServiceError extends CustomError {
   static NOTE_WAS_NOT_SAVED = new ServiceError(10, 404, NOTE_WAS_NOT_SAVED);
   
   static INVALID_ROLE_WAS_FOUND = new ServiceError(11, 404, INVALID_ROLE_WAS_FOUND);
-  
-
 }

@@ -63,6 +63,7 @@ router.post(
         postSessionMentor: null,
         menteeId: uid,
         mentorId,
+        missedSessionReason: null,
         startTime: data.resource.start_time,
         endTime: data.resource.end_time,
         calendlyUri: req.body.calendlyURI,
@@ -88,11 +89,9 @@ router.post(
       return res.status(400).json({
         error: e,
       });
-
     }
   }
 );
-
 
 router.get(
   "/sessions/:sessionId",
@@ -128,6 +127,7 @@ router.get(
         preSession,
         postSessionMentee,
         postSessionMentor,
+        missedSessionReason,
         menteeId,
         mentorId,
         startTime,
@@ -146,6 +146,7 @@ router.get(
           preSession,
           postSessionMentee,
           postSessionMentor,
+          missedSessionReason,
           menteeId,
           mentorId,
           menteeName: mentee.name,

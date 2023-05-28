@@ -146,7 +146,7 @@ struct SessionDetailsScreen: View {
             .padding(.bottom, 5)
 
             HStack {
-                ALUMText(text: session.location, textColor: ALUMColor.primaryBlue)
+                ALUMText(text: session.location ?? "Not specified", textColor: ALUMColor.primaryBlue)
                 Spacer()
             }
             .padding(.bottom, 20)
