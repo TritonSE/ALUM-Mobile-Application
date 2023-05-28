@@ -22,4 +22,6 @@ export class ValidationError extends CustomError {
   static INVALID_USER_ID = new ValidationError(2, 400, INVALID_USER_ID);
 
   static INVALID_PASSWORD_LENGTH = new ValidationError(3, 400, INVALID_PASSWORD_LENGTH);
+
+  static INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN = new ValidationError(4, 400, "Invalid Calendly Access Token found. Please retry");
 }

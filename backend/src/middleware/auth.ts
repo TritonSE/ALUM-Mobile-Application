@@ -25,9 +25,9 @@ const verifyAuthToken = async (req: Request, res: Response, next: NextFunction) 
   try {
     userInfo = await decodeAuthToken(token);
   } catch (e) {
-    if (e instanceof CustomError) {
-      return res.status(e.status).send(e.displayMessage(false));
-    }
+    return res
+      .status(AuthError.INVALID_AUTH_TOKEN.status)
+      .send(AuthError.INVALID_AUTH_TOKEN.displayMessage(true));
   }
 
   if (userInfo) {
