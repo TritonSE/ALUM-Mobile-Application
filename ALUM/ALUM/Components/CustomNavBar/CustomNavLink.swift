@@ -16,12 +16,12 @@ struct CustomNavLink<Label: View, Destination: View>: View {
     }
     var body: some View {
         NavigationLink(
-            destination: 
+            destination:
                 CustomNavBarContainerView(content: {
                     destination
                 })
                 .navigationBarHidden(true)
-                
+
             ,
             label: { label
             })

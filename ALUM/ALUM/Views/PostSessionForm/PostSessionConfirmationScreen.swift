@@ -63,7 +63,7 @@ struct PostSessionConfirmationScreen: View {
                 Text("Save")
             }
             .buttonStyle(FilledInButtonStyle())
-            
+
             NavigationLink(destination: ConfirmationScreen(
                 text: ["Post-session form saved!",
                        "You can continue on the notes later under \"Sessions\".", "Great"]),

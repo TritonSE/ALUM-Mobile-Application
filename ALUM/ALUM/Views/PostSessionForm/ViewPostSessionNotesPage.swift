@@ -15,9 +15,8 @@ struct ViewPostSessionNotesPage: View {
     var otherName: String
     var date: String
     var time: String
-    
-    @State var currNotes: String = "this" // "this" or "other"
 
+    @State var currNotes: String = "this" // "this" or "other"
 
     func setMyNotes() {
         currNotes = "this"
@@ -43,9 +42,9 @@ struct ViewPostSessionNotesPage: View {
             Task {
                 do {
                     try await viewModel.fetchPostSessionNotes(
-                        notesId: notesID, 
+                        notesId: notesID,
                         otherNotesId: otherNotesID
-                    ) 
+                    )
                 } catch {
                     print("Error")
                 }
@@ -69,21 +68,21 @@ struct ViewPostSessionNotesPage: View {
         .edgesIgnoringSafeArea(.bottom)
     }
     var footer: some View {
-        return CustomNavLink (
-            destination: 
+        return CustomNavLink(
+            destination:
                 PostSessionFormRouter(
-                    notesID: notesID, 
+                    notesID: notesID,
                     otherNotesId: otherNotesID,
-                    otherName: otherName, 
-                    date: date, 
+                    otherName: otherName,
+                    date: date,
                     time: time
-                ), 
+                ),
             label: {
                 HStack {
                    Image(systemName: "pencil.line")
                    Text("Edit")
                }
-            }) 
+            })
             .buttonStyle(FilledInButtonStyle())
     }
 
@@ -206,6 +205,12 @@ struct ViewPostSessionNotesPage: View {
 
 struct ViewPostSessionNotesPage_Previews: PreviewProvider {
     static var previews: some View {
-        ViewPostSessionNotesPage(notesID: "646c8ea5004999f332c55f84", otherNotesID: "646c8ea5004999f332c55f86", otherName: "Mentor", date: "5/23", time: "9:30 AM")
+        ViewPostSessionNotesPage(
+            notesID: "646c8ea5004999f332c55f84",
+            otherNotesID: "646c8ea5004999f332c55f86",
+            otherName: "Mentor",
+            date: "5/23",
+            time: "9:30 AM"
+        )
     }
 }

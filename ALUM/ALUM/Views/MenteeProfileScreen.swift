@@ -54,6 +54,9 @@ struct MenteeProfileScreen: View {
                     description
                     if viewModel.selfView! {
                         mentor
+                        Button("Title", action: {
+                            FirebaseAuthenticationService.shared.logout()
+                        })
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)
@@ -64,7 +67,7 @@ struct MenteeProfileScreen: View {
             ZStack {
                 // Removing this Z-stack causes a white rectangle to appear between the top of screen 
                 // and start of this screen due to GeometryReader
-                
+
                 if viewModel.selfView! {
                   // params like settings and edit profile currently placeholders for later navigation
                   if scrollAtTop {
@@ -74,8 +77,7 @@ struct MenteeProfileScreen: View {
                     ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
                       .background(.white)
                   }
-                }
-                else {
+                } else {
                   if scrollAtTop {
                     Rectangle()
                       .frame(height: 10)
@@ -142,7 +144,7 @@ extension MenteeProfileScreen {
                 .padding(.bottom, 8)
         }
     }
-    
+
     private var mentor: some View {
         Group {
             Text("My Mentor")
@@ -173,12 +175,20 @@ extension MenteeProfileScreen {
 
 struct MenteeProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b99ebcf4420fe9825fe3", role: .mentor)
+        CurrentUserModel.shared.setCurrentUser(
+            isLoading: false,
+            isLoggedIn: true,
+            uid: "6431b99ebcf4420fe9825fe3",
+            role: .mentor
+        )
         return CustomNavView {
             MenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
                 .onAppear {
                     Task {
-                        try await FirebaseAuthenticationService.shared.login(email: "mentor@gmail.com", password: "123456")
+                        try await FirebaseAuthenticationService.shared.login(
+                            email: "mentor@gmail.com",
+                            password: "123456"
+                        )
                     }
                 }
         }

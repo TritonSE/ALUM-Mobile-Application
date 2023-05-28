@@ -72,7 +72,16 @@ enum APIRoute {
 
     var requireAuth: Bool {
         switch self {
-        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .postSession, .getCalendly:
+        case
+                .getSelf,
+                .getMentor,
+                .getMentee,
+                .getNote,
+                .patchNote,
+                .getSession,
+                .getSessions,
+                .postSession,
+                .getCalendly:
             return true
         case .postMentee, .postMentor:
             return false

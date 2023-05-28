@@ -63,11 +63,11 @@ class UserService {
         let userData = try handleDecodingErrors({
             try JSONDecoder().decode(SelfGetData.self, from: responseData)
         })
-        
+
         print("SUCCESS - \(route.label) - \(userData.pairedMenteeId) - \(userData.pairedMentorId)")
         return userData
     }
-    
+
     func createMentee(data: MenteePostData) async throws {
         let route = APIRoute.postMentee
         var request = try await route.createURLRequest()
@@ -105,11 +105,11 @@ class UserService {
         let route = APIRoute.getMentee(userId: userID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        
+
         let menteeData = try handleDecodingErrors({
             try JSONDecoder().decode(MenteeGetData.self, from: responseData)
         })
-        
+
         print("SUCCESS - \(route.label)")
         return menteeData
     }

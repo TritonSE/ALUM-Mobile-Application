@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomNavView<Content:View>:  View {
+struct CustomNavView<Content: View>: View {
     let content: Content
     init(@ViewBuilder content: () -> Content) {
         self.content = content()

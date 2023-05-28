@@ -12,7 +12,7 @@ struct LoggedInRouter: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     @State private var selection: Int
-    
+
     init(defaultSelection: Int = 0) {
         UITabBar.appearance().backgroundColor = UIColor(Color.white) // custom color.
         selection = defaultSelection
@@ -22,13 +22,15 @@ struct LoggedInRouter: View {
             TabBarItem(iconName: "ALUM Home", title: "Home"),
             TabBarItem(iconName: "GrayCircle", title: "Profile")
         ]
-    
+
     // once user is approved and paired
     var body: some View {
         return ZStack(alignment: .bottom) {
-            // Turns out for preference keys to work you need to run the mutate preference key function from either the view directly
+            // Turns out for preference keys to work you need to run the mutate preference
+            // key function from either the view directly
             // inside the navigation view OR from an inner view which is traversed last. 
-            // Swift runs the preference key functions in a DFS manner. That's why we had to display the tab bar this way so that content is
+            // Swift runs the preference key functions in a DFS manner. 
+            // That's why we had to display the tab bar this way so that content is
             // the last item traversed
             VStack {
                 Spacer()
@@ -40,23 +42,24 @@ struct LoggedInRouter: View {
                 .padding(.bottom, 50)
         }
     }
-    
+
     var content: some View {
         VStack(spacing: 0) {
-            
+
             Group {
                 switch selection {
                 case 0:
                     HomeTabRouter()
                 case 1:
                     ProfileTabRouter()
-                        .customNavigationIsHidden(true) // We shall use our own header component here so that we can easily add the edit buttons
+                        .customNavigationIsHidden(true)
+                        // We shall use our own header component here so that we can easily add the edit buttons
                 default:
                     Text("Error")
                 }
-                
+
             }
-            .onAppear(perform: { 
+            .onAppear(perform: {
                 currentUser.showTabBar = true
             })
             .onDisappear(perform: {
@@ -64,7 +67,7 @@ struct LoggedInRouter: View {
             })
         }
     }
-    
+
     var tabsDisplay: some View {
         ZStack(alignment: .bottom) {
             HStack(spacing: 0) {

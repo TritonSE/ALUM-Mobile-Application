@@ -15,16 +15,16 @@ struct PostSessionFormRouter: View {
     var otherName: String
     var date: String
     var time: String
-    
+
     var body: some View {
         loadingAbstraction
             .customNavBarItems(
-                title: "\(date) Post-session Notes", 
-                isPurple: false, 
+                title: "\(date) Post-session Notes",
+                isPurple: false,
                 backButtonHidden: false
             )
     }
-    
+
     var loadingAbstraction: some View {
         return Group {
             if viewModel.isLoading {
@@ -33,7 +33,7 @@ struct PostSessionFormRouter: View {
                         Task {
                             do {
                                 try await viewModel.fetchPostSessionNotes(
-                                    notesId: notesID, 
+                                    notesId: notesID,
                                     otherNotesId: otherNotesId
                                 )
                             } catch {
@@ -46,7 +46,7 @@ struct PostSessionFormRouter: View {
             }
         }
     }
-    
+
     var loadedView: some View {
         print(viewModel.questionList)
         return VStack {
@@ -55,7 +55,13 @@ struct PostSessionFormRouter: View {
                 .padding()
                 .background(Color.white)
             if viewModel.currentIndex < viewModel.questionList.count {
-                PostSessionQuestionScreen(viewModel: viewModel, otherUser: otherName, date: date, time: time, noteId: notesID)
+                PostSessionQuestionScreen(
+                    viewModel: viewModel,
+                    otherUser: otherName,
+                    date: date,
+                    time: time,
+                    noteId: notesID
+                )
             } else {
                 PostSessionConfirmationScreen(viewModel: viewModel, notesID: notesID)
             }
@@ -67,13 +73,12 @@ struct PostSessionFormRouter_Previews: PreviewProvider {
     static var previews: some View {
         CustomNavView {
             PostSessionFormRouter(
-                notesID: "646c8ea5004999f332c55f84", 
+                notesID: "646c8ea5004999f332c55f84",
                 otherNotesId: "646c8ea5004999f332c55f86",
-                otherName: "Mentor", 
-                date: "5/23", 
+                otherName: "Mentor",
+                date: "5/23",
                 time: "9pm"
             )
         }
     }
 }
-

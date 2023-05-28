@@ -15,10 +15,9 @@ struct HomeScreen: View {
         loadedView
             .background(ALUMColor.beige.color)
             .customNavigationIsPurple(false)
-            .customNavigationBarBackButtonHidden(true)	
+            .customNavigationBarBackButtonHidden(true)
     }
-    
-    
+
     var loadedView: some View {
         return VStack {
             if currentUser.role == .mentee {
@@ -45,17 +44,17 @@ struct HomeScreen: View {
         .buttonStyle(FilledInButtonStyle())
         .padding(.bottom, 26)
     }
-    
+
     var mentorView: some View {
         let pairedMenteeId = currentUser.pairedMenteeId!
-        
+
         return Group {
             HStack {
                 ALUMText(text: "Mentee", textColor: ALUMColor.gray4)
                 Spacer()
             }
             .padding(.bottom, 5)
-            
+
             NavigationLink(destination: MenteeProfileScreen(uID: pairedMenteeId)) {
                 HorizontalMenteeCard(
                     menteeId: pairedMenteeId,
@@ -65,20 +64,20 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     var menteeView: some View {
         print("\(currentUser.uid) \(currentUser.isLoading) \(currentUser.pairedMenteeId) \(currentUser.pairedMentorId)")
         let pairedMentorId = currentUser.pairedMentorId!
-        
+
         return Group {
             bookSessionButton
-            
+
             HStack {
                 ALUMText(text: "Mentor", textColor: ALUMColor.gray4)
                 Spacer()
             }
             .padding(.bottom, 5)
-            
+
             NavigationLink(destination: MentorProfileScreen(uID: pairedMentorId)) {
                 MentorCard(isEmpty: true, uID: pairedMentorId)
                     .padding(.bottom, 28)
@@ -90,7 +89,12 @@ struct HomeScreen: View {
 
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b99ebcf4420fe9825fe3", role: .mentee)
+        CurrentUserModel.shared.setCurrentUser(
+            isLoading: false,
+            isLoggedIn: true,
+            uid: "6431b99ebcf4420fe9825fe3",
+            role: .mentee
+        )
 
         CurrentUserModel.shared.status = "paired"
         CurrentUserModel.shared.sessionId = "646a6e164082520f4fcf2f8f"

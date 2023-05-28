@@ -89,20 +89,20 @@ class CurrentUserModel: ObservableObject {
             self.isLoading = false
         }
     }
-    
+
     func fetchUserInfoFromServer(userId: String, role: UserRole) async throws {
         let userData = try await UserService.shared.getSelf()
         let userStatus = userData.status
-        
+
         DispatchQueue.main.async {
             self.status = userStatus
         }
-        
+
         if userStatus != "paired" {
             print("early return")
             return
         }
-        
+
         if self.role == .mentee {
             guard let userPairedMentorId = userData.pairedMentorId else {
                 throw AppError.internalError(.invalidResponse, message: "Expected mentee to have a paired mentor Id")
@@ -119,13 +119,13 @@ class CurrentUserModel: ObservableObject {
             DispatchQueue.main.async {
                 self.pairedMenteeId = userPairedMenteeId
             }
-        } 
-        
+        }
+
         DispatchQueue.main.async {
             self.sessionId = userData.sessionId
         }
     }
-    
+
     func getStatus(userID: String, roleEnum: UserRole) async throws -> String {
         let userStatus: String
         switch roleEnum {

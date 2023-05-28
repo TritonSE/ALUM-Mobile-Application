@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-/// For MVP, our home tab is either a session details page or just a screen with pairing info and button to book a session
+/// For MVP, our home tab is either a session details page or just a screen 
+/// with pairing info and button to book a session
 struct HomeTabRouter: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 

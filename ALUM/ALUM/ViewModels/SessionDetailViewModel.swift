@@ -12,7 +12,7 @@ final class SessionDetailViewModel: ObservableObject {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     @Published var session: SessionModel? = DevelopmentModels.sessionModel
-    
+
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     @Published var isLoading: Bool = true
@@ -22,7 +22,7 @@ final class SessionDetailViewModel: ObservableObject {
             self.isLoading = true
         }
         do {
-            let sessionData = try await SessionService.shared.getSessionWithId(sessionId: sessionId);
+            let sessionData = try await SessionService.shared.getSessionWithId(sessionId: sessionId)
             DispatchQueue.main.async {
                 self.session = sessionData.session
                 self.isLoading = false

@@ -54,7 +54,8 @@ struct PreSessionConfirmationScreen: View {
                 ALUMText(text: "Save", textColor: ALUMColor.white)
             }
             .buttonStyle(FilledInButtonStyle())
-            // TODO change this to custom nav link
+
+            // Custom Nav Link not needed here
             NavigationLink(destination: ConfirmationScreen(
                 text: ["Pre-session form saved!",
                        "You can continue on the notes later under \"Sessions\".", "Great"]),

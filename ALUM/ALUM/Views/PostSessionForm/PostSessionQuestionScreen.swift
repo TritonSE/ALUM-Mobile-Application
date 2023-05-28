@@ -28,14 +28,13 @@ struct PostSessionQuestionScreen: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    
     var content: some View {
         var currentIndex = viewModel.currentIndex
         if viewModel.currentIndex >= viewModel.questionList.count {
             currentIndex = viewModel.questionList.count - 1
         }
         let currentQuestion = viewModel.questionList[currentIndex]
-        
+
         return VStack {
             if currentIndex == 0 {
                 ZStack {
@@ -48,9 +47,9 @@ struct PostSessionQuestionScreen: View {
                             .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
                         Spacer()
                         NavigationLink(
-                            destination: 
+                            destination:
                                         MissedSessionScreen(
-                                            viewModel: viewModel, 
+                                            viewModel: viewModel,
                                             notesID: noteId,
                                             date: date,
                                             time: time,
@@ -122,7 +121,7 @@ extension PostSessionQuestionScreen {
         .padding(.bottom, 40)
         .background(Rectangle().fill(Color.white).shadow(radius: 8))
     }
-    
+
     var footerForFirstQuestion: some View {
         Button {
             viewModel.nextQuestion()
@@ -136,7 +135,7 @@ extension PostSessionQuestionScreen {
         }
         .buttonStyle(FilledInButtonStyle())
     }
-    
+
     var footerWithBackAndContinue: some View {
         HStack {
             Button {
@@ -166,10 +165,10 @@ extension PostSessionQuestionScreen {
     }
 }
 //
-//struct PostSessionQuestionScreen_Previews: PreviewProvider {
+// struct PostSessionQuestionScreen_Previews: PreviewProvider {
 //    static private var viewModel = QuestionViewModel()
 //
 //    static var previews: some View {
 //        PostSessionQuestionScreen(viewModel: viewModel)
 //    }
-//}
+// }

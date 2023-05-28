@@ -22,7 +22,7 @@ struct MissedSessionScreen: View {
     var date: String
     var time: String
     var otherUser: String
-    
+
     @Environment(\.dismiss) var dismiss
     @State var validated: Bool = true
     @State var selectedOption: OptionType?
@@ -30,7 +30,6 @@ struct MissedSessionScreen: View {
     @State var otherEmpty: Bool = false
     @State var otherText: String = ""
 
-    
     var body: some View {
         VStack {
             ScrollView {
@@ -180,6 +179,12 @@ struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
 
     static var previews: some View {
-        MissedSessionScreen(viewModel: viewModel, notesID: "646a6e164082520f4fcf2f92", date: "9/23", time: "10:00 AM", otherUser: "Mentor")
+        MissedSessionScreen(
+            viewModel: viewModel,
+            notesID: "646a6e164082520f4fcf2f92",
+            date: "9/23",
+            time: "10:00 AM",
+            otherUser: "Mentor"
+        )
     }
 }

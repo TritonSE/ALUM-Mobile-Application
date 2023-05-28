@@ -25,7 +25,7 @@ final class QuestionViewModel: ObservableObject {
                                            type: "text", questionId: "missedSessionQuestionId"))
         try await NotesService.shared.patchNotes(noteId: noteID, data: notesData)
     }
-    
+
     func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
 
@@ -51,7 +51,7 @@ final class QuestionViewModel: ObservableObject {
         }
         return newQuestions
     }
-    
+
     func fetchPreSessionNotes(noteId: String) async throws {
         DispatchQueue.main.async {
             self.isLoading = true
@@ -69,14 +69,14 @@ final class QuestionViewModel: ObservableObject {
         }
         let primaryQuestions = try await self.fetchNotes(noteId: notesId)
         let otherQuestions = try await self.fetchNotes(noteId: otherNotesId)
-        
+
         DispatchQueue.main.async {
             self.isLoading = false
             self.questionList = primaryQuestions
             self.questionListOther = otherQuestions
         }
     }
-    
+
     func nextQuestion() {
         self.currentIndex += 1
         if self.currentIndex == self.questionList.count - 1 {

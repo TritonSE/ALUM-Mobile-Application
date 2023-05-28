@@ -10,17 +10,17 @@ import SwiftUI
 struct ViewPreSessionNotesPage: View {
     var allowEditing: Bool
     var notesID: String
-    var otherName: String 
+    var otherName: String
     var date: String = ""
     var time: String = ""
-    
+
     @StateObject var viewModel = QuestionViewModel()
 
     var body: some View {
         loadingAbstraction
             .customNavBarItems(title: "\(date) Pre-session Notes", isPurple: false, backButtonHidden: false)
     }
-    
+
     var loadingAbstraction: some View {
         Group {
             if !viewModel.isLoading {
@@ -39,13 +39,13 @@ struct ViewPreSessionNotesPage: View {
             }
         }
     }
-    
+
     var loadedView: some View {
         VStack {
             ScrollView {
                 content
             }
-            
+
             if allowEditing {
                 footer
                     .padding(.horizontal, 16)
@@ -58,21 +58,20 @@ struct ViewPreSessionNotesPage: View {
     }
 
     var footer: some View {
-        // TODO change navigation to pre-session router
-        return CustomNavLink (
-            destination: 
+        return CustomNavLink(
+            destination:
                 PreSessionFormRouter(
-                    notesID: notesID, 
-                    otherName: otherName, 
-                    date: date, 
+                    notesID: notesID,
+                    otherName: otherName,
+                    date: date,
                     time: time
-                ), 
+                ),
             label: {
                 HStack {
                    Image(systemName: "pencil.line")
                    Text("Edit")
                }
-            }) 
+            })
             .buttonStyle(FilledInButtonStyle())
     }
 
