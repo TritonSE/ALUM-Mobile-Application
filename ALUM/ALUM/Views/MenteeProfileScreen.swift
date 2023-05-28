@@ -169,7 +169,7 @@ extension MenteeProfileScreen {
             }
         }
     }
-    
+
     private var logOutButton: some View {
         Button(action: {
             FirebaseAuthenticationService.shared.logout()

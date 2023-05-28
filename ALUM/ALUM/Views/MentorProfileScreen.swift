@@ -198,7 +198,7 @@ extension MentorProfileScreen {
             .offset(y: -20)
         }
     }
-    
+
     private var logOutButton: some View {
         Button(action: {
             FirebaseAuthenticationService.shared.logout()
