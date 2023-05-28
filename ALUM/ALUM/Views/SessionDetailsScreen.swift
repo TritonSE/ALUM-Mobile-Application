@@ -127,7 +127,7 @@ struct SessionDetailsScreen: View {
         }
         .disabled(buttonDisabled)
         .sheet(isPresented: $showCalendlyWebView) {
-            CalendlyView()
+            CalendlyView(requestType: "POST")
         }
         .buttonStyle(FilledInButtonStyle(disabled: buttonDisabled))
         .padding(.bottom, 26)

@@ -10,25 +10,15 @@ import SwiftUI
 
 final class SessionDetailViewModel: ObservableObject {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
-
+    
     @Published var session: SessionModel? = DevelopmentModels.sessionModel
     
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     @Published var isLoading: Bool = true
     @Published var sessionID: String = ""
-
-<<<<<<< HEAD
-    func loadSession(sessionID: String) async throws {
-        guard let sessionData = try? await SessionService().getSessionWithID(sessionID: sessionID) else {
-            print("Error getting session info")
-            return
-        }
-
-        self.sessionID = sessionID
-=======
+    
     func fetchSession(sessionId: String) async throws {
->>>>>>> feature/Yash/MainNavigation
         DispatchQueue.main.async {
             self.isLoading = true
         }
@@ -42,5 +32,5 @@ final class SessionDetailViewModel: ObservableObject {
             print("ERROR SessionDetailViewModel.fetchSession: \(error)")
         }
     }
-
+    
 }
