@@ -27,6 +27,14 @@ struct HomeScreen: View {
                 mentorView
                     .customNavigationTitle("No Upcoming Session")
             }
+            Button {
+                FirebaseAuthenticationService.shared.logout()
+            } label: {
+                ALUMText(text: "Log out", textColor: ALUMColor.red)
+            }
+            .buttonStyle(OutlinedButtonStyle())
+            .border(ALUMColor.red.color)
+            .cornerRadius(8.0)
             Spacer()
         }
         .padding(.horizontal, 16)

@@ -71,9 +71,6 @@ struct MentorProfileScreen: View {
                     about
                     if viewModel.selfView! {
                         mentees
-                        Button("Title", action: {
-                            FirebaseAuthenticationService.shared.logout()
-                        })
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)

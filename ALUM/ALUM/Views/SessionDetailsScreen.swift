@@ -84,6 +84,14 @@ struct SessionDetailsScreen: View {
                 .border(ALUMColor.red.color)
                 .cornerRadius(8.0)
             }
+            Button {
+                FirebaseAuthenticationService.shared.logout()
+            } label: {
+                ALUMText(text: "Log out", textColor: ALUMColor.red)
+            }
+            .buttonStyle(OutlinedButtonStyle())
+            .border(ALUMColor.red.color)
+            .cornerRadius(8.0)
             Spacer()
         }
         .padding(.horizontal, 16)
