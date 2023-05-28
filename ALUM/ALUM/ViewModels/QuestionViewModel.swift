@@ -19,7 +19,6 @@ final class QuestionViewModel: ObservableObject {
     @Published var submitSuccess: Bool = false
     @Published var missedOption: String = ""
 
-<<<<<<< HEAD
     func loadTestData() {
         print("load test data")
         var question1 = Question(question: "Testing Question 1",
@@ -80,8 +79,6 @@ final class QuestionViewModel: ObservableObject {
         try await NotesService.shared.patchNotes(noteId: noteID, data: notesData)
     }
 
-=======
->>>>>>> feature/Yash/MainNavigation
     func submitNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
 
