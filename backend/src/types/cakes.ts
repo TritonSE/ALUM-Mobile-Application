@@ -33,6 +33,30 @@ export const CreateMentorRequestBodyCake = bake({
   calendlyLink: string,
 });
 
+// PATCH user/id
+export const UpdateMentorRequestBodyCake = bake({
+  name: string,
+  email: string,
+  graduationYear: number,
+  college: string,
+  major: string,
+  minor: string,
+  career: string,
+  topicsOfExpertise: array(string),
+  mentorMotivation: string,
+  location: string,
+  calendlyLink: string,
+});
+
+export const UpdateMenteeRequestBodyCake = bake({
+  name: string,
+  email: string,
+  grade: number,
+  topicsOfInterest: array(string),
+  careerInterests: array(string),
+  mentorshipGoal: string,
+});
+
 // PATCH notes/id
 export const UpdateNoteDetailsCake = bake({
   answer: union(string, array(string)),

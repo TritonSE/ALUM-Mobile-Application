@@ -19,6 +19,9 @@ struct MenteeProfileScreen: View {
                 LoadingView(text: "MenteeProfileScreen")
             } else {
                 content
+                    .customNavigationIsPurple(scrollAtTop)
+                    .navigationBarHidden(true)
+                    .padding(.top, 0)
             }
         }.onAppear(perform: {
             Task {
