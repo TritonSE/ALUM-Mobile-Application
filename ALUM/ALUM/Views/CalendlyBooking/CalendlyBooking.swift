@@ -13,7 +13,7 @@ import SwiftUI
 import WebKit
 
 struct CalendlyView: UIViewRepresentable {
-    var requestType: String
+    var requestType: String = ""
     var sessionId: String = ""
 
     func makeUIView(context: Context) -> WKWebView {
