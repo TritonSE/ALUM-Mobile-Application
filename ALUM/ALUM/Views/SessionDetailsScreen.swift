@@ -98,11 +98,11 @@ struct SessionDetailsScreen: View {
                 CalendlyView(requestType: "PATCH", sessionId: sessionId)
             }
             .blur(radius: cancelCalendlyEventAlert || showRescheduleAlert ? 10 : 0)
-            
+
             if cancelCalendlyEventAlert {
                 cancelEventAlert
             }
-            
+
             if showRescheduleAlert {
                 rescheduleEventAlert
             }
@@ -136,7 +136,6 @@ struct SessionDetailsScreen: View {
     var bookSessionButton: some View {
         let session = viewModel.session!
         let buttonDisabled: Bool = !session.postSessionMenteeCompleted
-
 
         return Button {
             showCalendlyWebView = true
@@ -358,7 +357,7 @@ extension SessionDetailsScreen {
 extension SessionDetailsScreen {
     var menteeView: some View {
         let session = viewModel.session!
-        
+
         return Group {
             bookSessionButton
 
@@ -367,7 +366,7 @@ extension SessionDetailsScreen {
                 Spacer()
             }
             .padding(.bottom, 5)
-            
+
             CustomNavLink(destination:
                             MentorProfileScreen(uID: session.mentorId)
                 .customNavigationTitle("Mentor Profile")
@@ -399,8 +398,7 @@ extension SessionDetailsScreen {
                 preSessionNotesSectionForMentee
             }
         }
-    
-    
+
     var preSessionNotesSectionForMentee: some View {
         let session = viewModel.session!
 
@@ -451,7 +449,7 @@ extension SessionDetailsScreen {
             }
         }
     }
-    
+
     var cancelEventAlert: some View {
         CustomAlertView(isAlert: true,
                         leftButtonLabel: "Yes, cancel it",
@@ -474,7 +472,7 @@ extension SessionDetailsScreen {
             .cornerRadius(16)
             .shadow(radius: 10)
     }
-    
+
     var rescheduleEventAlert: some View {
         CustomAlertView(isAlert: true,
                         leftButtonLabel: "Yes, reschedule",

@@ -35,7 +35,7 @@ router.post(
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { uid }  =  req.body;
+      const { uid } = req.body;
       const mentee = await Mentee.findById(uid);
       const menteeMongoId = new mongoose.Types.ObjectId(uid);
       if (!mentee) {
@@ -47,7 +47,7 @@ router.post(
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
       }
-      const accessToken =  mentor.personalAccessToken;
+      const accessToken = mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
       const session = new Session({
         preSession: null,
@@ -192,13 +192,13 @@ router.get(
 
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: userID }).exec();
-        console.log(userID)
-        console.log(userSessions)
+        console.log(userID);
+        console.log(userSessions);
       } else {
         // role = "mentor"
         userSessions = await Session.find({ mentorId: userID }).exec();
-        console.log(userID)
-        console.log(userSessions)
+        console.log(userID);
+        console.log(userSessions);
       }
       if (userSessions === null) {
         return res.status(400).json({
@@ -269,34 +269,34 @@ router.patch(
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     console.log("Updating a session");
-    try{
+    try {
       const sessionId = req.params.sessionId;
       const newCalendlyURI = req.body.calendlyURI;
       const currSession = await Session.findById(sessionId);
-      if(!currSession) {
-        throw InternalError.ERROR_GETTING_SESSION
+      if (!currSession) {
+        throw InternalError.ERROR_GETTING_SESSION;
       }
       const oldCalendlyURI = currSession.calendlyUri;
       const mentor = await Mentor.findById(currSession.mentorId);
-      if(!mentor) {
+      if (!mentor) {
         throw InternalError.ERROR_GETTING_MENTOR;
       }
       const personalAccessToken = mentor.personalAccessToken;
-      const deleteResponse = await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
+      await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
       const newEventData = await getCalendlyEventDate(newCalendlyURI, personalAccessToken);
       const updates = {
         startTime: newEventData.resource.start_time,
         endTime: newEventData.resource.end_time,
-        calendlyUri: newCalendlyURI
-      }
+        calendlyUri: newCalendlyURI,
+      };
       await Session.findByIdAndUpdate(sessionId, { $set: updates }, { new: true });
       return res.status(200).json({
-        message: "Successfuly updated the session!"
-      })
+        message: "Successfuly updated the session!",
+      });
     } catch (e) {
       console.log(e);
       next();
-      return res.status(400)
+      return res.status(400);
     }
   }
 );
@@ -309,10 +309,9 @@ router.delete(
   "/sessions/:sessionId",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("Deleting a session")
-    const sessionId=req.params.sessionId
+    console.log("Deleting a session");
+    const sessionId = req.params.sessionId;
     const session = await Session.findById(sessionId);
-    const reason = req.body.reason;
     if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
     const uri = session.calendlyUri;
     const mentor = await Mentor.findById(session.mentorId);

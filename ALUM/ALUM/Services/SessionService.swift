@@ -120,7 +120,7 @@ class SessionService {
           print("SUCCESS - \(route.label)")
           return sessionData
     }
-    
+
     func patchSessionWithId(sessionId: String, newCalendlyURI: String) async throws -> DefaultSessionData? {
         let route = APIRoute.patchSession(sessionId: sessionId)
         var request = try await route.createURLRequest()
@@ -137,7 +137,7 @@ class SessionService {
         print("SUCCESS - \(route.label)")
         return sessionData
     }
-    
+
     func deleteSessionWithId(sessionId: String) async throws -> DefaultSessionData? {
         let route = APIRoute.deleteSession(sessionId: sessionId)
         var request = try await route.createURLRequest()
@@ -149,6 +149,6 @@ class SessionService {
         }
         print("SUCCESS - \(route.label)")
         return sessionData
-                
+
     }
 }

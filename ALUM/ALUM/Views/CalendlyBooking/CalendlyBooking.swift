@@ -54,7 +54,7 @@ struct CalendlyView: UIViewRepresentable {
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
-                if(requestType == "POST") {
+                if requestType == "POST" {
                     Task {
                         do {
                             let messageBody = "\(message.body)"
@@ -68,7 +68,7 @@ struct CalendlyView: UIViewRepresentable {
                         }
                     }
                 }
-                if(requestType == "PATCH") {
+                if requestType == "PATCH" {
                     Task {
                         do {
                             let messageBody = "\(message.body)"

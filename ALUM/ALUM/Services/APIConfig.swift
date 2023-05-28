@@ -24,16 +24,16 @@ enum APIRoute {
     case postMentor
     case postMentee
     case getCalendly
-    
+
     case getNote(noteId: String)
     case patchNote(noteId: String)
-    
+
     case getSession(sessionId: String)
     case getSessions
     case postSession
     case patchSession(sessionId: String)
     case deleteSession(sessionId: String)
-    
+
     var url: String {
         switch self {
         case .getSelf:
@@ -64,7 +64,7 @@ enum APIRoute {
             return URLString.calendly
         }
     }
-        
+
         var method: String {
             switch self {
             case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
@@ -77,7 +77,7 @@ enum APIRoute {
                 return "PATCH"
             }
         }
-        
+
         var requireAuth: Bool {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession,
@@ -88,7 +88,7 @@ enum APIRoute {
                 return false
             }
         }
-        
+
         func createURLRequest() async throws -> URLRequest {
             return try await ServiceHelper.shared.createRequest(
                 urlString: self.url,
@@ -96,11 +96,11 @@ enum APIRoute {
                 requireAuth: self.requireAuth
             )
         }
-        
+
         var label: String {
             return "\(self.method) \(self.url)"
         }
-        
+
         var successCode: Int {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
@@ -111,11 +111,11 @@ enum APIRoute {
                 return 201 // 201 Created
             }
         }
-        
+
         func getAppError(statusCode: Int, message: String) -> AppError {
             let labeledMessage = "\(self.label) - \(message)"
             let errorMap: [Int: AppError]
-            
+
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                     .getSession, .getSessions, .getCalendly,
@@ -130,7 +130,7 @@ enum APIRoute {
                     400: AppError.internalError(.invalidRequest, message: labeledMessage)
                 ]
             }
-            
+
             let error = errorMap[statusCode] ?? AppError.internalError(.unknownError, message: labeledMessage)
             return error
         }
