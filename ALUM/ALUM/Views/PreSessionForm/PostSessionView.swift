@@ -30,6 +30,29 @@ extension View {
     }
 }
 
+struct MissedSessionScreenHeaderModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "XXX",
+                    backDestination: LoginScreen(),
+                    title: "Missed Session",
+                    purple: false
+                )
+            }
+            content
+                .background(Color("ALUM White 2"))
+        }
+    }
+}
+
+extension View {
+    func applyMissedSessionScreenHeaderModifier() -> some View {
+        self.modifier(MissedSessionScreenHeaderModifier())
+    }
+}
+
 struct PostSessionView: View {
     @StateObject private var viewModel = QuestionViewModel()
 
@@ -50,8 +73,6 @@ struct PostSessionView: View {
                     date: date,
                     time: time
                 )
-                .navigationBarTitle("", displayMode: .inline)
-                .navigationBarHidden(true)
             } else {
                 Text("Loading...")
                     .navigationBarTitle("")

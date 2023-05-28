@@ -109,7 +109,11 @@ struct MentorSessionDetailsPage: View {
                     .padding(.bottom, 5)
                     
                     HStack {
+<<<<<<< HEAD
                         Text(viewModel.session.day + ", " + viewModel.session.date)
+=======
+                        Text(viewModel.session.mentor.mentor.zoomLink ?? "zoom.com")
+>>>>>>> main
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         
                         Spacer()

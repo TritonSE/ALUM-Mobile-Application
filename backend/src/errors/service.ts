@@ -36,7 +36,7 @@ export class ServiceError extends CustomError {
 
   static ERROR_GETTING_EVENT_DATA = new ServiceError(7, 404, ERROR_GETTING_EVENT_DATA);
 
-  static SESSION_WAS_NOT_FOUND = new ServiceError(6, 404, SESSION_WAS_NOT_FOUND);
+  static SESSION_WAS_NOT_FOUND = new ServiceError(8, 404, SESSION_WAS_NOT_FOUND);
 
   static NOTE_WAS_NOT_FOUND = new ServiceError(7, 404, NOTE_WAS_NOT_FOUND);
 

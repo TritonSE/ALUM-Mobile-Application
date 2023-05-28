@@ -42,20 +42,22 @@ struct MenteeSessionsDetailsPage: View {
     var body: some View {
         Group {
             if !viewModel.isLoading {
-                GeometryReader { grr in
-                    VStack {
-                        ScrollView {
-                            content
-                                .padding(.horizontal, 16)
-                        }
-                        .frame(minHeight: grr.size.height-120)
+                NavigationView {
+                    GeometryReader { grr in
+                        VStack {
+                            ScrollView {
+                                content
+                                    .padding(.horizontal, 16)
+                            }
+                            .frame(minHeight: grr.size.height-120)
 
-                        NavigationFooter(page: "Home")
+                            NavigationFooter(page: "Home")
+                        }
+                        .applyMenteeSessionDetailsHeaderModifier(
+                            date: viewModel.session.date,
+                            mentor: viewModel.session.mentor.mentor.name)
+                        .edgesIgnoringSafeArea(.bottom)
                     }
-                    .applyMenteeSessionDetailsHeaderModifier(
-                        date: viewModel.session.date,
-                        mentor: viewModel.session.mentor.mentor.name)
-                    .edgesIgnoringSafeArea(.bottom)
                 }
             } else {
                 ProgressView()
@@ -193,7 +195,7 @@ struct MenteeSessionsDetailsPage: View {
                     .padding(.bottom, 5)
 
                     HStack {
-                        Text(viewModel.session.mentor.mentor.zoomLink)
+                        Text(viewModel.session.mentor.mentor.zoomLink ?? "zoom.com")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                             .foregroundColor(Color("ALUM Dark Blue"))
 
