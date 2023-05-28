@@ -5,6 +5,8 @@
 //  Created by Aman Aggarwal on 5/22/23.
 //
 
+// swiftlint:disable file_length
+
 import SwiftUI
 
 let isMVP: Bool = true
@@ -25,7 +27,7 @@ struct SessionDetailsScreen: View {
         return loadingAbstraction
             .customNavigationIsPurple(false)
     }
-    
+
     var loadingAbstraction: some View {
         Group {
             if viewModel.isLoading || viewModel.session == nil {
@@ -48,7 +50,7 @@ struct SessionDetailsScreen: View {
     var navigationBarConfig: some View {
         let session = viewModel.session!
         var otherName: String
-        
+
         switch currentUser.role {
         case .mentee:
             otherName = session.mentorName
@@ -56,15 +58,16 @@ struct SessionDetailsScreen: View {
             otherName = session.menteeName
         case .none:
             otherName = ""
-            // TODO Internal error
+            // (todo) Internal error
         }
+
         return ScrollView {
             screenContent
         }
         .customNavigationTitle("\(session.dateShortHandString) Session with \(otherName)")
         .background(ALUMColor.beige.color)
     }
-    
+
     var screenContent: some View {
         let session = viewModel.session!
         return ZStack {
@@ -129,12 +132,12 @@ struct SessionDetailsScreen: View {
         }
         .padding(.bottom, 20)
     }
-    
+
     var bookSessionButton: some View {
         let session = viewModel.session!
         let buttonDisabled: Bool = !session.postSessionMenteeCompleted
 
-    
+
         return Button {
             showCalendlyWebView = true
         } label: {
@@ -144,12 +147,10 @@ struct SessionDetailsScreen: View {
         .buttonStyle(FilledInButtonStyle(disabled: buttonDisabled))
         .padding(.bottom, 26)
     }
-    
-    
-    
+
     var locationSectionForAny: some View {
         let session = viewModel.session!
-        
+
         return Group {
             HStack {
                 ALUMText(text: "Location", textColor: ALUMColor.gray4)
@@ -158,22 +159,22 @@ struct SessionDetailsScreen: View {
             .padding(.bottom, 5)
 
             HStack {
-                ALUMText(text: session.location, textColor: ALUMColor.primaryBlue)
+                ALUMText(text: session.location ?? "Not specified", textColor: ALUMColor.primaryBlue)
                 Spacer()
             }
             .padding(.bottom, 20)
         }
     }
-    
+
     var postSessionNotesSectionForAny: some View {
         let session = viewModel.session!
         var formIsComplete: Bool, editableNoteId: String, otherNoteId: String, otherName: String
-        
+
         if session.postSessionMentee == nil || session.postSessionMentor == nil {
             print("Attempting to display session view but no post session notes IDs present ")
-            // TODO internal error
+            // (todo) internal error
         }
-        
+
         switch currentUser.role {
         case .mentee:
             formIsComplete = session.postSessionMenteeCompleted
@@ -191,15 +192,15 @@ struct SessionDetailsScreen: View {
             otherNoteId = ""
             otherName = ""
         }
-        
+
         return Group {
             HStack {
                 ALUMText(text: "Post-Session Form", textColor: ALUMColor.gray4)
-                
+
                 Spacer()
             }
             .padding(.bottom, formIsComplete ? 20 : 5)
-            
+
             if !formIsComplete {
                 HStack {
                     FormIncompleteComponent(type: "Post")
@@ -207,16 +208,16 @@ struct SessionDetailsScreen: View {
                 }
                 .padding(.bottom, 22)
             }
-            
+
             if !formIsComplete {
                 CustomNavLink(
                     destination: PostSessionFormRouter(
                         notesID: editableNoteId,
                         otherNotesId: otherNoteId,
-                        otherName: otherName, 
-                        date: session.dateShortHandString, 
+                        otherName: otherName,
+                        date: session.dateShortHandString,
                         time: session.startTimeString
-                    ), 
+                    ),
                     label: {
                         ALUMText(text: "Complete Post-Session Notes", textColor: ALUMColor.white)
                     }
@@ -231,7 +232,7 @@ struct SessionDetailsScreen: View {
                         otherName: otherName,
                         date: session.dateShortHandString,
                         time: session.startTimeString
-                    ),  
+                    ),
                     label: {
                         ALUMText(text: "View Post-Session Notes", textColor: ALUMColor.white)
                     }
@@ -239,19 +240,51 @@ struct SessionDetailsScreen: View {
                 .buttonStyle(FilledInButtonStyle())
                 .padding(.bottom, 5)
             }
-            
-            CustomNavLink(
-                destination: ViewPreSessionNotesPage(
-                    allowEditing: false, 
-                    notesID: session.preSession, 
-                    otherName: otherName
-                ),
-                label: {
-                    ALUMText(text: "View Pre-Session Notes")
+        }
+    }
+
+    var viewPreSessionNotesForAny: some View {
+        let session = viewModel.session!
+        var otherName: String
+        switch currentUser.role {
+        case .mentee:
+            otherName = session.mentorName
+        case .mentor:
+            otherName = session.menteeName
+        case .none:
+            otherName = ""
+        }
+        return CustomNavLink(
+            destination: ViewPreSessionNotesPage(
+                allowEditing: false,
+                notesID: session.preSession,
+                otherName: otherName
+            ),
+            label: {
+                ALUMText(text: "View Pre-Session Notes")
+            }
+        )
+        .buttonStyle(OutlinedButtonStyle())
+        .padding(.bottom, 5)
+    }
+
+    var afterEventSectionForAny: some View {
+        let session = viewModel.session!
+
+        return VStack {
+            if session.missedSessionReason == nil {
+                postSessionNotesSectionForAny
+            } else {
+                HStack {
+                    ALUMText(
+                        text: "Session was not completed due to: \(session.missedSessionReason!)",
+                        textColor: ALUMColor.red
+                    )
+                    Spacer()
                 }
-            )
-            .buttonStyle(OutlinedButtonStyle())
-            .padding(.bottom, 5)
+                .padding(.bottom, 10)
+            }
+            viewPreSessionNotesForAny
         }
     }
 }
@@ -267,9 +300,9 @@ extension SessionDetailsScreen {
                 Spacer()
             }
             .padding(.bottom, 5)
-            
+
             CustomNavLink(
-                destination: 
+                destination:
                     MenteeProfileScreen(
                         uID: session.menteeId
                     ).customNavigationTitle("Mentee Profile")
@@ -282,41 +315,35 @@ extension SessionDetailsScreen {
             }
             dateTimeDisplaySection
             if session.hasPassed {
-                afterEventSectionMentor
+                afterEventSectionForAny
             } else {
                 beforeEventSectionMentor
             }
         }
     }
-    
+
     var beforeEventSectionMentor: some View {
         return Group {
             locationSectionForAny
             preSessionNotesSectionForMentor
         }
     }
-    
-    var afterEventSectionMentor: some View {
-        return VStack {
-            postSessionNotesSectionForAny
-        }
-    }
-    
+
     var preSessionNotesSectionForMentor: some View {
         // Mentor can view mentee's pre-session notes
         let session = viewModel.session!
-        
+
         return Group {
             HStack {
                 ALUMText(text: "Pre-Session Form", textColor: ALUMColor.gray4)
                 Spacer()
             }
             .padding(.bottom, 20)
-            
+
             CustomNavLink(
                 destination: ViewPreSessionNotesPage(
-                    allowEditing: false, 
-                    notesID: session.preSession, 
+                    allowEditing: false,
+                    notesID: session.preSession,
                     otherName: session.menteeName
                 ), label: {
                     ALUMText(text: "View Pre-Session Form", textColor: ALUMColor.white)
@@ -334,7 +361,7 @@ extension SessionDetailsScreen {
         
         return Group {
             bookSessionButton
-            
+
             HStack {
                 ALUMText(text: "Mentor", textColor: ALUMColor.gray4)
                 Spacer()
@@ -349,22 +376,16 @@ extension SessionDetailsScreen {
                     .padding(.bottom, 28)
             }
             dateTimeDisplaySection
-            
+
             if session.hasPassed {
-                afterEventSectionMentee
+                afterEventSectionForAny
             } else {
                 beforeEventSectionMentee
             }
         }
-        
+
     }
-    
-    var afterEventSectionMentee: some View {
-        return VStack {
-            postSessionNotesSectionForAny
-        }
-    }
-    
+
     var beforeEventSectionMentee: some View {
             return Group {
                 locationSectionForAny
@@ -399,15 +420,15 @@ extension SessionDetailsScreen {
             }
 
             if !session.preSessionCompleted {
-                
+
                 CustomNavLink(
-                    destination: 
+                    destination:
                         PreSessionFormRouter(
-                            notesID: session.preSession, 
-                            otherName: session.mentorName, 
-                            date: session.dateShortHandString, 
+                            notesID: session.preSession,
+                            otherName: session.mentorName,
+                            date: session.dateShortHandString,
                             time: session.startTimeString
-                        ), 
+                        ),
                     label: {
                         ALUMText(text: "Complete Pre-Session Notes", textColor: ALUMColor.white)
                     }
@@ -473,10 +494,17 @@ extension SessionDetailsScreen {
 }
 struct SessionDetailsScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentee)
-        
+        CurrentUserModel.shared.setCurrentUser(
+            isLoading: false,
+            isLoggedIn: true,
+            uid: "6431b9a2bcf4420fe9825fe5",
+            role: .mentee
+        )
+
         return CustomNavView {
             SessionDetailsScreen(sessionId: "6464276b6f05d9703f069760")
         }
     }
 }
+
+// swiftlint:enable file_length

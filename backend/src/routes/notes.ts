@@ -22,7 +22,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
   try {
     const id = req.params.id;
     const note = await Note.findById(id);
-    console.log(`GETTING note - ID ${note?.id}`)
+    console.log(`GETTING note - ID ${note?.id}`);
     if (note == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
     if (note.type === "post") {
       const temp = await Session.findById(note.session);
@@ -49,7 +49,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
     notesAnswers.forEach((note_answer) => {
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
-    return res.status(200).json(note.answers);
+    res.status(200).json(note.answers);
   } catch (e) {
     next(e);
   }

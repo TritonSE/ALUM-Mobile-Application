@@ -39,7 +39,7 @@ struct MentorProfileScreen: View {
 
     var content: some View {
         let mentor = viewModel.mentor!
-        
+
         return GeometryReader { grr in
             VStack(spacing: 0) {
                 ScrollView {
@@ -71,6 +71,9 @@ struct MentorProfileScreen: View {
                     about
                     if viewModel.selfView! {
                         mentees
+                        Button("Title", action: {
+                            FirebaseAuthenticationService.shared.logout()
+                        })
                     }
                 }
                 .frame(minHeight: grr.size.height - 50)
@@ -90,8 +93,7 @@ struct MentorProfileScreen: View {
                     ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
                       .background(.white)
                   }
-                }
-                else {
+                } else {
                   if scrollAtTop {
                     Rectangle()
                       .frame(height: 10)
@@ -128,7 +130,7 @@ extension MentorProfileScreen {
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
         }
     }
-    
+
     private var description: some View {
         Group {
             HStack {
@@ -152,7 +154,7 @@ extension MentorProfileScreen {
                 .padding(.bottom, 6)
         }
     }
-    
+
     private var about: some View {
         Group {
             Text("About")
@@ -172,7 +174,7 @@ extension MentorProfileScreen {
                 .padding(.bottom, 8)
         }
     }
-    
+
     private var mentees: some View {
         Group {
             Text("My Mentees")
@@ -202,12 +204,20 @@ extension MentorProfileScreen {
 
 struct MentorProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentUserModel.shared.setCurrentUser(isLoading: false, isLoggedIn: true, uid: "6431b9a2bcf4420fe9825fe5", role: .mentor)
+        CurrentUserModel.shared.setCurrentUser(
+            isLoading: false,
+            isLoggedIn: true,
+            uid: "6431b9a2bcf4420fe9825fe5",
+            role: .mentor
+        )
         return CustomNavView {
             MentorProfileScreen(uID: "6431b9a2bcf4420fe9825fe5")
                 .onAppear {
                     Task {
-                        try await FirebaseAuthenticationService.shared.login(email: "mentor@gmail.com", password: "123456")
+                        try await FirebaseAuthenticationService.shared.login(
+                            email: "mentor@gmail.com",
+                            password: "123456"
+                        )
                     }
                 }
         }

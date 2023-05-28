@@ -36,11 +36,11 @@ func handleDecodingErrors<T>(_ decodingClosure: () throws -> T) throws -> T {
         errorMessage = "Key '\(key)' not found, context: \(context.debugDescription)"
     } catch let DecodingError.valueNotFound(value, context) {
         errorMessage = "Value '\(value)' not found, context: \(context.debugDescription)"
-    } catch let DecodingError.typeMismatch(type, context)  {
+    } catch let DecodingError.typeMismatch(type, context) {
         errorMessage = "Type '\(type)' mismatch:, context: \(context.debugDescription)"
     } catch {
         errorMessage = "Unknown: \(error)"
     }
-    
+
     throw AppError.internalError(.invalidResponse, message: "Decode error - \(errorMessage)")
 }

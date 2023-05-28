@@ -132,10 +132,11 @@ router.get(
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
       } = session;
-      const [fullDateString, dateShortHandString, startTimeString, endTimeString]= formatDateTimeRange(startTime, endTime);
+      const [fullDateString, dateShortHandString, startTimeString, endTimeString] =
+        formatDateTimeRange(startTime, endTime);
 
       const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
-      
+
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -155,7 +156,7 @@ router.get(
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
           hasPassed,
-          location: mentor.location
+          location: mentor.location,
         },
       });
     } catch (e) {

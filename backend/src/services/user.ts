@@ -42,5 +42,4 @@ async function getMenteeId(pairingId: string): Promise<string> {
   return pairing.menteeId;
 }
 
-
 export { getMentorId, getMenteeId };

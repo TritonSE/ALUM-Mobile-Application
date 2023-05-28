@@ -14,7 +14,7 @@ struct LoadingView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(text)
+//            Text(text)
             ProgressView()
             Spacer()
         }

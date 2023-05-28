@@ -24,8 +24,13 @@ struct ALUMText: View {
     let textColor: ALUMColor
     let isUnderlined: Bool
 
-    init(text: String, fontName: ALUMFontName = .bodyFontName,
-         fontSize: ALUMFontSize = .bodyFontSize, textColor: ALUMColor = ALUMColor.primaryPurple, isUnderlined: Bool = false) {
+    init(
+        text: String,
+        fontName: ALUMFontName = .bodyFontName,
+        fontSize: ALUMFontSize = .bodyFontSize,
+        textColor: ALUMColor = ALUMColor.primaryPurple,
+        isUnderlined: Bool = false
+    ) {
        self.text = text
        self.fontName = fontName
        self.fontSize = fontSize

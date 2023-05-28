@@ -25,15 +25,12 @@ struct PreSessionQuestionScreen: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    
-
     var content: some View {
         var currentIndex = viewModel.currentIndex
         if viewModel.currentIndex >= viewModel.questionList.count {
             currentIndex = viewModel.questionList.count - 1
         }
         let currentQuestion = viewModel.questionList[currentIndex]
-    
 
         return VStack {
             if viewModel.currentIndex == 0 {
@@ -54,13 +51,13 @@ struct PreSessionQuestionScreen: View {
                 .padding(.leading, 16)
                 .padding(.bottom, 16)
                 .padding(.top, 8)
-                
+
                 BulletsView(bullets: $viewModel.questionList[currentIndex].answerBullet,
                             question: currentQuestion.question)
             }
         }
     }
-    
+
     var firstQuestionBanner: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
@@ -93,7 +90,7 @@ extension PreSessionQuestionScreen {
         .padding(.bottom, 40)
         .background(Rectangle().fill(Color.white).shadow(radius: 8))
     }
-    
+
     var footerForFirstQuestion: some View {
         Button {
             viewModel.nextQuestion()
@@ -107,7 +104,7 @@ extension PreSessionQuestionScreen {
         }
         .buttonStyle(FilledInButtonStyle())
     }
-    
+
     var footerWithBackAndContinue: some View {
         HStack {
             Button {

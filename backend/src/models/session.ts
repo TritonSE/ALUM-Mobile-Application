@@ -12,7 +12,6 @@ interface SessionInterface {
   missedSessionReason: string;
   menteeId: ObjectId;
   mentorId: ObjectId;
-  dateTime: Date;
   startTime: Date;
   endTime: Date;
   calendlyUri: string;

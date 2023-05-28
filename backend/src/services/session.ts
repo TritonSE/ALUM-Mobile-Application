@@ -1,18 +1,21 @@
-import { Types } from 'mongoose';
+import { Types } from "mongoose";
 import { InternalError, ServiceError } from "../errors";
-import { Session, SessionDoc } from '../models';
+import { Session } from "../models";
 
-export async function getUpcomingSession(userId: string, role: 'mentor' | 'mentee'): Promise<Types.ObjectId | null> {
+export async function getUpcomingSession(
+  userId: string,
+  role: "mentor" | "mentee"
+): Promise<Types.ObjectId | null> {
   const now = new Date();
 
   let matchField: string;
 
-  if (role === 'mentor') {
-    matchField = 'mentorId';
-  } else if (role === 'mentee') {
-    matchField = 'menteeId';
+  if (role === "mentor") {
+    matchField = "mentorId";
+  } else if (role === "mentee") {
+    matchField = "menteeId";
   } else {
-    throw ServiceError.INVALID_ROLE_WAS_FOUND
+    throw ServiceError.INVALID_ROLE_WAS_FOUND;
   }
 
   try {
@@ -23,19 +26,22 @@ export async function getUpcomingSession(userId: string, role: 'mentor' | 'mente
 
     return upcomingSession?._id;
   } catch (error) {
-    throw InternalError.ERROR_FINDING_UPCOMING_SESSION
+    throw InternalError.ERROR_FINDING_UPCOMING_SESSION;
   }
 }
 
-export async function getLastSession(userId: string, role: 'mentor' | 'mentee'): Promise<Types.ObjectId | null> {
+export async function getLastSession(
+  userId: string,
+  role: "mentor" | "mentee"
+): Promise<Types.ObjectId | null> {
   const now = new Date();
 
   let matchField: string;
 
-  if (role === 'mentor') {
-    matchField = 'mentorId';
-  } else if (role === 'mentee') {
-    matchField = 'menteeId';
+  if (role === "mentor") {
+    matchField = "mentorId";
+  } else if (role === "mentee") {
+    matchField = "menteeId";
   } else {
     throw ServiceError.INVALID_ROLE_WAS_FOUND;
   }
@@ -61,7 +67,10 @@ export async function getLastSession(userId: string, role: 'mentor' | 'mentee'):
  *    "2:30 PM"
  * ]
  */
-export function formatDateTimeRange(startTime: Date, endTime: Date): [string, string, string, string] {
+export function formatDateTimeRange(
+  startTime: Date,
+  endTime: Date
+): [string, string, string, string] {
   const dateOptions: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
@@ -86,18 +95,18 @@ export function formatDateTimeRange(startTime: Date, endTime: Date): [string, st
   const endTimeString = endTime.toLocaleTimeString("en-US", timeOptions);
   const dateShortHandString = startTime.toLocaleDateString("en-US", dateShortHandOptions);
 
-  let fullDateString 
+  let fullDateString;
   if (startDateString === endDateString) {
     // Thursday, April 27, 2023 at 2:00 PM - 2:30 PM
-    fullDateString = startDateString
+    fullDateString = startDateString;
   } else {
-    fullDateString = endDateString
+    fullDateString = endDateString;
   }
-  
-  return [fullDateString, dateShortHandString, startTimeString, endTimeString]
+
+  return [fullDateString, dateShortHandString, startTimeString, endTimeString];
   // Thursday, April 27, 2023 at 2:00 PM - Friday, April 28, 2023 at 2:30 PM
 }
 
 const startDate = new Date();
 const endDate = new Date();
-console.log(formatDateTimeRange(startDate, endDate))
+console.log(formatDateTimeRange(startDate, endDate));

@@ -14,16 +14,16 @@ struct PreSessionFormRouter: View {
     var otherName: String
     var date: String
     var time: String
-    
+
     var body: some View {
         loadingAbstraction
             .customNavBarItems(
-                title: "\(date) Pre-session Notes", 
-                isPurple: false, 
+                title: "\(date) Pre-session Notes",
+                isPurple: false,
                 backButtonHidden: false
             )
     }
-    
+
     var loadingAbstraction: some View {
         print("isLoading \(viewModel.isLoading)")
         return Group {
@@ -43,7 +43,7 @@ struct PreSessionFormRouter: View {
             }
         }
     }
-    
+
     var loadedView: some View {
         return VStack {
             DynamicProgressBarComponent(nodes: $viewModel.questionList.count + 1,

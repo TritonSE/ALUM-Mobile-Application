@@ -10,10 +10,11 @@ import SwiftUI
 struct PostSessionQuestionScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
-    @State var otherUser: String
-    @State var date: String
-    @State var time: String
+
+    var otherUser: String
+    var date: String
+    var time: String
+    var noteId: String
 
     var body: some View {
         VStack {
@@ -27,14 +28,13 @@ struct PostSessionQuestionScreen: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    
     var content: some View {
         var currentIndex = viewModel.currentIndex
         if viewModel.currentIndex >= viewModel.questionList.count {
             currentIndex = viewModel.questionList.count - 1
         }
         let currentQuestion = viewModel.questionList[currentIndex]
-        
+
         return VStack {
             if currentIndex == 0 {
                 ZStack {
@@ -46,7 +46,16 @@ struct PostSessionQuestionScreen: View {
                             .lineSpacing(10)
                             .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
                         Spacer()
-                        NavigationLink(destination: MissedSessionScreen(viewModel: viewModel), label: {
+                        NavigationLink(
+                            destination:
+                                        MissedSessionScreen(
+                                            viewModel: viewModel,
+                                            notesID: noteId,
+                                            date: date,
+                                            time: time,
+                                            otherUser: otherUser
+                                        ),
+                            label: {
                                     HStack {
                                         Text("Session didn't happen?")
                                             .foregroundColor(Color("ALUM Dark Blue"))
@@ -112,7 +121,7 @@ extension PostSessionQuestionScreen {
         .padding(.bottom, 40)
         .background(Rectangle().fill(Color.white).shadow(radius: 8))
     }
-    
+
     var footerForFirstQuestion: some View {
         Button {
             viewModel.nextQuestion()
@@ -126,7 +135,7 @@ extension PostSessionQuestionScreen {
         }
         .buttonStyle(FilledInButtonStyle())
     }
-    
+
     var footerWithBackAndContinue: some View {
         HStack {
             Button {
@@ -156,10 +165,10 @@ extension PostSessionQuestionScreen {
     }
 }
 //
-//struct PostSessionQuestionScreen_Previews: PreviewProvider {
+// struct PostSessionQuestionScreen_Previews: PreviewProvider {
 //    static private var viewModel = QuestionViewModel()
 //
 //    static var previews: some View {
 //        PostSessionQuestionScreen(viewModel: viewModel)
 //    }
-//}
+// }

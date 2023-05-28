@@ -119,9 +119,7 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
     const checkMissedNote = updatedNotes.find(
       (note) => note.questionId === "missedSessionQuestionId"
     );
-    console.log("here");
     if (checkMissedNote) {
-      console.log("checkMissedNote is true");
       missedNote = true;
       missedReason = <string>checkMissedNote.answer;
     }

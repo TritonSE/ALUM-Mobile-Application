@@ -9,15 +9,15 @@ import SwiftUI
 
 struct HorizontalMenteeCard: View {
     var menteeId: String
-    
+
     var school: String = "NHS"
     @State var isEmpty = true
     @StateObject private var viewModel = MenteeProfileViewmodel()
-    
+
     var body: some View {
         loadingAbstraction
     }
-    
+
     var loadingAbstraction: some View {
         Group {
             if viewModel.isLoading() || viewModel.mentee == nil {
@@ -35,10 +35,10 @@ struct HorizontalMenteeCard: View {
             }
         })
     }
-    
+
     var loadedView: some View {
         let mentee = viewModel.mentee!
-        
+
         return ZStack {
             RoundedRectangle(cornerRadius: 12.0)
                 .frame(width: 358, height: 118)

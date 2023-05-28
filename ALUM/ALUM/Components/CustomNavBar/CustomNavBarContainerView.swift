@@ -16,20 +16,19 @@ struct CustomNavBarDefaultValues {
 
 struct CustomNavBarContainerView<Content: View>: View {
     let content: Content
-    
+
     // By default, we show the back button unless some view explicitly sets 
     // this to false
-    @State private var showBackButton: Bool = CustomNavBarDefaultValues.showBackButton 
-    
+    @State private var showBackButton: Bool = CustomNavBarDefaultValues.showBackButton
+
     @State private var title: String = CustomNavBarDefaultValues.title
     @State private var isPurple: Bool = CustomNavBarDefaultValues.barIsPurple
     @State private var isHidden: Bool = CustomNavBarDefaultValues.barIsHidden
-    
-    
+
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
-    
+
     var body: some View {
         return VStack(spacing: 0) {
             if !isHidden {
@@ -38,20 +37,16 @@ struct CustomNavBarContainerView<Content: View>: View {
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .onPreferenceChange(CustomNavBarTitlePreferenceKey.self, perform: {
-            value in
+        .onPreferenceChange(CustomNavBarTitlePreferenceKey.self, perform: { value in
             self.title = value
         })
-        .onPreferenceChange(CustomNavBarIsPurplePreferenceKey.self, perform: {
-            value in
+        .onPreferenceChange(CustomNavBarIsPurplePreferenceKey.self, perform: { value in
             self.isPurple = value
         })
-        .onPreferenceChange(CustomNavBarBackButtonHiddenPreferenceKey.self, perform: {
-            value in
+        .onPreferenceChange(CustomNavBarBackHiddenPreferenceKey.self, perform: { value in
             self.showBackButton = !value
         })
-        .onPreferenceChange(CustomNavBarIsHiddenPreferenceKey.self, perform: {
-            value in
+        .onPreferenceChange(CustomNavBarIsHiddenPreferenceKey.self, perform: { value in
             self.isHidden = value
         })
     }

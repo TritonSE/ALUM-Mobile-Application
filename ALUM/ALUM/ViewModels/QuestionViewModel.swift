@@ -19,59 +19,6 @@ final class QuestionViewModel: ObservableObject {
     @Published var submitSuccess: Bool = false
     @Published var missedOption: String = ""
 
-    func loadTestData() {
-        print("load test data")
-        var question1 = Question(question: "Testing Question 1",
-                                 type: "text",
-                                 id: "1",
-                                 answerBullet: [],
-                                 answerCheckboxBullet: [],
-                                 answerParagraph: "Testing Answer 1")
-        var question2 = Question(question: "Testing Question 2",
-                                 type: "text",
-                                 id: "2",
-                                 answerBullet: [],
-                                 answerCheckboxBullet: [],
-                                 answerParagraph: "Testing Answer 2")
-        var question3 = Question(question: "Testing Question 3",
-                                 type: "bullet",
-                                 id: "3",
-                                 answerBullet:
-                                    ["Testing a really long line so I can make sure it wraps around as it should",
-                                     "Answer", "3"],
-                                 answerCheckboxBullet: [],
-                                 answerParagraph: "")
-        var question4 = Question(question: "Testing Question 4",
-                                 type: "bullet",
-                                 id: "4",
-                                 answerBullet:
-                                    ["Some other possible answers",
-                                     "Blah Blah Blah",
-                                     "Longer answer to make this look long Longer answer to make this look long"],
-                                 answerCheckboxBullet: [],
-                                 answerParagraph: "")
-        var question5 = Question(question: "Testing Question 5",
-                                 type: "checkbox-bullet",
-                                 id: "5",
-                                 answerBullet: [],
-                                 answerCheckboxBullet:
-                                    [CheckboxBullet(content: "some content", status: "unchecked"),
-                                     CheckboxBullet(content: "more content", status: "checked"),
-                                     CheckboxBullet(content: "a bullet here", status: "bullet")],
-                                 answerParagraph: "")
-        var question6 = Question(question: "Testing Question 6",
-                                 type: "bullet",
-                                 id: "5",
-                                 answerBullet: ["bullet 1", "bullet 2"],
-                                 answerCheckboxBullet: [],
-                                 answerParagraph: "")
-
-        self.questionList.append(question1); self.questionList.append(question2)
-        self.questionList.append(question3); self.questionList.append(question4)
-        self.questionList.append(question6)
-        self.isLoading = false
-    }
-
     func submitMissedNotesPatch(noteID: String) async throws {
         var notesData: [QuestionPatchData] = []
         notesData.append(QuestionPatchData(answer: PatchAnswer.string(missedOption),
@@ -104,7 +51,7 @@ final class QuestionViewModel: ObservableObject {
         }
         return newQuestions
     }
-    
+
     func fetchPreSessionNotes(noteId: String) async throws {
         DispatchQueue.main.async {
             self.isLoading = true
@@ -122,14 +69,14 @@ final class QuestionViewModel: ObservableObject {
         }
         let primaryQuestions = try await self.fetchNotes(noteId: notesId)
         let otherQuestions = try await self.fetchNotes(noteId: otherNotesId)
-        
+
         DispatchQueue.main.async {
             self.isLoading = false
             self.questionList = primaryQuestions
             self.questionListOther = otherQuestions
         }
     }
-    
+
     func nextQuestion() {
         self.currentIndex += 1
         if self.currentIndex == self.questionList.count - 1 {
