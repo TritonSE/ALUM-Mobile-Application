@@ -5,6 +5,8 @@
 //  Created by Aman Aggarwal on 5/22/23.
 //
 
+// swiftlint:disable file_length
+
 import SwiftUI
 
 let isMVP: Bool = true
@@ -447,3 +449,5 @@ struct SessionDetailsScreen_Previews: PreviewProvider {
         }
     }
 }
+
+// swiftlint:enable file_length
