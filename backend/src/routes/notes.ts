@@ -8,6 +8,7 @@ import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
 import { CheckboxBulletItem } from "../types/notes";
 import { ServiceError } from "../errors";
+import { verifyAuthToken } from "../middleware/auth";
 
 const router = express.Router();
 
@@ -18,7 +19,7 @@ interface NoteItem {
   question: string;
 }
 
-router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/notes/:id", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
     const note = await Note.findById(id);
@@ -76,7 +77,7 @@ router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction)
 type UpdateNoteRequestBodyType = Infer<typeof UpdateNoteRequestBodyCake>;
 router.patch(
   "/notes/:id",
-  validateReqBodyWithCake(UpdateNoteRequestBodyCake),
+  [validateReqBodyWithCake(UpdateNoteRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log(req.body);
