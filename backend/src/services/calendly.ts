@@ -1,10 +1,4 @@
-/**
- * This file contains functions that are interact with the Calendly API.
- * Calendly is used to manage our scheduling system so that we don't have to
- * build a calendar :)
- */
-
-import { ServiceError } from "../errors";
+import { ServiceError, ValidationError } from "../errors";
 
 /**
  * This function gets calendly event data. See get event route
@@ -76,4 +70,24 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
   }
 }
 
-export { getCalendlyEventDate, deleteCalendlyEvent };
+
+async function validateCalendlyAccessToken(accessToken: string) {
+  try {
+    console.log("ac", accessToken)
+    const response = await fetch(`https://api.calendly.com/users/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+   
+    if (!response.ok) {
+      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN 
+    }
+  } catch (e) {
+    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN
+  }
+}
+
+export { getCalendlyEventDate, validateCalendlyAccessToken, deleteCalendlyEvent };
