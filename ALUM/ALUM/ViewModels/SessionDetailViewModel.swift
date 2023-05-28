@@ -98,5 +98,5 @@ final class SessionDetailViewModel: ObservableObject {
         self.session.mentee = menteeData
         self.isLoading = false
     }
-    
+
 }

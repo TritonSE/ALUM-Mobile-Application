@@ -67,7 +67,7 @@ struct MenteeSessionsDetailsPage: View {
                     var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
 
                     //try await viewModel.loadSession(sessionID: sessionsArray[0].id)
-                    try await viewModel.loadSession(sessionID: "646d3173300fcffdfc16507a")
+                    try await viewModel.loadSession(sessionID: "646d56f7bedcded579b194db")
                 } catch {
                     print(error)
                 }
@@ -123,6 +123,7 @@ struct MenteeSessionsDetailsPage: View {
             }
 
             if !viewModel.sessionCompleted {
+                /*
                 Button {
                     showRescheduleAlert = true
                 } label: {
@@ -131,7 +132,24 @@ struct MenteeSessionsDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
-                
+                /*
+                .alert(isPresented: $showRescheduleAlert) {
+                    CustomAlertView(isAlert: true,
+                                    leftButtonLabel: "Yes, reschedule",
+                                    rightButtonLabel: "No",
+                                    titleText: "Reschedule this session?",
+                                    errorMessage: "Your pre-session notes will be transferred to your next scheduled session",
+                                    leftButtonAction: {
+                        showCalendly = true
+                    }, rightButtonAction: {
+                        print("right button pressed")
+                    })
+                    .frame(width: 326, height: 230)
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+                }
+                 */
                 if showRescheduleAlert {
                     CustomAlertView(isAlert: true,
                                     leftButtonLabel: "Yes, reschedule",
@@ -139,7 +157,6 @@ struct MenteeSessionsDetailsPage: View {
                                     titleText: "Reschedule this session?",
                                     errorMessage: "Your pre-session notes will be transferred to your next scheduled session",
                                     leftButtonAction: {
-                        //let calendlyView = CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
                         print(showCalendly)
                         print("Left button pressed")
                         showCalendly = true
@@ -154,7 +171,8 @@ struct MenteeSessionsDetailsPage: View {
                 NavigationLink(destination: CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID), isActive: $showCalendly) {
                     }
                 .hidden()
-                /*
+                */
+                
                 NavigationLink {
                     CalendlyView(requestType: "PATCH", sessionId: viewModel.sessionID)
                 } label: {
@@ -163,7 +181,7 @@ struct MenteeSessionsDetailsPage: View {
                 }
                 .buttonStyle(OutlinedButtonStyle())
                 .padding(.bottom, 20)
-                 */
+                
                 Group {
                     HStack {
                         Text("Location")
@@ -234,7 +252,7 @@ struct MenteeSessionsDetailsPage: View {
                 }
 
                 Button {
-                    /*
+                    showCancelAlert = true
                     Task{
                         do {
                             try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
@@ -242,7 +260,6 @@ struct MenteeSessionsDetailsPage: View {
                             print(error)
                         }
                     }
-                     */
                 } label: {
                     Text("Cancel Session")
                         .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
@@ -251,7 +268,30 @@ struct MenteeSessionsDetailsPage: View {
                 .buttonStyle(OutlinedButtonStyle())
                 .border(Color("FunctionalError"))
                 .cornerRadius(8.0)
-                 
+                 /*
+                if showCancelAlert {
+                    CustomAlertView(isAlert: true,
+                                    leftButtonLabel: "Yes, cancel it",
+                                    rightButtonLabel: "No",
+                                    titleText: "Cancel this session?",
+                                    errorMessage: "Your pre-session notes will be lost",
+                                    leftButtonAction: {
+                        Task{
+                            do {
+                                try await SessionService().deleteSessionWithId(sessionId: viewModel.sessionID)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }, rightButtonAction: {
+                        print("right button pressed")
+                    })
+                    .frame(width: 326, height: 230)
+                    .background(Color.white)
+                    .cornerRadius(16)
+                    .shadow(radius: 10)
+                }
+                  */
             } else {
                 Group {
                     HStack {
