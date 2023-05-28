@@ -29,7 +29,7 @@ struct GetSessionData: Decodable {
     var session: SessionInfo
 }
 
-struct UserSessionInfo: Decodable {
+struct UserSessionInfo: Decodable, Hashable {
     var id: String
     var startTime: String
     var endTime: String

@@ -109,6 +109,7 @@
 		97E439F629AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */; };
 		97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */; };
 		97E439FA29AD98BB00F0B7C1 /* SignUpGradeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */; };
+		97E9AB052A22E2C5002074B5 /* AllSessionsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E9AB042A22E2C5002074B5 /* AllSessionsPage.swift */; };
 		97EB2BB029B59D19001988D9 /* SignUpFlowErrorFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */; };
 		97EB2BB229B5C63B001988D9 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */; };
 		97F1DB6C2A09DD4600DE8DB4 /* SessionButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */; };
@@ -220,6 +221,7 @@
 		97E439F529AD983C00F0B7C1 /* SignUpMentorInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpMentorInfoScreen.swift; sourceTree = "<group>"; };
 		97E439F729AD986A00F0B7C1 /* SignUpJoinOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpJoinOption.swift; sourceTree = "<group>"; };
 		97E439F929AD98BB00F0B7C1 /* SignUpGradeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpGradeComponent.swift; sourceTree = "<group>"; };
+		97E9AB042A22E2C5002074B5 /* AllSessionsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSessionsPage.swift; sourceTree = "<group>"; };
 		97EB2BAF29B59D19001988D9 /* SignUpFlowErrorFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFlowErrorFunctions.swift; sourceTree = "<group>"; };
 		97EB2BB129B5C63B001988D9 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionButtonComponent.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				0748209029712921004AF547 /* ContentView.swift */,
 				0799ACE22A007E8A00EEAFA2 /* LoadingScreen.swift */,
 				0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */,
+				97E9AB042A22E2C5002074B5 /* AllSessionsPage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -678,6 +681,7 @@
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				979303D829E87E0E0053C30E /* SessionModel.swift in Sources */,
 				0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */,
+				97E9AB052A22E2C5002074B5 /* AllSessionsPage.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */,
 				979F812429B85DF900D6E964 /* SelectUniversityComponent.swift in Sources */,
 				0757553229FAA2D6008E73FB /* PreSessionQuestionScreen.swift in Sources */,

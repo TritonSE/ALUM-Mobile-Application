@@ -20,12 +20,14 @@ class CurrentUserModel: ObservableObject {
     @Published var uid: String?
     @Published var role: UserRole?
     @Published var isLoggedIn: Bool
+    @Published var allSessions: [UserSessionInfo]?
 
     init() {
         self.isLoading = true
         self.isLoggedIn = false
         self.uid = nil
         self.role = nil
+        self.allSessions = nil
     }
 
     ///  Since async operations are involved, this function will limit updating the current
@@ -74,6 +76,7 @@ class CurrentUserModel: ObservableObject {
                 message: "Expected user role to be mentor OR mentee but found - \(role)"
             )
         }
+        self.allSessions = try await SessionService().getSessionsByUser().sessions
         self.setCurrentUser(isLoading: false, isLoggedIn: true, uid: user.uid, role: roleEnum)
     }
 }

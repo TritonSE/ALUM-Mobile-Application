@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SessionButtonComponent: View {
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
     @State var formIsIncomplete: Bool = true
     @State var formType: String = "Pre"
 
@@ -45,7 +46,7 @@ struct SessionButtonComponent: View {
                         .padding(.bottom, 4)
                         Spacer()
                     }
-                    if formIsIncomplete {
+                    if (formIsIncomplete && !(currentUser.role == .mentor && formType == "Pre")) {
                         HStack {
                             FormIncompleteComponent(type: formType)
                             Spacer()

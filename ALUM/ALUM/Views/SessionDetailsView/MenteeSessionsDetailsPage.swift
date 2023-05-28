@@ -35,6 +35,7 @@ extension View {
 
 struct MenteeSessionsDetailsPage: View {
     @StateObject private var viewModel = SessionDetailViewModel()
+    @State var sessionID = ""
 
     var body: some View {
         Group {
@@ -63,9 +64,7 @@ struct MenteeSessionsDetailsPage: View {
         .onAppear {
             Task {
                 do {
-                    var sessionsArray: [UserSessionInfo] = try await SessionService().getSessionsByUser().sessions
-
-                    try await viewModel.loadSession(sessionID: sessionsArray[0].id)
+                    try await viewModel.loadSession(sessionID: sessionID)
                 } catch {
                     print(error)
                 }
