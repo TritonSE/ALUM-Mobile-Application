@@ -227,19 +227,48 @@ struct SessionDetailsScreen: View {
                 .buttonStyle(FilledInButtonStyle())
                 .padding(.bottom, 5)
             }
-            
-            CustomNavLink(
-                destination: ViewPreSessionNotesPage(
-                    allowEditing: false, 
-                    notesID: session.preSession, 
-                    otherName: otherName
-                ),
-                label: {
-                    ALUMText(text: "View Pre-Session Notes")
+        }
+    }
+    
+    var viewPreSessionNotesForAny: some View {
+        let session = viewModel.session!
+        var otherName: String
+        switch currentUser.role {
+        case .mentee:
+            otherName = session.mentorName
+        case .mentor:
+            otherName = session.menteeName
+        case .none:
+            otherName = ""
+        }
+        return CustomNavLink(
+            destination: ViewPreSessionNotesPage(
+                allowEditing: false, 
+                notesID: session.preSession, 
+                otherName: otherName
+            ),
+            label: {
+                ALUMText(text: "View Pre-Session Notes")
+            }
+        )
+        .buttonStyle(OutlinedButtonStyle())
+        .padding(.bottom, 5)
+    }
+    
+    var afterEventSectionForAny: some View {
+        let session = viewModel.session!
+        
+        return VStack {
+            if session.missedSessionReason == nil {
+                postSessionNotesSectionForAny
+            } else {
+                HStack {
+                    ALUMText(text: "Session was not completed due to: \(session.missedSessionReason!)", textColor: ALUMColor.red)
+                    Spacer()
                 }
-            )
-            .buttonStyle(OutlinedButtonStyle())
-            .padding(.bottom, 5)
+                .padding(.bottom, 10)
+            }
+            viewPreSessionNotesForAny
         }
     }
 }
@@ -270,7 +299,7 @@ extension SessionDetailsScreen {
             }
             dateTimeDisplaySection
             if session.hasPassed {
-                afterEventSectionMentor
+                afterEventSectionForAny
             } else {
                 beforeEventSectionMentor
             }
@@ -281,12 +310,6 @@ extension SessionDetailsScreen {
         return Group {
             locationSectionForAny
             preSessionNotesSectionForMentor
-        }
-    }
-    
-    var afterEventSectionMentor: some View {
-        return VStack {
-            postSessionNotesSectionForAny
         }
     }
     
@@ -339,18 +362,12 @@ extension SessionDetailsScreen {
             dateTimeDisplaySection
             
             if session.hasPassed {
-                afterEventSectionMentee
+                afterEventSectionForAny
             } else {
                 beforeEventSectionMentee
             }
         }
 
-    }
-    
-    var afterEventSectionMentee: some View {
-        return VStack {
-            postSessionNotesSectionForAny
-        }
     }
     
     var beforeEventSectionMentee: some View {

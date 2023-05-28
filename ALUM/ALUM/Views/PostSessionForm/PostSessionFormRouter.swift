@@ -55,7 +55,7 @@ struct PostSessionFormRouter: View {
                 .padding()
                 .background(Color.white)
             if viewModel.currentIndex < viewModel.questionList.count {
-                PostSessionQuestionScreen(viewModel: viewModel, otherUser: otherName, date: date, time: time)
+                PostSessionQuestionScreen(viewModel: viewModel, otherUser: otherName, date: date, time: time, noteId: notesID)
             } else {
                 PostSessionConfirmationScreen(viewModel: viewModel, notesID: notesID)
             }

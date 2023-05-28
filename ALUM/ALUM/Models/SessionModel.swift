@@ -39,4 +39,5 @@ struct SessionModel: Decodable {
     var postSessionMentorCompleted: Bool
     var hasPassed: Bool
     var location: String
+    var missedSessionReason: String?
 }

@@ -10,10 +10,11 @@ import SwiftUI
 struct PostSessionQuestionScreen: View {
 
     @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
-    @State var otherUser: String
-    @State var date: String
-    @State var time: String
+
+    var otherUser: String
+    var date: String
+    var time: String
+    var noteId: String
 
     var body: some View {
         VStack {
@@ -46,8 +47,16 @@ struct PostSessionQuestionScreen: View {
                             .lineSpacing(10)
                             .padding(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
                         Spacer()
-                        NavigationLink(destination: MissedSessionScreen(
-                            viewModel: viewModel, notesID: notesID), label: {
+                        NavigationLink(
+                            destination: 
+                                        MissedSessionScreen(
+                                            viewModel: viewModel, 
+                                            notesID: noteId,
+                                            date: date,
+                                            time: time,
+                                            otherUser: otherUser
+                                        ),
+                            label: {
                                     HStack {
                                         Text("Session didn't happen?")
                                             .foregroundColor(Color("ALUM Dark Blue"))
