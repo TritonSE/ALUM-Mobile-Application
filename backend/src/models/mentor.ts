@@ -4,6 +4,7 @@
  * be stored on firebase
  */
 import mongoose from "mongoose";
+import { UserStatusType } from "../types";
 
 interface MentorInterface {
   name: string;
@@ -19,7 +20,7 @@ interface MentorInterface {
   topicsOfExpertise: string[];
   mentorMotivation: string;
   pairingIds: string[];
-  status: string;
+  status: UserStatusType;
   personalAccessToken: string;
   location: string;
 }
@@ -38,7 +39,7 @@ interface MentorDoc extends mongoose.Document {
   topicsOfExpertise: string[];
   mentorMotivation: string;
   pairingIds: string[];
-  status: string;
+  status: UserStatusType;
   personalAccessToken: string;
   location: string;
 }
@@ -61,10 +62,6 @@ const mentorSchema = new mongoose.Schema({
     required: true,
   },
   calendlyLink: {
-    type: String,
-    required: true,
-  },
-  zoomLink: {
     type: String,
     required: true,
   },
@@ -106,6 +103,7 @@ const mentorSchema = new mongoose.Schema({
   ],
   status: {
     type: String,
+    enum: ["paired", "approved", "under review"],
     required: true,
   },
   personalAccessToken: {

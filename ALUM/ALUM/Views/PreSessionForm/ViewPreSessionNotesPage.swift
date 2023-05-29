@@ -7,64 +7,32 @@
 
 import SwiftUI
 
-struct ViewPreSessionNotesModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        VStack {
-            VStack {
-                NavigationHeaderComponent(
-                    backText: "",
-                    backDestination: LoginScreen(),
-                    title: "Pre-session Notes",
-                    purple: false
-                )
-            }
-            content
-                .background(Color("ALUM White 2"))
-        }
-    }
-}
-
-extension View {
-    func applyViewPreSessionNotesModifier() -> some View {
-        self.modifier(ViewPreSessionNotesModifier())
-    }
-}
-
 struct ViewPreSessionNotesPage: View {
+    var allowEditing: Bool
+    var notesID: String
+    var otherName: String
+    var date: String = ""
+    var time: String = ""
+
     @StateObject var viewModel = QuestionViewModel()
 
-    @State var notesID: String = ""
-
-    @State var otherName: String = ""
-    @State var date: String = ""
-    @State var time: String = ""
-
     var body: some View {
+        loadingAbstraction
+            .customNavBarItems(title: "\(date) Pre-session Notes", isPurple: false, backButtonHidden: false)
+    }
+
+    var loadingAbstraction: some View {
         Group {
             if !viewModel.isLoading {
-                VStack {
-                    ScrollView {
-                        content
-                    }
-
-                    if viewModel.currentUser.role == UserRole.mentee {
-                        footer
-                            .padding(.horizontal, 16)
-                            .padding(.top, 32)
-                            .padding(.bottom, 40)
-                            .background(Rectangle().fill(Color.white).shadow(radius: 8))
-                    }
-                }
-                .edgesIgnoringSafeArea(.bottom)
-                .applyViewPreSessionNotesModifier()
+                loadedView
             } else {
-                ProgressView()
+                LoadingView(text: "ViewPreSessionNotesPage")
             }
         }
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadNotes(notesID: notesID)
+                    try await viewModel.fetchPreSessionNotes(noteId: notesID)
                 } catch {
                     print("Error")
                 }
@@ -72,22 +40,39 @@ struct ViewPreSessionNotesPage: View {
         }
     }
 
-    var footer: some View {
-        NavigationLink {
-            PreSessionQuestionScreen(
-                viewModel: viewModel,
-                notesID: notesID,
-                otherUser: otherName,
-                date: date,
-                time: time
-            )
-        } label: {
-            HStack {
-                Image(systemName: "pencil.line")
-                Text("Edit")
+    var loadedView: some View {
+        VStack {
+            ScrollView {
+                content
+            }
+
+            if allowEditing {
+                footer
+                    .padding(.horizontal, 16)
+                    .padding(.top, 32)
+                    .padding(.bottom, 40)
+                    .background(Rectangle().fill(Color.white).shadow(radius: 8))
             }
         }
-        .buttonStyle(FilledInButtonStyle())
+        .edgesIgnoringSafeArea(.bottom)
+    }
+
+    var footer: some View {
+        return CustomNavLink(
+            destination:
+                PreSessionFormRouter(
+                    notesID: notesID,
+                    otherName: otherName,
+                    date: date,
+                    time: time
+                ),
+            label: {
+                HStack {
+                   Image(systemName: "pencil.line")
+                   Text("Edit")
+               }
+            })
+            .buttonStyle(FilledInButtonStyle())
     }
 
     var content: some View {
@@ -155,6 +140,6 @@ struct ViewPreSessionNotesPage: View {
 struct ViewPreSessionNotesPage_Previews: PreviewProvider {
 
     static var previews: some View {
-        ViewPreSessionNotesPage()
+        ViewPreSessionNotesPage(allowEditing: false, notesID: "", otherName: "mentor")
     }
 }

@@ -13,7 +13,7 @@ struct PostSessionScreenHeaderModifier: ViewModifier {
             VStack {
                 NavigationHeaderComponent(
                     backText: "XXX",
-                    backDestination: MentorSessionDetailsPage(),
+                    backDestination: Text("TODO Blank"),
                     title: "Post-session Notes",
                     purple: false
                 )
@@ -68,7 +68,6 @@ struct PostSessionView: View {
             if !viewModel.isLoading {
                 PostSessionQuestionScreen(
                     viewModel: viewModel,
-                    notesID: notesID,
                     otherUser: otherName,
                     date: date,
                     time: time
@@ -80,9 +79,9 @@ struct PostSessionView: View {
                     .onAppear {
                         Task {
                             do {
-                                try await viewModel.loadPostNotes(notesID: notesID, otherNotesID: otherNotesID)
+                                try await viewModel.fetchPostSessionNotes(notesId: notesID, otherNotesId: otherNotesID)
                             } catch {
-                                print("Error")
+                                print("Error \(error)")
                             }
                         }
                     }

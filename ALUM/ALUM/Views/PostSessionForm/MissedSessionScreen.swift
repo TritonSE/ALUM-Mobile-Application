@@ -18,16 +18,17 @@ struct MissedSessionScreen: View {
     }
 
     @ObservedObject var viewModel: QuestionViewModel
+    var notesID: String
+    var date: String
+    var time: String
+    var otherUser: String
+
     @Environment(\.dismiss) var dismiss
     @State var validated: Bool = true
     @State var selectedOption: OptionType?
     @State var noOption: Bool = false
     @State var otherEmpty: Bool = false
     @State var otherText: String = ""
-    @State var otherUser: String = "Mentor"
-    @State var date: String = "date"
-    @State var time: String = "time"
-    @State var notesID: String = ""
 
     var body: some View {
         VStack {
@@ -53,7 +54,6 @@ struct MissedSessionScreen: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
-        .applyMissedSessionScreenHeaderModifier()
     }
 
     var footer: some View {
@@ -83,7 +83,7 @@ struct MissedSessionScreen: View {
                 Text("Submit")
             }
             .buttonStyle(FilledInButtonStyle())
-            NavigationLink(destination: SessionConfirmationScreen(
+            NavigationLink(destination: ConfirmationScreen(
                 text: ["Missed session form submitted!",
                        "Thank you for your feedback!", "Close"]),
                            isActive: $viewModel.submitSuccess) {
@@ -98,8 +98,7 @@ struct MissedSessionScreen: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color("ALUM Light Blue"))
-                Text("You have successfully booked a session with \(otherUser) on \(date) at \(time).")
-                    .font(.custom("Metropolis-Regular", size: 17))
+                ALUMText(text: "It seems that your session with \(otherUser) on \(date) at \(time) didn’t happen.")
                     .lineSpacing(10)
                     .padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
             }
@@ -180,6 +179,12 @@ struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
 
     static var previews: some View {
-        MissedSessionScreen(viewModel: viewModel)
+        MissedSessionScreen(
+            viewModel: viewModel,
+            notesID: "646a6e164082520f4fcf2f92",
+            date: "9/23",
+            time: "10:00 AM",
+            otherUser: "Mentor"
+        )
     }
 }

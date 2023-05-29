@@ -32,7 +32,7 @@ final class LoginViewModel: ObservableObject {
             case .userNotFound:
                 self.emailFunc = [Functions.IncorrectEmail]
             default:
-                print("Some unknown error happened")
+                print("error LoginViewModel::login - \(error.description)")
             }
         }
     }
