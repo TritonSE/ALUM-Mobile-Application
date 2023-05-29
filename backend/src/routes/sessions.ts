@@ -82,21 +82,37 @@ router.post(
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
 
+      let upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
       const job = schedule.scheduleJob("*/1 * * * *", async () => {
         try {
-          const result = await sendNotification(
-            "New session booked!",
-            "You have a new session with " +
-              mentee.name +
-              ". Check out your session details \u{1F60E}",
-            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
-          );
-          console.log("Function executed successfully:", result);
+          upcomingNotifSessions.forEach(async (session) => {
+            const dateNow = new Date();
+            if (session.startTime.getTime() - dateNow.getTime() <= 3600000) {
+              const menteeNotif = await sendNotification(
+                "You have an upcoming session.",
+                "Ready for your session with  " +
+                  mentee.name +
+                  "in [time]? " + "\u{1F60E} Check out " + mentee.name + "'s pre-session notes.",
+                "fiNnUX4OqU2-q64KBCfR7j:APA91bGpw2-9ErHnh6ywQtUlx1IAiGInvtKihFlz4zxFoEy8w6cyJt_Vft4FzizM8bgGc_POLNMz1Y1wAgUeGo5t5MSdNC8oZ_3ZHP8Ed434-vJe13Kwy6fjdYRNcxlCF9X0xRtQr3qK"
+              );
+              console.log("Function executed successfully:", menteeNotif);
+              const mentorNotif = await sendNotification(
+                "New session booked!",
+                "You have a new session with " +
+                  mentee.name +
+                  ". Check out your session details \u{1F60E}",
+                "fiNnUX4OqU2-q64KBCfR7j:APA91bGpw2-9ErHnh6ywQtUlx1IAiGInvtKihFlz4zxFoEy8w6cyJt_Vft4FzizM8bgGc_POLNMz1Y1wAgUeGo5t5MSdNC8oZ_3ZHP8Ed434-vJe13Kwy6fjdYRNcxlCF9X0xRtQr3qK"
+              );
+              console.log("Function executed successfully:", mentorNotif);
+              session.upcomingSessionNotifSent = true;
+            }
+          });
+          console.log(job);
         } catch (error) {
           console.error("Error executing function:", error);
         }
       });
-      console.log(job);
+      
       
       /*
       await sendNotification(
