@@ -35,12 +35,18 @@ final class FirebaseAuthenticationService: ObservableObject {
                 return tokenResult.token
             } catch let error {
                 // Handle the error
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
                 throw AppError.actionable(
                     .authenticationError,
                     message: "Error getting auth token: \(error.localizedDescription)"
                 )
             }
         } else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.actionable(.authenticationError, message: "No logged in user found. Please login first")
         }
     }

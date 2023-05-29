@@ -109,12 +109,18 @@ class SessionService {
           var request = try await route.createURLRequest()
           let sessionBodyData = SessionLink(calendlyURI: calendlyURI)
           guard let jsonData = try? JSONEncoder().encode(sessionBodyData) else {
+              DispatchQueue.main.async {
+                  CurrentUserModel.shared.showInternalError.toggle()
+              }
               throw AppError.internalError(.invalidRequest, message: "Error encoding JSON Data")
           }
           request.httpBody = jsonData
           let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
           guard let sessionData = try? JSONDecoder().decode(PostSessionData.self, from: responseData) else {
               print("Failed to decode data")
+              DispatchQueue.main.async {
+                  CurrentUserModel.shared.showInternalError.toggle()
+              }
               throw AppError.internalError(.invalidRequest, message: "Could not decode data")
           }
           print("SUCCESS - \(route.label)")
