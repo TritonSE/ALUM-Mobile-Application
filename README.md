@@ -1,4 +1,4 @@
-## Frontend
+## Frontend - iOS app
 ### Tools needed
 - **Xcode** - Install from App Store
 
@@ -25,6 +25,32 @@ Often times, SwiftLint will show errors that can be fixed automatically. To fix 
 3. To fix swiftlint errors, use:
 ```swiftlint lint --strict --fix```
 4. After running with fix, make sure to run lint again in case there are some errors that cannot be fixed automatically.
+
+## Frontend - Admin Portal
+### Tools needed
+N/A
+
+### Organization
+```bash
+src/
+└── app/* (Structure of this directory matches the built in router nextJS has)
+    └── (authorized)/* (Screens accessible only after user auth is done)
+        ├── mentees (Mentee table will go here)
+        ├── mentors (Mentor table will go here)
+        ├── sessions (Sessions table goes here)
+        └── layout.tsx (shared layout by all pages in (authorized))
+    └──  login (Login page goes here)
+├── components (all shared components will go here)
+├── icons (lot of images are svgs and changing svg is much easier in React format than svg format)
+└── styles (CSS modules for all Pages go here)
+```
+
+### Setup & Run
+To setup, `cd admin-portal` and then do npm install.
+To run, use `npm run dev` 
+
+### Linting
+Run lint using `npm lint`
 
 ## Backend
 Documentation - https://documenter.getpostman.com/view/18831621/2s93XsXm5B
@@ -90,3 +116,4 @@ src/
 
 ### Auth Layer and Roles
 The backend uses the firebase authentication and custom user claims to protect routes. Custom user claims are essentially roles and we use three: mentor, mentee, and admin. Outside of protecting the routes, the auth layer can also be used to determine who is accessing the route (mentor, mentee, admin, etc.). Reference the [Firebase API](https://firebase.google.com/docs/reference/rest/auth) for more information on how the auth layer works.
+
