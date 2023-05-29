@@ -9,10 +9,29 @@ import SwiftUI
 
 struct SessionButtonComponent: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
-    @State var formIsIncomplete: Bool = true
-    @State var formType: String = "Pre"
+    @StateObject private var viewModel = SessionDetailViewModel()
+    @State var sessionId: String = ""
 
     var body: some View {
+        Group {
+            if viewModel.isLoading {
+                Text("")
+            } else {
+                content
+            }
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await viewModel.loadSession(sessionID: sessionId)
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    var content: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12.0)
                 .stroke(Color("ALUM Light Purple"))
@@ -27,6 +46,7 @@ struct SessionButtonComponent: View {
                         .padding(.bottom, 2)
                     Text("23")
                         .font(.custom("Metropolis-Regular", size: 34, relativeTo: .headline))
+                        .foregroundColor(.black)
                 }
                 .padding(.leading, 18)
 
@@ -36,19 +56,22 @@ struct SessionButtonComponent: View {
                     HStack {
                         Text("Session with Mentor")
                             .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                        .padding(.bottom, 4)
+                            .foregroundColor(.black)
+                            .padding(.bottom, 4)
+                        
                         Spacer()
                     }
                     HStack {
                         Text("Monday, 9:00 - 10:00 AM PT")
                             .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
                             .foregroundColor(Color("TextGray"))
-                        .padding(.bottom, 4)
+                            .padding(.bottom, 4)
+                        
                         Spacer()
                     }
-                    if (formIsIncomplete && !(currentUser.role == .mentor && formType == "Pre")) {
+                    if (!viewModel.formIsComplete && !(currentUser.role == .mentor && !viewModel.sessionCompleted)) {
                         HStack {
-                            FormIncompleteComponent(type: formType)
+                            FormIncompleteComponent(type: viewModel.sessionCompleted ? "Post" : "Pre")
                             Spacer()
                         }
                     }
@@ -62,8 +85,6 @@ struct SessionButtonComponent: View {
                     .padding(.trailing, 22)
             }
         }
-        .padding(.leading, 16).padding(.trailing, 16)
-        .padding(.top, 16).padding(.bottom, 16)
     }
 }
 

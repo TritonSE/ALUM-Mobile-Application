@@ -56,10 +56,15 @@ struct AllSessionsPage: View {
     
     var content: some View {
         VStack {
-            Text("Upcoming")
-                .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
-                .bold()
-                .padding(.bottom, 20)
+            HStack {
+                Text("Upcoming")
+                    .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
+                    .bold()
+                
+                Spacer()
+            }
+            .padding(.bottom, 20)
+            .padding(.top, 25)
             
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
@@ -68,14 +73,14 @@ struct AllSessionsPage: View {
                             NavigationLink {
                                 MentorSessionDetailsPage(sessionID: currSession.id)
                             } label: {
-                                SessionButtonComponent(formIsIncomplete: !currSession.preSessionCompleted, formType: "Pre")
+                                SessionButtonComponent(sessionId: currSession.id)
                             }
                             .padding(.bottom, 20)
                         } else {
                             NavigationLink {
                                 MenteeSessionsDetailsPage(sessionID: currSession.id)
                             } label: {
-                                SessionButtonComponent(formIsIncomplete: !currSession.preSessionCompleted, formType: "Pre")
+                                SessionButtonComponent(sessionId: currSession.id)
                             }
                             .padding(.bottom, 20)
                         }
@@ -84,10 +89,14 @@ struct AllSessionsPage: View {
             }
             .padding(.bottom, 50)
             
-            Text("Past")
-                .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
-                .bold()
-                .padding(.bottom, 20)
+            HStack {
+                Text("Past")
+                    .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
+                    .bold()
+                
+                Spacer()
+            }
+            .padding(.bottom, 20)
             
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
@@ -96,14 +105,14 @@ struct AllSessionsPage: View {
                             NavigationLink {
                                 MentorSessionDetailsPage(sessionID: currSession.id)
                             } label: {
-                                SessionButtonComponent(formIsIncomplete: !currSession.preSessionCompleted, formType: "Post")
+                                SessionButtonComponent(sessionId: currSession.id)
                             }
                             .padding(.bottom, 20)
                         } else {
                             NavigationLink {
                                 MenteeSessionsDetailsPage(sessionID: currSession.id)
                             } label: {
-                                SessionButtonComponent(formIsIncomplete: !currSession.preSessionCompleted, formType: "Post")
+                                SessionButtonComponent(sessionId: currSession.id)
                             }
                             .padding(.bottom, 20)
                         }

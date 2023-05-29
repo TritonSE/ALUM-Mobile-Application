@@ -34,7 +34,7 @@ struct RootView: View {
                 LoginScreen()
             }
         } else {
-            MenteeSessionsDetailsPage()
+            AllSessionsPage()
         }
     }
 }
