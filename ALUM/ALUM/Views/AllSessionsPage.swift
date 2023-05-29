@@ -69,21 +69,12 @@ struct AllSessionsPage: View {
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if !currSession.hasPassed {
-                        if currentUser.role == .mentor {
-                            NavigationLink {
-                                MentorSessionDetailsPage(sessionID: currSession.id)
-                            } label: {
-                                SessionButtonComponent(sessionId: currSession.id)
-                            }
-                            .padding(.bottom, 20)
-                        } else {
-                            NavigationLink {
-                                MenteeSessionsDetailsPage(sessionID: currSession.id)
-                            } label: {
-                                SessionButtonComponent(sessionId: currSession.id)
-                            }
-                            .padding(.bottom, 20)
+                        NavigationLink {
+                            SessionDetailsScreen(sessionId: currSession.id)
+                        } label: {
+                            SessionButtonComponent(sessionId: currSession.id)
                         }
+                        .padding(.bottom, 20)
                     }
                 }
             }
@@ -101,21 +92,12 @@ struct AllSessionsPage: View {
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if currSession.hasPassed {
-                        if currentUser.role == .mentor {
-                            NavigationLink {
-                                MentorSessionDetailsPage(sessionID: currSession.id)
-                            } label: {
-                                SessionButtonComponent(sessionId: currSession.id)
-                            }
-                            .padding(.bottom, 20)
-                        } else {
-                            NavigationLink {
-                                MenteeSessionsDetailsPage(sessionID: currSession.id)
-                            } label: {
-                                SessionButtonComponent(sessionId: currSession.id)
-                            }
-                            .padding(.bottom, 20)
+                        NavigationLink {
+                            SessionDetailsScreen(sessionId: currSession.id)
+                        } label: {
+                            SessionButtonComponent(sessionId: currSession.id)
                         }
+                        .padding(.bottom, 20)
                     }
                 }
             }

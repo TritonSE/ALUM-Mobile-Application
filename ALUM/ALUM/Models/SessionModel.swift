@@ -27,7 +27,7 @@ struct SessionModel: Decodable {
     var postSessionMentee: String?
     var postSessionMentor: String?
     var menteeId: String
-    var mentorId: String
+    var mentorId: Str   ing
     var menteeName: String
     var mentorName: String
     var fullDateString: String

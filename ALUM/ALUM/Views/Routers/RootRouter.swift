@@ -24,7 +24,8 @@ struct RootRouter: View {
             }
         } else if self.currentUser.status == "paired" {
             CustomNavView {
-                LoggedInRouter(defaultSelection: 0)
+                // LoggedInRouter(defaultSelection: 0)
+                AllSessionsPage()
             }
         } else {
             UnpairedScreen()

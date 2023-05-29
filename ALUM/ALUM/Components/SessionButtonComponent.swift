@@ -23,7 +23,7 @@ struct SessionButtonComponent: View {
         .onAppear {
             Task {
                 do {
-                    try await viewModel.loadSession(sessionID: sessionId)
+                    try await viewModel.fetchSession(sessionId: sessionId)
                 } catch {
                     print(error)
                 }
@@ -40,11 +40,11 @@ struct SessionButtonComponent: View {
 
             HStack {
                 VStack {
-                    Text("JAN")
+                    Text(viewModel.session?.fullDateString.components(separatedBy: ",")[1] ?? "Jan")
                         .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
                         .foregroundColor(Color("TextGray"))
                         .padding(.bottom, 2)
-                    Text("23")
+                    Text(viewModel.session?.fullDateString.components(separatedBy: ",")[2] ?? "23")
                         .font(.custom("Metropolis-Regular", size: 34, relativeTo: .headline))
                         .foregroundColor(.black)
                 }
@@ -54,15 +54,28 @@ struct SessionButtonComponent: View {
 
                 VStack {
                     HStack {
-                        Text("Session with Mentor")
-                            .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
-                            .foregroundColor(.black)
-                            .padding(.bottom, 4)
+                        if currentUser.role == .mentee {
+                            Text("Session with " + (viewModel.session?.mentorName ?? "Mentor"))
+                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                .foregroundColor(.black)
+                                .padding(.bottom, 4)
+                        } else {
+                            Text("Session with " + (viewModel.session?.menteeName ?? "Mentee"))
+                                .font(.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                                .foregroundColor(.black)
+                                .padding(.bottom, 4)
+                        }
                         
                         Spacer()
                     }
+                    // "Monday, 9:00 - 10:00 AM PT"
                     HStack {
-                        Text("Monday, 9:00 - 10:00 AM PT")
+                        Text((viewModel.session?.fullDateString.components(separatedBy: ",")[0]
+                             + ", "
+                             + viewModel.session?.startTimeString
+                             + " - "
+                             + viewModel.session?.endTimeString
+                        ) ?? "Monday, 9:00 - 10:00 AM PT")
                             .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
                             .foregroundColor(Color("TextGray"))
                             .padding(.bottom, 4)
