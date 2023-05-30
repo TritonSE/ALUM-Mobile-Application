@@ -1,4 +1,4 @@
-import { ServiceError } from "../errors";
+import { ServiceError, ValidationError } from "../errors";
 
 /**
  * This function retrieves information about a calendly event
@@ -32,4 +32,23 @@ async function getCalendlyEventDate(uri: string, accessToken: string) {
   }
 }
 
-export { getCalendlyEventDate };
+async function validateCalendlyAccessToken(accessToken: string) {
+  try {
+    console.log("ac", accessToken)
+    const response = await fetch(`https://api.calendly.com/users/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+   
+    if (!response.ok) {
+      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN 
+    }
+  } catch (e) {
+    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN
+  }
+}
+
+export { getCalendlyEventDate, validateCalendlyAccessToken };

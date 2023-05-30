@@ -10,6 +10,7 @@ import { UpdateMenteeRequestBodyType, UpdateMentorRequestBodyType } from "../typ
 import { Mentor } from "../models/mentor";
 import { Mentee } from "../models/mentee";
 import { ServiceError } from "../errors";
+import { validateCalendlyAccessToken } from "../services/calendly";
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   console.info("Adding an image to the datatbase");
@@ -45,6 +46,12 @@ async function getMenteeId(pairingId: string): Promise<string> {
   return pairing.menteeId;
 }
 
+/**
+ * Updates a mentor entry
+ * @param updatedMentor - updated values for mentor
+ * @param userID - uid of mentor to update
+ * @returns Updated saved mentor
+ */
 async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: String) {
   console.log("updatedMentor", updatedMentor);
   const mentor = await Mentor.findById(userID);
@@ -53,10 +60,13 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   }
   try {
     if(mentor != null){
+      await validateCalendlyAccessToken(updatedMentor.personalAccessToken)
       mentor.name = updatedMentor.name;
       mentor.markModified("name");
       mentor.imageId = updatedMentor.imageId;
       mentor.markModified("imageId");
+      mentor.personalAccessToken = updatedMentor.personalAccessToken;
+      mentor.markModified("personalAccessToken");
       mentor.about = updatedMentor.about;
       mentor.markModified("about");
       mentor.calendlyLink = updatedMentor.calendlyLink;
@@ -87,6 +97,12 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   }
 }
 
+/**
+ * Updates a mentor entry
+ * @param updatedMentee - updated values for the mentee
+ * @param userID - uid of mentee to update
+ * @returns Updated saved mentee
+ */
 async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: String) {
   console.log("updatedMentee", updatedMentee);
   const mentee = await Mentee.findById(userID);

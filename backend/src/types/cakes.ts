@@ -36,7 +36,6 @@ export const CreateMentorRequestBodyCake = bake({
 // PATCH user/id
 export const UpdateMentorRequestBodyCake = bake({
   name: string,
-  email: string,
   about: string,
   graduationYear: number,
   college: string,
@@ -44,6 +43,7 @@ export const UpdateMentorRequestBodyCake = bake({
   imageId: string,
   minor: string,
   career: string,
+  personalAccessToken: string,
   topicsOfExpertise: array(string),
   mentorMotivation: string,
   location: string,
@@ -51,9 +51,9 @@ export const UpdateMentorRequestBodyCake = bake({
   zoomLink: string
 });
 
+// PATCH user/id
 export const UpdateMenteeRequestBodyCake = bake({
   name: string,
-  email: string,
   grade: number,
   about: string,
   imageId: string,

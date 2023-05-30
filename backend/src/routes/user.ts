@@ -371,6 +371,28 @@ router.get(
   }
 );
 
+/**
+ * * This route will update a mentor's values.
+ * @param userId: userId of mentor to be updated
+ * @body The body should be a JSON in the form:
+ * {
+    "name": string,
+    "email": string,
+    "about": string,
+    "graduationYear": number,
+    "college": string,
+    "major": string,
+    "imageId": string,
+    "minor": string,
+    "career": string,
+    "topicsOfExpertise": string[],
+    "mentorMotivation": string,
+    "location": string,
+    "calendlyLink": string,
+    "zoomLink": string
+ * }
+ * @response "Success" with new, updated mentor if successfully updated, "Invalid" otherwise.
+ */
 router.patch(
   "/mentor/:userId",
   [verifyAuthToken],
@@ -388,7 +410,7 @@ router.patch(
         throw AuthError.INVALID_AUTH_TOKEN;
       }
       console.log("Update /mentor", req.body);
-      const { name, email, graduationYear, ...args }: UpdateMentorRequestBodyType = req.body;
+      const { name, about, graduationYear, ...args }: UpdateMentorRequestBodyType = req.body;
 
       const updatedMentor: UpdateMentorRequestBodyType = req.body;
       await updateMentor(updatedMentor, userID)
@@ -403,6 +425,22 @@ router.patch(
   }
 );
 
+/**
+ * * This route will update a mentee's values.
+ * @param userId: userId of mentee to be updated
+ * @body The body should be a JSON in the form:
+ * {
+    "name": string,
+    "email": string,
+    "grade": number,
+    "about": string,
+    "imageId": string,
+    "topicsOfInterest": string[],
+    "careerInterests": string[],
+    "mentorshipGoal": string,
+}
+ * @response "Success" with new, updated mentee if successfully updated, "Invalid" otherwise.
+ */
 router.patch(
   "/mentee/:userId",
   [verifyAuthToken],
@@ -420,7 +458,7 @@ router.patch(
         throw AuthError.INVALID_AUTH_TOKEN;
       }
       console.log("Update /mentee", req.body);
-      const { name, email, grade, ...args }: UpdateMenteeRequestBodyType = req.body;
+      const { name, about, grade, ...args }: UpdateMenteeRequestBodyType = req.body;
       const updatedMentee: UpdateMenteeRequestBodyType = req.body;
       await updateMentee(updatedMentee, userID)
       const mentee = await Mentee.findById(userID);
