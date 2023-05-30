@@ -62,8 +62,21 @@ struct MissedSessionScreen: View {
                 if viewModel.missedOption != "" || otherText != "" {
                     if otherText != "" {
                         selectedOption = .other
-                    } else if viewModel.missedOption == "Prefer not to say" {
-                        selectedOption = .notSay
+                        viewModel.missedOption = otherText
+                    }
+                    Task {
+                        do {
+                            try await viewModel.submitMissedNotesPatch(noteID: notesID)
+                            self.viewModel.submitSuccess = true
+                        } catch {
+                            print("Error")
+                        }
+                    }
+                } else {
+                    if selectedOption == .other {
+                        otherEmpty = true
+                    } else {
+                        noOption = true
                     }
                 }
             } label: {
@@ -159,7 +172,8 @@ struct MissedSessionScreen: View {
 
         }
     }
-}
+
+    }
 
 struct MissedSessionScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
