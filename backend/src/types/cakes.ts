@@ -37,21 +37,25 @@ export const CreateMentorRequestBodyCake = bake({
 export const UpdateMentorRequestBodyCake = bake({
   name: string,
   email: string,
+  about: string,
   graduationYear: number,
   college: string,
   major: string,
+  imageId: string,
   minor: string,
   career: string,
   topicsOfExpertise: array(string),
   mentorMotivation: string,
   location: string,
   calendlyLink: string,
+  zoomLink: string
 });
 
 export const UpdateMenteeRequestBodyCake = bake({
   name: string,
   email: string,
   grade: number,
+  imageId: string,
   topicsOfInterest: array(string),
   careerInterests: array(string),
   mentorshipGoal: string,

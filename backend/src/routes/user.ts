@@ -12,6 +12,10 @@ import {
   CreateMentorRequestBodyCake,
   CreateMenteeRequestBodyType,
   CreateMentorRequestBodyType,
+  UpdateMentorRequestBodyCake,
+  UpdateMenteeRequestBodyCake,
+  UpdateMentorRequestBodyType,
+  UpdateMenteeRequestBodyType
 } from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
@@ -19,6 +23,7 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
+import { updateMentor } from "../services/user";
 
 const router = express.Router();
 
@@ -360,6 +365,29 @@ router.get(
         return;
       }
       next(InternalError.ERROR_GETTING_MENTOR);
+    }
+  }
+);
+
+router.patch(
+  "/mentor/:userId",
+  [verifyAuthToken],
+  validateReqBodyWithCake(UpdateMentorRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log("Update /mentor", req.body);
+      const { name, email, graduationYear, ...args }: UpdateMentorRequestBodyType = req.body;
+
+      const userID = req.params.userId;
+      const updatedMentor: UpdateMentorRequestBodyType = req.body;
+      await updateMentor(updatedMentor, userID)
+      const mentor = await Mentor.findById(userID);
+      res.status(200).json({
+        message: "Success",
+        updatedMentor: mentor,
+      });
+    } catch (e) {
+      next(e);
     }
   }
 );
