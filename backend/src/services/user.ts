@@ -47,27 +47,40 @@ async function getMenteeId(pairingId: string): Promise<string> {
 
 async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: String) {
   console.log("updatedMentor", updatedMentor);
-  let mentor = await Mentor.findById(userID);
+  const mentor = await Mentor.findById(userID);
   if (!mentor) {
     throw ServiceError.MENTOR_WAS_NOT_FOUND;
   }
-
   try {
     if(mentor != null){
       mentor.name = updatedMentor.name;
+      mentor.markModified("name");
       mentor.imageId = updatedMentor.imageId;
+      mentor.markModified("imageId");
       mentor.about = updatedMentor.about;
+      mentor.markModified("about");
       mentor.calendlyLink = updatedMentor.calendlyLink;
+      mentor.markModified("calendlyLink");
       mentor.graduationYear = updatedMentor.graduationYear;
+      mentor.markModified("graduationYear");
       mentor.college = updatedMentor.college;
+      mentor.markModified("college");
       mentor.major = updatedMentor.major;
+      mentor.markModified("major");
       mentor.minor = updatedMentor.minor;
+      mentor.markModified("minor");
       mentor.career = updatedMentor.career;
+      mentor.markModified("career");
       mentor.topicsOfExpertise = updatedMentor.topicsOfExpertise;
+      mentor.markModified("topicsOfExpertise");
       mentor.mentorMotivation = updatedMentor.mentorMotivation;
+      mentor.markModified("mentorMotivation");
       mentor.location = updatedMentor.location;
+      mentor.markModified("location");
+      mentor.zoomLink = updatedMentor.zoomLink;
+      mentor.markModified("zoomLink");
       console.log(mentor);
-      return await mentor.save();
+      return await mentor.save()
     }
   } catch (error) {
     throw ServiceError.MENTOR_WAS_NOT_SAVED;
@@ -76,7 +89,7 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
 
 async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: String) {
   console.log("updatedMentee", updatedMentee);
-  let mentee = await Mentee.findById(userID);
+  const mentee = await Mentee.findById(userID);
   if (!mentee) {
     throw ServiceError.MENTEE_WAS_NOT_FOUND;
   }
@@ -84,11 +97,19 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   try {
     if(mentee != null){
       mentee.name = updatedMentee.name;
+      mentee.markModified("name");
       mentee.grade = updatedMentee.grade;
+      mentee.markModified("grade");
+      mentee.about = updatedMentee.about;
+      mentee.markModified("about")
       mentee.imageId = updatedMentee.imageId;
+      mentee.markModified("imageId");
       mentee.topicsOfInterest = updatedMentee.topicsOfInterest;
+      mentee.markModified("topicsOfInterest");
       mentee.careerInterests = updatedMentee.careerInterests;
+      mentee.markModified("careerInterests");
       mentee.mentorshipGoal = updatedMentee.mentorshipGoal;
+      mentee.markModified("mentorshipGoal");
       console.log(mentee);
       return await mentee.save();
     }

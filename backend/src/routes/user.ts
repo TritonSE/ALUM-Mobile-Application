@@ -24,6 +24,8 @@ import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { updateMentor } from "../services/user";
+import { updateMentee } from "../services/user";
+import { AuthError } from "../errors/auth"
 
 const router = express.Router();
 
@@ -372,19 +374,59 @@ router.get(
 router.patch(
   "/mentor/:userId",
   [verifyAuthToken],
-  validateReqBodyWithCake(UpdateMentorRequestBodyCake),
+  // validateReqBodyWithCake(UpdateMentorRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("Inside mentor patch try");
+      const userID = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userID)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const role = req.body.role;
+      if(role == "mentee") {
+        throw AuthError.INVALID_AUTH_TOKEN;
+      }
       console.log("Update /mentor", req.body);
       const { name, email, graduationYear, ...args }: UpdateMentorRequestBodyType = req.body;
 
-      const userID = req.params.userId;
       const updatedMentor: UpdateMentorRequestBodyType = req.body;
       await updateMentor(updatedMentor, userID)
       const mentor = await Mentor.findById(userID);
       res.status(200).json({
         message: "Success",
         updatedMentor: mentor,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
+router.patch(
+  "/mentee/:userId",
+  [verifyAuthToken],
+  // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log("Inside mentee patch try");
+      const userID = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userID)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+      
+      const role = req.body.role;
+      if(role == "mentor") {
+        throw AuthError.INVALID_AUTH_TOKEN;
+      }
+      console.log("Update /mentee", req.body);
+      const { name, email, grade, ...args }: UpdateMenteeRequestBodyType = req.body;
+      const updatedMentee: UpdateMenteeRequestBodyType = req.body;
+      await updateMentee(updatedMentee, userID)
+      const mentee = await Mentee.findById(userID);
+      res.status(200).json({
+        message: "Success",
+        updatedMentee: mentee,
       });
     } catch (e) {
       next(e);

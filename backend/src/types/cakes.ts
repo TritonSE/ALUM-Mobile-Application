@@ -55,6 +55,7 @@ export const UpdateMenteeRequestBodyCake = bake({
   name: string,
   email: string,
   grade: number,
+  about: string,
   imageId: string,
   topicsOfInterest: array(string),
   careerInterests: array(string),
