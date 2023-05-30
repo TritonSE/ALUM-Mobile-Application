@@ -81,40 +81,7 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
-
-      let upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
-      const job = schedule.scheduleJob("*/1 * * * *", async () => {
-        try {
-          upcomingNotifSessions.forEach(async (session) => {
-            const dateNow = new Date();
-            if (session.startTime.getTime() - dateNow.getTime() <= 3600000) {
-              const menteeNotif = await sendNotification(
-                "You have an upcoming session.",
-                "Ready for your session with  " +
-                  mentee.name +
-                  "in [time]? " + "\u{1F60E} Check out " + mentee.name + "'s pre-session notes.",
-                "fiNnUX4OqU2-q64KBCfR7j:APA91bGpw2-9ErHnh6ywQtUlx1IAiGInvtKihFlz4zxFoEy8w6cyJt_Vft4FzizM8bgGc_POLNMz1Y1wAgUeGo5t5MSdNC8oZ_3ZHP8Ed434-vJe13Kwy6fjdYRNcxlCF9X0xRtQr3qK"
-              );
-              console.log("Function executed successfully:", menteeNotif);
-              const mentorNotif = await sendNotification(
-                "New session booked!",
-                "You have a new session with " +
-                  mentee.name +
-                  ". Check out your session details \u{1F60E}",
-                "fiNnUX4OqU2-q64KBCfR7j:APA91bGpw2-9ErHnh6ywQtUlx1IAiGInvtKihFlz4zxFoEy8w6cyJt_Vft4FzizM8bgGc_POLNMz1Y1wAgUeGo5t5MSdNC8oZ_3ZHP8Ed434-vJe13Kwy6fjdYRNcxlCF9X0xRtQr3qK"
-              );
-              console.log("Function executed successfully:", mentorNotif);
-              session.upcomingSessionNotifSent = true;
-            }
-          });
-          console.log(job);
-        } catch (error) {
-          console.error("Error executing function:", error);
-        }
-      });
       
-      
-      /*
       await sendNotification(
         "New session booked!",
         "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
@@ -127,7 +94,7 @@ router.post(
           ". Fill out your pre-session notes now \u{1F60E}",
         mentee.fcmToken
       );
-      */
+      
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,

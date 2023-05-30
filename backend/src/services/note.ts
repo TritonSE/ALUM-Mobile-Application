@@ -6,6 +6,8 @@ import { Note } from "../models/notes";
 import { AnswerType, QuestionType, UpdateNoteDetailsType } from "../types/notes";
 import { Session } from "../models/session";
 import { ServiceError } from "../errors";
+import { Mentee, Mentor } from "../models";
+import { sendNotification } from "./notifications";
 
 interface Question {
   question: string;
@@ -138,9 +140,29 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
     // mongoose does not notice the change so ignores saving it unless we manually mark
     noteDoc.markModified("answers");
     const sessionDoc = await Session.findById(noteDoc.session);
+    const mentee = await Mentee.findById(sessionDoc?.menteeId);
+    const mentor = await Mentor.findById(sessionDoc?.mentorId);
     if (sessionDoc != null) {
-      if (noteDoc.type === "pre") sessionDoc.preSessionCompleted = true;
-      else if (noteDoc.type === "postMentor") sessionDoc.postSessionMentorCompleted = true;
+      if (noteDoc.type === "pre") {
+        sessionDoc.preSessionCompleted = true;
+        if (mentee != null && mentor != null) {
+          await sendNotification(
+            "Pre-session update!",
+            "Looks like " + mentee.name + " has some questions for you. Check out " + mentee.name + "'s pre-session notes.",
+            mentor.fcmToken
+          );
+        }
+      }
+      else if (noteDoc.type === "postMentor")  {
+        sessionDoc.postSessionMentorCompleted = true;
+        if (mentee != null && mentor != null) {
+          await sendNotification(
+            "Post-session update!",
+            "" + mentor.name + " has updated their post-session notes. Check out what they had to say!",
+            mentee.fcmToken
+          );
+        }
+      }
       else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
       if (missedNote && sessionDoc.missedSessionReason == null)
         sessionDoc.missedSessionReason = missedReason;
