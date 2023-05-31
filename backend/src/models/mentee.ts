@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UserStatusType } from "../types";
 
 interface MenteeInterface {
   name: string;
@@ -9,8 +10,8 @@ interface MenteeInterface {
   careerInterests: string[];
   mentorshipGoal: string;
   pairingId: string;
-  status: string;
   fcmToken: string;
+  status: UserStatusType;
 }
 
 interface MenteeDoc extends mongoose.Document {
@@ -22,8 +23,8 @@ interface MenteeDoc extends mongoose.Document {
   careerInterests: string[];
   mentorshipGoal: string;
   pairingId: string;
-  status: string;
   fcmToken: string;
+  status: UserStatusType;
 }
 
 interface MenteeModelInterface extends mongoose.Model<MenteeDoc> {
@@ -69,6 +70,7 @@ const MenteeSchema = new mongoose.Schema({
   },
   status: {
     type: String,
+    enum: ["paired", "approved", "under review"],
     required: true,
   },
   fcmToken: {

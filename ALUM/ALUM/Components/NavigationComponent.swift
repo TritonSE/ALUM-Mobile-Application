@@ -28,7 +28,6 @@ struct NavigationHeaderComponent<Destination: View>: View {
     var body: some View {
         let foreColor = purple ? Color("ALUM White") : Color("ALUM Primary Purple")
         let titleColor = purple ? Color("ALUM White") : Color.black
-
         ZStack {
             if showButton {
                 Group {

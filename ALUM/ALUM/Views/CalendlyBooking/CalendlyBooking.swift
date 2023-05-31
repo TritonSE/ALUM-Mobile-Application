@@ -53,7 +53,10 @@ struct CalendlyView: UIViewRepresentable {
                         let messageBody = "\(message.body)"
                         // Method should be called with proper mentor, mentee ids
                         let result = try await
-                        SessionService().postSessionWithId(calendlyURI: messageBody)
+                        SessionService.shared.postSessionWithId(calendlyURI: messageBody)
+                        DispatchQueue.main.async {
+                            CurrentUserModel.shared.isLoading = true
+                        }
                     } catch {
                         throw AppError.internalError(.unknownError, message: "Error posting a new session")
                     }

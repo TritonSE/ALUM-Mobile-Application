@@ -1,0 +1,22 @@
+:root {
+  --secondary-1: #FFFFFF;
+  --secondary-2: #F9F9F9;
+
+  --primary-1: #EFEEFF;
+  --primary-2: #D0CDFF;
+  --primary-3: #463EC7;
+  
+  
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('/admin-portal/public/fonts/Metropolis-Regular.otf') format('truetype');
+  /* Add additional src declarations for other font files if necessary */
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Metropolis', sans-serif;
+}

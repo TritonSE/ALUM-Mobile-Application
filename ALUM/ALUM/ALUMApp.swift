@@ -21,27 +21,6 @@ import FirebaseMessaging
 //  }
 //}
 
-struct RootView: View {
-    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
-
-    var body: some View {
-        if self.currentUser.isLoading {
-            LoadingView(text: "RootView")
-            .onAppear(perform: {
-                Task {
-                    await self.currentUser.setForInSessionUser()
-                }
-            })
-        } else if self.currentUser.isLoggedIn == false {
-            NavigationView {
-                LoginScreen()
-            }
-        } else {
-            MenteeSessionsDetailsPage()
-        }
-    }
-}
-
 @main
 struct ALUMApp: App {
   // register app delegate for Firebase setup
@@ -49,7 +28,7 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-        RootView()
+        RootRouter()
     }
   }
 }

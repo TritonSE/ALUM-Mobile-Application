@@ -22,7 +22,7 @@ interface SessionInterface {
   postSessionNotifSent: boolean;
 }
 
-interface SessionDoc extends mongoose.Document {
+export interface SessionDoc extends mongoose.Document {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;

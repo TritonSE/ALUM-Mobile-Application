@@ -15,6 +15,7 @@ import { InternalError, ServiceError } from "../errors";
 import { getCalendlyEventDate } from "../services/calendly";
 import { getMentorId } from "../services/user";
 import { sendNotification } from "../services/notifications";
+import { formatDateTimeRange } from "../services/session";
 
 /**
  * This is a post route to create a new session. 
@@ -119,17 +120,9 @@ router.get(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const sessionId = req.params.sessionId;
-      const dayNames = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ];
       const dateNow = new Date();
 
+      // Find session document
       if (!mongoose.Types.ObjectId.isValid(sessionId)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -138,6 +131,19 @@ router.get(
       if (!session) {
         throw ServiceError.SESSION_WAS_NOT_FOUND;
       }
+
+      // Find mentor document for the location
+      const mentor = await Mentor.findById(session.mentorId);
+      if (!mentor) {
+        throw ServiceError.MENTOR_WAS_NOT_FOUND;
+      }
+
+      // Find mentee document for the location
+      const mentee = await Mentee.findById(session.menteeId);
+      if (!mentee) {
+        throw ServiceError.MENTEE_WAS_NOT_FOUND;
+      }
+
       const {
         preSession,
         postSessionMentee,
@@ -153,7 +159,11 @@ router.get(
         upcomingSessionNotifSent,
         postSessionNotifSent,
       } = session;
+      const [fullDateString, dateShortHandString, startTimeString, endTimeString] =
+        formatDateTimeRange(startTime, endTime);
+
       const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
+
       return res.status(200).send({
         message: `Here is session ${sessionId}`,
         session: {
@@ -163,15 +173,19 @@ router.get(
           missedSessionReason,
           menteeId,
           mentorId,
-          startTime,
-          endTime,
-          day: dayNames[startTime.getDay()],
+          menteeName: mentee.name,
+          mentorName: mentor.name,
+          fullDateString,
+          dateShortHandString,
+          startTimeString,
+          endTimeString,
           preSessionCompleted,
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
           hasPassed,
           upcomingSessionNotifSent,
           postSessionNotifSent,
+          location: mentor.location,
         },
       });
     } catch (e) {
