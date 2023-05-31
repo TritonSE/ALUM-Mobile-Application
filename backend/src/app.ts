@@ -11,6 +11,7 @@ import { errorHandler } from "./errors/handler";
 import { Pairing } from "./models/pairing";
 
 import { calendlyPage } from "./routes/calendlyPage";
+import { startCronJob } from "./services/notifications";
 /**
  * Express server application class.
  * @description Will later contain the routing system.
@@ -45,3 +46,5 @@ server.app.use(errorHandler); // This handler is reached whenever there is some 
 
 // make server listen on some port
 server.app.listen(port, () => console.log(`> Listening on port ${port}`)); // eslint-disable-line no-console
+
+startCronJob();

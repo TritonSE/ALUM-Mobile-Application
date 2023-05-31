@@ -57,6 +57,9 @@ router.post(
       }
       const accessToken = mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
+      const startDate = new Date(2023, 0O5, 0O5, 17, 0, 0, 0);  
+      const endDate = new Date(2023, 0O5, 0O5, 18, 0, 0, 0);  
+
       const session = new Session({
         preSession: null,
         postSessionMentee: null,
@@ -64,8 +67,8 @@ router.post(
         menteeId: uid,
         mentorId,
         missedSessionReason: null,
-        startTime: data.resource.start_time,
-        endTime: data.resource.end_time,
+        startTime: data.resource?.start_time ?? startDate,
+        endTime: data.resource?.end_time ?? endDate,
         calendlyUri: req.body.calendlyURI,
         preSessionCompleted: false,
         postSessionMentorCompleted: false,
@@ -85,14 +88,14 @@ router.post(
       await sendNotification(
         "New session booked!",
         "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
-        mentor.fcmToken
+        "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentor.fcmToken
       );
       await sendNotification(
         "New session booked!",
         "You have a new session with " +
           mentor.name +
           ". Fill out your pre-session notes now \u{1F60E}",
-        mentee.fcmToken
+        "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentee.fcmToken
       );
       
       return res.status(201).json({
@@ -102,6 +105,7 @@ router.post(
       });
     } catch (e) {
       next();
+      console.log(e);
       return res.status(400).json({
         error: e,
       });
