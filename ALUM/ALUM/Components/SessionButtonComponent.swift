@@ -70,19 +70,15 @@ struct SessionButtonComponent: View {
                     }
                     // "Monday, 9:00 - 10:00 AM PT"
                     HStack {
-                        Text((viewModel.session?.fullDateString.components(separatedBy: ",")[0]
-                             + ", "
-                             + viewModel.session?.startTimeString
-                             + " - "
-                             + viewModel.session?.endTimeString
-                        ) ?? "Monday, 9:00 - 10:00 AM PT")
-                            .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
-                            .foregroundColor(Color("TextGray"))
-                            .padding(.bottom, 4)
+                        // swiftlint:disable:next line_length
+                        Text("\(viewModel.session?.fullDateString.components(separatedBy: ",")[0] ?? "Monday"), \(viewModel.session?.startTimeString ?? "9:00") - \(viewModel.session?.endTimeString ?? "10:00 AM")")
+                        .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
+                        .foregroundColor(Color("TextGray"))
+                        .padding(.bottom, 4)
                         
                         Spacer()
                     }
-                    if (!viewModel.formIsComplete && !(currentUser.role == .mentor && !viewModel.sessionCompleted)) {
+                    if !viewModel.formIsComplete && !(currentUser.role == .mentor && !viewModel.sessionCompleted) {
                         HStack {
                             FormIncompleteComponent(type: viewModel.sessionCompleted ? "Post" : "Pre")
                             Spacer()
@@ -90,7 +86,8 @@ struct SessionButtonComponent: View {
                     }
                 }
                 .padding(.leading, 25)
-
+                
+                
                 Spacer()
 
                 Image(systemName: "chevron.right")
