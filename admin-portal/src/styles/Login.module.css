@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .gradient {
+    flex: 1;
+    background: linear-gradient(to bottom, #ff8a00, #e52e71);
+  }
+  
+  .formContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  

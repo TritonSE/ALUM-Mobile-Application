@@ -5,7 +5,7 @@
   --primary-1: #EFEEFF;
   --primary-2: #D0CDFF;
   --primary-3: #463EC7;
-  
+  --primary-4: #0d0936; 
   
 }
 
@@ -16,7 +16,10 @@
   font-weight: normal;
   font-style: normal;
 }
-
+p {
+  font-family: 'Metropolis', sans-serif;
+  color:#463EC7; /* Add any other styles you want for the h3 element */
+}
 * {
   font-family: 'Metropolis', sans-serif;
 }

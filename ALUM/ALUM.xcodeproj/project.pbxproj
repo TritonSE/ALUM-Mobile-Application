@@ -314,9 +314,9 @@
 			children = (
 				0757551B29FAA2AB008E73FB /* Bullet.swift */,
 				0757551C29FAA2AB008E73FB /* CircleAddButton.swift */,
-				0757551D29FAA2AB008E73FB /* CustomAlertView.swift */,
 				0757551929FAA2AB008E73FB /* DynamicProgressBarComponent.swift */,
 				0757551E29FAA2AB008E73FB /* MultipleChoiceList.swift */,
+				0757551D29FAA2AB008E73FB /* CustomAlertView.swift */,
 				0757551A29FAA2AB008E73FB /* StaticProgressBarComponent.swift */,
 				804AE4AC297B1DA4000B08F2 /* FilledInButtonStyle.swift */,
 				8095FE6F29E20C89006AA63C /* WhyPairedComponent.swift */,
