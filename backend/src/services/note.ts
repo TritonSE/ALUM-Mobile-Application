@@ -151,4 +151,21 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
   }
 }
 
-export { createPreSessionNotes, createPostSessionNotes, updateNotes, Answer, fillHashMap };
+async function deleteNotes(noteIdOne: ObjectId, noteIdTwo: ObjectId, noteIdThree: ObjectId) {
+  try {
+    await Note.findByIdAndDelete(noteIdOne);
+    await Note.findByIdAndDelete(noteIdTwo);
+    await Note.findByIdAndDelete(noteIdThree);
+  } catch (e) {
+    throw ServiceError.NOTE_WAS_NOT_FOUND;
+  }
+}
+
+export {
+  createPreSessionNotes,
+  createPostSessionNotes,
+  updateNotes,
+  Answer,
+  fillHashMap,
+  deleteNotes,
+};

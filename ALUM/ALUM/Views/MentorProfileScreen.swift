@@ -63,7 +63,11 @@ struct MentorProfileScreen: View {
                             .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                     }
                     .sheet(isPresented: $showWebView) {
-                        CalendlyView()
+                        if viewModel.selfView! {
+                            CalendlyView()
+                        } else {
+                            CalendlyView(requestType: "POST")
+                        }
                     }
                     .buttonStyle(FilledInButtonStyle())
                     .frame(width: 358)
