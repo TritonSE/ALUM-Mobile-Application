@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import schedule from "node-schedule";
 import { Mentee, Mentor, Session } from "../models";
+import { InternalError } from "../errors";
 
 /**
  * Unicode notes:
@@ -40,33 +41,39 @@ async function startUpcomingSessionCronJob() {
       upcomingNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
+        if (!mentee) {
+          throw InternalError.ERROR_GETTING_MENTEE;
+        }
         const mentor = await Mentor.findById(session.mentorId);
-        if (session.startTime.getTime() - dateNow.getTime() <= 86400000 && mentee != null && mentor != null) {
+        if (!mentor) {
+          throw InternalError.ERROR_GETTING_MENTOR;
+        }
+        if (session.startTime.getTime() - dateNow.getTime() <= 86400000) {
           if (session.preSessionCompleted) {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}",
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentee.fcmToken
+              mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}. Check out " + mentee.name + "'s pre-session notes.",
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentor.fcmToken
+              mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
           } else {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}. Fill out your pre-session notes now!",
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+              mentee.fcmToken
               //mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}",
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+              mentor.fcmToken
               //mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
@@ -88,19 +95,25 @@ async function startPostSessionCronJob() {
       postNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
+        if (!mentee) {
+          throw InternalError.ERROR_GETTING_MENTEE;
+        }
         const mentor = await Mentor.findById(session.mentorId);
-        if (dateNow.getTime() - session.endTime.getTime() >= 0 && mentee != null && mentor != null) {
+        if (!mentor) {
+          throw InternalError.ERROR_GETTING_MENTOR;
+        }
+        if (dateNow.getTime() - session.endTime.getTime() >= 0) {
           // mentee notification
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentor.name + " go? Jot it down in your post-session notes.",
-            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentee.fcmToken
+            mentee.fcmToken
           );
           // mentor notification
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentee.name + " go? Jot it down in your post-session notes.",
-            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentor.fcmToken
+            mentor.fcmToken
           );
           session.postSessionNotifSent = true;
           await session.save();

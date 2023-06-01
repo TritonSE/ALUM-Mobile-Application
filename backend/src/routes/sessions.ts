@@ -82,14 +82,14 @@ router.post(
       await sendNotification(
         "New session booked!",
         "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
-        "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentor.fcmToken
+        mentor.fcmToken
       );
       await sendNotification(
         "New session booked!",
         "You have a new session with " +
           mentor.name +
           ". Fill out your pre-session notes now \u{1F60E}",
-        "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M" //mentee.fcmToken
+        mentee.fcmToken
       );
       
       return res.status(201).json({
@@ -307,6 +307,10 @@ router.patch(
       if (!mentor) {
         throw InternalError.ERROR_GETTING_MENTOR;
       }
+      const mentee = await Mentee.findById(currSession.menteeId);
+      if (!mentee) {
+        throw InternalError.ERROR_GETTING_MENTEE;
+      }
       const personalAccessToken = mentor.personalAccessToken;
       await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
       const newEventData = await getCalendlyEventDate(newCalendlyURI, personalAccessToken);
@@ -316,6 +320,16 @@ router.patch(
         calendlyUri: newCalendlyURI,
       };
       await Session.findByIdAndUpdate(sessionId, { $set: updates }, { new: true });
+      await sendNotification(
+        "A session has been rescheduled",
+        "Your upcoming session with " + mentor.name + " has been rescheduled! Check out your new session details.",
+        mentee.fcmToken
+      )
+      await sendNotification(
+        "A session has been rescheduled",
+        "" + mentee.name + " has rescheduled your upcoming session! Check out your session details.",
+        mentor.fcmToken
+      )
       return res.status(200).json({
         message: "Successfuly updated the session!",
       });
@@ -343,6 +357,8 @@ router.delete(
     const mentor = await Mentor.findById(session.mentorId);
     if (!mentor) throw ServiceError.MENTOR_WAS_NOT_FOUND;
     const personalAccessToken = mentor.personalAccessToken;
+    const mentee = await Mentee.findById(session.menteeId);
+    if (!mentee) throw ServiceError.MENTEE_WAS_NOT_FOUND;
     try {
       deleteCalendlyEvent(uri, personalAccessToken);
       await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
