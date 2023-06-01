@@ -12,6 +12,11 @@
 		0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */; };
 		0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB922A1D576800911948 /* ProfileTabRouter.swift */; };
 		0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB942A1D578400911948 /* HomeTabRouter.swift */; };
+		0723BB862A1C995700911948 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB852A1C995700911948 /* HomeScreen.swift */; };
+		0723BB8F2A1CDF7500911948 /* UnpairedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB8E2A1CDF7500911948 /* UnpairedScreen.swift */; };
+		0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */; };
+		0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB922A1D576800911948 /* ProfileTabRouter.swift */; };
+		0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB942A1D578400911948 /* HomeTabRouter.swift */; };
 		0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0726C9EE29DC4B120042A486 /* CustomErrors.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
@@ -356,6 +361,29 @@
 				07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */,
 			);
 			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
+		07E885342A19F0B800B7AD27 /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */,
+				07E885352A19F0D300B7AD27 /* RootRouter.swift */,
+				0723BB922A1D576800911948 /* ProfileTabRouter.swift */,
+				0723BB942A1D578400911948 /* HomeTabRouter.swift */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
+		07ECF5F82A22A94A0093C37B /* PostSessionForm */ = {
+			isa = PBXGroup;
+			children = (
+				974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */,
+				0757552B29FAA2D6008E73FB /* MissedSessionScreen.swift */,
+				0757552629FAA2D5008E73FB /* PostSessionConfirmationScreen.swift */,
+				0757552529FAA2D5008E73FB /* PostSessionQuestionScreen.swift */,
+				07ECF5F62A2279940093C37B /* PostSessionFormRouter.swift */,
+			);
+			path = PostSessionForm;
 			sourceTree = "<group>";
 		};
 		07E885342A19F0B800B7AD27 /* Routers */ = {

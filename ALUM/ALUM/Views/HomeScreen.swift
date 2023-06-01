@@ -39,7 +39,7 @@ struct HomeScreen: View {
             ALUMText(text: "Book Session via Calendly", textColor: ALUMColor.white)
         }
         .sheet(isPresented: $showCalendlyWebView) {
-            CalendlyView()
+            CalendlyView(requestType: "POST")
         }
         .buttonStyle(FilledInButtonStyle())
         .padding(.bottom, 26)

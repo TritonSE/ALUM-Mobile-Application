@@ -16,6 +16,7 @@ final class SessionDetailViewModel: ObservableObject {
     @Published var formIsComplete: Bool = false
     @Published var sessionCompleted: Bool = false
     @Published var isLoading: Bool = true
+    @Published var sessionID: String = ""
 
     func fetchSession(sessionId: String) async throws {
         DispatchQueue.main.async {
@@ -31,4 +32,5 @@ final class SessionDetailViewModel: ObservableObject {
             print("ERROR SessionDetailViewModel.fetchSession: \(error)")
         }
     }
+
 }

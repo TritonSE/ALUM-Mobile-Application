@@ -6,6 +6,10 @@ import { getMentorId } from "../services/user";
 
 const router = express.Router();
 
+/**
+ * This is the route for the html page used to embed
+ * a Mentor's calendly page
+ */
 router.get(
   "/calendly",
   [verifyAuthToken],

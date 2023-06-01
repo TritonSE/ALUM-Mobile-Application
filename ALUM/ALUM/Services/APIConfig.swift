@@ -25,7 +25,6 @@ enum APIRoute {
     case postMentee
     case patchMentor(userId: String)
     case patchMentee(userId: String)
-    case postSession
     case getCalendly
 
     case getNote(noteId: String)
@@ -33,52 +32,61 @@ enum APIRoute {
 
     case getSession(sessionId: String)
     case getSessions
+    case postSession
+    case patchSession(sessionId: String)
+    case deleteSession(sessionId: String)
 
     var url: String {
-       switch self {
-       case .getSelf:
-           return [URLString.user, "me"].joined(separator: "/")
-       case .getMentor(let userId):
-           return [URLString.mentor, userId].joined(separator: "/")
-       case .getMentee(let userId):
-           return [URLString.mentee, userId].joined(separator: "/")
-       case .postMentor:
-           return URLString.mentor
-       case .postMentee:
-           return URLString.mentee
-       case .getNote(noteId: let noteId):
-           return [URLString.notes, noteId].joined(separator: "/")
-       case .patchNote(noteId: let noteId):
-           return [URLString.notes, noteId].joined(separator: "/")
-       case .getSession(sessionId: let sessionId):
-           return [URLString.sessions, sessionId].joined(separator: "/")
-       case .getSessions:
-           return URLString.sessions
-       case .postSession:
-           return URLString.sessions
-       case .getCalendly:
-           return URLString.calendly
-       case .patchMentor(let userId):
-           return [URLString.mentor, userId].joined(separator: "/")
-       case .patchMentee(let userId):
-           return [URLString.mentor, userId].joined(separator: "/")
-       }
+        switch self {
+            case .getSelf:
+                return [URLString.user, "me"].joined(separator: "/")
+            case .getMentor(let userId):
+                return [URLString.mentor, userId].joined(separator: "/")
+            case .getMentee(let userId):
+                return [URLString.mentee, userId].joined(separator: "/")
+            case .postMentor:
+                return URLString.mentor
+            case .postMentee:
+                return URLString.mentee
+            case .getNote(noteId: let noteId):
+                return [URLString.notes, noteId].joined(separator: "/")
+            case .patchNote(noteId: let noteId):
+                return [URLString.notes, noteId].joined(separator: "/")
+            case .getSession(sessionId: let sessionId):
+                return [URLString.sessions, sessionId].joined(separator: "/")
+            case .getSessions:
+                return URLString.sessions
+            case .postSession:
+                return URLString.sessions
+            case .getCalendly:
+                return URLString.calendly
+            case .patchMentor(let userId):
+                return [URLString.mentor, userId].joined(separator: "/")
+            case .patchMentee(let userId):
+                return [URLString.mentor, userId].joined(separator: "/")
+            case .deleteSession(sessionId: let sessionId):
+                return [URLString.sessions, sessionId].joined(separator: "/")
+            case .patchSession(sessionId: let sessionId):
+                return [URLString.sessions, sessionId].joined(separator: "/")
+        }
     }
 
     var method: String {
         switch self {
-        case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
-            return "GET"
-        case .postMentor, .postMentee, .postSession:
-            return "POST"
-        case .patchNote, .patchMentee, .patchMentor:
-            return "PATCH"
+            case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
+                return "GET"
+            case .postMentor, .postMentee, .postSession:
+                return "POST"
+            case .patchNote, .patchMentee, .patchMentor, .patchSession:
+                return "PATCH"
+            case .deleteSession:
+                return "DELETE"
         }
     }
 
     var requireAuth: Bool {
         switch self {
-        case
+            case
                 .getSelf,
                 .getMentor,
                 .getMentee,
@@ -89,10 +97,12 @@ enum APIRoute {
                 .postSession,
                 .getCalendly,
                 .patchMentee,
-                .patchMentor:
-            return true
-        case .postMentee, .postMentor:
-            return false
+                .patchMentor,
+                .patchSession,
+                .deleteSession:
+                return true
+            case .postMentee, .postMentor:
+                return false
         }
     }
 
@@ -110,7 +120,9 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly, .patchMentee, .patchMentor:
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
+                .getSession, .getSessions, .getCalendly, .patchMentee, 
+                .patchMentor, .deleteSession, .patchSession:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -122,7 +134,9 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession, .getSessions, .getCalendly, .patchMentor, .patchMentee:
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
+                .getSession, .getSessions, .getCalendly, .patchMentor, 
+                .patchMentee, .deleteSession, .patchSession:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
@@ -133,8 +147,5 @@ enum APIRoute {
                 400: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
         }
-
-        let error = errorMap[statusCode] ?? AppError.internalError(.unknownError, message: labeledMessage)
-        return error
     }
 }
