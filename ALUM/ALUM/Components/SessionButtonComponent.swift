@@ -30,7 +30,7 @@ struct SessionButtonComponent: View {
             }
         }
     }
-    
+
     var content: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12.0)
@@ -65,7 +65,7 @@ struct SessionButtonComponent: View {
                                 .foregroundColor(.black)
                                 .padding(.bottom, 4)
                         }
-                        
+
                         Spacer()
                     }
                     // "Monday, 9:00 - 10:00 AM PT"
@@ -75,7 +75,7 @@ struct SessionButtonComponent: View {
                         .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
                         .foregroundColor(Color("TextGray"))
                         .padding(.bottom, 4)
-                        
+
                         Spacer()
                     }
                     if !viewModel.formIsComplete && !(currentUser.role == .mentor && !viewModel.sessionCompleted) {
@@ -86,8 +86,7 @@ struct SessionButtonComponent: View {
                     }
                 }
                 .padding(.leading, 25)
-                
-                
+
                 Spacer()
 
                 Image(systemName: "chevron.right")

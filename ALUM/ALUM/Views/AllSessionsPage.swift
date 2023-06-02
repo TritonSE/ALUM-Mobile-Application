@@ -16,7 +16,7 @@ struct AllSessionsHeaderModifier: ViewModifier {
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding()
-            
+
             content
                 .background(Color("ALUM White 2"))
         }
@@ -24,14 +24,14 @@ struct AllSessionsHeaderModifier: ViewModifier {
 }
 
 extension View {
-    func applyAllSessionsHeaderModifier() -> some View{
+    func applyAllSessionsHeaderModifier() -> some View {
         self.modifier(AllSessionsHeaderModifier())
     }
 }
 
 struct AllSessionsPage: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
-    
+
     var body: some View {
         Group {
             if !currentUser.isLoading {
@@ -51,19 +51,19 @@ struct AllSessionsPage: View {
             }
         }
     }
-    
+
     var content: some View {
         VStack {
             HStack {
                 Text("Upcoming")
                     .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
                     .bold()
-                
+
                 Spacer()
             }
             .padding(.bottom, 20)
             .padding(.top, 25)
-            
+
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if !currSession.hasPassed {
@@ -75,16 +75,16 @@ struct AllSessionsPage: View {
                 }
             }
             .padding(.bottom, 50)
-            
+
             HStack {
                 Text("Past")
                     .font(.custom("Metropolis-Regular", size: 22, relativeTo: .headline))
                     .bold()
-                
+
                 Spacer()
             }
             .padding(.bottom, 20)
-            
+
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if currSession.hasPassed {

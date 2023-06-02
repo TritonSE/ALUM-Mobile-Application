@@ -14,7 +14,7 @@ class ServiceHelper {
         guard let authToken = try await FirebaseAuthenticationService.shared.getCurrentAuth() else {
             throw AppError.actionable(.authenticationError, message: "Error getting auth token")
         }
-        
+
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
     }
 
