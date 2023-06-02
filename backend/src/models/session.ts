@@ -57,11 +57,11 @@ const SessionSchema = new mongoose.Schema({
     required: false,
   },
   menteeId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   mentorId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   startTime: {

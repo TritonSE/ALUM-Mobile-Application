@@ -23,7 +23,7 @@ final class MentorProfileViewModel: ObservableObject {
                 self.selfView = self.currentUser.uid == mentorData.mentor.id
             }
         } catch {
-            print("An error occurred: \(error.localizedDescription)")
+            print("An error occurred: \(error)")
         }
     }
 

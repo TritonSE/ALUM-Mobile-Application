@@ -13,6 +13,8 @@ import SwiftUI
 import WebKit
 
 struct CalendlyView: UIViewRepresentable {
+    var requestType: String = ""
+    var sessionId: String = ""
 
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
@@ -34,31 +36,51 @@ struct CalendlyView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(webView: self)
+        Coordinator(webView: self, requestType: requestType, sessionId: sessionId)
     }
 
     class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
 
         var webView: CalendlyView
+        var requestType: String
+        var sessionId: String
 
-        init(webView: CalendlyView) {
+        init(webView: CalendlyView, requestType: String, sessionId: String) {
             self.webView = webView
+            self.requestType = requestType
+            self.sessionId = sessionId
         }
 
         func userContentController(_ userContentController: WKUserContentController,
                                    didReceive message: WKScriptMessage) {
             if message.name == "calendlyURI" {
-                Task {
-                    do {
-                        let messageBody = "\(message.body)"
-                        // Method should be called with proper mentor, mentee ids
-                        let result = try await
-                        SessionService.shared.postSessionWithId(calendlyURI: messageBody)
-                        DispatchQueue.main.async {
-                            CurrentUserModel.shared.isLoading = true
+                if requestType == "POST" {
+                    Task {
+                        do {
+                            let messageBody = "\(message.body)"
+                            let result = try await
+                            SessionService.shared.postSessionWithId(calendlyURI: messageBody)
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.isLoading = true
+                            }
+                        } catch {
+                            throw AppError.internalError(.unknownError, message: "Error posting a new session")
                         }
-                    } catch {
-                        throw AppError.internalError(.unknownError, message: "Error posting a new session")
+                    }
+                }
+                if requestType == "PATCH" {
+                    Task {
+                        do {
+                            let messageBody = "\(message.body)"
+                            let resule = try await
+                            SessionService.shared.patchSessionWithId(sessionId: sessionId,
+                                                                newCalendlyURI: messageBody)
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.isLoading = true
+                            }
+                        } catch {
+                            throw AppError.internalError(.unknownError, message: "Error updating a session")
+                        }
                     }
                 }
             }
