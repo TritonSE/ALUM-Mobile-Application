@@ -35,18 +35,16 @@ struct AllSessionsPage: View {
     var body: some View {
         Group {
             if !currentUser.isLoading {
-                NavigationView {
-                    GeometryReader { grr in
-                        VStack {
-                            ScrollView {
-                                content
-                                    .padding(.horizontal, 16)
-                            }
-                            .frame(minHeight: grr.size.height-120)
+                GeometryReader { grr in
+                    VStack {
+                        ScrollView {
+                            content
+                                .padding(.horizontal, 16)
                         }
-                        .applyAllSessionsHeaderModifier()
-                        .edgesIgnoringSafeArea(.bottom)
+                        .frame(minHeight: grr.size.height-120)
                     }
+                    .applyAllSessionsHeaderModifier()
+                    .edgesIgnoringSafeArea(.bottom)
                 }
             } else {
                 ProgressView()
@@ -69,9 +67,7 @@ struct AllSessionsPage: View {
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if !currSession.hasPassed {
-                        NavigationLink {
-                            SessionDetailsScreen(sessionId: currSession.id)
-                        } label: {
+                        CustomNavLink(destination: SessionDetailsScreen(sessionId: currSession.id)) {
                             SessionButtonComponent(sessionId: currSession.id)
                         }
                         .padding(.bottom, 20)
@@ -92,9 +88,7 @@ struct AllSessionsPage: View {
             Group {
                 ForEach(currentUser.allSessions!, id: \.self) {currSession in
                     if currSession.hasPassed {
-                        NavigationLink {
-                            SessionDetailsScreen(sessionId: currSession.id)
-                        } label: {
+                        CustomNavLink(destination: SessionDetailsScreen(sessionId: currSession.id)) {
                             SessionButtonComponent(sessionId: currSession.id)
                         }
                         .padding(.bottom, 20)
