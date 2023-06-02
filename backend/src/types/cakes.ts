@@ -36,13 +36,8 @@ export const CreateMentorRequestBodyCake = bake({
   calendlyLink: string,
 });
 
-// PATCH mentor/id
-export const UpdateMentorCake = bake({
-  fcmToken: string,
-});
-
-// PATCH mentee/id
-export const UpdateMenteeCake = bake({
+// PATCH user/id
+export const UpdateUserCake = bake({
   fcmToken: string,
 });
 

@@ -145,7 +145,7 @@ class CurrentUserModel: ObservableObject {
     
     func sendFcmToken(fcmToken: String) async throws {
         var tokenToSend: FCMToken = FCMToken(fcmToken: fcmToken)
-        let route = self.role == .mentor ? APIRoute.patchMentor(userId: self.uid ?? "") : APIRoute.patchMentee(userId: self.uid ?? "")
+        let route = APIRoute.patchUser(userId: self.uid ?? "")
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(tokenToSend) else {
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")

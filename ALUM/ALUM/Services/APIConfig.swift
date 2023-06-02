@@ -23,8 +23,7 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
-    case patchMentor(userId: String)
-    case patchMentee(userId: String)
+    case patchUser(userId: String)
     case getCalendly
 
     case getNote(noteId: String)
@@ -60,10 +59,8 @@ enum APIRoute {
                 return URLString.sessions
             case .getCalendly:
                 return URLString.calendly
-            case .patchMentor(let userId):
-                return [URLString.mentor, userId].joined(separator: "/")
-            case .patchMentee(let userId):
-                return [URLString.mentor, userId].joined(separator: "/")
+            case .patchUser(let userId):
+                return [URLString.user, userId].joined(separator: "/")
             case .deleteSession(sessionId: let sessionId):
                 return [URLString.sessions, sessionId].joined(separator: "/")
             case .patchSession(sessionId: let sessionId):
@@ -77,7 +74,7 @@ enum APIRoute {
                 return "GET"
             case .postMentor, .postMentee, .postSession:
                 return "POST"
-            case .patchNote, .patchMentee, .patchMentor, .patchSession:
+            case .patchNote, .patchUser, .patchSession:
                 return "PATCH"
             case .deleteSession:
                 return "DELETE"
@@ -96,8 +93,7 @@ enum APIRoute {
                 .getSessions,
                 .postSession,
                 .getCalendly,
-                .patchMentee,
-                .patchMentor,
+                .patchUser,
                 .patchSession,
                 .deleteSession:
                 return true
@@ -121,8 +117,7 @@ enum APIRoute {
     var successCode: Int {
         switch self {
         case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
-                .getSession, .getSessions, .getCalendly, .patchMentee, 
-                .patchMentor, .deleteSession, .patchSession:
+                .getSession, .getSessions, .getCalendly, .patchUser, .deleteSession, .patchSession:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
             return 201 // 201 Created
@@ -135,8 +130,8 @@ enum APIRoute {
 
         switch self {
         case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
-                .getSession, .getSessions, .getCalendly, .patchMentor, 
-                .patchMentee, .deleteSession, .patchSession:
+                .getSession, .getSessions, .getCalendly, .patchUser,
+                .deleteSession, .patchSession:
             errorMap = [
                 401: AppError.actionable(.authenticationError, message: labeledMessage),
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
@@ -147,5 +142,8 @@ enum APIRoute {
                 400: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
         }
+        
+        let error = errorMap[statusCode] ?? AppError.internalError(.unknownError, message: labeledMessage)
+        return error
     }
 }

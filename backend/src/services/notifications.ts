@@ -7,6 +7,8 @@ import { InternalError } from "../errors";
  * Unicode notes:
  * eyes - 1F440
  * cool with glasses - 1F60E
+ * check mark - 2705
+ * broken heart - 1F494
  * 
  * To find emojis and their unicode value, use https://apps.timwhitlock.info/emoji/tables/unicode
  * The unicode is in format "U+1234"; in code, use "\u{1234}"
@@ -35,9 +37,9 @@ async function sendNotification(title: string, body: string, deviceToken: string
 
 
 async function startUpcomingSessionCronJob() {
-  let upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
-  const job = schedule.scheduleJob("*/5 * * * *", async () => {
+  const job = schedule.scheduleJob("*/1 * * * *", async () => {
     try {
+      let upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
       upcomingNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
@@ -53,27 +55,27 @@ async function startUpcomingSessionCronJob() {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}",
-              mentee.fcmToken
+              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}. Check out " + mentee.name + "'s pre-session notes.",
-              mentor.fcmToken
+              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
             );
             console.log("Function executed successfully:", mentorNotif);
           } else {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}. Fill out your pre-session notes now!",
-              mentee.fcmToken
+              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
               //mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}",
-              mentor.fcmToken
+              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
               //mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
@@ -89,9 +91,9 @@ async function startUpcomingSessionCronJob() {
 }
 
 async function startPostSessionCronJob() {
-  let postNotifSessions = await Session.find({ postSessionNotifSent: { $eq: false } });
-  const job = schedule.scheduleJob("*/5 * * * *", async () => {
+  const job = schedule.scheduleJob("*/1 * * * *", async () => {
     try {
+      let postNotifSessions = await Session.find({ postSessionNotifSent: { $eq: false } });
       postNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
@@ -107,13 +109,13 @@ async function startPostSessionCronJob() {
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentor.name + " go? Jot it down in your post-session notes.",
-            mentee.fcmToken
+            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
           );
           // mentor notification
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentee.name + " go? Jot it down in your post-session notes.",
-            mentor.fcmToken
+            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
           );
           session.postSessionNotifSent = true;
           await session.save();

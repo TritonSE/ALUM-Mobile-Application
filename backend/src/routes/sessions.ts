@@ -350,6 +350,7 @@ router.delete(
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     console.log("Deleting a session");
+    const role = req.body.role;
     const sessionId = req.params.sessionId;
     const session = await Session.findById(sessionId);
     if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
@@ -363,6 +364,29 @@ router.delete(
       deleteCalendlyEvent(uri, personalAccessToken);
       await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
       await Session.findByIdAndDelete(sessionId);
+      if (role === "mentee") {
+        await sendNotification(
+          "A session has been cancelled.",
+          "Your session with " + mentor.name + " has been cancelled.",
+          mentee.fcmToken
+        )
+        await sendNotification(
+          "A session has been cancelled.",
+          "" + mentee.name + " has cancelled your upcoming session.",
+          mentor.fcmToken
+        )
+      } else if (role  === "mentor") {
+        await sendNotification(
+          "A session has been cancelled.",
+          "Your session with " + mentee.name + " has been cancelled.",
+          mentor.fcmToken
+        )
+        await sendNotification (
+          "A session has been cancelled.",
+          "" + mentor.name + " has cancelled your upcoming session. \u{1F494} Reschedule to save your pre-session notes.",
+          mentee.fcmToken
+        )
+      }
       return res.status(200).json({
         message: "calendly successfully cancelled, notes deleted, session deleted.",
       });

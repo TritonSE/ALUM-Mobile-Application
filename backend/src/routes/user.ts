@@ -14,8 +14,7 @@ import {
   CreateMentorRequestBodyCake,
   CreateMenteeRequestBodyType,
   CreateMentorRequestBodyType,
-  UpdateMentorCake,
-  UpdateMenteeCake,
+  UpdateUserCake,
 } from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
@@ -374,10 +373,11 @@ router.get(
   }
 );
 
-type UpdateMentorType = Infer<typeof UpdateMentorCake>;
+type UpdateUserType = Infer<typeof UpdateUserCake>
 router.patch(
-  "/mentor/:userId",
-  validateReqBodyWithCake(UpdateMentorCake),
+  "/user/:userId",
+  [verifyAuthToken],
+  validateReqBodyWithCake(UpdateUserCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log(req.body);
@@ -385,8 +385,13 @@ router.patch(
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
-      const updatedToken: UpdateMentorType = req.body;
-      await updateMentorFCMToken(updatedToken.fcmToken, userId);
+      const role = req.body.role;
+      const updatedToken = req.body.fcmToken;
+      if (role === "mentee") {
+        await updateMenteeFCMToken(updatedToken, userId);
+      } else if (role === "mentor") {
+        await updateMentorFCMToken(updatedToken, userId);
+      }
       res.status(200).json({
         message: "Success",
       });
@@ -394,29 +399,8 @@ router.patch(
       next(e);
     }
   }
-);
+)
 
-type UpdateMenteeType = Infer<typeof UpdateMenteeCake>;
-router.patch(
-  "/mentee/:userId",
-  validateReqBodyWithCake(UpdateMenteeCake),
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      console.log(req.body);
-      const userId = req.params.userId;
-      if (!mongoose.Types.ObjectId.isValid(userId)) {
-        throw ServiceError.INVALID_MONGO_ID;
-      }
-      const updatedToken: UpdateMenteeType = req.body;
-      await updateMenteeFCMToken(updatedToken.fcmToken, userId);
-      res.status(200).json({
-        message: "Success",
-      });
-    } catch (e) {
-      next(e);
-    }
-  }
-);
 /**
  * Route to setup mobile app for any logged in user (mentor or mentee)
  *
