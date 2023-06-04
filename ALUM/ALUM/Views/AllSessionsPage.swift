@@ -46,6 +46,9 @@ struct AllSessionsPage: View {
                     .applyAllSessionsHeaderModifier()
                     .edgesIgnoringSafeArea(.bottom)
                 }
+                .onAppear {
+                    currentUser.allSessions?.reverse()
+                }
             } else {
                 ProgressView()
             }

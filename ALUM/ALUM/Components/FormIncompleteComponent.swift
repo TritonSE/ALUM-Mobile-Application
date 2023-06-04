@@ -14,10 +14,12 @@ struct FormIncompleteComponent: View {
         ZStack {
             HStack {
                 Image(systemName: "exclamationmark.circle")
+                    .resizable()
+                    .frame(width: 10, height: 10)
                     .foregroundColor(Color("FunctionalError"))
 
                 Text(type + "-session form incomplete")
-                    .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
+                    .font(.custom("Metropolis-Regular", size: 10, relativeTo: .headline))
                     .foregroundColor(Color("FunctionalError"))
             }
             .padding(5.0)

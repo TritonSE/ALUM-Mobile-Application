@@ -72,7 +72,7 @@ struct SessionButtonComponent: View {
                     HStack {
                         // swiftlint:disable:next line_length
                         Text("\(viewModel.session?.fullDateString.components(separatedBy: ",")[0] ?? "Monday"), \(viewModel.session?.startTimeString ?? "9:00") - \(viewModel.session?.endTimeString ?? "10:00 AM")")
-                        .font(.custom("Metropolis-Regular", size: 13, relativeTo: .headline))
+                        .font(.custom("Metropolis-Regular", size: 11, relativeTo: .headline))
                         .foregroundColor(Color("TextGray"))
                         .padding(.bottom, 4)
 
@@ -81,7 +81,6 @@ struct SessionButtonComponent: View {
                     if !viewModel.formIsComplete && !(currentUser.role == .mentor && !viewModel.sessionCompleted) {
                         HStack {
                             FormIncompleteComponent(type: viewModel.sessionCompleted ? "Post" : "Pre")
-                            Spacer()
                         }
                     }
                 }

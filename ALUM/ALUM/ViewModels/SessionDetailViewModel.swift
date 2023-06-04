@@ -27,6 +27,12 @@ final class SessionDetailViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.session = sessionData.session
                 self.isLoading = false
+                self.sessionCompleted = sessionData.session.hasPassed
+                if self.currentUser.role == .mentee {
+                    self.formIsComplete = sessionData.session.hasPassed ? sessionData.session.postSessionMenteeCompleted : sessionData.session.preSessionCompleted
+                } else {
+                    self.formIsComplete = sessionData.session.hasPassed ? sessionData.session.postSessionMentorCompleted : true
+                }
             }
         } catch {
             print("ERROR SessionDetailViewModel.fetchSession: \(error)")
