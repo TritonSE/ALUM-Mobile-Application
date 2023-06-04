@@ -25,6 +25,9 @@ struct NavigationHeaderComponent<Destination: View>: View {
     @State var title: String
     @State var purple: Bool
     @State var showButton = true
+    @State var showAlert = false
+    
+    @State var doesNagivate = false
     var body: some View {
         let foreColor = purple ? Color("ALUM White") : Color("ALUM Primary Purple")
         let titleColor = purple ? Color("ALUM White") : Color.black
@@ -33,7 +36,29 @@ struct NavigationHeaderComponent<Destination: View>: View {
                 Group {
                     if #available(iOS 16.0, *) {
                         // Apply function that is only available in iOS 16 or later
-                        NavigationLink(destination: backDestination, label: {BackButton(text: backText)})
+                        Button(action: {
+                            showAlert = true
+                        }, label: {BackButton(text: "backText")})
+                        NavigationLink(destination: backDestination, isActive: $doesNagivate, label: {BackButton(text: backText)})
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                            title: Text("Exit sign-up?"),
+                                            message: Text("Your sign-up form will not be saved."),
+                                            primaryButton: .destructive(
+                                                Text("Exit"),
+                                                action: {
+                                                    doesNagivate = true
+                                                }
+                                            ),
+                                            secondaryButton: .cancel(
+                                                Text("No"),
+                                                action: {
+                                                    showAlert = false
+                                                }
+                                            )
+                                        )
+                            }
+                            .hidden()
                             .toolbar(.hidden, for: .navigationBar)
                     } else {
                         // Apply function that is available in earlier versions of iOS

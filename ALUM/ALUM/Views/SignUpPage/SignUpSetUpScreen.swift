@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpSetUpScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
+    // bool var --> show or not show
     var body: some View {
         VStack {
             StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
@@ -22,7 +23,7 @@ struct SignUpSetUpScreen: View {
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-            .applySignUpScreenHeaderModifier()
+            .applySignUpScreenHeaderModifier() /// pass in func
             .onAppear {
                 viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
                 viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
