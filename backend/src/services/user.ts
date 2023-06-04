@@ -10,11 +10,10 @@ import { UpdateMenteeRequestBodyType, UpdateMentorRequestBodyType } from "../typ
 import { Mentor } from "../models/mentor";
 import { Mentee } from "../models/mentee";
 import { ServiceError } from "../errors";
-import { validateCalendlyAccessToken } from "../services/calendly";
+import { validateCalendlyAccessToken, validateCalendlyLink } from "../services/calendly";
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   console.info("Adding an image to the datatbase");
-  console.log(req.file?.mimetype);
   const image = new Image({
     buffer: req.file?.buffer,
     originalname: req.file?.originalname,
@@ -58,9 +57,10 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   if (!mentor) {
     throw ServiceError.MENTOR_WAS_NOT_FOUND;
   }
+  await validateCalendlyAccessToken(updatedMentor.personalAccessToken);
+  await validateCalendlyLink(updatedMentor.calendlyLink);
   try {
     if(mentor != null){
-      await validateCalendlyAccessToken(updatedMentor.personalAccessToken)
       mentor.name = updatedMentor.name;
       mentor.markModified("name");
       mentor.imageId = updatedMentor.imageId;
@@ -134,4 +134,4 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 }
 
-export { getMentorId, getMenteeId, updateMentor, updateMentee };
+export { getMentorId, getMenteeId, updateMentor, updateMentee, saveImage };
