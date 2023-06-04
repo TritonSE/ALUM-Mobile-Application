@@ -4,13 +4,12 @@
 import { Request } from "express";
 import mongoose from "mongoose";
 import { Image } from "../models/image";
-import { InternalError } from "../errors";
+import { InternalError, ServiceError } from "../errors";
 import { Pairing } from "../models/pairing";
 import { UpdateMenteeRequestBodyType, UpdateMentorRequestBodyType } from "../types";
 import { Mentor } from "../models/mentor";
 import { Mentee } from "../models/mentee";
-import { ServiceError } from "../errors";
-import { validateCalendlyAccessToken, validateCalendlyLink } from "../services/calendly";
+import { validateCalendlyAccessToken, validateCalendlyLink } from "./calendly";
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
   console.info("Adding an image to the datatbase");
@@ -51,7 +50,7 @@ async function getMenteeId(pairingId: string): Promise<string> {
  * @param userID - uid of mentor to update
  * @returns Updated saved mentor
  */
-async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: String) {
+async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: string) {
   console.log("updatedMentor", updatedMentor);
   const mentor = await Mentor.findById(userID);
   if (!mentor) {
@@ -60,7 +59,7 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   await validateCalendlyAccessToken(updatedMentor.personalAccessToken);
   await validateCalendlyLink(updatedMentor.calendlyLink);
   try {
-    if(mentor != null){
+    if (mentor != null) {
       mentor.name = updatedMentor.name;
       mentor.markModified("name");
       mentor.imageId = updatedMentor.imageId;
@@ -90,8 +89,8 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
       mentor.zoomLink = updatedMentor.zoomLink;
       mentor.markModified("zoomLink");
       console.log(mentor);
-      return await mentor.save()
     }
+    return await mentor.save();
   } catch (error) {
     throw ServiceError.MENTOR_WAS_NOT_SAVED;
   }
@@ -103,7 +102,7 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
  * @param userID - uid of mentee to update
  * @returns Updated saved mentee
  */
-async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: String) {
+async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: string) {
   console.log("updatedMentee", updatedMentee);
   const mentee = await Mentee.findById(userID);
   if (!mentee) {
@@ -111,13 +110,13 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 
   try {
-    if(mentee != null){
+    if (mentee != null) {
       mentee.name = updatedMentee.name;
       mentee.markModified("name");
       mentee.grade = updatedMentee.grade;
       mentee.markModified("grade");
       mentee.about = updatedMentee.about;
-      mentee.markModified("about")
+      mentee.markModified("about");
       mentee.imageId = updatedMentee.imageId;
       mentee.markModified("imageId");
       mentee.topicsOfInterest = updatedMentee.topicsOfInterest;
@@ -127,8 +126,8 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
       mentee.mentorshipGoal = updatedMentee.mentorshipGoal;
       mentee.markModified("mentorshipGoal");
       console.log(mentee);
-      return await mentee.save();
     }
+    return await mentee.save();
   } catch (error) {
     throw ServiceError.MENTEE_WAS_NOT_SAVED;
   }

@@ -2,8 +2,9 @@
  * This file contains all routes pertaining to images
  */
 
-import express, { NextFunction, Request, Response } from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
+import multer = require("multer");
 import { Image } from "../models";
 import { verifyAuthToken } from "../middleware/auth";
 import { ServiceError } from "../errors/service";
@@ -11,7 +12,6 @@ import { InternalError } from "../errors/internal";
 import { saveImage } from "../services/user";
 
 const router = express.Router();
-const multer = require('multer');
 const upload = multer();
 
 /**
@@ -44,21 +44,26 @@ router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Respo
   }
 });
 
-router.post("/image", [verifyAuthToken], upload.single('image'), async (req: Request, res: Response) => {
-  try {
-    console.log("POST /image", req.file);
-    const imageId = await saveImage(req);
-    console.log("imageId", imageId);
-    return res.status(200).send({ imageId });
-  } catch (e) {
-    console.log(e);
-    if (e instanceof ServiceError) {
-      return res.status(e.status).send(e.displayMessage(true));
+router.post(
+  "/image",
+  [verifyAuthToken],
+  upload.single("image"),
+  async (req: Request, res: Response) => {
+    try {
+      console.log("POST /image", req.file);
+      const imageId = await saveImage(req);
+      console.log("imageId", imageId);
+      return res.status(200).send({ imageId });
+    } catch (e) {
+      console.log(e);
+      if (e instanceof ServiceError) {
+        return res.status(e.status).send(e.displayMessage(true));
+      }
+      return res
+        .status(ServiceError.IMAGE_NOT_FOUND.status)
+        .send(ServiceError.IMAGE_NOT_FOUND.displayMessage(true));
     }
-    return res
-      .status(ServiceError.IMAGE_NOT_FOUND.status)
-      .send(ServiceError.IMAGE_NOT_FOUND.displayMessage(true));
   }
-});
+);
 
 export { router as imageRouter };

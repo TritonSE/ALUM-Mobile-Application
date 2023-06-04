@@ -10,9 +10,9 @@ const IMAGE_NOT_SAVED =
 const IMAGE_NOT_FOUND = "Image was not found. Please make sure id passed in route is valid";
 const INVALID_MONGO_ID = "Mongo Id was invalid. Please ensure that the id is correct";
 const MENTEE_WAS_NOT_FOUND = "Mentee was not found";
-const MENTEE_WAS_NOT_SAVED = "Mentee was not saved"
+const MENTEE_WAS_NOT_SAVED = "Mentee was not saved";
 const MENTOR_WAS_NOT_FOUND = "Menor was not found";
-const MENTOR_WAS_NOT_SAVED = "Mentor was not saved"
+const MENTOR_WAS_NOT_SAVED = "Mentor was not saved";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
 const NOTE_WAS_NOT_FOUND = "Note was not found";
 const NOTE_WAS_NOT_SAVED = "Note was not saved";
@@ -43,7 +43,7 @@ export class ServiceError extends CustomError {
 
   static NOTE_WAS_NOT_SAVED = new ServiceError(10, 404, NOTE_WAS_NOT_SAVED);
 
-  static MENTOR_WAS_NOT_SAVED = new ServiceError(11, 404, MENTOR_WAS_NOT_SAVED)
+  static MENTOR_WAS_NOT_SAVED = new ServiceError(11, 404, MENTOR_WAS_NOT_SAVED);
 
-  static MENTEE_WAS_NOT_SAVED = new ServiceError(11, 404, MENTEE_WAS_NOT_SAVED)
+  static MENTEE_WAS_NOT_SAVED = new ServiceError(11, 404, MENTEE_WAS_NOT_SAVED);
 }

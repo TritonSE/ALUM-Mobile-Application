@@ -1,5 +1,10 @@
 import { Infer } from "caketype";
-import { CreateMenteeRequestBodyCake, CreateMentorRequestBodyCake, UpdateMenteeRequestBodyCake, UpdateMentorRequestBodyCake } from "./cakes";
+import {
+  CreateMenteeRequestBodyCake,
+  CreateMentorRequestBodyCake,
+  UpdateMenteeRequestBodyCake,
+  UpdateMentorRequestBodyCake,
+} from "./cakes";
 
 export type UpdateMenteeRequestBodyType = Infer<typeof UpdateMenteeRequestBodyCake>;
 export type UpdateMentorRequestBodyType = Infer<typeof UpdateMentorRequestBodyCake>;

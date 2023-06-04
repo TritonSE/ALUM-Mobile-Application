@@ -15,7 +15,7 @@ import {
   UpdateMentorRequestBodyCake,
   UpdateMenteeRequestBodyCake,
   UpdateMentorRequestBodyType,
-  UpdateMenteeRequestBodyType
+  UpdateMenteeRequestBodyType,
 } from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
@@ -23,9 +23,8 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
-import { updateMentor } from "../services/user";
-import { updateMentee } from "../services/user";
-import { AuthError } from "../errors/auth"
+import { updateMentor, updateMentee } from "../services/user";
+import { AuthError } from "../errors/auth";
 
 const router = express.Router();
 
@@ -395,6 +394,7 @@ router.get(
  */
 router.patch(
   "/mentor/:userId",
+  validateReqBodyWithCake(UpdateMentorRequestBodyCake),
   [verifyAuthToken],
   // validateReqBodyWithCake(UpdateMentorRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
@@ -406,14 +406,13 @@ router.patch(
       }
 
       const role = req.body.role;
-      if(role == "mentee") {
+      if (role === "mentee") {
         throw AuthError.INVALID_AUTH_TOKEN;
       }
       console.log("Update /mentor", req.body);
-      const { name, about, graduationYear, ...args }: UpdateMentorRequestBodyType = req.body;
 
       const updatedMentor: UpdateMentorRequestBodyType = req.body;
-      await updateMentor(updatedMentor, userID)
+      await updateMentor(updatedMentor, userID);
       const mentor = await Mentor.findById(userID);
       res.status(200).json({
         message: "Success",
@@ -442,6 +441,7 @@ router.patch(
  */
 router.patch(
   "/mentee/:userId",
+  validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   [verifyAuthToken],
   // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
@@ -451,15 +451,14 @@ router.patch(
       if (!mongoose.Types.ObjectId.isValid(userID)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
-      
+
       const role = req.body.role;
-      if(role == "mentor") {
+      if (role === "mentor") {
         throw AuthError.INVALID_AUTH_TOKEN;
       }
       console.log("Update /mentee", req.body);
-      const { name, about, grade, ...args }: UpdateMenteeRequestBodyType = req.body;
       const updatedMentee: UpdateMenteeRequestBodyType = req.body;
-      await updateMentee(updatedMentee, userID)
+      await updateMentee(updatedMentee, userID);
       const mentee = await Mentee.findById(userID);
       res.status(200).json({
         message: "Success",

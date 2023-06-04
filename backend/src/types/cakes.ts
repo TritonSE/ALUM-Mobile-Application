@@ -48,7 +48,7 @@ export const UpdateMentorRequestBodyCake = bake({
   mentorMotivation: string,
   location: string,
   calendlyLink: string,
-  zoomLink: string
+  zoomLink: string,
 });
 
 // PATCH user/id
