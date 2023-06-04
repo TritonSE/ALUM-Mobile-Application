@@ -377,7 +377,7 @@ router.get(
  * @body The body should be a JSON in the form:
  * {
     "name": string,
-    "email": string,
+    "personalAccessToken": string,
     "about": string,
     "graduationYear": number,
     "college": string,
@@ -431,7 +431,6 @@ router.patch(
  * @body The body should be a JSON in the form:
  * {
     "name": string,
-    "email": string,
     "grade": number,
     "about": string,
     "imageId": string,

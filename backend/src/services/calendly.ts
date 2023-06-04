@@ -32,6 +32,25 @@ async function getCalendlyEventDate(uri: string, accessToken: string) {
   }
 }
 
+async function validateCalendlyLink(link: string){
+  if(!link.startsWith("https://calendly.com/")){
+    throw ValidationError.INVALID_CALENDLY_LINK;
+  }
+  try {
+    const response = await fetch(link, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw ValidationError.INVALID_CALENDLY_LINK;
+    }
+  } catch (e) {
+    throw ValidationError.INVALID_CALENDLY_LINK;
+  }
+}
+
 async function validateCalendlyAccessToken(accessToken: string) {
   try {
     console.log("ac", accessToken)
@@ -51,4 +70,4 @@ async function validateCalendlyAccessToken(accessToken: string) {
   }
 }
 
-export { getCalendlyEventDate, validateCalendlyAccessToken };
+export { getCalendlyEventDate, validateCalendlyAccessToken, validateCalendlyLink };
