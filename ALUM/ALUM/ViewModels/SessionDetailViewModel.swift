@@ -29,9 +29,13 @@ final class SessionDetailViewModel: ObservableObject {
                 self.isLoading = false
                 self.sessionCompleted = sessionData.session.hasPassed
                 if self.currentUser.role == .mentee {
-                    self.formIsComplete = sessionData.session.hasPassed ? sessionData.session.postSessionMenteeCompleted : sessionData.session.preSessionCompleted
+                    self.formIsComplete = sessionData.session.hasPassed ?
+                                            sessionData.session.postSessionMenteeCompleted :
+                                            sessionData.session.preSessionCompleted
                 } else {
-                    self.formIsComplete = sessionData.session.hasPassed ? sessionData.session.postSessionMentorCompleted : true
+                    self.formIsComplete = sessionData.session.hasPassed ?
+                                            sessionData.session.postSessionMentorCompleted :
+                                            true
                 }
             }
         } catch {
