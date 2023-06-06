@@ -56,18 +56,18 @@ class CurrentUserModel: ObservableObject {
     /// Utilizes FirebaseAuth to get data on a logged in user (if any). Otherwise resets to not logged in state
     func setForInSessionUser() async {
         do {
-            guard let user = Auth.auth().currentUser else {
-                DispatchQueue.main.async {
-                    CurrentUserModel.shared.showInternalError.toggle()
-                }
-                throw AppError.actionable(.authenticationError, message: "No user found")
+            let user = Auth.auth().currentUser
+            if user == nil {
+                self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
+            } else {
+                try await self.setFromFirebaseUser(user: user!)
             }
-            try await self.setFromFirebaseUser(user: user)
         } catch {
+            // in case setFromFirebaseUser fails, just make the user login again
             self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
         }
     }
-
+    
     /// User is a Firebase User so this function gets the ROLE and UID of the
     /// logged in user if a firebase user is passed
     func setFromFirebaseUser(user: User) async throws {

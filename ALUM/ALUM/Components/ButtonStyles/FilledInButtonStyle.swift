@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FilledInButtonStyle: ButtonStyle {
-    @State var disabled: Bool = false
+    var disabled: Bool = false
 
     func makeBody(configuration: Configuration) -> some View {
             if !disabled {
