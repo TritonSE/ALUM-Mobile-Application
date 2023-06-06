@@ -17,6 +17,7 @@ enum ActionableError: Error {
     case networkError // Action - connect to internet
     case authenticationError // Action - login again
     case userError // Action login again
+    case invalidInput // Action - retry
 }
 
 enum InternalError: Error {

@@ -46,7 +46,7 @@ final class SignUpViewModel: ObservableObject {
         }
     }
 
-    func submitMenteeSignUp() async throws {
+    func submitMenteeSignUp() async  {
         let menteeData = MenteePostData(
             name: mentee.name,
             email: mentee.email,
@@ -56,10 +56,23 @@ final class SignUpViewModel: ObservableObject {
             careerInterests: mentee.careerInterests,
             mentorshipGoal: mentee.mentorshipGoal
         )
-        try await UserService().createMentee(data: menteeData)
+        do {
+           try await UserService.shared.createMentee(data: menteeData)
+           self.submitSuccess = true
+       } catch let error as AppError {
+           switch error {
+           case .actionable(.invalidInput, let message):
+               DispatchQueue.main.async {
+                   CurrentUserModel.shared.errorMessage = message
+                   CurrentUserModel.shared.showInternalError = true
+               }
+           default:
+               break
+           }
+       } catch {}
     }
 
-    func submitMentorSignUp() async throws {
+    func submitMentorSignUp() async  {
         let mentorData = MentorPostData(
             name: mentor.name,
             email: mentor.email,
@@ -75,6 +88,20 @@ final class SignUpViewModel: ObservableObject {
             calendlyLink: mentor.calendlyLink,
             personalAccessToken: mentor.personalAccessToken
         )
-        try await UserService.shared.createMentor(data: mentorData)
+        
+        do {
+           try await UserService.shared.createMentor(data: mentorData)
+           self.submitSuccess = true
+       } catch let error as AppError {
+           switch error {
+           case .actionable(.invalidInput, let message):
+               DispatchQueue.main.async {
+                   CurrentUserModel.shared.errorMessage = message
+                   CurrentUserModel.shared.showInternalError = true
+               }
+           default:
+               break
+           }
+       } catch {}
     }
 }

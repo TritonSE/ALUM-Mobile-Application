@@ -44,12 +44,7 @@ struct SignUpConfirmationMentorScreen: View {
             Spacer()
             Button("Submit") {
                 Task {
-                    do {
-                        try await viewModel.submitMentorSignUp()
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
+                    await viewModel.submitMentorSignUp()
                 }
             }
             .buttonStyle(FilledInButtonStyle())
