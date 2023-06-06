@@ -24,6 +24,7 @@ class CurrentUserModel: ObservableObject {
     @Published var showTabBar: Bool
     @Published var showInternalError: Bool
     @Published var showNetworkError: Bool
+    @Published var errorMessage: String?
 
     @Published var sessionId: String?
     @Published var pairedMentorId: String?

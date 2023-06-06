@@ -36,7 +36,9 @@ struct RootRouter: View {
 
     var errorMessage: some View {
         Group {
-            if self.currentUser.showInternalError || self.currentUser.showNetworkError {
+            if self.currentUser.showInternalError
+                || self.currentUser.showNetworkError
+                || self.currentUser.errorMessage != nil {
                 GeometryReader { geometry in
                     VStack {
                         Spacer()
@@ -50,13 +52,13 @@ struct RootRouter: View {
                                     .foregroundColor(Color("NeutralGray2"))
                             }
 
-                            if self.currentUser.showInternalError {
+                            if self.currentUser.showInternalError || self.currentUser.errorMessage != nil {
                                 Image(systemName: "xmark.circle")
                                     .font(.system(size: 50))
                                     .foregroundColor(Color("ALUM Alert Red"))
                                 Text("Something went wrong")
                                     .font(Font.custom("Metropolis-Regular", size: 17))
-                                Text("Please contact the ALUM team.")
+                                Text(self.currentUser.errorMessage ?? "Please contact the ALUM team.")
                                     .font(.custom("Metropolis-Regular", size: 13))
                                     .foregroundColor(Color("NeutralGray2"))
                             }
@@ -64,6 +66,7 @@ struct RootRouter: View {
                             Button("Dismiss") {
                                 self.currentUser.showInternalError = false
                                 self.currentUser.showNetworkError = false
+                                self.currentUser.errorMessage = nil
                             }
                             .frame(minWidth: 50, maxWidth: 100)
                             .frame(minHeight: 0, maxHeight: 48)
@@ -89,7 +92,7 @@ struct RootView_Previews: PreviewProvider {
             uid: "6431b9a2bcf4420fe9825fe5",
             role: .mentor
         )
-        CurrentUserModel.shared.showInternalError = true
+        CurrentUserModel.shared.errorMessage = "This is a custom error."
         return RootRouter().onAppear(perform: {
             Task {
                 try await CurrentUserModel.shared.fetchUserInfoFromServer(
