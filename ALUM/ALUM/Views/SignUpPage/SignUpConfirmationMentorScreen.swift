@@ -8,7 +8,6 @@
 import SwiftUI
 import WrappingHStack
 
-// swiftlint:disable type_body_length
 struct SignUpConfirmationMentorScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
@@ -273,4 +272,3 @@ struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
         SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
-// swiftlint:enable type_body_length

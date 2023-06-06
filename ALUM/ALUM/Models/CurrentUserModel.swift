@@ -67,7 +67,7 @@ class CurrentUserModel: ObservableObject {
             self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
         }
     }
-    
+
     /// User is a Firebase User so this function gets the ROLE and UID of the
     /// logged in user if a firebase user is passed
     func setFromFirebaseUser(user: User) async throws {

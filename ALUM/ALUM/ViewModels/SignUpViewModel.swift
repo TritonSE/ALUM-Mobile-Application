@@ -47,26 +47,26 @@ final class SignUpViewModel: ObservableObject {
     }
 
     func isMentorStep3Complete() -> Bool {
-        return mentor.yearOfGrad != 0 && 
-            mentor.university != "" && 
-            mentor.major != "" && 
-            mentor.minor != "" && 
-            mentor.intendedCareer != "" && 
-            mentor.location != "" && 
-            mentor.calendlyLink != "" && 
-            mentor.personalAccessToken != "" && 
+        return mentor.yearOfGrad != 0 &&
+            mentor.university != "" &&
+            mentor.major != "" &&
+            mentor.minor != "" &&
+            mentor.intendedCareer != "" &&
+            mentor.location != "" &&
+            mentor.calendlyLink != "" &&
+            mentor.personalAccessToken != "" &&
             mentor.mentorMotivation != "" &&
             !mentor.topicsOfExpertise.isEmpty
     }
 
     func isMenteeStep3Complete() -> Bool {
-        return mentee.grade != 0 && 
-        !mentee.topicsOfInterest.isEmpty && 
+        return mentee.grade != 0 &&
+        !mentee.topicsOfInterest.isEmpty &&
         !mentee.careerInterests.isEmpty &&
         mentee.mentorshipGoal != ""
     }
-    
-    func submitMenteeSignUp() async  {
+
+    func submitMenteeSignUp() async {
         let menteeData = MenteePostData(
             name: mentee.name,
             email: mentee.email,
@@ -92,7 +92,7 @@ final class SignUpViewModel: ObservableObject {
        } catch {}
     }
 
-    func submitMentorSignUp() async  {
+    func submitMentorSignUp() async {
         let mentorData = MentorPostData(
             name: mentor.name,
             email: mentor.email,
@@ -108,7 +108,7 @@ final class SignUpViewModel: ObservableObject {
             calendlyLink: mentor.calendlyLink,
             personalAccessToken: mentor.personalAccessToken
         )
-        
+
         do {
            try await UserService.shared.createMentor(data: mentorData)
            self.submitSuccess = true
