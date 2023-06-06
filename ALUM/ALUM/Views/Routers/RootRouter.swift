@@ -45,22 +45,22 @@ struct RootRouter: View {
                         VStack(spacing: 12) {
                             if self.currentUser.showNetworkError {
                                 Image("NoConnectionIcon")
-                                Text("No internet connection")
-                                    .font(Font.custom("Metropolis-Regular", size: 17))
-                                Text("Please check your connection and try again.")
-                                    .font(.custom("Metropolis-Regular", size: 13))
-                                    .foregroundColor(Color("NeutralGray2"))
+                                ALUMText(text: "No internet connection",
+                                         textColor: ALUMColor.black)
+                                ALUMText(text: "Please check your connection and try again.",
+                                         fontSize: ALUMFontSize.smallFontSize,
+                                         textColor: ALUMColor.gray3)
                             }
 
                             if self.currentUser.showInternalError || self.currentUser.errorMessage != nil {
                                 Image(systemName: "xmark.circle")
                                     .font(.system(size: 50))
                                     .foregroundColor(Color("ALUM Alert Red"))
-                                Text("Something went wrong")
-                                    .font(Font.custom("Metropolis-Regular", size: 17))
-                                Text(self.currentUser.errorMessage ?? "Please contact the ALUM team.")
-                                    .font(.custom("Metropolis-Regular", size: 13))
-                                    .foregroundColor(Color("NeutralGray2"))
+                                ALUMText(text: "Something went wrong",
+                                         textColor: ALUMColor.black)
+                                ALUMText(text: self.currentUser.errorMessage ?? "Please contact the ALUM team.",
+                                         fontSize: ALUMFontSize.smallFontSize,
+                                         textColor: ALUMColor.gray3)
                             }
 
                             Button("Dismiss") {
@@ -92,7 +92,7 @@ struct RootView_Previews: PreviewProvider {
             uid: "6431b9a2bcf4420fe9825fe5",
             role: .mentor
         )
-        CurrentUserModel.shared.errorMessage = "This is a custom error."
+        CurrentUserModel.shared.errorMessage = "This is a custom error message."
         return RootRouter().onAppear(perform: {
             Task {
                 try await CurrentUserModel.shared.fetchUserInfoFromServer(
