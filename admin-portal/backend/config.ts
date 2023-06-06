@@ -4,14 +4,7 @@ dotenv.config({
     path: ".env",
   });
 
-  let serviceAccountKeyV = "";
+console.log(process.env.SERVICE_ACCOUNT_KEY);
+const serviceAccountKey = process.env.SERVICE_ACCOUNTKEY;
 
-  if (!process.env.SERVICE_ACCOUNT_KEY) {
-    throw new Error();
-  } else {
-    serviceAccountKeyV = process.env.SERVICE_ACCOUNT_KEY;
-  }
-
-  const serviceAccountKey = serviceAccountKeyV;
-
-  export {serviceAccountKey}
+export {serviceAccountKey}

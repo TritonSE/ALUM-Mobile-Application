@@ -1,8 +1,7 @@
 import React from 'react';
 import '../../styles/globals.css'
 import Image from 'next/image';
-import {firebaseAuth} from '../../../../backend/src/services/firebase'
-import {signInWithEmailAndPassword} from 'firebase/auth';
+import { initializeFirebase } from '../../../backend/firebase';
 
 const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -10,24 +9,26 @@ const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   const email = event.currentTarget.email.value;
   const password = event.currentTarget.password.value;
 
-  try {
-    signInWithEmailAndPassword(firebaseAuth, email, password)
-  .then((userCredential) => {
-    const user = userCredential.user;
-    console.log(user);
-    console.log("success");
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-  } catch (error) {
-    // Handle login errors
-    console.log(error);
-  }
+  // try {
+  //   signInWithEmailAndPassword(firebaseAuth, email, password)
+  // .then((userCredential) => {
+  //   const user = userCredential.user;
+  //   console.log(user);
+  //   console.log("success");
+  // })˜
+  // .catch((error) => {
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  // });
+  // } catch (error) {
+  //   // Handle login errors
+  //   console.log(error);
+  // }
 };
 
 export default function Login(){
+  const firebase = initializeFirebase();
+  console.log(firebase);
   return (
     <div style={styles.container}>
       <div style={styles.imageContainer}>
@@ -36,7 +37,7 @@ export default function Login(){
       </div>
       <div style={styles.formContainer}>
         <h3>Login</h3>
-        <form onSubmit={handleLogin}>
+        <form>
                     <p>Email</p>
           <input style={styles.inputField} type="password" placeholder="username" />
           <p>Password</p>
