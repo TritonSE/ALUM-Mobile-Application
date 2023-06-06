@@ -5,6 +5,8 @@
 //  Created by Sidhant Rohatgi on 4/11/23.
 //
 
+// NOT BEING USED IN MVP - MIGHT BE USED IN FUTURE VERSIONS
+
 import SwiftUI
 
 struct CustomAlertView: View {
