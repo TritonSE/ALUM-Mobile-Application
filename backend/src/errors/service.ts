@@ -19,6 +19,7 @@ const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
 const ERROR_DELETING_EVENT = "There was an error deleting a calendly event";
 const INVALID_ROLE_WAS_FOUND = "Allowed user roles for this context is mentor and mentee only";
+
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
 

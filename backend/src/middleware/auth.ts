@@ -5,7 +5,6 @@
 
 import { Request, Response, NextFunction } from "express";
 import { decodeAuthToken } from "../services/auth";
-import { CustomError } from "../errors";
 import { AuthError } from "../errors/auth";
 
 /**
