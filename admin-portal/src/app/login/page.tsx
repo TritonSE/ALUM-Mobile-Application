@@ -1,6 +1,31 @@
 import React from 'react';
 import '../../styles/globals.css'
 import Image from 'next/image';
+import {firebaseAuth} from '../../../../backend/src/services/firebase'
+import {signInWithEmailAndPassword} from 'firebase/auth';
+
+const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
+  const email = event.currentTarget.email.value;
+  const password = event.currentTarget.password.value;
+
+  try {
+    signInWithEmailAndPassword(firebaseAuth, email, password)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    console.log(user);
+    console.log("success");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+  } catch (error) {
+    // Handle login errors
+    console.log(error);
+  }
+};
 
 export default function Login(){
   return (
@@ -11,13 +36,13 @@ export default function Login(){
       </div>
       <div style={styles.formContainer}>
         <h3>Login</h3>
-        <form>
-          <p>Email</p>
+        <form onSubmit={handleLogin}>
+                    <p>Email</p>
           <input style={styles.inputField} type="password" placeholder="username" />
           <p>Password</p>
           <input style={styles.inputField} type="username" placeholder="password" />
-        </form>
         <button type="submit">Login</button>
+        </form>
       </div>
     </div>
   );
