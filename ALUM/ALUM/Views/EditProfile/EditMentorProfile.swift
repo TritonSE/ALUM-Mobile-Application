@@ -92,12 +92,12 @@ struct EditMentorProfileScreen: View {
 
             ALUMTextFieldComponent(title: "Calendly Access Token",
                                    suggestion: "ey...",
-                                   text: $mentor.personalAccessToken,
+                                   text: $mentor.personalAccessToken ?? "",
                                    isSecure: true)
 
             ALUMTextFieldComponent(title: "Zoom Link",
                                    suggestion: "eg. https://ucsd.zoom.us/t/1234567890",
-                                   text: $mentor.zoomLink)
+                                   text: $mentor.zoomLink ?? "")
         }
         .padding(.top, 20)
     }
@@ -226,6 +226,14 @@ struct EditMentorProfileScreen: View {
             })
         }
     }
+}
+
+// Overload the ?? operator to support binding String? (with default value) to String
+func ?? <T>(lhs: Binding<T?>, rhs: T) -> Binding<T> {
+    Binding(
+        get: { lhs.wrappedValue ?? rhs },
+        set: { lhs.wrappedValue = $0 }
+    )
 }
 
 struct EditMentorProfileScreen_Previews: PreviewProvider {
