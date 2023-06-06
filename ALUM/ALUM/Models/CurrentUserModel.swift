@@ -22,6 +22,9 @@ class CurrentUserModel: ObservableObject {
     @Published var isLoggedIn: Bool
     @Published var status: String?
     @Published var showTabBar: Bool
+    @Published var showInternalError: Bool
+    @Published var showNetworkError: Bool
+    @Published var errorMessage: String?
 
     @Published var sessionId: String?
     @Published var pairedMentorId: String?
@@ -34,6 +37,8 @@ class CurrentUserModel: ObservableObject {
         self.role = nil
         self.status = nil
         self.showTabBar = true
+        self.showInternalError = false
+        self.showNetworkError = false
     }
 
     ///  Since async operations are involved, this function will limit updating the current
@@ -51,11 +56,14 @@ class CurrentUserModel: ObservableObject {
     /// Utilizes FirebaseAuth to get data on a logged in user (if any). Otherwise resets to not logged in state
     func setForInSessionUser() async {
         do {
-            guard let user = Auth.auth().currentUser else {
-                throw AppError.actionable(.authenticationError, message: "No user found")
+            let user = Auth.auth().currentUser
+            if user == nil {
+                self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
+            } else {
+                try await self.setFromFirebaseUser(user: user!)
             }
-            try await self.setFromFirebaseUser(user: user)
         } catch {
+            // in case setFromFirebaseUser fails, just make the user login again
             self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
         }
     }
@@ -65,6 +73,9 @@ class CurrentUserModel: ObservableObject {
     func setFromFirebaseUser(user: User) async throws {
         let result = try await user.getIDTokenResult()
         guard let role = result.claims["role"] as? String else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.actionable(
                 .authenticationError,
                 message: "Expected to have a firebase role for user \(user.uid)"
@@ -105,6 +116,9 @@ class CurrentUserModel: ObservableObject {
 
         if self.role == .mentee {
             guard let userPairedMentorId = userData.pairedMentorId else {
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
                 throw AppError.internalError(.invalidResponse, message: "Expected mentee to have a paired mentor Id")
             }
             print("userPairedMentorId - \(userPairedMentorId)")
@@ -113,6 +127,9 @@ class CurrentUserModel: ObservableObject {
             }
         } else if self.role == .mentor {
             guard let userPairedMenteeId = userData.pairedMenteeId else {
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
                 throw AppError.internalError(.invalidResponse, message: "Expected mentor to have a paired mentee Id")
             }
             print("userPairedMenteeId - \(userPairedMenteeId)")

@@ -8,7 +8,6 @@
 import SwiftUI
 import WrappingHStack
 
-// swiftlint:disable type_body_length
 struct SignUpConfirmationMentorScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
@@ -44,12 +43,7 @@ struct SignUpConfirmationMentorScreen: View {
             Spacer()
             Button("Submit") {
                 Task {
-                    do {
-                        try await viewModel.submitMentorSignUp()
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
+                    await viewModel.submitMentorSignUp()
                 }
             }
             .buttonStyle(FilledInButtonStyle())
@@ -278,4 +272,3 @@ struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
         SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
-// swiftlint:enable type_body_length

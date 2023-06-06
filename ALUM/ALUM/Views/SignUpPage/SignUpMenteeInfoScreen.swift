@@ -61,7 +61,8 @@ struct SignUpMenteeInfoScreen: View {
                     Image(systemName: "arrow.right")
                 }
             })
-            .buttonStyle(FilledInButtonStyle(disabled: false))
+            .disabled(!viewModel.isMenteeStep3Complete())
+            .buttonStyle(FilledInButtonStyle(disabled: !viewModel.isMenteeStep3Complete()))
             .frame(width: UIScreen.main.bounds.width * 0.6)
         }
     }

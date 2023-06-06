@@ -50,7 +50,7 @@ export class CustomError extends Error {
    */
   public displayMessage(clientFacing: boolean) {
     if (clientFacing) {
-      return `Error: ${this.message}`;
+      return `${this.message}`;
     }
 
     return `Error: Type ${this.constructor.name}, Code ${this.code}, Context: ${

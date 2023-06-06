@@ -125,9 +125,14 @@ enum APIRoute {
                     400: AppError.internalError(.invalidRequest, message: labeledMessage),
                     404: AppError.internalError(.invalidRequest, message: labeledMessage)
                 ]
-            case .postMentor, .postMentee, .postSession:
+            case  .postSession:
                 errorMap = [
                     400: AppError.internalError(.invalidRequest, message: labeledMessage)
+                ]
+            case .postMentor, .postMentee:
+                // message will be displayed to user so no label here
+                errorMap = [
+                    400: AppError.actionable(.invalidInput, message: message)
                 ]
             }
 

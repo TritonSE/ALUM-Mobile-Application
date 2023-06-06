@@ -64,6 +64,9 @@ class NotesService {
         let route = APIRoute.patchNote(noteId: noteId)
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData
@@ -82,6 +85,9 @@ class NotesService {
             return notesData
         } catch {
             print("Failed to decode data")
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Decode Data")
         }
     }
