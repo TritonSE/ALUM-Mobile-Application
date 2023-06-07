@@ -14,6 +14,7 @@ const EMAIL_ALREADY_IN_USE = "E-mail already in use!";
 const INVALID_USER_ID = "Invalid user ID, cannot find user.";
 const INVALID_PASSWORD_LENGTH = "Password must be at least 8 characters long";
 const INVALID_CALENDLY_LINK = "Invalid Calendly link found. Please retry";
+const LINK_IS_NOT_CALENDLY = "This is not a proper Calendly Link. Please retry";
 
 export class ValidationError extends CustomError {
   static INVALID_EMAIL_ID = new ValidationError(0, 400, INVALID_EMAIL_ID);
@@ -31,4 +32,6 @@ export class ValidationError extends CustomError {
   );
 
   static INVALID_CALENDLY_LINK = new ValidationError(5, 400, INVALID_CALENDLY_LINK);
+
+  static LINK_IS_NOT_CALENDLY = new ValidationError(6, 400, LINK_IS_NOT_CALENDLY);
 }

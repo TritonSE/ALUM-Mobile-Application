@@ -34,7 +34,7 @@ async function getCalendlyEventDate(uri: string, accessToken: string) {
 
 async function validateCalendlyLink(link: string) {
   if (!link.startsWith("https://calendly.com/")) {
-    throw ValidationError.INVALID_CALENDLY_LINK;
+    throw ValidationError.LINK_IS_NOT_CALENDLY;
   }
   try {
     const response = await fetch(link, {

@@ -2,7 +2,7 @@
  * This file contains all routes pertaining to images
  */
 
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import multer = require("multer");
 import { Image } from "../models";
@@ -19,7 +19,7 @@ const upload = multer();
  * to ensure the person using the route is a proper user and no check to make sure
  * the image requested belongs to a certain person
  */
-router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Response) => {
+router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
   const imageId = req.params.imageId;
   if (!mongoose.Types.ObjectId.isValid(imageId)) {
     return res
@@ -36,7 +36,7 @@ router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Respo
   } catch (e) {
     console.log(e);
     if (e instanceof ServiceError) {
-      return res.status(e.status).send(e.displayMessage(true));
+      next(e);
     }
     return res
       .status(InternalError.ERROR_GETTING_IMAGE.status)
