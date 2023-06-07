@@ -9,7 +9,5 @@
 		<string>Metropolis-ExtraBoldItalic.otf</string>
 		<string>Metropolis-Thin.otf</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 </dict>
 </plist>
