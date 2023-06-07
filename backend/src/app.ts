@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
-import {onRequest} from "firebase-functions/v2/https";
+import { onRequest } from "firebase-functions/v2/https";
 
 import { userRouter } from "./routes/user";
 import { notesRouter } from "./routes/notes";

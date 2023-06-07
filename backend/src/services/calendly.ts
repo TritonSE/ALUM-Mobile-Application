@@ -70,10 +70,9 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
   }
 }
 
-
 async function validateCalendlyAccessToken(accessToken: string) {
   try {
-    console.log("ac", accessToken)
+    console.log("ac", accessToken);
     const response = await fetch(`https://api.calendly.com/users/me`, {
       method: "GET",
       headers: {
@@ -81,12 +80,12 @@ async function validateCalendlyAccessToken(accessToken: string) {
         "Content-Type": "application/json",
       },
     });
-   
+
     if (!response.ok) {
-      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN 
+      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
     }
   } catch (e) {
-    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN
+    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
   }
 }
 
