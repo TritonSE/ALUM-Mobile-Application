@@ -59,9 +59,7 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   await validateCalendlyAccessToken(updatedMentor.personalAccessToken);
   await validateCalendlyLink(updatedMentor.calendlyLink);
   try {
-    if (mentor != null) {
-      return await Mentor.findByIdAndUpdate({ _id: userID }, updatedMentor);
-    }
+    return await Mentor.findByIdAndUpdate({ _id: userID }, updatedMentor);
   } catch (error) {
     throw ServiceError.MENTOR_WAS_NOT_SAVED;
   }
@@ -81,9 +79,7 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 
   try {
-    if (mentee != null) {
-      return Mentee.findByIdAndUpdate({ _id: userID }, updatedMentee);
-    }
+    return await Mentee.findByIdAndUpdate({ _id: userID }, updatedMentee);
   } catch (error) {
     throw ServiceError.MENTEE_WAS_NOT_SAVED;
   }

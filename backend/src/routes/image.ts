@@ -19,30 +19,34 @@ const upload = multer();
  * to ensure the person using the route is a proper user and no check to make sure
  * the image requested belongs to a certain person
  */
-router.get("/image/:imageId", [verifyAuthToken], async (req: Request, res: Response, next: NextFunction) => {
-  const imageId = req.params.imageId;
-  if (!mongoose.Types.ObjectId.isValid(imageId)) {
-    return res
-      .status(ServiceError.INVALID_MONGO_ID.status)
-      .send(ServiceError.INVALID_MONGO_ID.message);
-  }
+router.get(
+  "/image/:imageId",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    const imageId = req.params.imageId;
+    if (!mongoose.Types.ObjectId.isValid(imageId)) {
+      return res
+        .status(ServiceError.INVALID_MONGO_ID.status)
+        .send(ServiceError.INVALID_MONGO_ID.message);
+    }
 
-  try {
-    const image = await Image.findById(imageId);
-    if (!image) {
-      throw ServiceError.IMAGE_NOT_FOUND;
+    try {
+      const image = await Image.findById(imageId);
+      if (!image) {
+        throw ServiceError.IMAGE_NOT_FOUND;
+      }
+      return res.status(200).set("Content-type", image.mimetype).send(image.buffer);
+    } catch (e) {
+      console.log(e);
+      if (e instanceof ServiceError) {
+        next(e);
+      }
+      return res
+        .status(InternalError.ERROR_GETTING_IMAGE.status)
+        .send(InternalError.ERROR_GETTING_IMAGE.displayMessage(true));
     }
-    return res.status(200).set("Content-type", image.mimetype).send(image.buffer);
-  } catch (e) {
-    console.log(e);
-    if (e instanceof ServiceError) {
-      next(e);
-    }
-    return res
-      .status(InternalError.ERROR_GETTING_IMAGE.status)
-      .send(InternalError.ERROR_GETTING_IMAGE.displayMessage(true));
   }
-});
+);
 
 router.post(
   "/image",
