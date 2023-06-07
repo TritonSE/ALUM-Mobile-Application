@@ -1,0 +1,95 @@
+.sidebarContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100%;
+    padding: 2.75rem 1rem 2.5rem 1rem;
+    z-index: 100;
+    background: var(--secondary-1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: scroll;
+    box-sizing: border-box;
+  }
+
+.alumlogo {
+  width: 3.125rem;
+  height: 3.125rem;
+}
+
+.sidebarLogoTextContainer {
+  color: var(--primary-3);
+  font-size: 2.55rem;
+  height: 3.25rem;
+}
+
+.sidebarLogoSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+}
+
+.sidebarTabContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+
+}
+.sidebarTab {
+  width: 80%;
+  background-color: inherit;
+  stroke: black;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+
+  padding: 19px 18px;
+}
+
+.sidebarTabActive {
+  background-color: var(--primary-1);
+  color: var(--primary-3);
+  stroke: var(--primary-3);
+}
+
+.sidebarTab * {
+  width: 100%;
+  height: 100%;
+
+  background-color: inherit;
+  border: none;
+  color: inherit;
+}
+
+.sidebarTabText {
+  font-style: normal;
+  font-size: 16px;
+  line-height: 19px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebarTab a, .sidebarTabInnerContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.sidebarTab svg {
+  stroke: inherit;
+  width: 2rem;
+  height: 2rem;
+}

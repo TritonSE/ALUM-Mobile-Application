@@ -14,12 +14,13 @@ const MENTEE_WAS_NOT_SAVED = "Mentee was not saved";
 const MENTOR_WAS_NOT_FOUND = "Menor was not found";
 const MENTOR_WAS_NOT_SAVED = "Mentor was not saved";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
+const SESSION_WAS_NOT_FOUND = "Session was not found";
 const NOTE_WAS_NOT_FOUND = "Note was not found";
 const NOTE_WAS_NOT_SAVED = "Note was not saved";
-const SESSION_WAS_NOT_FOUND = "Session was not found";
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
-
+const ERROR_DELETING_EVENT = "There was an error deleting a calendly event";
+const INVALID_ROLE_WAS_FOUND = "Allowed user roles for this context is mentor and mentee only";
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
 
@@ -46,4 +47,8 @@ export class ServiceError extends CustomError {
   static MENTOR_WAS_NOT_SAVED = new ServiceError(11, 404, MENTOR_WAS_NOT_SAVED);
 
   static MENTEE_WAS_NOT_SAVED = new ServiceError(11, 404, MENTEE_WAS_NOT_SAVED);
+  
+  static INVALID_ROLE_WAS_FOUND = new ServiceError(11, 404, INVALID_ROLE_WAS_FOUND);
+
+  static ERROR_DELETING_EVENT = new ServiceError(7, 404, ERROR_DELETING_EVENT);
 }

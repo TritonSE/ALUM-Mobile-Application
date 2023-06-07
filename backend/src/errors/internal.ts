@@ -15,6 +15,9 @@ const NO_DEFAULT_IMAGE_ID = "Could not find default image id env variable";
 const ERROR_ROLES_NOT_MENTOR_MENTEE_NOT_IMPLEMENTED =
   "Any roles other than mentor/mentee has not been implemented.";
 const ERROR_FINDING_PAIR = "There was an error getting the mentee/mentor pairing";
+const ERROR_FINDING_UPCOMING_SESSION = "Error occured while finding some upcoming session";
+const ERROR_FINDING_PAST_SESSION = "Error occured while finding some past session";
+
 export class InternalError extends CustomError {
   static ERROR_GETTING_MENTEE = new InternalError(0, 500, ERROR_GETTING_MENTEE);
 
@@ -39,4 +42,12 @@ export class InternalError extends CustomError {
   );
 
   static ERROR_FINDING_PAIR = new InternalError(9, 500, ERROR_FINDING_PAIR);
+
+  static ERROR_FINDING_UPCOMING_SESSION = new InternalError(
+    10,
+    500,
+    ERROR_FINDING_UPCOMING_SESSION
+  );
+
+  static ERROR_FINDING_PAST_SESSION = new InternalError(11, 500, ERROR_FINDING_PAST_SESSION);
 }

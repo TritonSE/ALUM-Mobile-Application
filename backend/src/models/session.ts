@@ -20,7 +20,7 @@ interface SessionInterface {
   postSessionMenteeCompleted: boolean;
 }
 
-interface SessionDoc extends mongoose.Document {
+export interface SessionDoc extends mongoose.Document {
   preSession: ObjectId;
   postSessionMentee: ObjectId;
   postSessionMentor: ObjectId;
@@ -57,11 +57,11 @@ const SessionSchema = new mongoose.Schema({
     required: false,
   },
   menteeId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   mentorId: {
-    type: String,
+    type: mongoose.Types.ObjectId,
     required: true,
   },
   startTime: {

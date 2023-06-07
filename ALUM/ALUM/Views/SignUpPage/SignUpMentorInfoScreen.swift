@@ -54,7 +54,8 @@ struct SignUpMentorInfoScreen: View {
                     Image(systemName: "arrow.right")
                 }
             })
-            .buttonStyle(FilledInButtonStyle(disabled: false))
+            .disabled(!viewModel.isMentorStep3Complete())
+            .buttonStyle(FilledInButtonStyle(disabled: !viewModel.isMentorStep3Complete()))
             .frame(width: UIScreen.main.bounds.width * 0.6)
         }
     }
