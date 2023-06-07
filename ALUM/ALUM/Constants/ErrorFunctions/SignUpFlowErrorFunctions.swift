@@ -9,7 +9,7 @@ import Foundation
 
 class SignUpFlowErrorFunctions {
     static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
-        if string.contains("iusd.edu") || !(string.contains("@")) {
+        if string.contains("iusd.org") || !(string.contains("@")) {
             return (false, "Don't use IUSD email")
         } else {
             return (true, "Don't use IUSD email")
