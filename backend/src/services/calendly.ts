@@ -58,6 +58,10 @@ async function validateCalendlyAccessToken(accessToken: string) {
     console.log("ac", accessToken);
     const response = await fetch(`https://api.calendly.com/users/me`, {
       method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
