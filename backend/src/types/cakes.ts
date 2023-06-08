@@ -40,6 +40,33 @@ export const CreateMentorRequestBodyCake = bake({
 export const UpdateUserCake = bake({
   fcmToken: string,
 });
+export const UpdateMentorRequestBodyCake = bake({
+  name: string,
+  about: string,
+  graduationYear: number,
+  college: string,
+  major: string,
+  imageId: string,
+  minor: string,
+  career: string,
+  personalAccessToken: string,
+  topicsOfExpertise: array(string),
+  mentorMotivation: string,
+  location: string,
+  calendlyLink: string,
+  zoomLink: string,
+});
+
+// PATCH user/id
+export const UpdateMenteeRequestBodyCake = bake({
+  name: string,
+  grade: number,
+  about: string,
+  imageId: string,
+  topicsOfInterest: array(string),
+  careerInterests: array(string),
+  mentorshipGoal: string,
+});
 
 // PATCH notes/id
 export const UpdateNoteDetailsCake = bake({

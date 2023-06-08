@@ -137,9 +137,13 @@ enum APIRoute {
                 400: AppError.internalError(.invalidRequest, message: labeledMessage),
                 404: AppError.internalError(.invalidRequest, message: labeledMessage)
             ]
-        case .postMentor, .postMentee, .postSession:
+        case  .postSession:
+                errorMap = [
+                    400: AppError.internalError(.invalidRequest, message: labeledMessage)
+                ]
+        case .postMentor, .postMentee:
             errorMap = [
-                400: AppError.internalError(.invalidRequest, message: labeledMessage)
+                400: AppError.internalError(.invalidRequest, message: message)
             ]
         }
         

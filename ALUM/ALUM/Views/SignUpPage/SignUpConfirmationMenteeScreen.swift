@@ -44,12 +44,7 @@ struct SignUpConfirmationMenteeScreen: View {
             Spacer()
             Button("Submit") {
                 Task {
-                    do {
-                        try await viewModel.submitMenteeSignUp()
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
+                    await viewModel.submitMenteeSignUp()
                 }
             }
             .buttonStyle(FilledInButtonStyle())

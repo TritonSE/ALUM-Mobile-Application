@@ -8,13 +8,17 @@ import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
-import { getMenteeId, getMentorId } from "../services/user";
+import { getMenteeId, getMentorId, updateMentor, updateMentee } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
   CreateMenteeRequestBodyType,
   CreateMentorRequestBodyType,
   UpdateUserCake,
+  UpdateMentorRequestBodyCake,
+  UpdateMenteeRequestBodyCake,
+  UpdateMentorRequestBodyType,
+  UpdateMenteeRequestBodyType,
 } from "../types";
 import { ValidationError } from "../errors/validationError";
 import { InternalError } from "../errors/internal";
@@ -23,6 +27,7 @@ import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { updateMentorFCMToken, updateMenteeFCMToken } from "../services/user";
+import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
 
 const router = express.Router();
@@ -401,6 +406,105 @@ router.patch(
   }
 )
 
+/**
+ * * This route will update a mentor's values.
+ * @param userId: userId of mentor to be updated
+ * @body The body should be a JSON in the form:
+ * {
+    "name": string,
+    "personalAccessToken": string,
+    "about": string,
+    "graduationYear": number,
+    "college": string,
+    "major": string,
+    "imageId": string,
+    "minor": string,
+    "career": string,
+    "topicsOfExpertise": string[],
+    "mentorMotivation": string,
+    "location": string,
+    "calendlyLink": string,
+    "zoomLink": string
+ * }
+ * @response "Success" with new, updated mentor if successfully updated, "Invalid" otherwise.
+ */
+router.patch(
+  "/mentor/:userId",
+  validateReqBodyWithCake(UpdateMentorRequestBodyCake),
+  [verifyAuthToken],
+  // validateReqBodyWithCake(UpdateMentorRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log("Inside mentor patch try");
+      const userID = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userID)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const role = req.body.role;
+      if (role === "mentee") {
+        throw AuthError.INVALID_AUTH_TOKEN;
+      }
+      console.log("Update /mentor", req.body);
+
+      const updatedMentor: UpdateMentorRequestBodyType = req.body;
+      await updateMentor(updatedMentor, userID);
+      const mentor = await Mentor.findById(userID);
+      res.status(200).json({
+        message: "Success",
+        updatedMentor: mentor,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
+/**
+ * * This route will update a mentee's values.
+ * @param userId: userId of mentee to be updated
+ * @body The body should be a JSON in the form:
+ * {
+    "name": string,
+    "grade": number,
+    "about": string,
+    "imageId": string,
+    "topicsOfInterest": string[],
+    "careerInterests": string[],
+    "mentorshipGoal": string,
+}
+  * @response "Success" with new, updated mentee if successfully updated, "Invalid" otherwise.
+  */
+router.patch(
+  "/mentee/:userId",
+  validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
+  [verifyAuthToken],
+  // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      console.log("Inside mentee patch try");
+      const userID = req.params.userId;
+      if (!mongoose.Types.ObjectId.isValid(userID)) {
+        throw ServiceError.INVALID_MONGO_ID;
+      }
+
+      const role = req.body.role;
+      if (role === "mentor") {
+        throw AuthError.INVALID_AUTH_TOKEN;
+      }
+      console.log("Update /mentee", req.body);
+      const updatedMentee: UpdateMenteeRequestBodyType = req.body;
+      await updateMentee(updatedMentee, userID);
+      const mentee = await Mentee.findById(userID);
+      res.status(200).json({
+        message: "Success",
+        updatedMentee: mentee,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+);
 /**
  * Route to setup mobile app for any logged in user (mentor or mentee)
  *

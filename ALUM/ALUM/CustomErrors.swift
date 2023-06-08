@@ -17,6 +17,7 @@ enum ActionableError: Error {
     case networkError // Action - connect to internet
     case authenticationError // Action - login again
     case userError // Action login again
+    case invalidInput // Action - retry
 }
 
 enum InternalError: Error {
@@ -42,5 +43,8 @@ func handleDecodingErrors<T>(_ decodingClosure: () throws -> T) throws -> T {
         errorMessage = "Unknown: \(error)"
     }
 
+    DispatchQueue.main.async {
+        CurrentUserModel.shared.showInternalError.toggle()
+    }
     throw AppError.internalError(.invalidResponse, message: "Decode error - \(errorMessage)")
 }

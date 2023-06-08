@@ -30,6 +30,9 @@ struct CalendlyView: UIViewRepresentable {
                 let request = try await route.createURLRequest()
                 uiView.load(request)
             } catch {
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
                 throw AppError.internalError(.unknownError, message: "Error Loading Calendly Link")
             }
         }
@@ -64,6 +67,9 @@ struct CalendlyView: UIViewRepresentable {
                                 CurrentUserModel.shared.isLoading = true
                             }
                         } catch {
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.showInternalError.toggle()
+                            }
                             throw AppError.internalError(.unknownError, message: "Error posting a new session")
                         }
                     }
@@ -79,6 +85,9 @@ struct CalendlyView: UIViewRepresentable {
                                 CurrentUserModel.shared.isLoading = true
                             }
                         } catch {
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.showInternalError.toggle()
+                            }
                             throw AppError.internalError(.unknownError, message: "Error updating a session")
                         }
                     }

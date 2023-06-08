@@ -72,6 +72,9 @@ class UserService {
         let route = APIRoute.postMentee
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData
@@ -83,6 +86,9 @@ class UserService {
         let route = APIRoute.postMentor
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData
