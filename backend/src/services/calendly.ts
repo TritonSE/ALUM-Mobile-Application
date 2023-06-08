@@ -106,4 +106,9 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
     throw ServiceError.ERROR_DELETING_EVENT;
   }
 }
-export { getCalendlyEventDate, validateCalendlyAccessToken, validateCalendlyLink, deleteCalendlyEvent };
+export {
+  getCalendlyEventDate,
+  validateCalendlyAccessToken,
+  validateCalendlyLink,
+  deleteCalendlyEvent,
+};

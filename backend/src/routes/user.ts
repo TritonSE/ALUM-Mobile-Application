@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
-import { getMenteeId, getMentorId } from "../services/user";
+import { getMenteeId, getMentorId, updateMentor, updateMentee } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
@@ -24,7 +24,6 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
-import { updateMentor, updateMentee } from "../services/user";
 import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
 
@@ -470,7 +469,7 @@ router.patch(
       next(e);
     }
   }
-);    
+);
 /**
  * Route to setup mobile app for any logged in user (mentor or mentee)
  *

@@ -47,7 +47,7 @@ export class ServiceError extends CustomError {
   static MENTOR_WAS_NOT_SAVED = new ServiceError(11, 404, MENTOR_WAS_NOT_SAVED);
 
   static MENTEE_WAS_NOT_SAVED = new ServiceError(11, 404, MENTEE_WAS_NOT_SAVED);
-  
+
   static INVALID_ROLE_WAS_FOUND = new ServiceError(11, 404, INVALID_ROLE_WAS_FOUND);
 
   static ERROR_DELETING_EVENT = new ServiceError(7, 404, ERROR_DELETING_EVENT);
