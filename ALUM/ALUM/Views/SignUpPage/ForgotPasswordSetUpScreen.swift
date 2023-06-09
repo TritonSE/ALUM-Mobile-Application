@@ -22,14 +22,20 @@ struct ForgotPasswordSetUpScreen: View {
                 }
             }
             .padding(.bottom, 54)
-            InputValidationComponent(text: $viewModel.account.email, componentName: Text("Email: ")
-                .font(.custom("Metropolis-Regular", size: 16)), labelText: "Email", showCheck: true,
-                                     functions: viewModel.emailFunc)
+            InputValidationComponent(
+                text: $viewModel.account.email, 
+                componentName: Text("Email: ").font(.custom("Metropolis-Regular", size: 16)),
+                labelText: "Email", 
+                showCheck: true,
+                validateInput: viewModel.hasBeenSubmittedOnce,
+                functions: viewModel.emailFunc
+            )
                 .padding(.bottom, 32)
             if $viewModel.account.email.wrappedValue != "" {
                 Button("Send Password Reset Email") {
                     Task {
                         await viewModel.resetPassword()
+                        viewModel.hasBeenSubmittedOnce = true
                     }
                 }
                 .buttonStyle(FilledInButtonStyle(disabled: false))

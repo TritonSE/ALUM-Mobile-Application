@@ -16,6 +16,7 @@ struct InputValidationComponent: View {
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     @State var showCheck: Bool = false
+    var validateInput = false
     var functions: [(String) -> (Bool, String)] = []
 
     var body: some View {
@@ -24,16 +25,18 @@ struct InputValidationComponent: View {
                 textFieldText: $text, topLabel: componentName, isSecured: isSecured,
                 showEye: showEye, borderColor: borderColor, labelText: labelText
             )
-            VStack(spacing: 0) {
-                ForEach(0..<functions.count, id: \.self) { index in
-                    let result: (Bool, String) = (self.functions[index](text))
-                    if result.0 {
-                        InputValidationText(isValid: true, message: result.1, showCheck: showCheck)
-                    } else if !result.0 && result.1 == "skip" {
-                        InputValidationText(message: "", showCheck: showCheck)
-                    } else {
-                        InputValidationText(isValid: false, message: result.1, showCheck: showCheck)
-                        // self.borderColor = Color("FunctionalError")
+            if validateInput {
+                VStack(spacing: 0) {
+                    ForEach(0..<functions.count, id: \.self) { index in
+                        let result: (Bool, String) = (self.functions[index](text))
+                        if result.0 {
+                            InputValidationText(isValid: true, message: result.1, showCheck: showCheck)
+                        } else if !result.0 && result.1 == "skip" {
+                            InputValidationText(message: "", showCheck: showCheck)
+                        } else {
+                            InputValidationText(isValid: false, message: result.1, showCheck: showCheck)
+                            // self.borderColor = Color("FunctionalError")
+                        }
                     }
                 }
             }
