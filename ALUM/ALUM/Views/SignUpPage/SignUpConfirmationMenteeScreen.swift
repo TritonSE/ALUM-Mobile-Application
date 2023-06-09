@@ -13,20 +13,26 @@ struct SignUpConfirmationMenteeScreen: View {
     @ObservedObject var viewModel: SignUpViewModel
 
     var body: some View {
-        VStack {
-            StaticProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
-                .background(Color.white)
-            ScrollView {
-                content
+        Group {
+            if viewModel.isSubmitting {
+                LoadingView(text: "Submitting Mentee Application")
+            } else {
+                VStack {
+                    StaticProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+                        .background(Color.white)
+                    ScrollView {
+                        content
+                    }
+                    footer
+                        .padding(.horizontal, 16)
+                        .padding(.top, 32)
+                        .padding(.bottom, 40)
+                        .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .applySignUpScreenHeaderModifier()
             }
-            footer
-                .padding(.horizontal, 16)
-                .padding(.top, 32)
-                .padding(.bottom, 40)
-                .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .applySignUpScreenHeaderModifier()
     }
 
     var footer: some View {
@@ -42,16 +48,24 @@ struct SignUpConfirmationMenteeScreen: View {
             .buttonStyle(OutlinedButtonStyle())
 
             Spacer()
-            Button("Submit") {
-                Task {
-                    await viewModel.submitMenteeSignUp()
+            
+            NavigationLink(
+                destination: ConfirmationScreen(
+                    text: ["We have received your application!",
+                       "It usually takes 3-5 days to process your application as a mentee",
+                       "Great"],
+                    userLoggedIn: false
+                ),
+                isActive: $viewModel.submitSuccess,
+                label: {
+                    Button("Submit") {
+                        Task {
+                            await viewModel.submitMenteeSignUp()
+                        }
+                    }
+                    .buttonStyle(FilledInButtonStyle())
                 }
-            }
-            .buttonStyle(FilledInButtonStyle())
-
-            NavigationLink(destination: LoginScreen(), isActive: $viewModel.submitSuccess) {
-                EmptyView()
-            }
+            )
         }
     }
 

@@ -188,6 +188,23 @@ router.get(
         pairingId,
         status,
       } = mentee;
+
+      if (status !== "paired") {
+        res.status(200).send({
+          message: `Here is mentee ${mentee.name}`,
+          mentee: {
+            menteeId,
+            name,
+            imageId,
+            about,
+            grade,
+            topicsOfInterest,
+            careerInterests,
+          },
+        });
+        return 
+      }
+
       const pairing = await Pairing.findById(pairingId);
       if (role === "mentee") {
         let mentorId = "N/A";
@@ -265,6 +282,7 @@ router.get(
       const role = req.body.role;
       const clientId = req.body.uid;
 
+      
       const mentor = await Mentor.findById(userId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
@@ -287,6 +305,27 @@ router.get(
         mentorMotivation,
         status,
       } = mentor;
+
+      if (status !== "paired") {
+        res.status(200).send({
+          message: `Here is mentor ${mentor.name}`,
+          mentor: {
+            mentorId,
+            name,
+            about,
+            imageId,
+            major,
+            minor,
+            college,
+            career,
+            graduationYear,
+            calendlyLink,
+            zoomLink: location,
+            topicsOfExpertise,
+          },
+        });
+        return 
+      }
 
       if (role === "mentee") {
         const promises = pairingIds.map(async (pairingId): Promise<string | null> => {
@@ -506,6 +545,7 @@ router.get(
           res.status(200).send({
             status: mentee.status,
           });
+          return
         }
         const getPairedMentorIdPromise = getMentorId(mentee.pairingId);
         const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([
@@ -528,6 +568,7 @@ router.get(
           res.status(200).send({
             status: mentor.status,
           });
+          return
         }
 
         const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) =>
@@ -548,6 +589,7 @@ router.get(
           sessionId: upcomingSessionId ?? pastSessionId,
           pairedMenteeId,
         });
+        return
       }
     } catch (e) {
       if (e instanceof CustomError) {
