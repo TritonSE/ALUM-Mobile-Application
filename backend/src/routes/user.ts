@@ -273,8 +273,9 @@ router.get(
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentor get try");
       const userId = req.params.userId;
+      console.log(`GET /mentor/${userId} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -443,8 +444,9 @@ router.patch(
   // validateReqBodyWithCake(UpdateMentorRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentor patch try");
       const userID = req.params.userId;
+      console.log(`PATCH /mentor/${userID} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userID)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -490,8 +492,9 @@ router.patch(
   // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentee patch try");
       const userID = req.params.userId;
+      console.log(`PATCH /mentee/${userID} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userID)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -530,6 +533,7 @@ router.get(
     try {
       const userId = req.body.uid;
       const role = req.body.role;
+      console.log(`GET /user/me uid - ${req.body.uid}`);
 
       const getUpcomingSessionPromise = getUpcomingSession(userId, role);
       const getPastSessionPromise = getLastSession(userId, role);

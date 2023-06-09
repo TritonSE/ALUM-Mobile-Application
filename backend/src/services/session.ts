@@ -107,6 +107,3 @@ export function formatDateTimeRange(
   // Thursday, April 27, 2023 at 2:00 PM - Friday, April 28, 2023 at 2:30 PM
 }
 
-const startDate = new Date();
-const endDate = new Date();
-console.log(formatDateTimeRange(startDate, endDate));

@@ -55,7 +55,6 @@ async function validateCalendlyLink(link: string) {
 
 async function validateCalendlyAccessToken(accessToken: string) {
   try {
-    console.log("ac", accessToken);
     const response = await fetch(`https://api.calendly.com/users/me`, {
       method: "GET",
       headers: {
