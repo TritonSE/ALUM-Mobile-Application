@@ -32,6 +32,7 @@ struct SignUpMentorInfoScreen: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
+        .dismissKeyboardOnDrag()
     }
 
     var footer: some View {

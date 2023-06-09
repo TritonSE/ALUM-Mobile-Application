@@ -30,6 +30,7 @@ struct SignUpSetUpScreen: View {
                                       ErrorFunctions.SpecialChar]
             }
             .edgesIgnoringSafeArea(.bottom)
+            .dismissKeyboardOnDrag()
     }
     var footer: some View {
         HStack {

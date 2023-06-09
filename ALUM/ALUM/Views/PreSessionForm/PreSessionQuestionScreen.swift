@@ -22,6 +22,7 @@ struct PreSessionQuestionScreen: View {
             }
             footer
         }
+        .dismissKeyboardOnDrag()
         .edgesIgnoringSafeArea(.bottom)
     }
 

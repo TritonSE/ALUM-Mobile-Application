@@ -93,7 +93,9 @@ struct LoginScreen: View {
                 .foregroundColor(Color("ALUM Medium Blue"))
             }
         }
+        .dismissKeyboardOnDrag()
         .navigationBarBackButtonHidden()
+        
     }
 }
 

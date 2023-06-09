@@ -32,6 +32,7 @@ struct SignUpJoinAsScreen: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
+        .dismissKeyboardOnDrag()
     }
 
     var footer: some View {
