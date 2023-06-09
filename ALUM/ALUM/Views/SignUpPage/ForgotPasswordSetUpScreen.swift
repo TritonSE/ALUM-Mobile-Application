@@ -23,9 +23,9 @@ struct ForgotPasswordSetUpScreen: View {
             }
             .padding(.bottom, 54)
             InputValidationComponent(
-                text: $viewModel.account.email, 
+                text: $viewModel.account.email,
                 componentName: Text("Email: ").font(.custom("Metropolis-Regular", size: 16)),
-                labelText: "Email", 
+                labelText: "Email",
                 showCheck: true,
                 functions: [ErrorFunctions.ValidEmail]
             )
@@ -38,14 +38,14 @@ struct ForgotPasswordSetUpScreen: View {
                            "Please check your inbox and click the link to reset your password",
                            "Login"],
                         userLoggedIn: false
-                    ), 
+                    ),
                     isActive: $viewModel.passwordChangeSuccessful,
                     label: {
                         Button("Send Password Reset Email") {
                             Task {
                                 await viewModel.resetPassword()
                             }
-                            
+
                             print("this works")
                         }
                         .buttonStyle(FilledInButtonStyle(disabled: false))

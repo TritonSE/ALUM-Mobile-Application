@@ -63,7 +63,6 @@ struct ConfirmationScreen: View {
     }
 }
 
-
 struct SessionConfirmationTester: View {
     @State var text: [String] = [
         "Missed session form submitted!",

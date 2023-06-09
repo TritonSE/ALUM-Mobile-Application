@@ -15,7 +15,7 @@ class ErrorFunctions {
             return (true, "skip")
         }
     }
-    
+
     static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
         if string.contains("iusd.edu") || !(string.contains("@")) {
             return (false, "Don't use IUSD email")

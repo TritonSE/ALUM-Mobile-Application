@@ -14,7 +14,7 @@ final class ForgotPasswordViewModel: ObservableObject {
     @Published var emailFunc: [(String) -> (Bool, String)] = [ErrorFunctions.ValidEmail]
     @Published var account = Account(name: "", email: "", password: "")
     @Published var passwordChangeSuccessful: Bool = false
-    
+
     func resetPassword() async {
         do {
             try await FirebaseAuthenticationService.shared.resetPassword(email: account.email)
