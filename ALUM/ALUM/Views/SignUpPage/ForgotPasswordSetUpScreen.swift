@@ -72,6 +72,7 @@ struct ForgotPasswordSetUpScreen: View {
                 Button("Send Password Reset Email") {
                     viewModel.emailFunc = [ForgotPasswordViewModel.Functions.EnterEmail]
                 }
+                .disabled(true)
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)

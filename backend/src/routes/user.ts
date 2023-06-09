@@ -513,11 +513,6 @@ router.get(
           getPastSessionPromise,
           getPairedMentorIdPromise,
         ]);
-        console.log({
-          status: mentee.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
-          pairedMentorId,
-        });
         res.status(200).send({
           status: mentee.status,
           sessionId: upcomingSessionId ?? pastSessionId,

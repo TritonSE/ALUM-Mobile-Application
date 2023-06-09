@@ -51,6 +51,7 @@ struct OutlinedButtonView: View {
             Button("DISABLED BUTTON") {
 
             }
+            .disabled(true)
             .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
             .buttonStyle(OutlinedButtonStyle(disabled: true))

@@ -82,6 +82,7 @@ struct LoginScreen: View {
                     viewModel.emailFunc = [LoginViewModel.Functions.EnterEmail]
                     viewModel.passFunc = [LoginViewModel.Functions.EnterPassword]
                 }
+                .disabled(true)
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)

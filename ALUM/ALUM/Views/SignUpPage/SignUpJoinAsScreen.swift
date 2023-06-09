@@ -74,6 +74,7 @@ struct SignUpJoinAsScreen: View {
                         Image(systemName: "arrow.right")
                     }
                 }
+                .disabled(true)
                 .buttonStyle(FilledInButtonStyle(disabled: true))
             }
         }
