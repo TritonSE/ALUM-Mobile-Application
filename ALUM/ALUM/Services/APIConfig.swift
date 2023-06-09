@@ -7,7 +7,7 @@
 
 import Foundation
 
-let developmentMode = true
+let developmentMode = false
 
 // Firebase URL will not be updated very frequently because 
 // so your changes to backend will only reflect on localhost until deployed

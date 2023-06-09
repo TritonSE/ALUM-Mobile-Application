@@ -36,7 +36,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { uid } = req.body;
-      console.log(`POST /sessions uid - ${uid}`)
+      console.log(`POST /sessions uid - ${uid}`);
 
       const mentee = await Mentee.findById(uid);
       const menteeMongoId = new mongoose.Types.ObjectId(uid);
@@ -99,7 +99,7 @@ router.get(
       const sessionId = req.params.sessionId;
       const dateNow = new Date();
 
-      console.log(`GET /sessions uid ${req.body.uid} sessionId ${sessionId}`)
+      console.log(`GET /sessions uid ${req.body.uid} sessionId ${sessionId}`);
 
       // Find session document
       if (!mongoose.Types.ObjectId.isValid(sessionId)) {
@@ -180,7 +180,7 @@ router.get(
       const userID = req.body.uid;
       const role = req.body.role;
 
-      console.log(`GET /sessions uid ${req.body.uid} (all sessions)`)
+      console.log(`GET /sessions uid ${req.body.uid} (all sessions)`);
 
       let userSessions;
       const dayNames = [

@@ -129,7 +129,7 @@ npm i -g firebase-tools
 firebase login
 ```
 
-To deploy backend, simply runthe following command
+To deploy backend, simply run the following command
 ```
 npm run deploy
 ```
