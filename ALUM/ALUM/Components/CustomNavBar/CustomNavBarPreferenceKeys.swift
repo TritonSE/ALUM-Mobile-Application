@@ -40,6 +40,14 @@ struct CustomNavBarBackHiddenPreferenceKey: PreferenceKey {
     }
 }
 
+struct CustomNavBarAlertBarPreferenceKey: PreferenceKey {
+    static var defaultValue: Bool = CustomNavBarDefaultValues.alertBar
+
+    static func reduce(value: inout Bool, nextValue: () -> Bool) {
+        value = nextValue()
+    }
+}
+
 extension View {
     func customNavigationIsHidden(_ isHidden: Bool) -> some View {
         preference(key: CustomNavBarIsHiddenPreferenceKey.self, value: isHidden)
@@ -55,6 +63,10 @@ extension View {
 
     func customNavigationBarBackButtonHidden(_ hidden: Bool) -> some View {
         preference(key: CustomNavBarBackHiddenPreferenceKey.self, value: hidden)
+    }
+    
+    func customNavigationAlertBar(_ hidden: Bool) -> some View {
+        preference(key: CustomNavBarAlertBarPreferenceKey.self, value: hidden)
     }
 
     func customNavBarItems(title: String, isPurple: Bool, backButtonHidden: Bool) -> some View {

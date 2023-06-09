@@ -12,6 +12,7 @@ struct CustomNavBarDefaultValues {
     static var title: String = ""
     static var barIsPurple: Bool = false
     static var barIsHidden: Bool = false
+    static var alertBar: Bool = false
 }
 
 struct CustomNavBarContainerView<Content: View>: View {
@@ -32,7 +33,7 @@ struct CustomNavBarContainerView<Content: View>: View {
     var body: some View {
         return VStack(spacing: 0) {
             if !isHidden {
-                CustomNavBarView(showBackButton: showBackButton, title: title, isPurple: isPurple)
+                CustomNavBarView(showBackButton: showBackButton, title: title, isPurple: isPurple, alertBar: false)
             }
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

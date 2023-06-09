@@ -12,6 +12,7 @@ struct CustomNavBarView: View {
     let showBackButton: Bool
     let title: String
     let isPurple: Bool
+    let alertBar: Bool
     var body: some View {
         HStack {
             if showBackButton {
@@ -37,7 +38,7 @@ struct CustomNavBarView: View {
 struct CustomNavBar_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            CustomNavBarView(showBackButton: true, title: "Title Here", isPurple: true)
+            CustomNavBarView(showBackButton: true, title: "Title Here", isPurple: true, alertBar: false)
             Spacer()
         }
     }
