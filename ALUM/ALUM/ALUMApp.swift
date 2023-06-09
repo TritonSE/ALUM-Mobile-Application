@@ -18,27 +18,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
-struct RootView: View {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
-
-    var body: some View {
-        if self.currentUser.isLoading {
-            LoadingView(text: "RootView")
-            .onAppear(perform: {
-                Task {
-                    await self.currentUser.setForInSessionUser()
-                }
-            })
-        } else if self.currentUser.isLoggedIn == false {
-            NavigationView {
-                LoginScreen()
-            }
-        } else {
-            LoggedInRouter()
-        }
-    }
-}
-
 @main
 struct ALUMApp: App {
   // register app delegate for Firebase setup
@@ -46,7 +25,7 @@ struct ALUMApp: App {
 
   var body: some Scene {
     WindowGroup {
-        RootView()
+        RootRouter()
     }
   }
 }

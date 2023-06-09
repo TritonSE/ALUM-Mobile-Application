@@ -43,12 +43,7 @@ struct SignUpConfirmationMentorScreen: View {
             Spacer()
             Button("Submit") {
                 Task {
-                    do {
-                        try await viewModel.submitMentorSignUp()
-                        self.viewModel.submitSuccess = true
-                    } catch {
-                        print("Error")
-                    }
+                    await viewModel.submitMentorSignUp()
                 }
             }
             .buttonStyle(FilledInButtonStyle())
@@ -199,6 +194,24 @@ struct SignUpConfirmationMentorScreen: View {
                 .padding(.bottom, 8)
                 HStack {
                     Text(viewModel.mentor.calendlyLink)
+                        .padding(.leading)
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 32)
+                HStack {
+                    Text("Personal Access Token")
+                        .padding(.leading)
+                        .foregroundColor(Color("ALUM Dark Blue"))
+                        .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
+                        .padding(.trailing, 37)
+                        .lineSpacing(5)
+                    Spacer()
+                }
+                .padding(.bottom, 8)
+                HStack {
+                    Text(viewModel.mentor.personalAccessToken)
                         .padding(.leading)
                         .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                         .lineSpacing(5)

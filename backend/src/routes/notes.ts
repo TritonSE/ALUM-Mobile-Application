@@ -1,10 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Infer } from "caketype";
 import { Note } from "../models/notes";
+import { Session } from "../models/session";
 import { questionIDs } from "../config";
 import { updateNotes } from "../services/note";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { UpdateNoteRequestBodyCake } from "../types/cakes";
+import { CheckboxBulletItem } from "../types/notes";
 import { ServiceError } from "../errors";
 
 const router = express.Router();
@@ -16,37 +18,37 @@ interface NoteItem {
   question: string;
 }
 
-/**
- * @param id: ObjectID of the notes document to be retreived.
- * This route will get a note document and return it as a JSON in the form
- * [
-    {
-        question: "Question?",
-        type: "text",
-        id: "the hashed ID 1",
-        answer: "",
-    }, 
-    {
-        question: "Question?",
-        type: "bullet",
-        id: "the hashed ID 2",
-        answer: []
-     }
-]
- */
 router.get("/notes/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log("Getting...");
     const id = req.params.id;
     const note = await Note.findById(id);
-    if (note === null) {
-      throw ServiceError.NOTE_WAS_NOT_FOUND;
+    console.log(`GETTING note - ID ${note?.id}`);
+    if (note == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
+    if (note.type === "post") {
+      const temp = await Session.findById(note.session);
+      if (temp == null) throw ServiceError.SESSION_WAS_NOT_FOUND;
+      const preSessionNotes = await Note.findById(temp.preSession);
+      if (preSessionNotes == null) throw ServiceError.NOTE_WAS_NOT_FOUND;
+      const topicsToDiscuss = preSessionNotes.answers[0].answer;
+      if (topicsToDiscuss instanceof Array) {
+        note.answers[0].type = "CheckboxBulletItem";
+        const topicsArray: CheckboxBulletItem[] = [];
+        topicsToDiscuss.forEach((topic) => {
+          if (typeof topic === "string") {
+            const tempTopic: CheckboxBulletItem = {
+              content: topic,
+              status: "unchecked",
+            };
+            topicsArray.push(tempTopic);
+          }
+        });
+        note.answers[0].answer = topicsArray;
+      }
     }
-    const notes: NoteItem[] = note.answers as NoteItem[];
-    notes.forEach((note_answer) => {
+    const notesAnswers: NoteItem[] = note.answers as NoteItem[];
+    notesAnswers.forEach((note_answer) => {
       note_answer.question = questionIDs.get(note_answer.id) ?? "";
     });
-    console.log(note.answers);
     res.status(200).json(note.answers);
   } catch (e) {
     next(e);
@@ -77,6 +79,7 @@ router.patch(
   validateReqBodyWithCake(UpdateNoteRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
       const documentId = req.params.id;
       const updatedNotes: UpdateNoteRequestBodyType = req.body;
       await updateNotes(updatedNotes, documentId);

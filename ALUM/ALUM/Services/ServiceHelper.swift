@@ -12,6 +12,9 @@ class ServiceHelper {
 
     func attachAuthTokenToRequest(request: inout URLRequest) async throws {
         guard let authToken = try await FirebaseAuthenticationService.shared.getCurrentAuth() else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.actionable(.authenticationError, message: "Error getting auth token")
         }
         request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
@@ -19,6 +22,9 @@ class ServiceHelper {
 
     func createRequest(urlString: String, method: String, requireAuth: Bool) async throws -> URLRequest {
         guard let url = URL(string: urlString) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.unknownError, message: "Invalid URL")
         }
 
@@ -43,11 +49,17 @@ class ServiceHelper {
         do {
             (responseData, response) = try await URLSession.shared.data(for: request)
         } catch {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showNetworkError = true
+            }
             throw AppError.actionable(.networkError, message: route.label)
         }
 
         // Ensure that response is of corrcet type
         guard let httpResponse = response as? HTTPURLResponse else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(
                 .invalidResponse,
                 message: "Expected HTTPURLResponse for getMentor route but found somrthing else"

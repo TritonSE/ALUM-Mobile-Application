@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PostSessionConfirmationScreen: View {
     @ObservedObject var viewModel: QuestionViewModel
-    @Environment(\.dismiss) var dismiss
+
+    @State var notesID: String
     @State var currNotes: String = "this" // "this" or "other"
-    @State var user: String = "mentee" // "mentee" or "mentor"
 
     func setMyNotes() {
         currNotes = "this"
@@ -22,11 +22,7 @@ struct PostSessionConfirmationScreen: View {
     }
 
     var body: some View {
-        VStack {
-            StaticProgressBarComponent(nodes: viewModel.questionList.count,
-                                       filledNodes: viewModel.questionList.count, activeNode: 0)
-                .background(Color.white)
-
+        return VStack {
             ScrollView {
                 content
             }
@@ -37,13 +33,12 @@ struct PostSessionConfirmationScreen: View {
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
         .edgesIgnoringSafeArea(.bottom)
-        .applyPostSessionScreenHeaderModifier()
     }
 
     var footer: some View {
         HStack {
             Button {
-                dismiss()
+                viewModel.prevQuestion()
             } label: {
                 HStack {
                     Image(systemName: "arrow.left")
@@ -58,7 +53,7 @@ struct PostSessionConfirmationScreen: View {
                 Task {
                     do {
                         // (todo) remove hardcoding
-                        try await viewModel.submitNotesPatch(noteID: "6450d7933551f6470d1f5c9d")
+                        try await viewModel.submitNotesPatch(noteID: notesID)
                         self.viewModel.submitSuccess = true
                     } catch {
                         print("Error")
@@ -68,7 +63,8 @@ struct PostSessionConfirmationScreen: View {
                 Text("Save")
             }
             .buttonStyle(FilledInButtonStyle())
-            NavigationLink(destination: SessionConfirmationScreen(
+
+            NavigationLink(destination: ConfirmationScreen(
                 text: ["Post-session form saved!",
                        "You can continue on the notes later under \"Sessions\".", "Great"]),
                            isActive: $viewModel.submitSuccess) {
@@ -111,12 +107,12 @@ struct PostSessionConfirmationScreen: View {
                     setOtherNotes()
                 } label: {
                     if currNotes == "other" {
-                        Text("MENTOR NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                             .bold()
                     } else {
-                        Text((user == "mentee") ? "MENTOR NOTES" : "MENTEE NOTES")
+                        Text((viewModel.currentUser.role == UserRole.mentee) ? "MENTOR NOTES" : "MENTEE NOTES")
                             .font(.custom("Metropolis-Regular", size: 16))
                             .foregroundColor(Color("ALUM Dark Blue"))
                     }
@@ -198,6 +194,6 @@ struct PostSessionConfirmationScreen_Previews: PreviewProvider {
     static private var viewModel = QuestionViewModel()
 
     static var previews: some View {
-        PostSessionConfirmationScreen(viewModel: viewModel)
+        PostSessionConfirmationScreen(viewModel: viewModel, notesID: "646a6e164082520f4fcf2f92")
     }
 }

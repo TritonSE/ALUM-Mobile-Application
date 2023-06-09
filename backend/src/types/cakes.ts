@@ -28,8 +28,38 @@ export const CreateMentorRequestBodyCake = bake({
   career: string,
   topicsOfExpertise: array(string),
   mentorMotivation: string,
+  personalAccessToken: string,
   location: string,
   calendlyLink: string,
+});
+
+// PATCH user/id
+export const UpdateMentorRequestBodyCake = bake({
+  name: string,
+  about: string,
+  graduationYear: number,
+  college: string,
+  major: string,
+  imageId: string,
+  minor: string,
+  career: string,
+  personalAccessToken: string,
+  topicsOfExpertise: array(string),
+  mentorMotivation: string,
+  location: string,
+  calendlyLink: string,
+  zoomLink: string,
+});
+
+// PATCH user/id
+export const UpdateMenteeRequestBodyCake = bake({
+  name: string,
+  grade: number,
+  about: string,
+  imageId: string,
+  topicsOfInterest: array(string),
+  careerInterests: array(string),
+  mentorshipGoal: string,
 });
 
 // PATCH notes/id
@@ -42,7 +72,5 @@ export const UpdateNoteRequestBodyCake = array(UpdateNoteDetailsCake);
 
 // POST sessions
 export const CreateSessionRequestBodyCake = bake({
-  menteeId: string,
-  mentorId: string,
-  dateInfo: string,
+  calendlyURI: string,
 });

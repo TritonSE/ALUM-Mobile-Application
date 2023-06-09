@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SessionConfirmationScreen: View {
+struct ConfirmationScreen: View {
     @State var text: [String] // [primary text, subtext, button text]
     var body: some View {
         GeometryReader { geometry in
@@ -39,12 +39,15 @@ struct SessionConfirmationScreen: View {
                     .padding(16)
 
                 Spacer()
-                NavigationLink(destination: LoginScreen(), label: {
-                    HStack {
-                        Text(text[2])
-                            .font(.custom("Metropolis-Regular", size: 17))
+                CustomNavLink(
+                    destination: LoggedInRouter(defaultSelection: 0),
+                    label: {
+                        HStack {
+                            Text(text[2])
+                                .font(.custom("Metropolis-Regular", size: 17))
+                        }
                     }
-                })
+                )
                 .buttonStyle(FilledInButtonStyle(disabled: false))
                 .padding(.bottom, 32)
                 .frame(width: geometry.size.width * 0.9)
@@ -53,8 +56,8 @@ struct SessionConfirmationScreen: View {
             .padding(.trailing, 16)
             .frame(alignment: .bottom)
             .frame(maxWidth: .infinity)
-
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -64,7 +67,7 @@ struct SessionConfirmationTester: View {
         "Thank you for your feedback!",
         "Close"]
     var body: some View {
-        SessionConfirmationScreen(text: text)
+        ConfirmationScreen(text: text)
     }
 }
 

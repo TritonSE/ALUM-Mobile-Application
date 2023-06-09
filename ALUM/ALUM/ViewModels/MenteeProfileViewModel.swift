@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 final class MenteeProfileViewmodel: ObservableObject {
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
-    @Published var mentee: MenteeInfo?
+    @Published var mentee: MenteeInfo? = DevelopmentModels.menteeModel
     @Published var selfView: Bool?
 
     func fetchMenteeInfo(userID: String) async throws {

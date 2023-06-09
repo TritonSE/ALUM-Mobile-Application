@@ -4,7 +4,6 @@
 //
 //  Created by Yash Ravipati on 3/1/23.
 //
-
 import Foundation
 import FirebaseAuth
 
@@ -31,6 +30,14 @@ struct MentorPostData: Codable {
     var mentorMotivation: String
     var location: String
     var calendlyLink: String
+    var personalAccessToken: String
+}
+
+struct SelfGetData: Decodable {
+    var status: String
+    var sessionId: String?
+    var pairedMentorId: String?
+    var pairedMenteeId: String?
 }
 
 struct MenteeGetData: Decodable {
@@ -48,10 +55,26 @@ struct MentorGetData: Decodable {
 class UserService {
     static let shared = UserService()
 
+    func getSelf() async throws -> SelfGetData {
+        let route = APIRoute.getSelf
+        var request = try await route.createURLRequest()
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+
+        let userData = try handleDecodingErrors({
+            try JSONDecoder().decode(SelfGetData.self, from: responseData)
+        })
+
+        print("SUCCESS - \(route.label) - \(userData.pairedMenteeId) - \(userData.pairedMentorId)")
+        return userData
+    }
+
     func createMentee(data: MenteePostData) async throws {
         let route = APIRoute.postMentee
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData
@@ -63,6 +86,9 @@ class UserService {
         let route = APIRoute.postMentor
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(data) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData
@@ -74,9 +100,9 @@ class UserService {
         let route = APIRoute.getMentor(userId: userID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        guard let mentorData = try? JSONDecoder().decode(MentorGetData.self, from: responseData) else {
-            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
-        }
+        let mentorData = try handleDecodingErrors({
+            try JSONDecoder().decode(MentorGetData.self, from: responseData)
+        })
         print("SUCCESS - \(route.label)")
         return mentorData
     }
@@ -85,9 +111,11 @@ class UserService {
         let route = APIRoute.getMentee(userId: userID)
         let request = try await route.createURLRequest()
         let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        guard let menteeData = try? JSONDecoder().decode(MenteeGetData.self, from: responseData) else {
-            throw AppError.internalError(.invalidResponse, message: "Failed to Decode Data")
-        }
+
+        let menteeData = try handleDecodingErrors({
+            try JSONDecoder().decode(MenteeGetData.self, from: responseData)
+        })
+
         print("SUCCESS - \(route.label)")
         return menteeData
     }

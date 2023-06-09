@@ -11,7 +11,7 @@ import FirebaseAuth
 final class FirebaseAuthenticationService: ObservableObject {
     static let shared = FirebaseAuthenticationService()
 
-    @ObservedObject var currentUser: CurrentUserModal = CurrentUserModal.shared
+    @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
 
     func login(email: String, password: String) async throws {
         let result = try await Auth.auth().signIn(withEmail: email, password: password)
@@ -38,12 +38,18 @@ final class FirebaseAuthenticationService: ObservableObject {
                 return tokenResult.token
             } catch let error {
                 // Handle the error
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
                 throw AppError.actionable(
                     .authenticationError,
                     message: "Error getting auth token: \(error.localizedDescription)"
                 )
             }
         } else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.actionable(.authenticationError, message: "No logged in user found. Please login first")
         }
     }
