@@ -34,6 +34,43 @@ async function getCalendlyEventDate(uri: string, accessToken: string) {
   }
 }
 
+async function validateCalendlyLink(link: string) {
+  if (!link.startsWith("https://calendly.com/")) {
+    throw ValidationError.LINK_IS_NOT_CALENDLY;
+  }
+  try {
+    const response = await fetch(link, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw ValidationError.INVALID_CALENDLY_LINK;
+    }
+  } catch (e) {
+    throw ValidationError.INVALID_CALENDLY_LINK;
+  }
+}
+
+async function validateCalendlyAccessToken(accessToken: string) {
+  try {
+    console.log("ac", accessToken);
+    const response = await fetch(`https://api.calendly.com/users/me`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
+    }
+  } catch (e) {
+    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
+  }
+}
 /**
  * This function deletes a calendly event
  * @param uri
@@ -69,24 +106,9 @@ async function deleteCalendlyEvent(uri: string, accessToken: string) {
     throw ServiceError.ERROR_DELETING_EVENT;
   }
 }
-
-async function validateCalendlyAccessToken(accessToken: string) {
-  try {
-    console.log("ac", accessToken);
-    const response = await fetch(`https://api.calendly.com/users/me`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
-    }
-  } catch (e) {
-    throw ValidationError.INVALID_CALENDLY_PERSONAL_ACCESS_TOKEN;
-  }
-}
-
-export { getCalendlyEventDate, validateCalendlyAccessToken, deleteCalendlyEvent };
+export {
+  getCalendlyEventDate,
+  validateCalendlyAccessToken,
+  validateCalendlyLink,
+  deleteCalendlyEvent,
+};

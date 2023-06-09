@@ -40,7 +40,7 @@ final class SignUpViewModel: ObservableObject {
 
     func checkPasswordSame() {
         if !(self.account.password == self.passwordAgain) {
-            self.passAgainFunc = [SignUpFlowErrorFunctions.passNotSame]
+            self.passAgainFunc = [ErrorFunctions.passNotSame]
         } else {
             self.passAgainFunc = []
         }

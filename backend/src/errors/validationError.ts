@@ -12,8 +12,9 @@ import { CustomError } from "./errors";
 const INVALID_EMAIL_ID = "Invalid email was found, email must not have @iusd.org.";
 const EMAIL_ALREADY_IN_USE = "E-mail already in use. Please use a different email";
 const INVALID_USER_ID = "Invalid user ID, cannot find user.";
-const INVALID_PASSWORD_LENGTH =
-  "Password must be at least 8 characters long. Please try a different password";
+const INVALID_PASSWORD_LENGTH = "Password must be at least 8 characters long";
+const INVALID_CALENDLY_LINK = "Invalid Calendly link found. Please retry";
+const LINK_IS_NOT_CALENDLY = "This is not a proper Calendly Link. Please retry";
 
 export class ValidationError extends CustomError {
   static INVALID_EMAIL_ID = new ValidationError(0, 400, INVALID_EMAIL_ID);
@@ -29,4 +30,8 @@ export class ValidationError extends CustomError {
     400,
     "Invalid Calendly Access Token found. Please retry"
   );
+
+  static INVALID_CALENDLY_LINK = new ValidationError(5, 400, INVALID_CALENDLY_LINK);
+
+  static LINK_IS_NOT_CALENDLY = new ValidationError(6, 400, LINK_IS_NOT_CALENDLY);
 }

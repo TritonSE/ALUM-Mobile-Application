@@ -24,10 +24,10 @@ struct SignUpSetUpScreen: View {
         }
             .applySignUpScreenHeaderModifier()
             .onAppear {
-                viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
-                viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
-                                      SignUpFlowErrorFunctions.OneNumber,
-                                      SignUpFlowErrorFunctions.SpecialChar]
+                viewModel.emailFunc = [ErrorFunctions.IUSDEmail]
+                viewModel.passFunc = [ErrorFunctions.EightChars,
+                                      ErrorFunctions.OneNumber,
+                                      ErrorFunctions.SpecialChar]
             }
             .edgesIgnoringSafeArea(.bottom)
     }
@@ -36,10 +36,10 @@ struct SignUpSetUpScreen: View {
             Group {
                 if viewModel.account.email != "" && viewModel.account.password != "" &&
                     viewModel.account.name != "" && viewModel.passwordAgain != "" &&
-                    SignUpFlowErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
-                    SignUpFlowErrorFunctions.EightChars(viewModel.account.password).0 &&
-                    SignUpFlowErrorFunctions.OneNumber(viewModel.account.password).0 &&
-                    SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
+                    ErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
+                    ErrorFunctions.EightChars(viewModel.account.password).0 &&
+                    ErrorFunctions.OneNumber(viewModel.account.password).0 &&
+                    ErrorFunctions.SpecialChar(viewModel.account.password).0 &&
                     viewModel.account.password == viewModel.passwordAgain {
                     NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
                             HStack {

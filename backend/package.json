@@ -33,6 +33,7 @@
     "@types/express": "^4.17.15",
     "@types/file-type": "^10.9.1",
     "@types/mongoose": "^5.11.97",
+    "@types/multer": "^1.4.7",
     "@types/node": "^18.11.18",
     "@types/sharp": "^0.31.1",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
