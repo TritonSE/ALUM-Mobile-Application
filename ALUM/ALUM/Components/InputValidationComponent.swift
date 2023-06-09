@@ -16,7 +16,7 @@ struct InputValidationComponent: View {
     @State var isSecured: Bool = false
     @State var showEye: Bool = false
     @State var showCheck: Bool = false
-    var validateInput = false
+    var validateInput = true
     var functions: [(String) -> (Bool, String)] = []
 
     var body: some View {
