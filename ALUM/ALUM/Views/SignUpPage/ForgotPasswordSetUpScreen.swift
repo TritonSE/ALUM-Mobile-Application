@@ -10,18 +10,32 @@ import SwiftUI
 struct ForgotPasswordSetUpScreen: View {
     @ObservedObject var viewModel: ForgotPasswordViewModel
     var account = Account(name: "", email: "", password: "")
+    
     var body: some View {
         VStack {
-            VStack {
-                VStack {
-                    NavigationHeaderComponent(
-                        backText: "Login",
-                        backDestination: LoginScreen(),
-                        title: "Forgot Password", purple: false
-                    )
-                }
+            header
+            KeyboardAwareView {
+                content
             }
-            .padding(.bottom, 54)
+        }
+        .dismissKeyboardOnDrag()
+    }
+    
+    var header: some View {
+        VStack {
+            VStack {
+                NavigationHeaderComponent(
+                    backText: "Login",
+                    backDestination: LoginScreen(),
+                    title: "Forgot Password", purple: false
+                )
+            }
+        }
+        .padding(.bottom, 54)
+    }
+    
+    var content: some View {
+        VStack {
             InputValidationComponent(
                 text: $viewModel.account.email,
                 componentName: Text("Email: ").font(.custom("Metropolis-Regular", size: 16)),

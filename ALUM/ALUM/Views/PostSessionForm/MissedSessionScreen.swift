@@ -32,8 +32,10 @@ struct MissedSessionScreen: View {
 
     var body: some View {
         VStack {
-            ScrollView {
-                content
+            KeyboardAwareView {
+                ScrollView {
+                    content
+                }
             }
             footer
                 .padding(.horizontal, 16)

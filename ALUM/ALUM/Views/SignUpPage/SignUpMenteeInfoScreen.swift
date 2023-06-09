@@ -28,8 +28,10 @@ struct SignUpMenteeInfoScreen: View {
         VStack {
             StaticProgressBarComponent(nodes: 3, filledNodes: 2, activeNode: 3)
                 .background(Color.white)
-            ScrollView {
-                content
+            KeyboardAwareView {
+                ScrollView {
+                    content
+                }
             }
             footer
                 .padding(.horizontal, 16)
@@ -37,9 +39,9 @@ struct SignUpMenteeInfoScreen: View {
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
+        .dismissKeyboardOnDrag()
         .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
-        .dismissKeyboardOnDrag()
     }
 
     var footer: some View {

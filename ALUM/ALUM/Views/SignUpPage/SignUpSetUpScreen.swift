@@ -13,8 +13,10 @@ struct SignUpSetUpScreen: View {
         VStack {
             StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
                 .background(Color.white)
-            ScrollView {
-                content
+            KeyboardAwareView {
+                ScrollView {
+                    content
+                }
             }
             footer
                 .padding(.horizontal, 16)
@@ -22,15 +24,15 @@ struct SignUpSetUpScreen: View {
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-            .applySignUpScreenHeaderModifier()
-            .onAppear {
-                viewModel.emailFunc = [ErrorFunctions.IUSDEmail]
-                viewModel.passFunc = [ErrorFunctions.EightChars,
-                                      ErrorFunctions.OneNumber,
-                                      ErrorFunctions.SpecialChar]
-            }
-            .edgesIgnoringSafeArea(.bottom)
-            .dismissKeyboardOnDrag()
+        .dismissKeyboardOnDrag()
+        .applySignUpScreenHeaderModifier()
+        .onAppear {
+            viewModel.emailFunc = [ErrorFunctions.IUSDEmail]
+            viewModel.passFunc = [ErrorFunctions.EightChars,
+                                  ErrorFunctions.OneNumber,
+                                  ErrorFunctions.SpecialChar]
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
     var footer: some View {
         HStack {
