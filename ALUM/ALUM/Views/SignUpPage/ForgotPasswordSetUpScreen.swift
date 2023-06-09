@@ -27,21 +27,33 @@ struct ForgotPasswordSetUpScreen: View {
                 componentName: Text("Email: ").font(.custom("Metropolis-Regular", size: 16)),
                 labelText: "Email", 
                 showCheck: true,
-                validateInput: viewModel.hasBeenSubmittedOnce,
-                functions: viewModel.emailFunc
+                functions: [ErrorFunctions.ValidEmail]
             )
                 .padding(.bottom, 32)
-            if $viewModel.account.email.wrappedValue != "" {
-                Button("Send Password Reset Email") {
-                    Task {
-                        await viewModel.resetPassword()
-                        viewModel.hasBeenSubmittedOnce = true
+            if $viewModel.account.email.wrappedValue != "" &&
+                (ErrorFunctions.ValidEmail(viewModel.account.email).0) {
+                NavigationLink(
+                    destination: ConfirmationScreen(
+                        text: ["Password Reset email sent!",
+                           "Please check your inbox and click the link to reset your password",
+                           "Login"],
+                        userLoggedIn: false
+                    ), 
+                    isActive: $viewModel.passwordChangeSuccessful,
+                    label: {
+                        Button("Send Password Reset Email") {
+                            Task {
+                                await viewModel.resetPassword()
+                            }
+                            
+                            print("this works")
+                        }
+                        .buttonStyle(FilledInButtonStyle(disabled: false))
+                        .padding(.leading, 16)
+                        .padding(.trailing, 16)
+                        .padding(.bottom, 32)
                     }
-                }
-                .buttonStyle(FilledInButtonStyle(disabled: false))
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .padding(.bottom, 32)
+                )
             } else {
                 Button("Send Password Reset Email") {
                     viewModel.emailFunc = [ForgotPasswordViewModel.Functions.EnterEmail]

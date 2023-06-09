@@ -13,15 +13,19 @@ import SwiftUI
 final class ForgotPasswordViewModel: ObservableObject {
     @Published var emailFunc: [(String) -> (Bool, String)] = [ErrorFunctions.ValidEmail]
     @Published var account = Account(name: "", email: "", password: "")
-    @Published var hasBeenSubmittedOnce: Bool = false
+    @Published var passwordChangeSuccessful: Bool = false
     
     func resetPassword() async {
         do {
             try await FirebaseAuthenticationService.shared.resetPassword(email: account.email)
+            passwordChangeSuccessful = true
         } catch let error as NSError {
             switch AuthErrorCode.Code(rawValue: error.code) {
             default:
-                print("Some unknown error happened")
+                DispatchQueue.main.async {
+                    CurrentUserModel.shared.errorMessage = "Account doesn't exist for this email"
+                    CurrentUserModel.shared.showInternalError = true
+                }
             }
         }
     }

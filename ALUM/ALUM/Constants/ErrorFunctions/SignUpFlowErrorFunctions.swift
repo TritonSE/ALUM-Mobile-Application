@@ -8,6 +8,14 @@
 import Foundation
 
 class ErrorFunctions {
+    static let EnterEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        if string == "" {
+            return (false, "Please enter your email")
+        } else {
+            return (true, "skip")
+        }
+    }
+    
     static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
         if string.contains("iusd.edu") || !(string.contains("@")) {
             return (false, "Don't use IUSD email")
