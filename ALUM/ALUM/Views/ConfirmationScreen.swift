@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ConfirmationScreen: View {
     @State var text: [String] // [primary text, subtext, button text]
+    var userLoggedIn = true
+
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -40,7 +42,7 @@ struct ConfirmationScreen: View {
 
                 Spacer()
                 CustomNavLink(
-                    destination: LoggedInRouter(defaultSelection: 0),
+                    destination: userLoggedIn ? AnyView(LoggedInRouter(defaultSelection: 0)) : AnyView(LoginScreen()),
                     label: {
                         HStack {
                             Text(text[2])
