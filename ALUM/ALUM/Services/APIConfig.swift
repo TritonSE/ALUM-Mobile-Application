@@ -13,7 +13,7 @@ let developmentMode = true
 // so your changes to backend will only reflect on localhost until deployed
 let baseURL: String =
 developmentMode ?
-    "http://localhost:3000":
+    "http://192.168.1.220:3000":
     "https://firebaseapp-ozybc5bsma-uc.a.run.app"
 
 struct URLString {

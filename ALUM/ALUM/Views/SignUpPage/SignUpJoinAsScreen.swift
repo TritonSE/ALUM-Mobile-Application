@@ -106,7 +106,7 @@ struct SignUpJoinAsScreen: View {
 
             SignUpJoinOption(
                 title: "Mentor",
-                description: 
+                description:
                     "Empower students as an alumni mentor offering personalized support and guidance. ",
                 isSelected: selectedType == .mentor
             )

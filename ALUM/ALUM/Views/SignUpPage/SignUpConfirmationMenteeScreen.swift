@@ -48,7 +48,7 @@ struct SignUpConfirmationMenteeScreen: View {
             .buttonStyle(OutlinedButtonStyle())
 
             Spacer()
-            
+
             NavigationLink(
                 destination: ConfirmationScreen(
                     text: ["We have received your application!",

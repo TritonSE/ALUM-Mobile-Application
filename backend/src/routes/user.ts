@@ -202,7 +202,7 @@ router.get(
             careerInterests,
           },
         });
-        return 
+        return;
       }
 
       const pairing = await Pairing.findById(pairingId);
@@ -282,7 +282,6 @@ router.get(
       const role = req.body.role;
       const clientId = req.body.uid;
 
-      
       const mentor = await Mentor.findById(userId);
       if (!mentor) {
         throw ServiceError.MENTOR_WAS_NOT_FOUND;
@@ -324,7 +323,7 @@ router.get(
             topicsOfExpertise,
           },
         });
-        return 
+        return;
       }
 
       if (role === "mentee") {
@@ -545,7 +544,7 @@ router.get(
           res.status(200).send({
             status: mentee.status,
           });
-          return
+          return;
         }
         const getPairedMentorIdPromise = getMentorId(mentee.pairingId);
         const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([
@@ -568,7 +567,7 @@ router.get(
           res.status(200).send({
             status: mentor.status,
           });
-          return
+          return;
         }
 
         const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) =>
@@ -589,7 +588,7 @@ router.get(
           sessionId: upcomingSessionId ?? pastSessionId,
           pairedMenteeId,
         });
-        return
+        return;
       }
     } catch (e) {
       if (e instanceof CustomError) {

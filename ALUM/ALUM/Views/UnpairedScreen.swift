@@ -25,20 +25,22 @@ struct UnpairedScreen: View {
                     }
                 } else if currentUser.status == "approved" {
                     if currentUser.role == .mentee {
-                        LoginReviewPage(text:
-                                            ["Matching you with a mentor",
-                                               "We are looking for a perfect mentor for you. Please allow us some time!"])
+                        LoginReviewPage(text: [
+                            "Matching you with a mentor",
+                            "We are looking for a perfect mentor for you. Please allow us some time!"
+                        ])
                     } else if currentUser.role == .mentor {
-                        LoginReviewPage(text:
-                                            ["Matching you with a mentee",
-                                               "We are looking for a perfect mentee for you. Please allow us some time!"])
+                        LoginReviewPage(text: [
+                            "Matching you with a mentee",
+                            "We are looking for a perfect mentee for you",
+                            "Please allow us some time!"])
                     }
                 }
             }
             logOutButton
         }
     }
-    
+
     private var logOutButton: some View {
         Button(action: {
             FirebaseAuthenticationService.shared.logout()

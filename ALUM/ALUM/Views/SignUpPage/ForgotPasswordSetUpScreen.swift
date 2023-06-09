@@ -10,7 +10,7 @@ import SwiftUI
 struct ForgotPasswordSetUpScreen: View {
     @ObservedObject var viewModel: ForgotPasswordViewModel
     var account = Account(name: "", email: "", password: "")
-    
+
     var body: some View {
         VStack {
             header
@@ -20,7 +20,7 @@ struct ForgotPasswordSetUpScreen: View {
         }
         .dismissKeyboardOnDrag()
     }
-    
+
     var header: some View {
         VStack {
             VStack {
@@ -33,7 +33,7 @@ struct ForgotPasswordSetUpScreen: View {
         }
         .padding(.bottom, 54)
     }
-    
+
     var content: some View {
         VStack {
             InputValidationComponent(
