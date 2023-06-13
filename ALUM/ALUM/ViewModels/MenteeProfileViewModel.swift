@@ -26,8 +26,13 @@ final class MenteeProfileViewmodel: ObservableObject {
         }
     }
 
-    func updateMenteeInfo() {
-        print("updating: ", self.mentee)
+    func updateMenteeInfo() async throws{
+        do {
+            try await UserService.shared.patchMentee(data: self.mentee!)
+            try await fetchMenteeInfo(userID: self.mentee!.id)
+        } catch {
+            print("An error occurred: \(error)")
+        }
     }
 
     func isLoading() -> Bool {

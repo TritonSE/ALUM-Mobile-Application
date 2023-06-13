@@ -119,4 +119,26 @@ class UserService {
         print("SUCCESS - \(route.label)")
         return menteeData
     }
+
+    func patchMentor(data: MentorInfo) async throws {
+        let route = APIRoute.patchMentor(userId: data.id)
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(data) else {
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        let _ = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
+    }
+
+    func patchMentee(data: MenteeInfo) async throws {
+        let route = APIRoute.patchMentee(userId: data.id)
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(data) else {
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        let _ = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
+    }
 }

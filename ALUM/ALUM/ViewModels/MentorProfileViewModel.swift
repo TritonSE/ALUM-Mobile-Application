@@ -27,8 +27,13 @@ final class MentorProfileViewModel: ObservableObject {
         }
     }
 
-    func updateMentorInfo() {
-        print("updating:", self.mentor)
+    func updateMentorInfo() async throws {
+        do {
+            try await UserService.shared.patchMentor(data: self.mentor!)
+            try await fetchMentorInfo(userID: self.mentor!.id)
+        } catch {
+            print("An error occurred: \(error)")
+        }
     }
 
     func isLoading() -> Bool {

@@ -23,6 +23,8 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    case patchMentor(userId: String)
+    case patchMentee(userId: String)
     case getCalendly
 
     case getNote(noteId: String)
@@ -46,6 +48,10 @@ enum APIRoute {
             return URLString.mentor
         case .postMentee:
             return URLString.mentee
+        case .patchMentor(let userId):
+            return [URLString.mentor, userId].joined(separator: "/")
+        case .patchMentee(let userId):
+            return [URLString.mentee, userId].joined(separator: "/")
         case .getNote(noteId: let noteId):
             return [URLString.notes, noteId].joined(separator: "/")
         case .patchNote(noteId: let noteId):
@@ -73,7 +79,7 @@ enum APIRoute {
                 return "POST"
             case .deleteSession:
                 return "DELETE"
-            case .patchNote, .patchSession:
+            case .patchNote, .patchSession, .patchMentor, .patchMentee:
                 return "PATCH"
             }
         }
@@ -82,7 +88,7 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession,
                     .getSessions, .postSession, .getCalendly, .deleteSession,
-                    .patchSession:
+                    .patchSession, .patchMentor, .patchMentee:
                 return true
             case .postMentee, .postMentor:
                 return false
@@ -105,7 +111,7 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                     .getSession, .getSessions, .getCalendly,
-                    .deleteSession, .patchSession:
+                    .deleteSession, .patchSession, .patchMentor, .patchMentee:
                 return 200 // 200 Ok
             case .postMentor, .postMentee, .postSession:
                 return 201 // 201 Created
@@ -119,7 +125,7 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                     .getSession, .getSessions, .getCalendly,
-                    .deleteSession, .patchSession:
+                    .deleteSession, .patchSession, .patchMentor, .patchMentee:
                 errorMap = [
                     401: AppError.actionable(.authenticationError, message: labeledMessage),
                     400: AppError.internalError(.invalidRequest, message: labeledMessage),

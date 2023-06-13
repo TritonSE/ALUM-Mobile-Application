@@ -52,10 +52,16 @@ struct EditMenteeProfileScreen: View {
     }
 
     func handleSaveClick() {
-        viewModel.mentee!.about = about
-        viewModel.mentee!.careerInterests = Array(careerInterests)
-        viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
-        viewModel.updateMenteeInfo()
+        Task {
+            do {
+                viewModel.mentee!.about = about
+                viewModel.mentee!.careerInterests = Array(careerInterests)
+                viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
+                try await viewModel.updateMenteeInfo()
+            } catch {
+                print("An error occurred: \(error)")
+            }
+        }
     }
 
     var content: some View {

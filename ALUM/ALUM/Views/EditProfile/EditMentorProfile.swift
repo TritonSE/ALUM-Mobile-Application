@@ -53,9 +53,15 @@ struct EditMentorProfileScreen: View {
     }
 
     func handleSaveClick() {
-        mentor.topicsOfExpertise = Array(topicsOfExpertise)
-        viewModel.mentor! = mentor
-        viewModel.updateMentorInfo()
+        Task {
+            do {
+                mentor.topicsOfExpertise = Array(topicsOfExpertise)
+                viewModel.mentor! = mentor
+                try await viewModel.updateMentorInfo()
+            } catch {
+                print("Error")
+            }
+        }
     }
 
     var content: some View {
