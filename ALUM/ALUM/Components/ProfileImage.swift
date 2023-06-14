@@ -40,7 +40,8 @@ struct ProfileImage: View {
                         image = try await ImageService.shared.getImage(imageId: imageId!)
                         loading = false
                     } catch {
-                        CurrentUserModel.shared.showInternalError.toggle()
+                        /// User has no image
+                        loading = false
                     }
                 }
             }

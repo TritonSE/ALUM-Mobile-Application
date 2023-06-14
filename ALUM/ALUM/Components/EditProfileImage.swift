@@ -47,13 +47,15 @@ struct EditProfileImage: View {
         }.onAppear(perform: {
             Task {
                 /// Get user's current image
-                /// We cannot use the loading state of ProfileImage because we are loading the image ourself to get a UIImage
+                /// We cannot use the loading state of ProfileImage because
+                /// we are loading the image ourself to get a UIImage
                 do {
                     loading = true
                     image = try await ImageService.shared.getImage(imageId: imageId)
                     loading = false
                 } catch {
-                    CurrentUserModel.shared.showInternalError.toggle()
+                    /// User has no image (ie. imageId is "" or invalid image id)
+                    loading = false
                 }
             }
         })
@@ -64,7 +66,7 @@ struct EditProfileImage: View {
             if loading {
                 ProgressView()
                     .frame(width: 112, height: 112)
-            }  else {
+            } else {
                 ProfileImage(image: $image, size: 112)
             }
         }
@@ -73,7 +75,11 @@ struct EditProfileImage: View {
 
     func handleDone() {
         Task {
-            guard let selectedImage = image else { return }
+            guard let selectedImage = image else {
+                /// no image selected (or image was removed)
+                showChooseSheet = false
+                return
+            }
             do {
                 /// Upload image
                 uploading = true
@@ -140,6 +146,7 @@ struct EditProfileImage: View {
 
             Button(action: {
                 image = nil
+                imageId = ""
             }, label: {
                 HStack {
                     Image("TrashIcon")
