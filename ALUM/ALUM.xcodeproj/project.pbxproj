@@ -12,11 +12,6 @@
 		0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */; };
 		0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB922A1D576800911948 /* ProfileTabRouter.swift */; };
 		0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB942A1D578400911948 /* HomeTabRouter.swift */; };
-		0723BB862A1C995700911948 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB852A1C995700911948 /* HomeScreen.swift */; };
-		0723BB8F2A1CDF7500911948 /* UnpairedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB8E2A1CDF7500911948 /* UnpairedScreen.swift */; };
-		0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB902A1D4ADE00911948 /* PreSessionFormRouter.swift */; };
-		0723BB932A1D576800911948 /* ProfileTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB922A1D576800911948 /* ProfileTabRouter.swift */; };
-		0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0723BB942A1D578400911948 /* HomeTabRouter.swift */; };
 		0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0726C9EE29DC4B120042A486 /* CustomErrors.swift */; };
 		0748208F29712921004AF547 /* ALUMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748208E29712921004AF547 /* ALUMApp.swift */; };
 		0748209129712921004AF547 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0748209029712921004AF547 /* ContentView.swift */; };
@@ -48,12 +43,6 @@
 		0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */; };
 		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
 		0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */; };
-		07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */; };
-		07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */; };
-		07CA49962A1C53DA00A81153 /* ALUMColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49942A1C53DA00A81153 /* ALUMColor.swift */; };
-		07CA49972A1C53DA00A81153 /* ALUMText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49952A1C53DA00A81153 /* ALUMText.swift */; };
-		07E885362A19F0D300B7AD27 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E885352A19F0D300B7AD27 /* RootRouter.swift */; };
-		07ECF5F72A2279940093C37B /* PostSessionFormRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07ECF5F62A2279940093C37B /* PostSessionFormRouter.swift */; };
 		07A15DD52A23FB5F00C52798 /* FullWidthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */; };
 		07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */; };
 		07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */; };
@@ -68,6 +57,7 @@
 		2C49296A2A1AD39A0060C0B7 /* EditMentorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */; };
 		2C49296C2A1AD88E0060C0B7 /* EditProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */; };
 		2C49296E2A1ADAE90060C0B7 /* AboutInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */; };
+		2CA05CE02A2F096C0038E4DD /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		7439C6892A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */; };
@@ -199,6 +189,7 @@
 		2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMentorProfile.swift; sourceTree = "<group>"; };
 		2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileImage.swift; sourceTree = "<group>"; };
 		2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInput.swift; sourceTree = "<group>"; };
+		2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
 		7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordSetUpScreen.swift; sourceTree = "<group>"; };
@@ -403,29 +394,6 @@
 			path = PostSessionForm;
 			sourceTree = "<group>";
 		};
-		07E885342A19F0B800B7AD27 /* Routers */ = {
-			isa = PBXGroup;
-			children = (
-				0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */,
-				07E885352A19F0D300B7AD27 /* RootRouter.swift */,
-				0723BB922A1D576800911948 /* ProfileTabRouter.swift */,
-				0723BB942A1D578400911948 /* HomeTabRouter.swift */,
-			);
-			path = Routers;
-			sourceTree = "<group>";
-		};
-		07ECF5F82A22A94A0093C37B /* PostSessionForm */ = {
-			isa = PBXGroup;
-			children = (
-				974D62D029FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift */,
-				0757552B29FAA2D6008E73FB /* MissedSessionScreen.swift */,
-				0757552629FAA2D5008E73FB /* PostSessionConfirmationScreen.swift */,
-				0757552529FAA2D5008E73FB /* PostSessionQuestionScreen.swift */,
-				07ECF5F62A2279940093C37B /* PostSessionFormRouter.swift */,
-			);
-			path = PostSessionForm;
-			sourceTree = "<group>";
-		};
 		07F9A50C297180D700BC11A8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +502,7 @@
 			children = (
 				2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */,
 				2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */,
+				2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -742,6 +711,7 @@
 			files = (
 				0757553C29FAA387008E73FB /* NotesService.swift in Sources */,
 				0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */,
+				2CA05CE02A2F096C0038E4DD /* EditProfileHeader.swift in Sources */,
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
 				2C49296A2A1AD39A0060C0B7 /* EditMentorProfile.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,

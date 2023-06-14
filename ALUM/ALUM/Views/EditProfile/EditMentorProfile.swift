@@ -27,11 +27,7 @@ struct EditMentorProfileScreen: View {
             } else {
                 VStack {
                     VStack {
-                        NavigationHeaderComponent(
-                            backText: "Cancel",
-                            backDestination: MentorProfileScreen(uID: uID),
-                            title: "Edit Profile", purple: false
-                        )
+                        EditProfileHeader(saveAction: handleSaveClick)
                     }
                     ScrollView {
                         content
@@ -44,6 +40,7 @@ struct EditMentorProfileScreen: View {
                 }
             }
         }
+        .navigationBarHidden(true)
         .onAppear(perform: {
             Task {
                 do {
@@ -72,15 +69,6 @@ struct EditMentorProfileScreen: View {
             AboutInput(show: $showAboutInputSheet, value: $mentor.about)
 
             topicsOfExpertiseSection
-
-            Button {
-                handleSaveClick()
-            }  label: {
-                Text("Save")
-                    .font(.custom("Metropolis-Regular", size: 17))
-                    .foregroundColor(Color("ALUM Dark Blue"))
-            }
-
         }
     }
 

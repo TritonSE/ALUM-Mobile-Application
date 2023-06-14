@@ -64,25 +64,19 @@ struct MenteeProfileScreen: View {
                 .edgesIgnoringSafeArea(.bottom)
             }
             ZStack {
-                // Removing this Z-stack causes a white rectangle to appear between the top of screen 
+                // Removing this Z-stack causes a white rectangle to appear between the top of screen
                 // and start of this screen due to GeometryReader
 
                 if viewModel.selfView! {
-                  // params like settings and edit profile currently placeholders for later navigation
-                  if scrollAtTop {
-                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
-                      .background(Color("ALUM Primary Purple"))
-                  } else {
-                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
-                      .background(.white)
-                  }
+                    // params like settings and edit profile currently placeholders for later navigation
+                    ProfileHeaderComponent(editDestination: EditMenteeProfileScreen(uID: uID))
                 } else {
-                  if scrollAtTop {
-                    Rectangle()
-                      .frame(height: 10)
-                      .foregroundColor(Color("ALUM Primary Purple"))
-                      .frame(maxHeight: .infinity, alignment: .top)
-                  }
+                    if scrollAtTop {
+                        Rectangle()
+                            .frame(height: 10)
+                            .foregroundColor(Color("ALUM Primary Purple"))
+                            .frame(maxHeight: .infinity, alignment: .top)
+                    }
                 }
             }
         }
@@ -111,12 +105,6 @@ extension MenteeProfileScreen {
             }
             Text(viewModel.mentee!.name)
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
-            // FIXME: temporary, move to header
-            NavigationLink(destination:
-                EditMenteeProfileScreen(uID: uID)
-            ) {
-                Text("Edit").padding()
-            }
         }
     }
     private var description: some View {

@@ -25,11 +25,7 @@ struct EditMenteeProfileScreen: View {
             } else {
                 VStack {
                     VStack {
-                        NavigationHeaderComponent(
-                            backText: "Cancel",
-                            backDestination: MenteeProfileScreen(uID: uID),
-                            title: "Edit Profile", purple: false
-                        )
+                        EditProfileHeader(saveAction: handleSaveClick)
                     }
                     ScrollView {
                         content
@@ -43,6 +39,7 @@ struct EditMenteeProfileScreen: View {
                 }
             }
         }
+        .navigationBarHidden(true)
         .onAppear(perform: {
             Task {
                 do {
@@ -72,15 +69,6 @@ struct EditMenteeProfileScreen: View {
             careerInterestsSection
 
             topicsOfInterestSection
-
-            Button {
-                handleSaveClick()
-            }  label: {
-                Text("Save")
-                    .font(.custom("Metropolis-Regular", size: 17))
-                    .foregroundColor(Color("ALUM Dark Blue"))
-            }
-
         }
     }
 
@@ -249,12 +237,14 @@ struct EditMenteeProfileScreen: View {
 
 struct EditMenteeProfileScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EditMenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
-            .onAppear {
-                Task {
-                    try await FirebaseAuthenticationService.shared
-                        .login(email: "mentee@gmail.com", password: "123456")
+        NavigationView {
+            EditMenteeProfileScreen(uID: "6431b99ebcf4420fe9825fe3")
+                .onAppear {
+                    Task {
+                        try await FirebaseAuthenticationService.shared
+                            .login(email: "mentee@gmail.com", password: "123456")
+                    }
                 }
-            }
+        }
     }
 }
