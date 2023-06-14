@@ -62,7 +62,7 @@ struct EditMentorProfileScreen: View {
         VStack {
             calendlyZoomSection
 
-            EditProfileImage()
+            EditProfileImage(imageId: $mentor.imageId)
 
             detailsSection
 

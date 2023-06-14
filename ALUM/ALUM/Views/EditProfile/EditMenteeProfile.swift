@@ -16,6 +16,7 @@ struct EditMenteeProfileScreen: View {
     @State var careerInterests: Set<String> = []
     @State var topicsOfInterest: Set<String> = []
     @State var about: String = ""
+    @State var imageId: String = ""
     @State var showAboutInputSheet: Bool = false
 
     var body: some View {
@@ -34,6 +35,7 @@ struct EditMenteeProfileScreen: View {
                                 careerInterests = Set(viewModel.mentee!.careerInterests)
                                 topicsOfInterest = Set(viewModel.mentee!.topicsOfInterest)
                                 about = viewModel.mentee!.about
+                                imageId = viewModel.mentee!.imageId
                             }
                     }
                 }
@@ -55,12 +57,13 @@ struct EditMenteeProfileScreen: View {
         viewModel.mentee!.about = about
         viewModel.mentee!.careerInterests = Array(careerInterests)
         viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
+        viewModel.mentee!.imageId = imageId
         try await viewModel.updateMenteeInfo()
     }
 
     var content: some View {
         VStack {
-            EditProfileImage()
+            EditProfileImage(imageId: $imageId)
 
             gradeSection
 

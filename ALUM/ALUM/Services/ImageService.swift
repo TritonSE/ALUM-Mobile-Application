@@ -8,6 +8,10 @@
 import Foundation
 import SwiftUI
 
+struct ImagePostData: Decodable {
+    var imageId: String
+}
+
 class ImageService {
     static let shared = ImageService()
 
@@ -26,7 +30,7 @@ class ImageService {
         return image
     }
 
-    func createImage(image: UIImage) async throws {
+    func createImage(image: UIImage) async throws -> String {
         let route = APIRoute.postImage
         var request = try await route.createURLRequest()
 
@@ -42,7 +46,18 @@ class ImageService {
         request.setValue(multipart.httpContentTypeHeaderValue, forHTTPHeaderField: "Content-Type")
         request.httpBody = multipart.httpBody
 
-        _ = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
-        print("SUCCESS - \(route.label)")
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+
+        do {
+            let imageData = try JSONDecoder().decode(ImagePostData.self, from: responseData)
+            print("SUCCESS - \(route.label)")
+            return imageData.imageId
+        } catch {
+            print("Failed to decode data")
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Decode Data")
+        }
     }
 }

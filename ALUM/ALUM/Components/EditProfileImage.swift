@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EditProfileImage: View {
+    @Binding var imageId: String
+    @State var loading = false
     @State private var showChooseSheet = false
     @State private var showImagePicker = false
     @State private var image: UIImage?
@@ -41,12 +43,26 @@ struct EditProfileImage: View {
             .padding(.trailing, 16)
 
             profilePicture
-        }
+        }.onAppear(perform: {
+            Task {
+                /// Get user's current image
+                do {
+                    loading = true
+                    image = try await ImageService.shared.getImage(imageId: imageId)
+                    loading = false
+                } catch {
+                    CurrentUserModel.shared.showInternalError.toggle()
+                }
+            }
+        })
     }
 
     var profilePicture: some View {
         HStack {
-            if image != nil {
+            if loading {
+                ProgressView()
+                    .frame(width: 112, height: 112)
+            } else if image != nil {
                 Image(uiImage: image!)
                     .resizable()
                     .frame(width: 112, height: 112)
@@ -58,16 +74,19 @@ struct EditProfileImage: View {
         .padding(20)
     }
 
-    func loadImage() {
-        // guard let selectedImage = image else { return }
-        // Perform any additional processing with the selected image
-    }
-
     func handleDone() {
-        guard let selectedImage = image else { return }
-
-        showChooseSheet = false
-        print(image)
+        Task {
+            guard let selectedImage = image else { return }
+            do {
+                /// Upload image
+                loading = true
+                imageId = try await ImageService.shared.createImage(image: selectedImage)
+                loading = false
+            } catch {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
+            showChooseSheet = false
+        }
     }
 
     var choosePictureSheet: some View {
@@ -114,7 +133,7 @@ struct EditProfileImage: View {
                     Spacer()
                 }
             })
-            .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
+            .sheet(isPresented: $showImagePicker) {
                 ImagePicker(image: $image, sourceType: $sourceType)
             }
 
@@ -180,6 +199,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 struct EditProfileImage_Previews: PreviewProvider {
     static var previews: some View {
-        EditProfileImage()
+        @State var imageId = "640b86513c48ef1b07904241"
+
+        return EditProfileImage(imageId: $imageId)
     }
 }

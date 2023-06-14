@@ -29,7 +29,7 @@ final class MenteeProfileViewmodel: ObservableObject {
     func updateMenteeInfo() async throws {
         let mentee = self.mentee!
         let updatedMentee = MenteePatchData(name: mentee.name,
-                                            imageId: mentee.name,
+                                            imageId: mentee.imageId,
                                             about: mentee.about,
                                             grade: mentee.grade,
                                             topicsOfInterest: mentee.topicsOfInterest,
