@@ -117,3 +117,30 @@ src/
 ### Auth Layer and Roles
 The backend uses the firebase authentication and custom user claims to protect routes. Custom user claims are essentially roles and we use three: mentor, mentee, and admin. Outside of protecting the routes, the auth layer can also be used to determine who is accessing the route (mentor, mentee, admin, etc.). Reference the [Firebase API](https://firebase.google.com/docs/reference/rest/auth) for more information on how the auth layer works.
 
+### How to deploy?
+
+#### Backend
+We use the firebase to host our backend. Firebase has a feature called Cloud Functions which basically runs our server to process requests whenever one is received. This required Firebase Blaze Plan which is a "pay as you go". Judging from the scope of this, we should always be able to be under the free tier. 
+
+Before you deploy, you should login into firebase using firebase CLI by running the following commands.
+Note - You only need to do this once
+```
+npm i -g firebase-tools
+firebase login
+```
+
+To deploy backend, simply runthe following command
+```
+npm run deploy
+```
+
+Before deploying you can test out the server by simulating the deployment using
+```
+npm run local-deploy
+```
+This runs your server locally. 
+
+#### Frontend 
+All app releases are done through the [Apple Connect Portal](https://appstoreconnect.apple.com/). 
+
+Till now we have only released testflight. You can checkout this tutorial on how to release a test flight - [video](https://www.youtube.com/watch?v=DLvdZtTAJrE)

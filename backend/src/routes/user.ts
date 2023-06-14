@@ -26,6 +26,7 @@ import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
+import { validateCalendlyAccessToken } from "../services/calendly";
 
 const router = express.Router();
 
@@ -112,7 +113,8 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.info("POST /mentor", req.body);
-      const { name, email, password, ...args }: CreateMentorRequestBodyType = req.body;
+      const { name, email, password, personalAccessToken, ...args }: CreateMentorRequestBodyType =
+        req.body;
 
       if (!validateUserEmail(email)) {
         throw ValidationError.INVALID_EMAIL_ID;
@@ -121,6 +123,8 @@ router.post(
       if (!validatePasswordLength(password)) {
         throw ValidationError.INVALID_PASSWORD_LENGTH;
       }
+
+      await validateCalendlyAccessToken(personalAccessToken);
 
       const status = "under review";
       const imageId = defaultImageID;
@@ -135,6 +139,7 @@ router.post(
         zoomLink,
         status,
         pairingIds,
+        personalAccessToken,
         ...args,
       });
       await mentor.save();
