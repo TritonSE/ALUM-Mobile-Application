@@ -57,7 +57,7 @@ router.post(
       console.log("POST /image", req.file);
       const imageId = await saveImage(req);
       console.log("imageId", imageId);
-      return res.status(200).send({ imageId });
+      return res.status(201).send({ imageId });
     } catch (e) {
       console.log(e);
       if (e instanceof ServiceError) {

@@ -63,6 +63,13 @@ struct EditProfileImage: View {
         // Perform any additional processing with the selected image
     }
 
+    func handleDone() {
+        guard let selectedImage = image else { return }
+
+        showChooseSheet = false
+        print(image)
+    }
+
     var choosePictureSheet: some View {
         VStack {
             HStack {
@@ -75,7 +82,7 @@ struct EditProfileImage: View {
                     .font(.custom("Metropolis-Regular", size: 17))
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(Color.black)
-                Button(action: {showChooseSheet = false}, label: {
+                Button(action: handleDone, label: {
                     Text("Done")
                         .font(.custom("Metropolis-Regular", size: 13))
                         .foregroundColor(Color("ALUM Dark Blue"))
