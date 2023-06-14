@@ -114,11 +114,7 @@ extension MentorProfileScreen {
                     Circle()
                         .frame(width: 135, height: 145)
                         .foregroundColor(Color("ALUM White2"))
-                    Image("ALUMLogoBlue")
-                        .resizable()
-                        .frame(width: 135, height: 135)
-                        .clipShape(Circle())
-                        .scaledToFit()
+                    ProfileImage(imageId: viewModel.mentor!.imageId, size: 135)
                 }
                 .padding(.top, 57)
             }

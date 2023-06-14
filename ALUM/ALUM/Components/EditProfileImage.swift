@@ -47,8 +47,6 @@ struct EditProfileImage: View {
         }.onAppear(perform: {
             Task {
                 /// Get user's current image
-                /// We cannot use the loading state of ProfileImage because
-                /// we are loading the image ourself to get a UIImage
                 do {
                     loading = true
                     image = try await ImageService.shared.getImage(imageId: imageId)
@@ -66,8 +64,13 @@ struct EditProfileImage: View {
             if loading {
                 ProgressView()
                     .frame(width: 112, height: 112)
+            } else if image != nil {
+                Image(uiImage: image!)
+                    .resizable()
+                    .frame(width: 112, height: 112)
+                    .clipShape(Circle())
             } else {
-                ProfileImage(image: $image, size: 112)
+                Image("DefaultProfileImage")
             }
         }
         .padding(20)

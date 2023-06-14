@@ -36,9 +36,6 @@ struct MenteeProfileScreen: View {
     }
 
     var content: some View {
-        let mentee = viewModel.mentee!
-
-        return
         GeometryReader { grr in
             VStack(spacing: 0) {
                 ScrollView {
@@ -95,11 +92,7 @@ extension MenteeProfileScreen {
                     Circle()
                         .frame(width: 135, height: 145)
                         .foregroundColor(Color("ALUM White2"))
-                    Image("ALUMLogoBlue")
-                        .resizable()
-                        .frame(width: 135, height: 135)
-                        .clipShape(Circle())
-                        .scaledToFit()
+                    ProfileImage(imageId: viewModel.mentee!.imageId, size: 135)
                 }
                 .padding(.top, 57)
             }
@@ -159,7 +152,7 @@ extension MenteeProfileScreen {
                                     })
                                         .customNavigationTitle("Mentor Profile")
             ) {
-                MentorCard(isEmpty: true, uID: viewModel.mentee!.mentorId ?? "")
+                MentorCard(uID: viewModel.mentee!.mentorId ?? "")
                     .padding(.bottom, 10)
             }
         }

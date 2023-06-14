@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MentorCard: View {
-    @State var isEmpty = false
     @State var uID: String = ""
     @StateObject private var viewModel = MentorProfileViewModel()
 
@@ -36,18 +35,8 @@ struct MentorCard: View {
             RoundedRectangle(cornerRadius: 12.0)
                 .frame(width: 358, height: 118)
                 .foregroundColor(Color("ALUM Primary Purple"))
-            if isEmpty {
-                Circle()
-                    .frame(width: 85, height: 85)
-                    .foregroundColor(Color("NeutralGray1"))
-                    .offset(x: -112.5)
-            } else {
-                Image("ALUMLogoBlue")
-                    .resizable()
-                    .clipShape(Circle())
-                    .frame(width: 85, height: 85)
-                    .offset(x: -112.5)
-            }
+            ProfileImage(imageId: mentor.imageId, size: 85)
+                .offset(x: -112.5)
             VStack {
                 HStack {
                     Text(mentor.name)
