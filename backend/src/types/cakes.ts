@@ -2,7 +2,7 @@
  * This file can be used as a reference to see what are the arguments accepted by each route.
  * Cakes for all route requests are created. Just look for a comment for the route you are looking for
  */
-import { bake, string, array, number, union } from "caketype";
+import { bake, string, array, number, union, optional } from "caketype";
 
 /**
  * POST /mentee
@@ -43,12 +43,11 @@ export const UpdateMentorRequestBodyCake = bake({
   imageId: string,
   minor: string,
   career: string,
-  personalAccessToken: string,
+  personalAccessToken: optional(string),
   topicsOfExpertise: array(string),
   mentorMotivation: string,
   location: string,
   calendlyLink: string,
-  zoomLink: string,
 });
 
 // PATCH user/id

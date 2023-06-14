@@ -33,6 +33,32 @@ struct MentorPostData: Codable {
     var personalAccessToken: String
 }
 
+struct MentorPatchData: Encodable {
+    var name: String
+    var imageId: String
+    var about: String
+    var calendlyLink: String
+    var personalAccessToken: String?
+    var graduationYear: Int
+    var college: String
+    var major: String
+    var minor: String
+    var career: String
+    var topicsOfExpertise: [String]
+    var mentorMotivation: String
+    var location: String
+}
+
+struct MenteePatchData: Encodable {
+    var name: String
+    var imageId: String
+    var about: String
+    var grade: Int
+    var topicsOfInterest: [String]
+    var careerInterests: [String]
+    var mentorshipGoal: String
+}
+
 struct SelfGetData: Decodable {
     var status: String
     var sessionId: String?
@@ -118,5 +144,27 @@ class UserService {
 
         print("SUCCESS - \(route.label)")
         return menteeData
+    }
+
+    func patchMentor(userID: String, data: MentorPatchData) async throws {
+        let route = APIRoute.patchMentor(userId: userID)
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(data) else {
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        _ = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
+    }
+
+    func patchMentee(userID: String, data: MenteePatchData) async throws {
+        let route = APIRoute.patchMentee(userId: userID)
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(data) else {
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        _ = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 }

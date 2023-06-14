@@ -56,7 +56,9 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   if (!mentor) {
     throw ServiceError.MENTOR_WAS_NOT_FOUND;
   }
-  await validateCalendlyAccessToken(updatedMentor.personalAccessToken);
+  if (updatedMentor.personalAccessToken) {
+    await validateCalendlyAccessToken(updatedMentor.personalAccessToken);
+  }
   await validateCalendlyLink(updatedMentor.calendlyLink);
   try {
     return await Mentor.findByIdAndUpdate({ _id: userID }, updatedMentor);

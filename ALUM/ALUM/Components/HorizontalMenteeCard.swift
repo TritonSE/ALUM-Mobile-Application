@@ -11,7 +11,6 @@ struct HorizontalMenteeCard: View {
     var menteeId: String
 
     var school: String = "NHS"
-    @State var isEmpty = true
     @StateObject private var viewModel = MenteeProfileViewmodel()
 
     var body: some View {
@@ -43,18 +42,8 @@ struct HorizontalMenteeCard: View {
             RoundedRectangle(cornerRadius: 12.0)
                 .frame(width: 358, height: 118)
                 .foregroundColor(Color("ALUM Primary Purple"))
-            if isEmpty {
-                Circle()
-                    .frame(width: 85)
-                    .foregroundColor(Color("NeutralGray1"))
-                    .offset(x: -112.5)
-            } else {
-                Image(mentee.imageId)
-                    .resizable()
-                    .clipShape(Circle())
-                    .frame(width: 85, height: 85)
-                    .offset(x: -112.5)
-            }
+            ProfileImage(imageId: mentee.imageId, size: 85)
+                .offset(x: -112.5)
             VStack {
                 HStack {
                     Text(mentee.name)

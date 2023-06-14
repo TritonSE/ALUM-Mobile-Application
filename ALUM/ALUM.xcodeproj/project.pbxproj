@@ -53,6 +53,14 @@
 		2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */; };
 		2A8E07E2297B4FB0001AA153 /* OutlinedButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */; };
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
+		2C2195262A39212C00F313C0 /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195252A39212C00F313C0 /* MultipartRequest.swift */; };
+		2C2195282A39667000F313C0 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195272A39667000F313C0 /* ImageService.swift */; };
+		2C21952A2A397ED100F313C0 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195292A397ED100F313C0 /* ProfileImage.swift */; };
+		2C27FDC82A1854CF007F66A9 /* EditMenteeProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */; };
+		2C49296A2A1AD39A0060C0B7 /* EditMentorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */; };
+		2C49296C2A1AD88E0060C0B7 /* EditProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */; };
+		2C49296E2A1ADAE90060C0B7 /* AboutInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */; };
+		2CA05CE02A2F096C0038E4DD /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */; };
 		741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534129A4EDD3004C04E6 /* TagDisplay.swift */; };
 		741D534429A4EED0004C04E6 /* AddTagButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D534329A4EED0004C04E6 /* AddTagButton.swift */; };
 		7439C6892A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */; };
@@ -180,6 +188,14 @@
 		2A63887F299FF3BC00F9EA97 /* DrawerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerContainer.swift; sourceTree = "<group>"; };
 		2A8E07E1297B4FB0001AA153 /* OutlinedButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinedButtonStyle.swift; sourceTree = "<group>"; };
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
+		2C2195252A39212C00F313C0 /* MultipartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
+		2C2195272A39667000F313C0 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		2C2195292A397ED100F313C0 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
+		2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenteeProfile.swift; sourceTree = "<group>"; };
+		2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMentorProfile.swift; sourceTree = "<group>"; };
+		2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileImage.swift; sourceTree = "<group>"; };
+		2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutInput.swift; sourceTree = "<group>"; };
+		2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
 		741D534129A4EDD3004C04E6 /* TagDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDisplay.swift; sourceTree = "<group>"; };
 		741D534329A4EED0004C04E6 /* AddTagButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagButton.swift; sourceTree = "<group>"; };
 		7439C6882A0AE88F00489708 /* ForgotPasswordSetUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordSetUpScreen.swift; sourceTree = "<group>"; };
@@ -419,6 +435,9 @@
 				8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */,
 				8095FE7129E41214006AA63C /* NavigationComponent.swift */,
 				97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */,
+				2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */,
+				2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */,
+				2C2195292A397ED100F313C0 /* ProfileImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -441,6 +460,7 @@
 				07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */,
 				07ECF5F82A22A94A0093C37B /* PostSessionForm */,
 				07E885342A19F0B800B7AD27 /* Routers */,
+				2C27FDC62A18544E007F66A9 /* EditProfile */,
 				0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */,
 				97A31AC729BAFA7600B79D30 /* PreSessionForm */,
 				97A2FE8B2989C20900405FD6 /* LoginScreen.swift */,
@@ -480,8 +500,20 @@
 				979303DF29E8B06E0053C30E /* SessionService.swift */,
 				8045EEB029F6844A00BD179C /* ServiceHelper.swift */,
 				0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */,
+				2C2195252A39212C00F313C0 /* MultipartRequest.swift */,
+				2C2195272A39667000F313C0 /* ImageService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2C27FDC62A18544E007F66A9 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */,
+				2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */,
+				2CA05CDF2A2F096C0038E4DD /* EditProfileHeader.swift */,
+			);
+			path = EditProfile;
 			sourceTree = "<group>";
 		};
 		97992B5D29A6E7E200701CC7 /* SignUpPage */ = {
@@ -688,11 +720,14 @@
 			files = (
 				0757553C29FAA387008E73FB /* NotesService.swift in Sources */,
 				0723BB912A1D4ADE00911948 /* PreSessionFormRouter.swift in Sources */,
+				2CA05CE02A2F096C0038E4DD /* EditProfileHeader.swift in Sources */,
 				0794653429DC536200B68EFD /* InputValidationComponent.swift in Sources */,
+				2C49296A2A1AD39A0060C0B7 /* EditMentorProfile.swift in Sources */,
 				8095FE7229E41214006AA63C /* NavigationComponent.swift in Sources */,
 				07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */,
 				07CA49962A1C53DA00A81153 /* ALUMColor.swift in Sources */,
 				0757552029FAA2AB008E73FB /* StaticProgressBarComponent.swift in Sources */,
+				2C49296E2A1ADAE90060C0B7 /* AboutInput.swift in Sources */,
 				8071E52D2A044E2900BD11A3 /* CurrentUserModel.swift in Sources */,
 				2A638880299FF3BC00F9EA97 /* DrawerContainer.swift in Sources */,
 				979303E029E8B06E0053C30E /* SessionService.swift in Sources */,
@@ -716,6 +751,7 @@
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */,
 				0757552129FAA2AB008E73FB /* Bullet.swift in Sources */,
+				2C21952A2A397ED100F313C0 /* ProfileImage.swift in Sources */,
 				74CCE01F2A0B0B3D000AE3DD /* ForgotPasswordView.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
@@ -724,6 +760,7 @@
 				0757553029FAA2D6008E73FB /* PreSessionConfirmationScreen.swift in Sources */,
 				0726C9EF29DC4B120042A486 /* CustomErrors.swift in Sources */,
 				E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */,
+				2C27FDC82A1854CF007F66A9 /* EditMenteeProfile.swift in Sources */,
 				97E439F829AD986A00F0B7C1 /* SignUpJoinOption.swift in Sources */,
 				07E885362A19F0D300B7AD27 /* RootRouter.swift in Sources */,
 				0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */,
@@ -745,6 +782,7 @@
 				0757552229FAA2AB008E73FB /* CircleAddButton.swift in Sources */,
 				0757552E29FAA2D6008E73FB /* PostSessionConfirmationScreen.swift in Sources */,
 				974D62D129FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift in Sources */,
+				2C49296C2A1AD88E0060C0B7 /* EditProfileImage.swift in Sources */,
 				0757553829FAA350008E73FB /* QuestionModel.swift in Sources */,
 				0757553429FAA2D6008E73FB /* ConfirmationScreen.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
@@ -754,6 +792,7 @@
 				741D534229A4EDD3004C04E6 /* TagDisplay.swift in Sources */,
 				9752A4EA2978B90F001E0AAB /* TextInputFieldComponent.swift in Sources */,
 				979303D829E87E0E0053C30E /* SessionModel.swift in Sources */,
+				2C2195262A39212C00F313C0 /* MultipartRequest.swift in Sources */,
 				0799ACE32A007E8A00EEAFA2 /* LoadingScreen.swift in Sources */,
 				0723BB952A1D578400911948 /* HomeTabRouter.swift in Sources */,
 				80F5388A29AF6E8E00FB5E66 /* SignUpConfirmationMentorScreen.swift in Sources */,
@@ -763,6 +802,7 @@
 				979F812029B8181400D6E964 /* SelectYearComponent.swift in Sources */,
 				0723BB8F2A1CDF7500911948 /* UnpairedScreen.swift in Sources */,
 				075379F729B6A9F100A0DD5E /* TagEditor.swift in Sources */,
+				2C2195282A39667000F313C0 /* ImageService.swift in Sources */,
 				97E439F429AD97FA00F0B7C1 /* SignUpMenteeInfoScreen.swift in Sources */,
 				0748209129712921004AF547 /* ContentView.swift in Sources */,
 				979303DE29E885990053C30E /* HorizontalMenteeCard.swift in Sources */,

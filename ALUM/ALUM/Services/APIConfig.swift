@@ -23,6 +23,7 @@ struct URLString {
     static let notes = "\(baseURL)/notes"
     static let sessions = "\(baseURL)/sessions"
     static let calendly = "\(baseURL)/calendly"
+    static let image = "\(baseURL)/image"
 }
 
 enum APIRoute {
@@ -31,6 +32,8 @@ enum APIRoute {
     case getMentee(userId: String)
     case postMentor
     case postMentee
+    case patchMentor(userId: String)
+    case patchMentee(userId: String)
     case getCalendly
 
     case getNote(noteId: String)
@@ -41,6 +44,9 @@ enum APIRoute {
     case postSession
     case patchSession(sessionId: String)
     case deleteSession(sessionId: String)
+
+    case getImage(imageId: String)
+    case postImage
 
     var url: String {
         switch self {
@@ -54,6 +60,10 @@ enum APIRoute {
             return URLString.mentor
         case .postMentee:
             return URLString.mentee
+        case .patchMentor(let userId):
+            return [URLString.mentor, userId].joined(separator: "/")
+        case .patchMentee(let userId):
+            return [URLString.mentee, userId].joined(separator: "/")
         case .getNote(noteId: let noteId):
             return [URLString.notes, noteId].joined(separator: "/")
         case .patchNote(noteId: let noteId):
@@ -70,18 +80,22 @@ enum APIRoute {
             return [URLString.sessions, sessionId].joined(separator: "/")
         case .getCalendly:
             return URLString.calendly
+        case .getImage(let imageId):
+            return [URLString.image, imageId].joined(separator: "/")
+        case .postImage:
+            return URLString.image
         }
     }
 
         var method: String {
             switch self {
-            case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
+            case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly, .getImage:
                 return "GET"
-            case .postMentor, .postMentee, .postSession:
+            case .postMentor, .postMentee, .postSession, .postImage:
                 return "POST"
             case .deleteSession:
                 return "DELETE"
-            case .patchNote, .patchSession:
+            case .patchNote, .patchSession, .patchMentor, .patchMentee:
                 return "PATCH"
             }
         }
@@ -90,7 +104,7 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, .getSession,
                     .getSessions, .postSession, .getCalendly, .deleteSession,
-                    .patchSession:
+                    .patchSession, .patchMentor, .patchMentee, .getImage, .postImage:
                 return true
             case .postMentee, .postMentor:
                 return false
@@ -113,9 +127,9 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                     .getSession, .getSessions, .getCalendly,
-                    .deleteSession, .patchSession:
+                    .deleteSession, .patchSession, .patchMentor, .patchMentee, .getImage:
                 return 200 // 200 Ok
-            case .postMentor, .postMentee, .postSession:
+            case .postMentor, .postMentee, .postSession, .postImage:
                 return 201 // 201 Created
             }
         }
@@ -127,7 +141,7 @@ enum APIRoute {
             switch self {
             case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                     .getSession, .getSessions, .getCalendly,
-                    .deleteSession, .patchSession:
+                    .deleteSession, .patchSession, .patchMentor, .patchMentee, .getImage, .postImage:
                 errorMap = [
                     401: AppError.actionable(.authenticationError, message: labeledMessage),
                     400: AppError.internalError(.invalidRequest, message: labeledMessage),

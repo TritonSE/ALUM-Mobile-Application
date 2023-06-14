@@ -286,6 +286,7 @@ router.get(
         pairingIds,
         mentorMotivation,
         status,
+        personalAccessToken,
       } = mentor;
 
       if (role === "mentee") {
@@ -310,6 +311,7 @@ router.get(
             minor,
             college,
             career,
+            personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
             graduationYear,
             calendlyLink,
             zoomLink: location,
@@ -332,6 +334,7 @@ router.get(
           about,
           calendlyLink,
           zoomLink: location,
+          personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
           graduationYear,
           college,
           major,
@@ -352,6 +355,7 @@ router.get(
             about,
             calendlyLink,
             zoomLink: location ?? "N/A",
+            personalAccessToken: personalAccessToken ? "[REDACTED]" : null,
             graduationYear,
             college,
             major,
@@ -449,7 +453,6 @@ router.patch(
   "/mentee/:userId",
   validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   [verifyAuthToken],
-  // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log("Inside mentee patch try");

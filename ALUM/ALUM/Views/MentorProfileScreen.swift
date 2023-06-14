@@ -88,13 +88,7 @@ struct MentorProfileScreen: View {
                 // and start of this screen due to GeometryReader
                 if viewModel.selfView! {
                     // params like settings and edit profile currently placeholders for later navigation
-                  if scrollAtTop {
-                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: true)
-                      .background(Color("ALUM Primary Purple"))
-                  } else {
-                    ProfileHeaderComponent(profile: true, title: "My Profile", purple: false)
-                      .background(.white)
-                  }
+                    ProfileHeaderComponent(editDestination: EditMentorProfileScreen(uID: uID))
                 } else {
                   if scrollAtTop {
                     Rectangle()
@@ -120,11 +114,7 @@ extension MentorProfileScreen {
                     Circle()
                         .frame(width: 135, height: 145)
                         .foregroundColor(Color("ALUM White2"))
-                    Image("ALUMLogoBlue")
-                        .resizable()
-                        .frame(width: 135, height: 135)
-                        .clipShape(Circle())
-                        .scaledToFit()
+                    ProfileImage(imageId: viewModel.mentor!.imageId, size: 135)
                 }
                 .padding(.top, 57)
             }

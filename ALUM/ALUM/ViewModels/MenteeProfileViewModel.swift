@@ -26,6 +26,19 @@ final class MenteeProfileViewmodel: ObservableObject {
         }
     }
 
+    func updateMenteeInfo() async throws {
+        let mentee = self.mentee!
+        let updatedMentee = MenteePatchData(name: mentee.name,
+                                            imageId: mentee.imageId,
+                                            about: mentee.about,
+                                            grade: mentee.grade,
+                                            topicsOfInterest: mentee.topicsOfInterest,
+                                            careerInterests: mentee.careerInterests,
+                                            mentorshipGoal: mentee.mentorshipGoal ?? "")
+        try await UserService.shared.patchMentee(userID: mentee.id, data: updatedMentee)
+        try await fetchMenteeInfo(userID: mentee.id)
+    }
+
     func isLoading() -> Bool {
         return mentee == nil || selfView == nil
     }

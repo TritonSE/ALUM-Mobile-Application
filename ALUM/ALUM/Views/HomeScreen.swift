@@ -56,10 +56,7 @@ struct HomeScreen: View {
             .padding(.bottom, 5)
 
             NavigationLink(destination: MenteeProfileScreen(uID: pairedMenteeId)) {
-                HorizontalMenteeCard(
-                    menteeId: pairedMenteeId,
-                    isEmpty: true
-                )
+                HorizontalMenteeCard(menteeId: pairedMenteeId)
                 .padding(.bottom, 28)
             }
         }
@@ -79,7 +76,7 @@ struct HomeScreen: View {
             .padding(.bottom, 5)
 
             NavigationLink(destination: MentorProfileScreen(uID: pairedMentorId)) {
-                MentorCard(isEmpty: true, uID: pairedMentorId)
+                MentorCard(uID: pairedMentorId)
                     .padding(.bottom, 28)
             }
         }

@@ -306,10 +306,7 @@ extension SessionDetailsScreen {
                         uID: session.menteeId
                     ).customNavigationTitle("Mentee Profile")
                 ) {
-                HorizontalMenteeCard(
-                    menteeId: session.menteeId,
-                    isEmpty: true
-                )
+                HorizontalMenteeCard(menteeId: session.menteeId)
                 .padding(.bottom, 28)
             }
             dateTimeDisplaySection
@@ -371,7 +368,7 @@ extension SessionDetailsScreen {
                             MentorProfileScreen(uID: session.mentorId)
                 .customNavigationTitle("Mentor Profile")
             ) {
-                MentorCard(isEmpty: true, uID: session.mentorId)
+                MentorCard(uID: session.mentorId)
                     .padding(.bottom, 28)
             }
             dateTimeDisplaySection

@@ -9,8 +9,8 @@ import SwiftUI
 import WrappingHStack
 
 struct RenderTags: View {
-    @State var tags: [String]
-    @State var title: String
+    let tags: [String]
+    let title: String
     var body: some View {
         VStack {
             Text(title)
