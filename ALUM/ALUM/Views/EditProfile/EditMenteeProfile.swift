@@ -51,17 +51,11 @@ struct EditMenteeProfileScreen: View {
         })
     }
 
-    func handleSaveClick() {
-        Task {
-            do {
-                viewModel.mentee!.about = about
-                viewModel.mentee!.careerInterests = Array(careerInterests)
-                viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
-                try await viewModel.updateMenteeInfo()
-            } catch {
-                print("An error occurred: \(error)")
-            }
-        }
+    func handleSaveClick() async throws {
+        viewModel.mentee!.about = about
+        viewModel.mentee!.careerInterests = Array(careerInterests)
+        viewModel.mentee!.topicsOfInterest = Array(topicsOfInterest)
+        try await viewModel.updateMenteeInfo()
     }
 
     var content: some View {

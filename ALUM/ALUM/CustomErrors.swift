@@ -44,7 +44,7 @@ func handleDecodingErrors<T>(_ decodingClosure: () throws -> T) throws -> T {
     }
 
     DispatchQueue.main.async {
-        CurrentUserModel.shared.showInternalError.toggle()
+        CurrentUserModel.shared.errorMessage = "Decode error - \(errorMessage)"
     }
     throw AppError.internalError(.invalidResponse, message: "Decode error - \(errorMessage)")
 }

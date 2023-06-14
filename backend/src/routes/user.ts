@@ -448,7 +448,6 @@ router.patch(
   "/mentee/:userId",
   validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   [verifyAuthToken],
-  // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log("Inside mentee patch try");

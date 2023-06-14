@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditProfileHeader: View {
     @Environment(\.dismiss) var dismiss
-    let saveAction: (() -> Void)
+    let saveAction: (() async throws -> Void)
 
     var body: some View {
         ZStack {
@@ -23,8 +23,21 @@ struct EditProfileHeader: View {
                 .padding(.top)
                 Spacer()
                 Button {
-                    saveAction()
-                    self.dismiss()
+                    Task {
+                        do {
+                            try await saveAction()
+                            self.dismiss()
+                        } catch AppError.internalError( _, let message) {
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.errorMessage = message
+                            }
+                        } catch {
+                            /// Some other error was thrown
+                            DispatchQueue.main.async {
+                                CurrentUserModel.shared.showInternalError.toggle()
+                            }
+                        }
+                    }
                 } label: {
                     ALUMText(text: "Save", fontSize: .smallFontSize, textColor: ALUMColor.primaryPurple)
                 }

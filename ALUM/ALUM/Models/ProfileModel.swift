@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct MentorInfo: Codable {
+struct MentorInfo: Decodable {
     var menteeIds: [String]?
     var id: String
     var name: String
@@ -49,7 +49,7 @@ struct MentorInfo: Codable {
     }
 }
 
-struct MenteeInfo: Codable {
+struct MenteeInfo: Decodable {
     var id: String
     var name: String
     var imageId: String

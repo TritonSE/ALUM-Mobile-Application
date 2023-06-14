@@ -35,7 +35,7 @@ class DevelopmentModels {
         grade: 9,
         topicsOfInterest: ["computer science"],
         careerInterests: ["software development"],
-        mentorshipGoal: nil,
+        mentorshipGoal: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         mentorId: nil,
         status: nil,
         whyPaired: Optional("Modified Why Paired")

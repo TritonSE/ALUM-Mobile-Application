@@ -28,12 +28,25 @@ final class MentorProfileViewModel: ObservableObject {
     }
 
     func updateMentorInfo() async throws {
-        do {
-            try await UserService.shared.patchMentor(data: self.mentor!)
-            try await fetchMentorInfo(userID: self.mentor!.id)
-        } catch {
-            print("An error occurred: \(error)")
-        }
+        let mentor = self.mentor!
+        let updatedMentor = MentorPatchData(name: mentor.name,
+                                            imageId: mentor.imageId,
+                                            about: mentor.about,
+                                            calendlyLink: mentor.calendlyLink,
+                                            /// only update token if it was changed
+                                            personalAccessToken:
+                                                mentor.personalAccessToken != "[REDACTED]" ?
+                                                    mentor.personalAccessToken : nil,
+                                            graduationYear: mentor.graduationYear,
+                                            college: mentor.college,
+                                            major: mentor.major,
+                                            minor: mentor.minor,
+                                            career: mentor.career,
+                                            topicsOfExpertise: mentor.topicsOfExpertise,
+                                            mentorMotivation: mentor.mentorMotivation ?? "",
+                                            location: mentor.zoomLink ?? "")
+        try await UserService.shared.patchMentor(userID: mentor.id, data: updatedMentor)
+        try await fetchMentorInfo(userID: mentor.id)
     }
 
     func isLoading() -> Bool {
