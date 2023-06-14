@@ -10,6 +10,7 @@ import SwiftUI
 struct EditProfileImage: View {
     @Binding var imageId: String
     @State var loading = false
+    @State var uploading = false
     @State private var showChooseSheet = false
     @State private var showImagePicker = false
     @State private var image: UIImage?
@@ -46,6 +47,7 @@ struct EditProfileImage: View {
         }.onAppear(perform: {
             Task {
                 /// Get user's current image
+                /// We cannot use the loading state of ProfileImage because we are loading the image ourself to get a UIImage
                 do {
                     loading = true
                     image = try await ImageService.shared.getImage(imageId: imageId)
@@ -62,13 +64,8 @@ struct EditProfileImage: View {
             if loading {
                 ProgressView()
                     .frame(width: 112, height: 112)
-            } else if image != nil {
-                Image(uiImage: image!)
-                    .resizable()
-                    .frame(width: 112, height: 112)
-                    .clipShape(Circle())
-            } else {
-                Image("DefaultProfileImage")
+            }  else {
+                ProfileImage(image: $image, size: 112)
             }
         }
         .padding(20)
@@ -79,9 +76,9 @@ struct EditProfileImage: View {
             guard let selectedImage = image else { return }
             do {
                 /// Upload image
-                loading = true
+                uploading = true
                 imageId = try await ImageService.shared.createImage(image: selectedImage)
-                loading = false
+                uploading = false
             } catch {
                 CurrentUserModel.shared.showInternalError.toggle()
             }
@@ -102,9 +99,13 @@ struct EditProfileImage: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundColor(Color.black)
                 Button(action: handleDone, label: {
-                    Text("Done")
-                        .font(.custom("Metropolis-Regular", size: 13))
-                        .foregroundColor(Color("ALUM Dark Blue"))
+                    if uploading {
+                        ProgressView()
+                    } else {
+                        Text("Done")
+                            .font(.custom("Metropolis-Regular", size: 13))
+                            .foregroundColor(Color("ALUM Dark Blue"))
+                    }
                 })
             }
 

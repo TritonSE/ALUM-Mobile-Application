@@ -55,6 +55,7 @@
 		2ADCE5BF299DBD570069802F /* ParagraphInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADCE5BE299DBD570069802F /* ParagraphInput.swift */; };
 		2C2195262A39212C00F313C0 /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195252A39212C00F313C0 /* MultipartRequest.swift */; };
 		2C2195282A39667000F313C0 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195272A39667000F313C0 /* ImageService.swift */; };
+		2C21952A2A397ED100F313C0 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2195292A397ED100F313C0 /* ProfileImage.swift */; };
 		2C27FDC82A1854CF007F66A9 /* EditMenteeProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */; };
 		2C49296A2A1AD39A0060C0B7 /* EditMentorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */; };
 		2C49296C2A1AD88E0060C0B7 /* EditProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */; };
@@ -189,6 +190,7 @@
 		2ADCE5BE299DBD570069802F /* ParagraphInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphInput.swift; sourceTree = "<group>"; };
 		2C2195252A39212C00F313C0 /* MultipartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
 		2C2195272A39667000F313C0 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		2C2195292A397ED100F313C0 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		2C27FDC72A1854CF007F66A9 /* EditMenteeProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenteeProfile.swift; sourceTree = "<group>"; };
 		2C4929692A1AD39A0060C0B7 /* EditMentorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMentorProfile.swift; sourceTree = "<group>"; };
 		2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileImage.swift; sourceTree = "<group>"; };
@@ -435,6 +437,7 @@
 				97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */,
 				2C49296B2A1AD88E0060C0B7 /* EditProfileImage.swift */,
 				2C49296D2A1ADAE90060C0B7 /* AboutInput.swift */,
+				2C2195292A397ED100F313C0 /* ProfileImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				9756DF752982338300A0BCB5 /* InputValidationText.swift in Sources */,
 				97886D0F29C1964B00548A12 /* ResizingTextBox.swift in Sources */,
 				0757552129FAA2AB008E73FB /* Bullet.swift in Sources */,
+				2C21952A2A397ED100F313C0 /* ProfileImage.swift in Sources */,
 				74CCE01F2A0B0B3D000AE3DD /* ForgotPasswordView.swift in Sources */,
 				97E439F029AD95FA00F0B7C1 /* SignUpSetUpScreen.swift in Sources */,
 				804AE4AD297B1DA4000B08F2 /* FilledInButtonStyle.swift in Sources */,
