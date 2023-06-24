@@ -27,7 +27,7 @@ const pairingSchema = new mongoose.Schema({
   },
   whyPaired: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
