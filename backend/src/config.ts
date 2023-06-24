@@ -12,7 +12,7 @@ import postSessionQuestions from "./models/postQuestionsList.json";
 
 // load the environment variables from the .env file
 dotenv.config({
-  path: process.env.DOTENV_CONFIG_PATH ? path.resolve(process.env.DOTENV_CONFIG_PATH) : '.env'
+  path: process.env.DOTENV_CONFIG_PATH ? path.resolve(process.env.DOTENV_CONFIG_PATH) : ".env",
 });
 
 let portV = "";
