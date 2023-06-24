@@ -11,10 +11,11 @@ let developmentMode = false
 
 // Firebase URL will not be updated very frequently because 
 // so your changes to backend will only reflect on localhost until deployed
-let baseURL: String =
-developmentMode ?
-    "http://192.168.1.220:3000":
-    "https://firebaseapp-ozybc5bsma-uc.a.run.app"
+#if DEBUG
+    let baseURL = "http://localhost:3000"
+#else
+    let baseURL = "https://firebaseapp-ozybc5bsma-uc.a.run.app"
+#endif
 
 struct URLString {
     static let user = "\(baseURL)/user"

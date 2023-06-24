@@ -4,6 +4,7 @@
  */
 
 import dotenv from "dotenv";
+import path from "path";
 import { InternalError } from "./errors/internal";
 import { fillHashMap } from "./services/note";
 import preSessionQuestions from "./models/preQuestionsList.json";
@@ -11,7 +12,7 @@ import postSessionQuestions from "./models/postQuestionsList.json";
 
 // load the environment variables from the .env file
 dotenv.config({
-  path: ".env",
+  path: process.env.DOTENV_CONFIG_PATH ? path.resolve(process.env.DOTENV_CONFIG_PATH) : '.env'
 });
 
 let portV = "";
