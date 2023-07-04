@@ -26,7 +26,7 @@ import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
-import { validateCalendlyAccessToken } from "../services/calendly";
+import { validateCalendlyAccessToken, validateCalendlyLink } from "../services/calendly";
 
 const router = express.Router();
 
@@ -113,7 +113,7 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.info("POST /mentor", req.body);
-      const { name, email, password, personalAccessToken, ...args }: CreateMentorRequestBodyType =
+      const { name, email, password, personalAccessToken, calendlyLink, ...args }: CreateMentorRequestBodyType =
         req.body;
 
       if (!validateUserEmail(email)) {
@@ -125,11 +125,11 @@ router.post(
       }
 
       await validateCalendlyAccessToken(personalAccessToken);
+      await validateCalendlyLink(calendlyLink);
 
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
-      // const calendlyLink = "N/A";
       const zoomLink = "N/A";
       const pairingIds: string[] = [];
       const mentor = new Mentor({
@@ -140,6 +140,7 @@ router.post(
         status,
         pairingIds,
         personalAccessToken,
+        calendlyLink,
         ...args,
       });
       await mentor.save();
