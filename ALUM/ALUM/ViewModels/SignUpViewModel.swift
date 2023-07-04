@@ -100,6 +100,9 @@ final class SignUpViewModel: ObservableObject {
     }
 
     func submitMentorSignUp() async {
+        DispatchQueue.main.async {
+            self.isSubmitting = true
+        }
         let mentorData = MentorPostData(
             name: mentor.name,
             email: mentor.email,
@@ -120,6 +123,7 @@ final class SignUpViewModel: ObservableObject {
            try await UserService.shared.createMentor(data: mentorData)
             DispatchQueue.main.async {
                 self.submitSuccess = true
+                self.isSubmitting = false
             }
        } catch let error as AppError {
            switch error {
@@ -127,6 +131,7 @@ final class SignUpViewModel: ObservableObject {
                DispatchQueue.main.async {
                    CurrentUserModel.shared.errorMessage = message
                    CurrentUserModel.shared.showInternalError = true
+                   self.isSubmitting = false
                }
            default:
                break
