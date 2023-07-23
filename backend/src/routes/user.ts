@@ -113,8 +113,14 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.info("POST /mentor", req.body);
-      const { name, email, password, personalAccessToken, calendlyLink, ...args }: CreateMentorRequestBodyType =
-        req.body;
+      const {
+        name,
+        email,
+        password,
+        personalAccessToken,
+        calendlyLink,
+        ...args
+      }: CreateMentorRequestBodyType = req.body;
 
       if (!validateUserEmail(email)) {
         throw ValidationError.INVALID_EMAIL_ID;
