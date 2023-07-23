@@ -117,7 +117,26 @@ src/
 ### Auth Layer and Roles
 The backend uses the firebase authentication and custom user claims to protect routes. Custom user claims are essentially roles and we use three: mentor, mentee, and admin. Outside of protecting the routes, the auth layer can also be used to determine who is accessing the route (mentor, mentee, admin, etc.). Reference the [Firebase API](https://firebase.google.com/docs/reference/rest/auth) for more information on how the auth layer works.
 
-### How to deploy?
+## Environments
+### Development 
+**MongoDB Collection:** dev
+**Firebase:** https://console.firebase.google.com/u/0/project/alum-dev-72d4f/overview
+**Server:** Not deployed. Run backend server locally on laptop.
+Note - Use the IP Address of wifi in APIConfig instead of localhost if application is running on your personal phone and not simulator
+**Environment Files**
+- "backend/.dev.env". Backend Environment File found in google drive (ALUM > Development > Secrets)
+- "ALUM/ALUM/GoogleService-Info-Dev.plist". Frontend Environment File found in google drive (ALUM > Development > Secrets)
+
+### Production
+**MongoDB Collection:** prod
+**Firebase:** https://console.firebase.google.com/u/0/project/alum-mobile-app/overview
+**Server:** Deployed at https://firebaseapp-ozybc5bsma-uc.a.run.app
+**Environment Files**
+- "backend/.env". Backend Environment File found in google drive (ALUM > Development > Secrets)
+- "ALUM/ALUM/GoogleService-Info-Prod.plist". Frontend Environment File found in google drive (ALUM > Development > Secrets)
+
+## Deployment
+Ensure all environment files are placed at their respective paths. All files can be found in our ALUM google drive at ALUM > Development > Secrets
 
 #### Backend
 We use the firebase to host our backend. Firebase has a feature called Cloud Functions which basically runs our server to process requests whenever one is received. This required Firebase Blaze Plan which is a "pay as you go". Judging from the scope of this, we should always be able to be under the free tier. 
@@ -142,5 +161,9 @@ This runs your server locally.
 
 #### Frontend 
 All app releases are done through the [Apple Connect Portal](https://appstoreconnect.apple.com/). 
+
+When you "Archive" a build it will create the build in prod environment so the prod backend server will be used. When you simply hit the run button, i.e. regular development build the dev environment is selected. 
+
+Note - Checkout [this](https://github.com/TritonSE/ALUM-Mobile-Application/pull/156/files#r1271396686) comment for more info on how the prod and dev environments are set in xcode. 
 
 Till now we have only released testflight. You can checkout this tutorial on how to release a test flight - [video](https://www.youtube.com/watch?v=DLvdZtTAJrE)

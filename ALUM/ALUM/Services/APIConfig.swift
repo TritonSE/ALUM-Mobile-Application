@@ -12,7 +12,7 @@ let developmentMode = false
 // Firebase URL will not be updated very frequently because 
 // so your changes to backend will only reflect on localhost until deployed
 #if DEBUG
-    let baseURL = "http://localhost:3000"
+    let baseURL = "http://10.0.0.120:3000"
 #else
     let baseURL = "https://firebaseapp-ozybc5bsma-uc.a.run.app"
 #endif
