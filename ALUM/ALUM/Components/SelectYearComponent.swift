@@ -47,7 +47,7 @@ struct SelectYearComponent: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    ForEach(1990..<2023) { graduationYear in
+                    ForEach(1990..<2024) { graduationYear in
                         YearRowView(graduationYear: graduationYear,
                                 isSelected: yearChoice == graduationYear
                         )

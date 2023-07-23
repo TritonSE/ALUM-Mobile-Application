@@ -47,6 +47,7 @@ struct FilledInButton: View {
             Button("BUTTON") {
 
             }
+            .disabled(true)
             .frame(minWidth: 50, maxWidth: 300, alignment: .leading)
             .frame(minHeight: 0, maxHeight: 48)
             .buttonStyle(FilledInButtonStyle(disabled: true))

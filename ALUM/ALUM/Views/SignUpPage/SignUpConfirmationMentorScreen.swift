@@ -8,24 +8,32 @@
 import SwiftUI
 import WrappingHStack
 
+// swiftlint:disable type_body_length
+
 struct SignUpConfirmationMentorScreen: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: SignUpViewModel
     var body: some View {
-        VStack {
-            StaticProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
-                .background(Color.white)
-            ScrollView {
-                content
+        Group {
+            if viewModel.isSubmitting {
+                LoadingView(text: "Submitting Mentor Application")
+            } else {
+                VStack {
+                    StaticProgressBarComponent(nodes: 3, filledNodes: 3, activeNode: -1)
+                        .background(Color.white)
+                    ScrollView {
+                        content
+                    }
+                    footer
+                        .padding(.horizontal, 16)
+                        .padding(.top, 32)
+                        .padding(.bottom, 40)
+                        .background(Rectangle().fill(Color.white).shadow(radius: 8))
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .applySignUpScreenHeaderModifier()
             }
-            footer
-                .padding(.horizontal, 16)
-                .padding(.top, 32)
-                .padding(.bottom, 40)
-                .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .applySignUpScreenHeaderModifier()
     }
 
     var footer: some View {
@@ -41,16 +49,24 @@ struct SignUpConfirmationMentorScreen: View {
             .buttonStyle(OutlinedButtonStyle())
 
             Spacer()
-            Button("Submit") {
-                Task {
-                    await viewModel.submitMentorSignUp()
-                }
-            }
-            .buttonStyle(FilledInButtonStyle())
 
-            NavigationLink(destination: LoginScreen(), isActive: $viewModel.submitSuccess) {
-                EmptyView()
-            }
+            NavigationLink(
+                destination: ConfirmationScreen(
+                    text: ["We have received your application!",
+                       "It usually takes 3-5 days to process your application as a mentor",
+                       "Great"],
+                    userLoggedIn: false
+                ),
+                isActive: $viewModel.submitSuccess,
+                label: {
+                    Button("Submit") {
+                        Task {
+                            await viewModel.submitMentorSignUp()
+                        }
+                    }
+                    .buttonStyle(FilledInButtonStyle())
+                }
+            )
         }
     }
 
@@ -272,3 +288,5 @@ struct SignUpConfirmationMentorScreen_Previews: PreviewProvider {
         SignUpConfirmationMentorScreen(viewModel: viewModel)
     }
 }
+
+// swiftlint:enable type_body_length

@@ -14,6 +14,12 @@ struct LoginScreen: View {
     @StateObject private var viewModel = LoginViewModel()
 
     var body: some View {
+        KeyboardAwareView {
+            content
+            .dismissKeyboardOnDrag()
+        }
+    }
+    var content: some View {
         return VStack(spacing: 0) {
             Image("ALUMLogoBlue")
                 .resizable()
@@ -76,6 +82,7 @@ struct LoginScreen: View {
                     viewModel.emailFunc = [LoginViewModel.Functions.EnterEmail]
                     viewModel.passFunc = [LoginViewModel.Functions.EnterPassword]
                 }
+                .disabled(true)
                 .buttonStyle(FilledInButtonStyle(disabled: true))
                 .padding(.leading, 16)
                 .padding(.trailing, 16)

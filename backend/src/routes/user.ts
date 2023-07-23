@@ -26,7 +26,7 @@ import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
-import { validateCalendlyAccessToken } from "../services/calendly";
+import { validateCalendlyAccessToken, validateCalendlyLink } from "../services/calendly";
 
 const router = express.Router();
 
@@ -113,8 +113,14 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       console.info("POST /mentor", req.body);
-      const { name, email, password, personalAccessToken, ...args }: CreateMentorRequestBodyType =
-        req.body;
+      const {
+        name,
+        email,
+        password,
+        personalAccessToken,
+        calendlyLink,
+        ...args
+      }: CreateMentorRequestBodyType = req.body;
 
       if (!validateUserEmail(email)) {
         throw ValidationError.INVALID_EMAIL_ID;
@@ -125,11 +131,11 @@ router.post(
       }
 
       await validateCalendlyAccessToken(personalAccessToken);
+      await validateCalendlyLink(calendlyLink);
 
       const status = "under review";
       const imageId = defaultImageID;
       const about = "N/A";
-      // const calendlyLink = "N/A";
       const zoomLink = "N/A";
       const pairingIds: string[] = [];
       const mentor = new Mentor({
@@ -140,6 +146,7 @@ router.post(
         status,
         pairingIds,
         personalAccessToken,
+        calendlyLink,
         ...args,
       });
       await mentor.save();
@@ -188,6 +195,23 @@ router.get(
         pairingId,
         status,
       } = mentee;
+
+      if (status !== "paired") {
+        res.status(200).send({
+          message: `Here is mentee ${mentee.name}`,
+          mentee: {
+            menteeId,
+            name,
+            imageId,
+            about,
+            grade,
+            topicsOfInterest,
+            careerInterests,
+          },
+        });
+        return;
+      }
+
       const pairing = await Pairing.findById(pairingId);
       if (role === "mentee") {
         let mentorId = "N/A";
@@ -256,8 +280,9 @@ router.get(
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentor get try");
       const userId = req.params.userId;
+      console.log(`GET /mentor/${userId} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -287,6 +312,27 @@ router.get(
         mentorMotivation,
         status,
       } = mentor;
+
+      if (status !== "paired") {
+        res.status(200).send({
+          message: `Here is mentor ${mentor.name}`,
+          mentor: {
+            mentorId,
+            name,
+            about,
+            imageId,
+            major,
+            minor,
+            college,
+            career,
+            graduationYear,
+            calendlyLink,
+            zoomLink: location,
+            topicsOfExpertise,
+          },
+        });
+        return;
+      }
 
       if (role === "mentee") {
         const promises = pairingIds.map(async (pairingId): Promise<string | null> => {
@@ -405,8 +451,9 @@ router.patch(
   // validateReqBodyWithCake(UpdateMentorRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentor patch try");
       const userID = req.params.userId;
+      console.log(`PATCH /mentor/${userID} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userID)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -452,8 +499,9 @@ router.patch(
   // validateReqBodyWithCake(UpdateMenteeRequestBodyCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Inside mentee patch try");
       const userID = req.params.userId;
+      console.log(`PATCH /mentee/${userID} uid - ${req.body.uid}`);
+
       if (!mongoose.Types.ObjectId.isValid(userID)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
@@ -492,6 +540,7 @@ router.get(
     try {
       const userId = req.body.uid;
       const role = req.body.role;
+      console.log(`GET /user/me uid - ${req.body.uid}`);
 
       const getUpcomingSessionPromise = getUpcomingSession(userId, role);
       const getPastSessionPromise = getLastSession(userId, role);
@@ -506,6 +555,7 @@ router.get(
           res.status(200).send({
             status: mentee.status,
           });
+          return;
         }
         const getPairedMentorIdPromise = getMentorId(mentee.pairingId);
         const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([
@@ -513,11 +563,6 @@ router.get(
           getPastSessionPromise,
           getPairedMentorIdPromise,
         ]);
-        console.log({
-          status: mentee.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
-          pairedMentorId,
-        });
         res.status(200).send({
           status: mentee.status,
           sessionId: upcomingSessionId ?? pastSessionId,
@@ -533,6 +578,7 @@ router.get(
           res.status(200).send({
             status: mentor.status,
           });
+          return;
         }
 
         const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) =>
@@ -553,6 +599,7 @@ router.get(
           sessionId: upcomingSessionId ?? pastSessionId,
           pairedMenteeId,
         });
+        return;
       }
     } catch (e) {
       if (e instanceof CustomError) {

@@ -19,7 +19,7 @@ final class SignUpViewModel: ObservableObject {
     @Published var isMentor = false
     @Published var setUpIsInvalid = false
     @Published var submitSuccess = false
-
+    @Published var isSubmitting = false
     @Published var account = Account(name: "", email: "", password: "")
     @Published var mentee = Mentee()
     @Published var mentor = Mentor()
@@ -67,6 +67,9 @@ final class SignUpViewModel: ObservableObject {
     }
 
     func submitMenteeSignUp() async {
+        DispatchQueue.main.async {
+            self.isSubmitting = true
+        }
         let menteeData = MenteePostData(
             name: mentee.name,
             email: mentee.email,
@@ -78,13 +81,17 @@ final class SignUpViewModel: ObservableObject {
         )
         do {
            try await UserService.shared.createMentee(data: menteeData)
-           self.submitSuccess = true
+            DispatchQueue.main.async {
+                self.submitSuccess = true
+                self.isSubmitting = false
+            }
        } catch let error as AppError {
            switch error {
            case .actionable(.invalidInput, let message):
                DispatchQueue.main.async {
                    CurrentUserModel.shared.errorMessage = message
                    CurrentUserModel.shared.showInternalError = true
+                   self.isSubmitting = false
                }
            default:
                break
@@ -93,6 +100,9 @@ final class SignUpViewModel: ObservableObject {
     }
 
     func submitMentorSignUp() async {
+        DispatchQueue.main.async {
+            self.isSubmitting = true
+        }
         let mentorData = MentorPostData(
             name: mentor.name,
             email: mentor.email,
@@ -111,13 +121,17 @@ final class SignUpViewModel: ObservableObject {
 
         do {
            try await UserService.shared.createMentor(data: mentorData)
-           self.submitSuccess = true
+            DispatchQueue.main.async {
+                self.submitSuccess = true
+                self.isSubmitting = false
+            }
        } catch let error as AppError {
            switch error {
            case .actionable(.invalidInput, let message):
                DispatchQueue.main.async {
                    CurrentUserModel.shared.errorMessage = message
                    CurrentUserModel.shared.showInternalError = true
+                   self.isSubmitting = false
                }
            default:
                break

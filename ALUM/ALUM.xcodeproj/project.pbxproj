@@ -43,6 +43,7 @@
 		0799ACE52A00924F00EEAFA2 /* LoggedInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */; };
 		0799ACE92A00A6C200EEAFA2 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */; };
 		0799ACF22A01109100EEAFA2 /* LoginReviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */; };
+		07A042202A334CFC005A42A8 /* KeyboardAwareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A0421F2A334CFC005A42A8 /* KeyboardAwareView.swift */; };
 		07A15DD52A23FB5F00C52798 /* FullWidthButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */; };
 		07A565C82A1C3806008C96BC /* SessionDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */; };
 		07CA49932A1C50CC00A81153 /* DevelopmentModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */; };
@@ -140,6 +141,8 @@
 		0723BB922A1D576800911948 /* ProfileTabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabRouter.swift; sourceTree = "<group>"; };
 		0723BB942A1D578400911948 /* HomeTabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabRouter.swift; sourceTree = "<group>"; };
 		0726C9EE29DC4B120042A486 /* CustomErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrors.swift; sourceTree = "<group>"; };
+		0746313F2A46C5740003E07D /* GoogleService-Info-Prod.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Prod.plist"; sourceTree = "<group>"; };
+		074631402A46C5740003E07D /* GoogleService-Info-Dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Dev.plist"; sourceTree = "<group>"; };
 		0748208B29712921004AF547 /* ALUM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ALUM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0748208E29712921004AF547 /* ALUMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALUMApp.swift; sourceTree = "<group>"; };
 		0748209029712921004AF547 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -170,6 +173,7 @@
 		0799ACE42A00924F00EEAFA2 /* LoggedInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInRouter.swift; sourceTree = "<group>"; };
 		0799ACE82A00A6C200EEAFA2 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		0799ACF12A01109000EEAFA2 /* LoginReviewPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginReviewPage.swift; sourceTree = "<group>"; };
+		07A0421F2A334CFC005A42A8 /* KeyboardAwareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAwareView.swift; sourceTree = "<group>"; };
 		07A15DD42A23FB5F00C52798 /* FullWidthButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullWidthButtonStyle.swift; sourceTree = "<group>"; };
 		07A565C72A1C3806008C96BC /* SessionDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsScreen.swift; sourceTree = "<group>"; };
 		07CA49922A1C50CC00A81153 /* DevelopmentModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevelopmentModels.swift; sourceTree = "<group>"; };
@@ -305,8 +309,10 @@
 		0748208D29712921004AF547 /* ALUM */ = {
 			isa = PBXGroup;
 			children = (
-				97EB2BAD29B59CF5001988D9 /* Constants */,
+				074631402A46C5740003E07D /* GoogleService-Info-Dev.plist */,
+				0746313F2A46C5740003E07D /* GoogleService-Info-Prod.plist */,
 				97C0B6C3298B3D04005DDC73 /* Info.plist */,
+				97EB2BAD29B59CF5001988D9 /* Constants */,
 				97C0B6C6298B400E005DDC73 /* metropolis */,
 				97A2FE8F2989D81F00405FD6 /* ALUM.entitlements */,
 				07F9A5102971814900BC11A8 /* Services */,
@@ -419,6 +425,7 @@
 				8095FE7429E4153C006AA63C /* ProfileHeaderComponent.swift */,
 				8095FE7129E41214006AA63C /* NavigationComponent.swift */,
 				97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */,
+				07A0421F2A334CFC005A42A8 /* KeyboardAwareView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -576,6 +583,7 @@
 				0748208829712921004AF547 /* Frameworks */,
 				0748208929712921004AF547 /* Resources */,
 				80686032298AF939007DD035 /* ShellScript */,
+				074631412A46C5AC0003E07D /* Setup Firebase Environment GoogleService-Info.plist */,
 			);
 			buildRules = (
 			);
@@ -662,6 +670,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		074631412A46C5AC0003E07D /* Setup Firebase Environment GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Setup Firebase Environment GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_DEV=${PROJECT_DIR}/${TARGET_NAME}/GoogleService-Info-Dev.plist\nGOOGLESERVICE_INFO_PROD=${PROJECT_DIR}/${TARGET_NAME}/GoogleService-Info-Prod.plist\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"Release\" ] && [ -f \"${GOOGLESERVICE_INFO_PROD}\" ]; then\n    echo \"Using ${GOOGLESERVICE_INFO_PROD}\"\n    cp \"${GOOGLESERVICE_INFO_PROD}\" \"${PLIST_DESTINATION}\"\nelif [ -f \"${GOOGLESERVICE_INFO_DEV}\" ]; then\n    echo \"Using ${GOOGLESERVICE_INFO_DEV}\"\n    cp \"${GOOGLESERVICE_INFO_DEV}\" \"${PLIST_DESTINATION}\"\nelse\n    echo \"Relevant GoogleService File does not exist so skipping\"\nfi\n";
+		};
 		80686032298AF939007DD035 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -745,6 +771,7 @@
 				0757552229FAA2AB008E73FB /* CircleAddButton.swift in Sources */,
 				0757552E29FAA2D6008E73FB /* PostSessionConfirmationScreen.swift in Sources */,
 				974D62D129FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift in Sources */,
+				07A042202A334CFC005A42A8 /* KeyboardAwareView.swift in Sources */,
 				0757553829FAA350008E73FB /* QuestionModel.swift in Sources */,
 				0757553429FAA2D6008E73FB /* ConfirmationScreen.swift in Sources */,
 				9760067C299FFCD2000945E2 /* SignUpPageView.swift in Sources */,
@@ -928,7 +955,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = TSE.ALUM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -961,7 +988,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = TSE.ALUM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

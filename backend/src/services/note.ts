@@ -144,7 +144,6 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         sessionDoc.missedSessionReason = missedReason;
       await sessionDoc.save();
     }
-    console.log(noteDoc);
     return await noteDoc.save();
   } catch (error) {
     throw ServiceError.NOTE_WAS_NOT_SAVED;
