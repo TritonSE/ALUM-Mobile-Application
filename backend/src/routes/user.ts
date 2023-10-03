@@ -3,12 +3,12 @@
  * new users
  */
 import express, { NextFunction, Request, Response } from "express";
-import { Infer } from "caketype";
+// import { Infer } from "caketype";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
-import { getMenteeId, getMentorId, updateMentor, updateMentee } from "../services/user";
+import { getMenteeId, getMentorId, updateMentor, updateMentee, updateMentorFCMToken, updateMenteeFCMToken } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
@@ -26,7 +26,6 @@ import { ServiceError } from "../errors/service";
 import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
-import { updateMentorFCMToken, updateMenteeFCMToken } from "../services/user";
 import { AuthError } from "../errors/auth";
 import { getUpcomingSession, getLastSession } from "../services/session";
 
@@ -378,7 +377,7 @@ router.get(
   }
 );
 
-type UpdateUserType = Infer<typeof UpdateUserCake>
+// type UpdateUserType = Infer<typeof UpdateUserCake>
 router.patch(
   "/user/:userId",
   [verifyAuthToken],

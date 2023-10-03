@@ -37,9 +37,9 @@ async function sendNotification(title: string, body: string, deviceToken: string
 
 
 async function startUpcomingSessionCronJob() {
-  const job = schedule.scheduleJob("*/1 * * * *", async () => {
+  schedule.scheduleJob("*/1 * * * *", async () => {
     try {
-      let upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
+      const upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
       upcomingNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
@@ -54,7 +54,7 @@ async function startUpcomingSessionCronJob() {
           if (session.preSessionCompleted) {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
-              "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}",
+              "Ready for your session with ${mentor.name} in 24 hours? \u{1F440}",
               "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
             );
             console.log("Function executed successfully:", menteeNotif);
@@ -69,14 +69,14 @@ async function startUpcomingSessionCronJob() {
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}. Fill out your pre-session notes now!",
               "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
-              //mentee.fcmToken
+              // mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}",
               "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
-              //mentor.fcmToken
+              // mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
           }
@@ -91,9 +91,9 @@ async function startUpcomingSessionCronJob() {
 }
 
 async function startPostSessionCronJob() {
-  const job = schedule.scheduleJob("*/1 * * * *", async () => {
+  schedule.scheduleJob("*/1 * * * *", async () => {
     try {
-      let postNotifSessions = await Session.find({ postSessionNotifSent: { $eq: false } });
+      const postNotifSessions = await Session.find({ postSessionNotifSent: { $eq: false } });
       postNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);

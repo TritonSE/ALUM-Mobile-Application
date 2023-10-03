@@ -4,12 +4,12 @@
 // import { Request } from "express";
 // import mongoose from "mongoose";
 // import { Image } from "../models/image";
+import { Request } from "express";
+import mongoose from "mongoose";
 import { InternalError, ServiceError } from "../errors";
 import { Mentor, Mentee } from "../models";
 import { Pairing } from "../models/pairing";
 // import { User } from "../models/users";
-import { Request } from "express";
-import mongoose from "mongoose";
 import { Image } from "../models/image";
 import { UpdateMenteeRequestBodyType, UpdateMentorRequestBodyType } from "../types";
 import { validateCalendlyAccessToken, validateCalendlyLink } from "./calendly";

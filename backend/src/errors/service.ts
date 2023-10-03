@@ -19,8 +19,6 @@ const NOTE_WAS_NOT_FOUND = "Note was not found";
 const NOTE_WAS_NOT_SAVED = "Note was not saved";
 const INVALID_URI = "Calendly URI is invalid. Check formatting of URI string";
 const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly event data";
-const MENTOR_WAS_NOT_SAVED = "Mentor update was not saved";
-const MENTEE_WAS_NOT_SAVED = "Mentee update was not saved";
 
 const ERROR_DELETING_EVENT = "There was an error deleting a calendly event";
 const INVALID_ROLE_WAS_FOUND = "Allowed user roles for this context is mentor and mentee only";
