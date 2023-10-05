@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>41074817131-tibbtmf6pe0pckqr8ftjpq24ihkai9np.apps.googleusercontent.com</string>
+	<string>1039773547908-l8a3lj8g41s376h3bei9pvps7otu5ddr.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.41074817131-tibbtmf6pe0pckqr8ftjpq24ihkai9np</string>
+	<string>com.googleusercontent.apps.1039773547908-l8a3lj8g41s376h3bei9pvps7otu5ddr</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBi3QbGL8UkTB5txmHyvsNZPtfA_oi_j1Q</string>
+	<string>AIzaSyApSNWCP-u3fGl9F-u0X-2OdAc25qZMPVM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>41074817131</string>
+	<string>1039773547908</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>TSE.ALUM</string>
 	<key>PROJECT_ID</key>
-	<string>alum-mobile-app</string>
+	<string>alum-dev-72d4f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>alum-mobile-app.appspot.com</string>
+	<string>alum-dev-72d4f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:41074817131:ios:ec162be2b8338f03e4592e</string>
+	<string>1:1039773547908:ios:2391df0cb80bdf6e31f1d1</string>
 </dict>
 </plist>
