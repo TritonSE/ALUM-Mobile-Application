@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import { initializeFirebase } from "./firebase";
 const router = express.Router();
-
+const firebase = initializeFirebase();
+console.log(firebase);
 
 
   router.post('/admin-users', async (req: Request, res: Response)=> {

@@ -1,48 +1,79 @@
+"use client";
+
 import React from 'react';
 import '../../styles/globals.css'
 import Image from 'next/image';
 import { initializeFirebase } from '../../../backend/firebase';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {useAuthState} from 'react-firebase-hooks/auth'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
+export const app = initializeFirebase();
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const auth = getAuth();
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
 
-  const email = event.currentTarget.email.value;
-  const password = event.currentTarget.password.value;
+  
+  useEffect(() => {
+    if (user) {
+      const checkUserRole = async () => {
+        const token = await user.getIdTokenResult();
+        const role = token.claims.role;
+        if (role === "admin") {
+          router.push('/mentors');
+        } else {
+          console.log("User does not have the admin role.");
+        }
+      };
+      checkUserRole();
+    }
+  }, [user]);
 
-  // try {
-  //   signInWithEmailAndPassword(firebaseAuth, email, password)
-  // .then((userCredential) => {
-  //   const user = userCredential.user;
-  //   console.log(user);
-  //   console.log("success");
-  // })˜
-  // .catch((error) => {
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  // });
-  // } catch (error) {
-  //   // Handle login errors
-  //   console.log(error);
-  // }
-};
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-export default function Login(){
-  const firebase = initializeFirebase();
-  console.log(firebase);
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log("usercredential:", userCredential);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+
   return (
     <div style={styles.container}>
       <div style={styles.imageContainer}>
-      <Image
-      src="/gradient.png" height={1500} width={700} alt="gradient" />
+        <Image src="/gradient.png" height={1500} width={700} alt="gradient" />
       </div>
       <div style={styles.formContainer}>
         <h3>Login</h3>
-        <form>
-                    <p>Email</p>
-          <input style={styles.inputField} type="password" placeholder="username" />
+        <form onSubmit={handleLogin}>
+          <p>Email</p>
+          <input
+            style={styles.inputField}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <p>Password</p>
-          <input style={styles.inputField} type="username" placeholder="password" />
-        <button type="submit">Login</button>
+          <input
+            style={styles.inputField}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
         </form>
       </div>
     </div>

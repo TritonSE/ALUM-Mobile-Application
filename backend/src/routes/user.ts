@@ -6,7 +6,7 @@ import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
-import { createUser } from "../services/auth";
+import { createAdmin, createUser } from "../services/auth";
 import { getMenteeId, getMentorId } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
@@ -143,6 +143,16 @@ router.post(
     }
   }
 );
+
+router.post(
+  '/admin', async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password }: CreateMentorRequestBodyType = req.body;
+    await createAdmin(email, password);
+    res.status(201).json({
+      message: `New admin with email ${email} was created`,
+    })
+  }
+)
 
 /**
  * This is a get route for a mentee. Note that the response is dependant on
@@ -454,5 +464,31 @@ router.get(
     }
   }
 );
+
+router.get(
+  "/admin-mentors", [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const role = req.body.role;
+      if(role!=="admin"){
+        return res.status(401).send({
+          message: "user is not an admin!"
+        })
+      }
+      else{
+       const mentors= Mentor.find();
+       return res.status(200).json({
+        mentors: mentors
+       })
+      }
+  } catch(e){
+    if (e instanceof CustomError) {
+      next(e);
+      return;
+    }
+    next(InternalError.ERROR_GETTING_MENTOR);
+  }
+}
+)
 
 export { router as userRouter };

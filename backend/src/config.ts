@@ -18,7 +18,6 @@ let portV = "";
 let mongoURIV = "";
 let serviceAccountKeyV = "";
 let defaultImageIdV = "";
-
 /**
  * Todo: these should throw errors instead of logging messages
  */
