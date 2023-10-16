@@ -55,7 +55,7 @@ struct HomeScreen: View {
             }
             .padding(.bottom, 5)
 
-            NavigationLink(destination: MenteeProfileScreen(uID: pairedMenteeId)) {
+            CustomNavLink(destination: MenteeProfileScreen(uID: pairedMenteeId)) {
                 HorizontalMenteeCard(
                     menteeId: pairedMenteeId,
                     isEmpty: true
@@ -66,7 +66,6 @@ struct HomeScreen: View {
     }
 
     var menteeView: some View {
-        print("\(currentUser.uid) \(currentUser.isLoading) \(currentUser.pairedMenteeId) \(currentUser.pairedMentorId)")
         let pairedMentorId = currentUser.pairedMentorId!
 
         return Group {
@@ -78,7 +77,7 @@ struct HomeScreen: View {
             }
             .padding(.bottom, 5)
 
-            NavigationLink(destination: MentorProfileScreen(uID: pairedMentorId)) {
+            CustomNavLink(destination: MentorProfileScreen(uID: pairedMentorId)) {
                 MentorCard(isEmpty: true, uID: pairedMentorId)
                     .padding(.bottom, 28)
             }

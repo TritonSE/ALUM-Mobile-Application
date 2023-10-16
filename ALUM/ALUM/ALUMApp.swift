@@ -21,6 +21,15 @@ import FirebaseMessaging
 //  }
 //}
 
+extension View {
+    func dismissKeyboardOnDrag() -> some View {
+        self.gesture(DragGesture().onChanged { gesture in
+            guard gesture.translation.height > 0 else { return }
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        })
+    }
+}
+
 @main
 struct ALUMApp: App {
   // register app delegate for Firebase setup

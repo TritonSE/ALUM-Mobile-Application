@@ -32,6 +32,7 @@ struct SignUpJoinAsScreen: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .applySignUpScreenHeaderModifier()
+        .dismissKeyboardOnDrag()
     }
 
     var footer: some View {
@@ -73,6 +74,7 @@ struct SignUpJoinAsScreen: View {
                         Image(systemName: "arrow.right")
                     }
                 }
+                .disabled(true)
                 .buttonStyle(FilledInButtonStyle(disabled: true))
             }
         }
@@ -90,10 +92,11 @@ struct SignUpJoinAsScreen: View {
             }
             .padding(.bottom, 32)
 
-            SignUpJoinOption(title: "Mentee",
-                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
-                             "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                             isSelected: selectedType == .mentee)
+            SignUpJoinOption(
+                title: "Mentee",
+                description: "Gain valuable insights and support from dedicated alumni mentors.",
+                isSelected: selectedType == .mentee
+            )
             .onTapGesture {
                 selectedType = .mentee
                 viewModel.isMentee = true
@@ -101,10 +104,12 @@ struct SignUpJoinAsScreen: View {
             }
             .padding(.bottom, 32)
 
-            SignUpJoinOption(title: "Mentor",
-                             description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do " +
-                             "eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                             isSelected: selectedType == .mentor)
+            SignUpJoinOption(
+                title: "Mentor",
+                description:
+                    "Empower students as an alumni mentor offering personalized support and guidance. ",
+                isSelected: selectedType == .mentor
+            )
             .onTapGesture {
                 selectedType = .mentor
                 viewModel.isMentee = false

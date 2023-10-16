@@ -11,5 +11,6 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": {},
+  "ignorePatterns": ["lib/**/*.js", "lib/**/*.js.map"]
 }

@@ -38,6 +38,8 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { uid } = req.body;
+      console.log(`POST /sessions uid - ${uid}`);
+
       const mentee = await Mentee.findById(uid);
       const menteeMongoId = new mongoose.Types.ObjectId(uid);
       if (!mentee) {
@@ -118,6 +120,8 @@ router.get(
     try {
       const sessionId = req.params.sessionId;
       const dateNow = new Date();
+
+      console.log(`GET /sessions uid ${req.body.uid} sessionId ${sessionId}`);
 
       // Find session document
       if (!mongoose.Types.ObjectId.isValid(sessionId)) {
@@ -201,6 +205,9 @@ router.get(
     try {
       const userID = req.body.uid;
       const role = req.body.role;
+
+      console.log(`GET /sessions uid ${req.body.uid} (all sessions)`);
+
       let userSessions;
       const dayNames = [
         "Sunday",
@@ -218,13 +225,9 @@ router.get(
 
       if (role === "mentee") {
         userSessions = await Session.find({ menteeId: userID }).exec();
-        console.log(userID);
-        console.log(userSessions);
       } else {
         // role = "mentor"
         userSessions = await Session.find({ mentorId: userID }).exec();
-        console.log(userID);
-        console.log(userSessions);
       }
       if (userSessions === null) {
         return res.status(400).json({
@@ -294,9 +297,11 @@ router.patch(
   "/sessions/:sessionId",
   [validateReqBodyWithCake(CreateSessionRequestBodyCake), verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("Updating a session");
     try {
       const sessionId = req.params.sessionId;
+
+      console.log(`PATCH /sessions uid - ${req.body.uid} sessionId - ${sessionId}`);
+
       const newCalendlyURI = req.body.calendlyURI;
       const currSession = await Session.findById(sessionId);
       if (!currSession) {
@@ -352,6 +357,9 @@ router.delete(
     console.log("Deleting a session");
     const role = req.body.role;
     const sessionId = req.params.sessionId;
+
+    console.log(`DELETE /sessions uid - ${req.body.uid} sessionId - ${sessionId}`);
+
     const session = await Session.findById(sessionId);
     if (!session) throw ServiceError.SESSION_WAS_NOT_FOUND;
     const uri = session.calendlyUri;

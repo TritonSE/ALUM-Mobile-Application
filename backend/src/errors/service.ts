@@ -11,7 +11,7 @@ const IMAGE_NOT_FOUND = "Image was not found. Please make sure id passed in rout
 const INVALID_MONGO_ID = "Mongo Id was invalid. Please ensure that the id is correct";
 const MENTEE_WAS_NOT_FOUND = "Mentee was not found";
 const MENTEE_WAS_NOT_SAVED = "Mentee was not saved";
-const MENTOR_WAS_NOT_FOUND = "Menor was not found";
+const MENTOR_WAS_NOT_FOUND = "Mentor was not found";
 const MENTOR_WAS_NOT_SAVED = "Mentor was not saved";
 const IMAGE_WAS_NOT_FOUND = "Image was not found";
 const SESSION_WAS_NOT_FOUND = "Session was not found";
@@ -22,6 +22,7 @@ const ERROR_GETTING_EVENT_DATA = "There was an error retrieving the calendly eve
 
 const ERROR_DELETING_EVENT = "There was an error deleting a calendly event";
 const INVALID_ROLE_WAS_FOUND = "Allowed user roles for this context is mentor and mentee only";
+
 export class ServiceError extends CustomError {
   static IMAGE_NOT_SAVED = new ServiceError(0, 404, IMAGE_NOT_SAVED);
 

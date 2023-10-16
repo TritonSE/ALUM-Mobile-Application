@@ -32,14 +32,17 @@ struct MissedSessionScreen: View {
 
     var body: some View {
         VStack {
-            ScrollView {
-                content
+            KeyboardAwareView {
+                ScrollView {
+                    content
+                }
             }
             footer
                 .padding(.horizontal, 16)
                 .padding(.top, 32)
                 .padding(.bottom, 34)
         }
+        .dismissKeyboardOnDrag()
         .onAppear {
             if viewModel.missedOption == "Mentor/ee and I decided to cancel" {
                 selectedOption = .cancelled

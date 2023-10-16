@@ -99,3 +99,8 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift
+
+# Frontend env files
+Alum/GoogleService-Info-Dev.plist
+Alum/GoogleService-Info-Prod.plist
+Alum/GoogleService-Info.plst

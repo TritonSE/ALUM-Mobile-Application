@@ -1,5 +1,5 @@
 //
-//  SignUpFlowErrorFunctions.swift
+//  ErrorFunctions.swift
 //  ALUM
 //
 //  Created by Neelam Gurnani on 3/5/23.
@@ -7,9 +7,17 @@
 
 import Foundation
 
-class SignUpFlowErrorFunctions {
+class ErrorFunctions {
+    static let EnterEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
+        if string == "" {
+            return (false, "Please enter your email")
+        } else {
+            return (true, "skip")
+        }
+    }
+
     static let IUSDEmail: (String) -> (Bool, String) = {(string: String) -> (Bool, String) in
-        if string.contains("iusd.edu") || !(string.contains("@")) {
+        if string.contains("iusd.org") || !(string.contains("@")) {
             return (false, "Don't use IUSD email")
         } else {
             return (true, "Don't use IUSD email")

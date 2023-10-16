@@ -7,7 +7,16 @@
 
 import Foundation
 
-let baseURL: String = "http://localhost:3000"
+let developmentMode = false
+
+// Firebase URL will not be updated very frequently because 
+// so your changes to backend will only reflect on localhost until deployed
+#if DEBUG
+    let baseURL = "http://127.0.0.1:3000"
+#else
+    let baseURL = "https://firebaseapp-ozybc5bsma-uc.a.run.app"
+#endif
+
 struct URLString {
     static let user = "\(baseURL)/user"
     static let mentor = "\(baseURL)/mentor"

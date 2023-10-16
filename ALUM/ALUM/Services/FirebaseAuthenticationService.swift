@@ -27,6 +27,9 @@ final class FirebaseAuthenticationService: ObservableObject {
             print("error occured in FirebaseAuthenticationService - ", error.localizedDescription)
         }
     }
+    func resetPassword(email: String) async throws {
+        try await Auth.auth().sendPasswordReset(withEmail: email)
+    }
 
     func getCurrentAuth() async throws -> String? {
         if let currentUser = Auth.auth().currentUser {

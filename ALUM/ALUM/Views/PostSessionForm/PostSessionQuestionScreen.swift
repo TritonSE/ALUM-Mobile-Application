@@ -25,6 +25,7 @@ struct PostSessionQuestionScreen: View {
             footer
 
         }
+        .dismissKeyboardOnDrag()
         .edgesIgnoringSafeArea(.bottom)
     }
 

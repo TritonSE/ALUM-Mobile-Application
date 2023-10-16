@@ -13,8 +13,10 @@ struct SignUpSetUpScreen: View {
         VStack {
             StaticProgressBarComponent(nodes: 3, filledNodes: 0, activeNode: 1)
                 .background(Color.white)
-            ScrollView {
-                content
+            KeyboardAwareView {
+                ScrollView {
+                    content
+                }
             }
             footer
                 .padding(.horizontal, 16)
@@ -22,24 +24,25 @@ struct SignUpSetUpScreen: View {
                 .padding(.bottom, 40)
                 .background(Rectangle().fill(Color.white).shadow(radius: 8))
         }
-            .applySignUpScreenHeaderModifier()
-            .onAppear {
-                viewModel.emailFunc = [SignUpFlowErrorFunctions.IUSDEmail]
-                viewModel.passFunc = [SignUpFlowErrorFunctions.EightChars,
-                                      SignUpFlowErrorFunctions.OneNumber,
-                                      SignUpFlowErrorFunctions.SpecialChar]
-            }
-            .edgesIgnoringSafeArea(.bottom)
+        .dismissKeyboardOnDrag()
+        .applySignUpScreenHeaderModifier()
+        .onAppear {
+            viewModel.emailFunc = [ErrorFunctions.IUSDEmail]
+            viewModel.passFunc = [ErrorFunctions.EightChars,
+                                  ErrorFunctions.OneNumber,
+                                  ErrorFunctions.SpecialChar]
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
     var footer: some View {
         HStack {
             Group {
                 if viewModel.account.email != "" && viewModel.account.password != "" &&
                     viewModel.account.name != "" && viewModel.passwordAgain != "" &&
-                    SignUpFlowErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
-                    SignUpFlowErrorFunctions.EightChars(viewModel.account.password).0 &&
-                    SignUpFlowErrorFunctions.OneNumber(viewModel.account.password).0 &&
-                    SignUpFlowErrorFunctions.SpecialChar(viewModel.account.password).0 &&
+                    ErrorFunctions.IUSDEmail(viewModel.account.email).0 &&
+                    ErrorFunctions.EightChars(viewModel.account.password).0 &&
+                    ErrorFunctions.OneNumber(viewModel.account.password).0 &&
+                    ErrorFunctions.SpecialChar(viewModel.account.password).0 &&
                     viewModel.account.password == viewModel.passwordAgain {
                     NavigationLink(destination: SignUpJoinAsScreen(viewModel: viewModel), label: {
                             HStack {
@@ -58,6 +61,7 @@ struct SignUpSetUpScreen: View {
                             Image(systemName: "arrow.right")
                         }
                     }
+                    .disabled(true)
                     .buttonStyle(FilledInButtonStyle(disabled: true))
                 }
             }
