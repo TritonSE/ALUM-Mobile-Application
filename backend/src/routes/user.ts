@@ -563,9 +563,19 @@ router.get(
           getPastSessionPromise,
           getPairedMentorIdPromise,
         ]);
+        const mentor = await Mentor.findById(pairedMentorId);
+        if (!mentor) {
+          throw ServiceError.MENTOR_WAS_NOT_FOUND;
+        }
         res.status(200).send({
           status: mentee.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
+          name: mentee.name,
+          mentorName: mentor?.name ?? "N/A",
+          mentorMajor: mentor?.major ?? "N/A",
+          mentorUniversity: mentor?.college ?? "N/A",
+          mentorCareer: mentor?.career ?? "N/A",
+          upcomingSessionId: upcomingSessionId ?? "N/A",
+          pastSessionId: pastSessionId ?? "N/A",
           pairedMentorId,
         });
       } else if (role === "mentor") {
@@ -581,23 +591,33 @@ router.get(
           return;
         }
 
-        const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) =>
-          getMenteeId(pairingId)
-        );
+        // // For MVP, we assume there is only 1 mentee 1 mentor pairing
+        // const getMenteeIdsPromise = getMenteeIdsPromises[0];
 
-        // For MVP, we assume there is only 1 mentee 1 mentor pairing
-        const getMenteeIdsPromise = getMenteeIdsPromises[0];
-
-        const [upcomingSessionId, pastSessionId, pairedMenteeId] = await Promise.all([
+        const [upcomingSessionId, pastSessionId] = await Promise.all([
           getUpcomingSessionPromise,
           getPastSessionPromise,
-          getMenteeIdsPromise,
         ]);
+
+        const menteeIds = await Promise.all(mentor.pairingIds.map(getMenteeId));
+        const mentees = await Promise.all(menteeIds.map((menteeId) => Mentee.findById(menteeId)));
+        const menteeNames = mentees.map((mentee) => mentee?.name ?? "N/A");
+
+        // const menteeNames = await Promise.all(
+        //   pairedIds.map(async (pairedId) => {
+        //     console.log(pairedId)
+        //     const mentee = await Mentee.findById(pairedId);
+        //     return mentee?.name ?? "N/A";
+        //   })
+        // );
 
         res.status(200).send({
           status: mentor.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
-          pairedMenteeId,
+          name: mentor.name,
+          menteeNames: menteeNames ?? [],
+          upcomingSessionId: upcomingSessionId ?? "N/A",
+          pastSessionId: pastSessionId ?? "N/A",
+          pairedIds: menteeIds,
         });
         return;
       }
