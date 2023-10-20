@@ -67,7 +67,23 @@ class CurrentUserModel: ObservableObject {
                 self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
             } else {
                 try await self.setFromFirebaseUser(user: user!)
-                try await sendFcmToken(fcmToken: fcmToken!)
+                // try await sendFcmToken(fcmToken: fcmToken!)
+                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+                    if let token = self.fcmToken {
+                        /*
+                        self.sendFcmTokenHelper(fcmToken: token)
+                        timer.invalidate()
+                         */
+                        Task {
+                            do {
+                                try await self.sendFcmToken(fcmToken: token)
+                            } catch {
+                                print("Error in sending FCM Token")
+                            }
+                        }
+                        timer.invalidate()
+                    }
+                }
             }
         } catch {
             // in case setFromFirebaseUser fails, just make the user login again
@@ -159,6 +175,16 @@ class CurrentUserModel: ObservableObject {
             userStatus = try await UserService.shared.getMentor(userID: userID).mentor.status ?? ""
         }
         return userStatus
+    }
+    
+    func sendFcmTokenHelper(fcmToken: String) {
+        Task {
+            do {
+                try await sendFcmToken(fcmToken: fcmToken)
+            } catch {
+                print("Error in sending FCM Token")
+            }
+        }
     }
     
     func sendFcmToken(fcmToken: String) async throws {
