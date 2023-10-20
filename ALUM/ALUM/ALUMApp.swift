@@ -89,6 +89,7 @@ extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         // let deviceToken:[String: String] = ["token": fcmToken ?? ""]
         currentUser.fcmToken = fcmToken
+        // currentUser.fcmToken = Messaging.messaging().fcmToken
         print(fcmToken)
     }
 }
@@ -113,7 +114,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
+        Messaging.messaging().apnsToken = deviceToken
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

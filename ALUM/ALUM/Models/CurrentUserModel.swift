@@ -67,6 +67,7 @@ class CurrentUserModel: ObservableObject {
                 self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
             } else {
                 try await self.setFromFirebaseUser(user: user!)
+                try await sendFcmToken(fcmToken: fcmToken!)
             }
         } catch {
             // in case setFromFirebaseUser fails, just make the user login again
@@ -161,10 +162,15 @@ class CurrentUserModel: ObservableObject {
     }
     
     func sendFcmToken(fcmToken: String) async throws {
+        print(fcmToken)
+        print(self.uid)
         var tokenToSend: FCMToken = FCMToken(fcmToken: fcmToken)
         let route = APIRoute.patchUser(userId: self.uid ?? "")
         var request = try await route.createURLRequest()
         guard let jsonData = try? JSONEncoder().encode(tokenToSend) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
             throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
         }
         request.httpBody = jsonData

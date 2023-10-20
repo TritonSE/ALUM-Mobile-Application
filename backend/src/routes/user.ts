@@ -435,13 +435,15 @@ router.patch(
   validateReqBodyWithCake(UpdateUserCake),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.body);
+      console.log("Starting patch");
       const userId = req.params.userId;
       if (!mongoose.Types.ObjectId.isValid(userId)) {
         throw ServiceError.INVALID_MONGO_ID;
       }
+      console.log("user id is valid");
       const role = req.body.role;
       const updatedToken = req.body.fcmToken;
+      console.log("got information");
       if (role === "mentee") {
         await updateMenteeFCMToken(updatedToken, userId);
       } else if (role === "mentor") {
@@ -451,6 +453,7 @@ router.patch(
         message: "Success",
       });
     } catch (e) {
+      console.log("error");
       next(e);
     }
   }
