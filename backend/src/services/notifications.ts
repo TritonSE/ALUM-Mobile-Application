@@ -56,14 +56,12 @@ async function startUpcomingSessionCronJob() {
               "You have an upcoming session.",
               "Ready for your session with ${mentor.name} in 24 hours? \u{1F440}",
               mentee.fcmToken
-              // "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}. Check out " + mentee.name + "'s pre-session notes.",
-              // mentor.fcmToken
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+              mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
           } else {
@@ -71,15 +69,12 @@ async function startUpcomingSessionCronJob() {
               "You have an upcoming session.",
               "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}. Fill out your pre-session notes now!",
               mentee.fcmToken
-              // "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
-              // 
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
               "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}",
-              // mentor.fcmToken
-              "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+              mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
           }
@@ -112,13 +107,13 @@ async function startPostSessionCronJob() {
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentor.name + " go? Jot it down in your post-session notes.",
-            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+            mentee.fcmToken
           );
           // mentor notification
           await sendNotification(
             "\u{2705} Session complete!",
             "How did your session with " + mentee.name + " go? Jot it down in your post-session notes.",
-            "dm8czbE_cUXvn3oQSveO2X:APA91bFXOMa7M-BcZpxShpUYm8XtfMUgN9IsnKA3uirE-yo3S3IvwsXWoYc-MgsvwZG3N4LQiw7LASZCA9F4iTIQkUKtA34vx3wMvBE2PbfVm0ZDX93VAaYqTjdFVbmyUhhCkf2fIY9M"
+            mentor.fcmToken
           );
           session.postSessionNotifSent = true;
           await session.save();
