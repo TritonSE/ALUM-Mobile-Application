@@ -87,6 +87,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("did receive FCM Token")
         // let deviceToken:[String: String] = ["token": fcmToken ?? ""]
         currentUser.fcmToken = fcmToken
         // currentUser.fcmToken = Messaging.messaging().fcmToken

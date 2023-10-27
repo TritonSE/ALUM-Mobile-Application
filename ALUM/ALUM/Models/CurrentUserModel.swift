@@ -67,23 +67,7 @@ class CurrentUserModel: ObservableObject {
                 self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
             } else {
                 try await self.setFromFirebaseUser(user: user!)
-                // try await sendFcmToken(fcmToken: fcmToken!)
-                Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-                    if let token = self.fcmToken {
-                        /*
-                        self.sendFcmTokenHelper(fcmToken: token)
-                        timer.invalidate()
-                         */
-                        Task {
-                            do {
-                                try await self.sendFcmToken(fcmToken: token)
-                            } catch {
-                                print("Error in sending FCM Token")
-                            }
-                        }
-                        timer.invalidate()
-                    }
-                }
+                try await sendFcmToken(fcmToken: fcmToken!)
             }
         } catch {
             // in case setFromFirebaseUser fails, just make the user login again
