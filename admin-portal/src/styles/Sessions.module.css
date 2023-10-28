@@ -1,0 +1,27 @@
+/* sessions.module.css */
+
+.sessions-table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sessions-table th, .sessions-table td {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+  
+  .sessions-table th {
+    background-color: #EFEEFF;
+  }
+  
+  .even {
+    background-color: #EFEEFF;
+  }
+  
+  .odd {
+    background-color: white;
+  }
+  

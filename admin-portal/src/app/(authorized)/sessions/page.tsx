@@ -1,3 +1,41 @@
+import React from 'react';
+import '../../../styles/Sessions.module.css'
+
+const sessionsData = [
+  { sessionDate: '2023-10-27', time: '10:00 AM', mentor: 'John', mentee: 'Alice', missedSession: 'Yes', reason: 'Sick' },
+  { sessionDate: '2023-10-28', time: '2:00 PM', mentor: 'Mary', mentee: 'Bob', missedSession: 'No', reason: '' },
+  // Add more data as needed
+];
+
+const SessionsTable = () => {
+  return (
+    <table className="sessions-table">
+      <thead>
+        <tr>
+          <th>Session Date</th>
+          <th>Time</th>
+          <th>Mentor</th>
+          <th>Mentee</th>
+          <th>Missed Session</th>
+          <th>Reason for Missing</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sessionsData.map((session, index) => (
+          <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
+            <td>{session.sessionDate}</td>
+            <td>{session.time}</td>
+            <td>{session.mentor}</td>
+            <td>{session.mentee}</td>
+            <td>{session.missedSession}</td>
+            <td>{session.reason}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 type GetSessionData = {
   message: string;
   session: GetSession;
@@ -28,11 +66,14 @@ async function getSessionData(sessionId: string, authKey: string) {
 }
 
 export default function SessionsPage() {
-  getSessionData("sessionId", "authKey");
+  
   return (
     <>
       <main>
-        <div>{'This is the sessions page!'}</div>
+        <div>
+          <h1> 'This is the sessions page!' </h1>
+          <SessionsTable />
+        </div>
       </main>
     </>
   );
