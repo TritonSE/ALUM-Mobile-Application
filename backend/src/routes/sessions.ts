@@ -53,8 +53,8 @@ router.post(
       }
       const accessToken = mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
-      const startDate = new Date(2023, 0O5, 0O5, 17, 0, 0, 0);  
-      const endDate = new Date(2023, 0O5, 0O5, 18, 0, 0, 0);  
+      const startDate = new Date(2023, 0o5, 0o5, 17, 0, 0, 0);
+      const endDate = new Date(2023, 0o5, 0o5, 18, 0, 0, 0);
 
       const session = new Session({
         preSession: null,
@@ -80,7 +80,7 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
-      
+
       await sendNotification(
         "New session booked!",
         "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
@@ -93,7 +93,7 @@ router.post(
           ". Fill out your pre-session notes now \u{1F60E}",
         mentee.fcmToken
       );
-      
+
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,
@@ -327,14 +327,18 @@ router.patch(
       await Session.findByIdAndUpdate(sessionId, { $set: updates }, { new: true });
       await sendNotification(
         "A session has been rescheduled",
-        "Your upcoming session with " + mentor.name + " has been rescheduled! Check out your new session details.",
+        "Your upcoming session with " +
+          mentor.name +
+          " has been rescheduled! Check out your new session details.",
         mentee.fcmToken
-      )
+      );
       await sendNotification(
         "A session has been rescheduled",
-        "" + mentee.name + " has rescheduled your upcoming session! Check out your session details.",
+        "" +
+          mentee.name +
+          " has rescheduled your upcoming session! Check out your session details.",
         mentor.fcmToken
-      )
+      );
       return res.status(200).json({
         message: "Successfuly updated the session!",
       });
@@ -377,23 +381,25 @@ router.delete(
           "A session has been cancelled.",
           "Your session with " + mentor.name + " has been cancelled.",
           mentee.fcmToken
-        )
+        );
         await sendNotification(
           "A session has been cancelled.",
           "" + mentee.name + " has cancelled your upcoming session.",
           mentor.fcmToken
-        )
-      } else if (role  === "mentor") {
+        );
+      } else if (role === "mentor") {
         await sendNotification(
           "A session has been cancelled.",
           "Your session with " + mentee.name + " has been cancelled.",
           mentor.fcmToken
-        )
-        await sendNotification (
+        );
+        await sendNotification(
           "A session has been cancelled.",
-          "" + mentor.name + " has cancelled your upcoming session. \u{1F494} Reschedule to save your pre-session notes.",
+          "" +
+            mentor.name +
+            " has cancelled your upcoming session. \u{1F494} Reschedule to save your pre-session notes.",
           mentee.fcmToken
-        )
+        );
       }
       return res.status(200).json({
         message: "calendly successfully cancelled, notes deleted, session deleted.",

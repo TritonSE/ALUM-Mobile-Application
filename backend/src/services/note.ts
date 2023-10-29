@@ -154,19 +154,23 @@ async function updateNotes(updatedNotes: UpdateNoteDetailsType[], documentId: st
         sessionDoc.preSessionCompleted = true;
         await sendNotification(
           "Pre-session update!",
-          "Looks like " + mentee.name + " has some questions for you. Check out " + mentee.name + "'s pre-session notes.",
+          "Looks like " +
+            mentee.name +
+            " has some questions for you. Check out " +
+            mentee.name +
+            "'s pre-session notes.",
           mentor.fcmToken
         );
-      }
-      else if (noteDoc.type === "postMentor")  {
+      } else if (noteDoc.type === "postMentor") {
         sessionDoc.postSessionMentorCompleted = true;
         await sendNotification(
           "Post-session update!",
-          "" + mentor.name + " has updated their post-session notes. Check out what they had to say!",
+          "" +
+            mentor.name +
+            " has updated their post-session notes. Check out what they had to say!",
           mentee.fcmToken
         );
-      }
-      else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
+      } else if (noteDoc.type === "postMentee") sessionDoc.postSessionMenteeCompleted = true;
       if (missedNote && sessionDoc.missedSessionReason == null)
         sessionDoc.missedSessionReason = missedReason;
       await sessionDoc.save();

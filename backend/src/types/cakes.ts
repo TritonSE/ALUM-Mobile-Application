@@ -40,7 +40,7 @@ export const CreateMentorRequestBodyCake = bake({
 export const UpdateUserCake = bake({
   fcmToken: string,
   uid: string,
-  role: string
+  role: string,
 });
 export const UpdateMentorRequestBodyCake = bake({
   name: string,

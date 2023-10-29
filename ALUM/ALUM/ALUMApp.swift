@@ -13,13 +13,13 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 
-//class AppDelegate: NSObject, UIApplicationDelegate {
+// class AppDelegate: NSObject, UIApplicationDelegate {
 //  func application(_ application: UIApplication,
-//                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+//      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 //    FirebaseApp.configure()
 //    return true
 //  }
-//}
+// }
 
 extension View {
     func dismissKeyboardOnDrag() -> some View {
@@ -42,12 +42,12 @@ struct ALUMApp: App {
   }
 }
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
     let gcmMessageIDKey = "gcm.message_id"
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions
+                     launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         FirebaseApp.configure()
 
         Messaging.messaging().delegate = self
@@ -84,7 +84,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
-
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("did receive FCM Token")
@@ -96,12 +95,13 @@ extension AppDelegate: MessagingDelegate {
 }
 
 @available(iOS 10, *)
-extension AppDelegate : UNUserNotificationCenterDelegate {
+extension AppDelegate: UNUserNotificationCenterDelegate {
 
   // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+                                withCompletionHandler completionHandler:
+                                    @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
 
         if let messageID = userInfo[gcmMessageIDKey] {

@@ -9,11 +9,10 @@ import { InternalError } from "../errors";
  * cool with glasses - 1F60E
  * check mark - 2705
  * broken heart - 1F494
- * 
+ *
  * To find emojis and their unicode value, use https://apps.timwhitlock.info/emoji/tables/unicode
  * The unicode is in format "U+1234"; in code, use "\u{1234}"
  */
-
 
 async function sendNotification(title: string, body: string, deviceToken: string) {
   const message = {
@@ -35,11 +34,12 @@ async function sendNotification(title: string, body: string, deviceToken: string
     });
 }
 
-
 async function startUpcomingSessionCronJob() {
   schedule.scheduleJob("*/1 * * * *", async () => {
     try {
-      const upcomingNotifSessions = await Session.find({ upcomingSessionNotifSent: { $eq: false } });
+      const upcomingNotifSessions = await Session.find({
+        upcomingSessionNotifSent: { $eq: false },
+      });
       upcomingNotifSessions.forEach(async (session) => {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
@@ -54,26 +54,26 @@ async function startUpcomingSessionCronJob() {
           if (session.preSessionCompleted) {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
-              "Ready for your session with ${mentor.name} in 24 hours? \u{1F440}",
+              `Ready for your session with ${mentor.name} in 24 hours? \u{1F440}`,
               mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
-              "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}. Check out " + mentee.name + "'s pre-session notes.",
+              `Ready for your session with " + mentee.name + " in 24 hours? \u{1F440}. Check out " + mentee.name + "'s pre-session notes.`,
               mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
           } else {
             const menteeNotif = await sendNotification(
               "You have an upcoming session.",
-              "Ready for your session with " + mentor.name + " in 24 hours? " + "\u{1F440}. Fill out your pre-session notes now!",
+              `Ready for your session with " + mentor.name + " in 24 hours? \u{1F440}. Fill out your pre-session notes now!`,
               mentee.fcmToken
             );
             console.log("Function executed successfully:", menteeNotif);
             const mentorNotif = await sendNotification(
               "You have an upcoming session.",
-              "Ready for your session with " + mentee.name + " in 24 hours? " + "\u{1F440}",
+              `Ready for your session with ${mentee.name} in 24 hours? \u{1F440}`,
               mentor.fcmToken
             );
             console.log("Function executed successfully:", mentorNotif);
@@ -106,13 +106,17 @@ async function startPostSessionCronJob() {
           // mentee notification
           await sendNotification(
             "\u{2705} Session complete!",
-            "How did your session with " + mentor.name + " go? Jot it down in your post-session notes.",
+            "How did your session with " +
+              mentor.name +
+              " go? Jot it down in your post-session notes.",
             mentee.fcmToken
           );
           // mentor notification
           await sendNotification(
             "\u{2705} Session complete!",
-            "How did your session with " + mentee.name + " go? Jot it down in your post-session notes.",
+            "How did your session with " +
+              mentee.name +
+              " go? Jot it down in your post-session notes.",
             mentor.fcmToken
           );
           session.postSessionNotifSent = true;

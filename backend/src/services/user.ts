@@ -115,4 +115,12 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 }
 
-export { getMentorId, getMenteeId, updateMentorFCMToken, updateMenteeFCMToken, updateMentor, updateMentee, saveImage };
+export {
+  getMentorId,
+  getMenteeId,
+  updateMentorFCMToken,
+  updateMenteeFCMToken,
+  updateMentor,
+  updateMentee,
+  saveImage,
+};

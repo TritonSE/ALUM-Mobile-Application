@@ -11,14 +11,12 @@ let developmentMode = false
 
 // Firebase URL will not be updated very frequently because 
 // so your changes to backend will only reflect on localhost until deployed
-/*
 #if DEBUG
     let baseURL = "http://127.0.0.1:3000"
 #else
     let baseURL = "https://firebaseapp-ozybc5bsma-uc.a.run.app"
 #endif
-*/
-let baseURL = "http://100.115.53.55:3000"
+
 struct URLString {
     static let user = "\(baseURL)/user"
     static let mentor = "\(baseURL)/mentor"
@@ -48,68 +46,68 @@ enum APIRoute {
 
     var url: String {
         switch self {
-            case .getSelf:
-                return [URLString.user, "me"].joined(separator: "/")
-            case .getMentor(let userId):
-                return [URLString.mentor, userId].joined(separator: "/")
-            case .getMentee(let userId):
-                return [URLString.mentee, userId].joined(separator: "/")
-            case .postMentor:
-                return URLString.mentor
-            case .postMentee:
-                return URLString.mentee
-            case .getNote(noteId: let noteId):
-                return [URLString.notes, noteId].joined(separator: "/")
-            case .patchNote(noteId: let noteId):
-                return [URLString.notes, noteId].joined(separator: "/")
-            case .getSession(sessionId: let sessionId):
-                return [URLString.sessions, sessionId].joined(separator: "/")
-            case .getSessions:
-                return URLString.sessions
-            case .postSession:
-                return URLString.sessions
-            case .getCalendly:
-                return URLString.calendly
-            case .patchUser(let userId):
-                return [URLString.user, userId].joined(separator: "/")
-            case .deleteSession(sessionId: let sessionId):
-                return [URLString.sessions, sessionId].joined(separator: "/")
-            case .patchSession(sessionId: let sessionId):
-                return [URLString.sessions, sessionId].joined(separator: "/")
+        case .getSelf:
+            return [URLString.user, "me"].joined(separator: "/")
+        case .getMentor(let userId):
+            return [URLString.mentor, userId].joined(separator: "/")
+        case .getMentee(let userId):
+            return [URLString.mentee, userId].joined(separator: "/")
+        case .postMentor:
+            return URLString.mentor
+        case .postMentee:
+            return URLString.mentee
+        case .getNote(noteId: let noteId):
+            return [URLString.notes, noteId].joined(separator: "/")
+        case .patchNote(noteId: let noteId):
+            return [URLString.notes, noteId].joined(separator: "/")
+        case .getSession(sessionId: let sessionId):
+            return [URLString.sessions, sessionId].joined(separator: "/")
+        case .getSessions:
+            return URLString.sessions
+        case .postSession:
+            return URLString.sessions
+        case .getCalendly:
+            return URLString.calendly
+        case .patchUser(let userId):
+            return [URLString.user, userId].joined(separator: "/")
+        case .deleteSession(sessionId: let sessionId):
+            return [URLString.sessions, sessionId].joined(separator: "/")
+        case .patchSession(sessionId: let sessionId):
+            return [URLString.sessions, sessionId].joined(separator: "/")
         }
     }
 
     var method: String {
         switch self {
-            case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
-                return "GET"
-            case .postMentor, .postMentee, .postSession:
-                return "POST"
-            case .patchNote, .patchUser, .patchSession:
-                return "PATCH"
-            case .deleteSession:
-                return "DELETE"
+        case .getSelf, .getMentee, .getMentor, .getNote, .getSession, .getSessions, .getCalendly:
+            return "GET"
+        case .postMentor, .postMentee, .postSession:
+            return "POST"
+        case .patchNote, .patchUser, .patchSession:
+            return "PATCH"
+        case .deleteSession:
+            return "DELETE"
         }
     }
 
     var requireAuth: Bool {
         switch self {
-            case
-                .getSelf,
-                .getMentor,
-                .getMentee,
-                .getNote,
-                .patchNote,
-                .getSession,
-                .getSessions,
-                .postSession,
-                .getCalendly,
-                .patchUser,
-                .patchSession,
-                .deleteSession:
-                return true
-            case .postMentee, .postMentor:
-                return false
+        case
+            .getSelf,
+            .getMentor,
+            .getMentee,
+            .getNote,
+            .patchNote,
+            .getSession,
+            .getSessions,
+            .postSession,
+            .getCalendly,
+            .patchUser,
+            .patchSession,
+            .deleteSession:
+            return true
+        case .postMentee, .postMentor:
+            return false
         }
     }
 
@@ -127,7 +125,7 @@ enum APIRoute {
 
     var successCode: Int {
         switch self {
-        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                 .getSession, .getSessions, .getCalendly, .patchUser, .deleteSession, .patchSession:
             return 200 // 200 Ok
         case .postMentor, .postMentee, .postSession:
@@ -140,7 +138,7 @@ enum APIRoute {
         let errorMap: [Int: AppError]
 
         switch self {
-        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote, 
+        case .getSelf, .getMentor, .getMentee, .getNote, .patchNote,
                 .getSession, .getSessions, .getCalendly, .patchUser,
                 .deleteSession, .patchSession:
             errorMap = [
@@ -157,7 +155,7 @@ enum APIRoute {
                 400: AppError.internalError(.invalidRequest, message: message)
             ]
         }
-        
+
         let error = errorMap[statusCode] ?? AppError.internalError(.unknownError, message: labeledMessage)
         return error
     }

@@ -160,7 +160,7 @@ class CurrentUserModel: ObservableObject {
         }
         return userStatus
     }
-    
+
     func sendFcmTokenHelper(fcmToken: String) {
         Task {
             do {
@@ -170,7 +170,7 @@ class CurrentUserModel: ObservableObject {
             }
         }
     }
-    
+
     func sendFcmToken(fcmToken: String) async throws {
         print(fcmToken)
         print(self.uid)

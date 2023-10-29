@@ -8,7 +8,14 @@ import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
-import { getMenteeId, getMentorId, updateMentor, updateMentee, updateMentorFCMToken, updateMenteeFCMToken } from "../services/user";
+import {
+  getMenteeId,
+  getMentorId,
+  updateMentor,
+  updateMentee,
+  updateMentorFCMToken,
+  updateMenteeFCMToken,
+} from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
@@ -457,7 +464,7 @@ router.patch(
       next(e);
     }
   }
-)
+);
 
 /**
  * * This route will update a mentor's values.
