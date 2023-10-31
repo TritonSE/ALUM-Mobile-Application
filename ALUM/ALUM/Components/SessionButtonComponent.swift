@@ -18,6 +18,7 @@ struct SessionButtonComponent: View {
                 .frame(width: 358, height: 118)
                 .foregroundColor(Color.white)
 
+            
             HStack {
                 VStack {
                     Text("JAN")
