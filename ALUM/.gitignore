@@ -99,3 +99,7 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift
+
+# Google info secret files
+Alum/GoogleService-Info-Dev.plist
+Alum/GoogleService-Info-Prod.plist
