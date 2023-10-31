@@ -127,6 +127,7 @@
 		97F1DB6C2A09DD4600DE8DB4 /* SessionButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */; };
 		97F6CDF429BD317200DFBB99 /* TopicsOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */; };
 		97F6CDF629BD4E3D00DFBB99 /* CareerInterests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */; };
+		CA9649C82ADE1C19000CE690 /* SessionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9649C72ADE1C19000CE690 /* SessionCard.swift */; };
 		E3F4186629E7246400FDE56D /* CalendlyBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F4186529E7246400FDE56D /* CalendlyBooking.swift */; };
 		E3FD958E2ACFC71500D31AA3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E3FD958D2ACFC71500D31AA3 /* FirebaseAnalytics */; };
 		E3FD95902ACFC71500D31AA3 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = E3FD958F2ACFC71500D31AA3 /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -283,6 +284,7 @@
 		97F1DB6B2A09DD4600DE8DB4 /* SessionButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionButtonComponent.swift; sourceTree = "<group>"; };
 		97F6CDF329BD317200DFBB99 /* TopicsOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsOfInterest.swift; sourceTree = "<group>"; };
 		97F6CDF529BD4E3D00DFBB99 /* CareerInterests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerInterests.swift; sourceTree = "<group>"; };
+		CA9649C72ADE1C19000CE690 /* SessionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCard.swift; sourceTree = "<group>"; };
 		E3F4186529E7246400FDE56D /* CalendlyBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendlyBooking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -442,6 +444,7 @@
 				07A15DD32A23F69100C52798 /* ButtonStyles */,
 				0793B4182A19FA7200AF78C8 /* CustomNavBar */,
 				0757551B29FAA2AB008E73FB /* Bullet.swift */,
+				CA9649C72ADE1C19000CE690 /* SessionCard.swift */,
 				0757551C29FAA2AB008E73FB /* CircleAddButton.swift */,
 				0757551D29FAA2AB008E73FB /* CustomAlertView.swift */,
 				0757551929FAA2AB008E73FB /* DynamicProgressBarComponent.swift */,
@@ -839,6 +842,7 @@
 				979F812229B842E200D6E964 /* UniversityNames.swift in Sources */,
 				0757552229FAA2AB008E73FB /* CircleAddButton.swift in Sources */,
 				0757552E29FAA2D6008E73FB /* PostSessionConfirmationScreen.swift in Sources */,
+				CA9649C82ADE1C19000CE690 /* SessionCard.swift in Sources */,
 				974D62D129FAFA7C0096FE80 /* ViewPostSessionNotesPage.swift in Sources */,
 				07A042202A334CFC005A42A8 /* KeyboardAwareView.swift in Sources */,
 				0757553829FAA350008E73FB /* QuestionModel.swift in Sources */,
@@ -1006,10 +1010,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ALUM/ALUM.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
-				DEVELOPMENT_TEAM = BV3PZFLX5U;
+				DEVELOPMENT_TEAM = BK7MB9J3TD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ALUM/Info.plist;
@@ -1027,6 +1032,7 @@
 				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = TSE.ALUM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1039,10 +1045,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ALUM/ALUM.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"ALUM/Preview Content\"";
-				DEVELOPMENT_TEAM = BV3PZFLX5U;
+				DEVELOPMENT_TEAM = BK7MB9J3TD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ALUM/Info.plist;
@@ -1060,6 +1067,7 @@
 				MARKETING_VERSION = 0.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = TSE.ALUM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
