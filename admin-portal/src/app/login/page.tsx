@@ -52,7 +52,10 @@ export default function Login() {
   return (
     <div style={styles.container}>
       <div style={styles.imageContainer}>
-        <Image src="/gradient.png" height={1500} width={700} alt="gradient" />
+        <Image src="/gradient.png" style={{
+    objectFit: 'cover',}}  
+         alt="gradient" 
+         fill/>
       </div>
       <div style={styles.formContainer}>
         <h3>Login</h3>
@@ -83,14 +86,20 @@ export default function Login() {
 const styles = {
   container: {
     display: 'flex',
-    height: '100vh',
+    flexDirection: 'row',
     borderLeft: 'none',
+    height: "100vh",
+    width: "100vw",
     margin: 0,
     padding: 0,
+    overflow: "hidden",
   },
   imageContainer: {
+    position: "relative",
     flex: 1,
     display: 'flex',
+    width: "50%",
+    height: "100%",
     alignItems: 'center',
     justifyContent: 'center',
     margin: 0,
@@ -98,6 +107,7 @@ const styles = {
   },
   formContainer: {
     flex: 1,
+    width: "50%",
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
@@ -106,7 +116,12 @@ const styles = {
   },
   inputField: {
     width: '30vw',
+    height: "5vh",
+    marginTop: '3px',
     borderRadius: '13px',
-    padding: '8px',
+    border: '1px solid #ccc',
+  },
+  textItems: {
+    marginVertical: '0px'
   }
 };

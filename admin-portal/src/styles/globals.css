@@ -23,3 +23,14 @@ p {
 * {
   font-family: 'Metropolis', sans-serif;
 }
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
