@@ -35,7 +35,7 @@ final class FirebaseAuthenticationService: ObservableObject {
         if let currentUser = Auth.auth().currentUser {
             do {
                 let tokenResult = try await currentUser.getIDTokenResult()
-                return tokenResult.token
+                return tokdenResult.token
             } catch let error {
                 // Handle the error
                 DispatchQueue.main.async {

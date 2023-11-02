@@ -263,6 +263,80 @@ router.get(
   }
 );
 
+router.get(
+  "/sessions/allSessions",
+  [verifyAuthToken],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const role = req.body.role;
+      if (role != "admin") {
+        throw InternalError.ERROR_NOT_ADMIN;
+      }
+      
+      let allSessions = await Session.find();
+      if (allSessions === null) {
+        return res.status(400).json({
+          message: `No sessions found.`
+        });
+      }
+
+      const dateNow = new Date();
+      const dayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+
+      const sessionsArray: {
+        id: ObjectId;
+        startTime: Date;
+        endTime: Date;
+        day: string;
+        menteeId: ObjectId;
+        mentorId: ObjectId;
+        missed: boolean;
+        missedSessionReason: string;
+        hasPassed: boolean;
+      }[] = [];
+      
+      allSessions.forEach((session) => {
+        const {
+          startTime,
+          endTime,
+          menteeId,
+          mentorId,
+          missedSessionReason,
+        } = session;
+        const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
+        sessionsArray.push({
+          id: session._id,
+          startTime,
+          endTime,
+          day: dayNames[startTime.getDay()],
+          menteeId,
+          mentorId,
+          missed: missedSessionReason != null,
+          missedSessionReason,
+          hasPassed,
+        });
+      });
+
+      return res.status(200).json({
+        message: `All sessions`,
+        sessions: sessionsArray,
+      });
+    } catch(e) {
+      console.log(e);
+      next();
+      return res.status(400);
+    }
+  }
+)
+
 /**
  * This route updates a session time. Note that it does not edit
  * other elements of a session (notes)
