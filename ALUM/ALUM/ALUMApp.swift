@@ -13,14 +13,6 @@ import Firebase
 import UserNotifications
 import FirebaseMessaging
 
-// class AppDelegate: NSObject, UIApplicationDelegate {
-//  func application(_ application: UIApplication,
-//      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-//    FirebaseApp.configure()
-//    return true
-//  }
-// }
-
 extension View {
     func dismissKeyboardOnDrag() -> some View {
         self.gesture(DragGesture().onChanged { gesture in
@@ -86,11 +78,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 extension AppDelegate: MessagingDelegate {
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("did receive FCM Token")
-        // let deviceToken:[String: String] = ["token": fcmToken ?? ""]
         currentUser.fcmToken = fcmToken
-        // currentUser.fcmToken = Messaging.messaging().fcmToken
-        print(fcmToken)
     }
 }
 
@@ -116,10 +104,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
-    }
-
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,

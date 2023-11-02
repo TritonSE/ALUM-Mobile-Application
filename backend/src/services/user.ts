@@ -47,20 +47,6 @@ async function getMenteeId(pairingId: string): Promise<string> {
   return pairing.menteeId;
 }
 
-async function updateMentorFCMToken(fcmToken: string, userId: string) {
-  console.log("FCM Token: ", fcmToken);
-  const user = await Mentor.findById(userId);
-  if (!user) {
-    throw ServiceError.MENTOR_WAS_NOT_FOUND;
-  }
-
-  try {
-    user.fcmToken = fcmToken;
-    return await user.save();
-  } catch (error) {
-    throw ServiceError.MENTOR_WAS_NOT_SAVED;
-  }
-}
 /**
  * Updates a mentor entry
  * @param updatedMentor - updated values for mentor
@@ -82,19 +68,6 @@ async function updateMentor(updatedMentor: UpdateMentorRequestBodyType, userID: 
   }
 }
 
-async function updateMenteeFCMToken(fcmToken: string, userId: string) {
-  console.log("FCM Token: ", fcmToken);
-  const user = await Mentee.findById(userId);
-  if (!user) {
-    throw ServiceError.MENTEE_WAS_NOT_FOUND;
-  }
-  try {
-    user.fcmToken = fcmToken;
-    return await user.save();
-  } catch (error) {
-    throw ServiceError.MENTEE_WAS_NOT_SAVED;
-  }
-}
 /**
  * Updates a mentor entry
  * @param updatedMentee - updated values for the mentee
@@ -115,12 +88,34 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 }
 
-export {
-  getMentorId,
-  getMenteeId,
-  updateMentorFCMToken,
-  updateMenteeFCMToken,
-  updateMentor,
-  updateMentee,
-  saveImage,
-};
+async function updateFCMToken(fcmToken: string, userId: string, role: string) {
+  console.log("FCM Token: ", fcmToken);
+  if (role === "mentee") {
+    const user = await Mentee.findById(userId);
+    if (!user) {
+      throw ServiceError.MENTEE_WAS_NOT_FOUND;
+    }
+    try {
+      user.fcmToken = fcmToken;
+      return await user.save();
+    } catch (error) {
+      throw ServiceError.MENTEE_WAS_NOT_SAVED;
+    }
+  } else if (role === "mentor") {
+    const user = await Mentor.findById(userId);
+    if (!user) {
+      throw ServiceError.MENTOR_WAS_NOT_FOUND;
+    }
+
+    try {
+      user.fcmToken = fcmToken;
+      return await user.save();
+    } catch (error) {
+      throw ServiceError.MENTOR_WAS_NOT_SAVED;
+    }
+  } else {
+    throw ServiceError.INVALID_ROLE_WAS_FOUND;
+  }
+}
+
+export { getMentorId, getMenteeId, updateMentor, updateMentee, saveImage, updateFCMToken };

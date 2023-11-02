@@ -4,6 +4,7 @@ import { json } from "body-parser";
 import { onRequest } from "firebase-functions/v2/https";
 
 import { userRouter } from "./routes/user";
+import { selfRouter } from "./routes/self";
 import { notesRouter } from "./routes/notes";
 import { sessionsRouter } from "./routes/sessions";
 import { mongoURI, port } from "./config";
@@ -30,6 +31,7 @@ mongoose.connect(mongoURI, {}, () => {
 server.app.use(json());
 server.app.set("view engine", "pug");
 server.app.use(userRouter);
+server.app.use(selfRouter);
 server.app.use(sessionsRouter);
 server.app.use(notesRouter);
 server.app.use(imageRouter);

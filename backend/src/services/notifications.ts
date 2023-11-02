@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import schedule from "node-schedule";
 import { Mentee, Mentor, Session } from "../models";
-import { InternalError } from "../errors";
+import { ServiceError } from "../errors";
 
 /**
  * Unicode notes:
@@ -29,8 +29,8 @@ async function sendNotification(title: string, body: string, deviceToken: string
     .then((response) => {
       console.log("Notification sent successfully:", response);
     })
-    .catch((error) => {
-      console.error("Error sending notification:", error);
+    .catch(() => {
+      throw ServiceError.ERROR_SENDING_NOTIFICATION;
     });
 }
 
@@ -44,40 +44,28 @@ async function startUpcomingSessionCronJob() {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
         if (!mentee) {
-          throw InternalError.ERROR_GETTING_MENTEE;
+          // Instead of throwing an error, we skip this current iteration to avoid skipping the rest of the sessions.
+          return;
         }
         const mentor = await Mentor.findById(session.mentorId);
         if (!mentor) {
-          throw InternalError.ERROR_GETTING_MENTOR;
+          return;
         }
+
+        const headerText = `You have an upcoming session.`;
+        let menteeNotifText = `Ready for your session with ${mentor.name} in 24 hours? \u{1F440}`;
+        let mentorNotifText = `Ready for your session with ${mentee.name} in 24 hours? \u{1F440}`;
+
         if (session.startTime.getTime() - dateNow.getTime() <= 86400000) {
           if (session.preSessionCompleted) {
-            const menteeNotif = await sendNotification(
-              "You have an upcoming session.",
-              `Ready for your session with ${mentor.name} in 24 hours? \u{1F440}`,
-              mentee.fcmToken
-            );
-            console.log("Function executed successfully:", menteeNotif);
-            const mentorNotif = await sendNotification(
-              "You have an upcoming session.",
-              `Ready for your session with " + mentee.name + " in 24 hours? \u{1F440}. Check out " + mentee.name + "'s pre-session notes.`,
-              mentor.fcmToken
-            );
-            console.log("Function executed successfully:", mentorNotif);
+            mentorNotifText += `Check out ${mentee.name}'s pre-session notes.`;
           } else {
-            const menteeNotif = await sendNotification(
-              "You have an upcoming session.",
-              `Ready for your session with " + mentor.name + " in 24 hours? \u{1F440}. Fill out your pre-session notes now!`,
-              mentee.fcmToken
-            );
-            console.log("Function executed successfully:", menteeNotif);
-            const mentorNotif = await sendNotification(
-              "You have an upcoming session.",
-              `Ready for your session with ${mentee.name} in 24 hours? \u{1F440}`,
-              mentor.fcmToken
-            );
-            console.log("Function executed successfully:", mentorNotif);
+            menteeNotifText += `Fill out your pre-session notes now!`;
           }
+          const menteeNotif = await sendNotification(headerText, menteeNotifText, mentee.fcmToken);
+          console.log("Function executed successfully:", menteeNotif);
+          const mentorNotif = await sendNotification(headerText, mentorNotifText, mentor.fcmToken);
+          console.log("Function executed successfully:", mentorNotif);
           session.upcomingSessionNotifSent = true;
           await session.save();
         }
@@ -96,13 +84,14 @@ async function startPostSessionCronJob() {
         const dateNow = new Date();
         const mentee = await Mentee.findById(session.menteeId);
         if (!mentee) {
-          throw InternalError.ERROR_GETTING_MENTEE;
+          return;
         }
         const mentor = await Mentor.findById(session.mentorId);
         if (!mentor) {
-          throw InternalError.ERROR_GETTING_MENTOR;
+          return;
         }
-        if (dateNow.getTime() - session.endTime.getTime() >= 0) {
+        // 600000 milliseconds = 10 minutes
+        if (dateNow.getTime() - session.endTime.getTime() >= 600000) {
           // mentee notification
           await sendNotification(
             "\u{2705} Session complete!",

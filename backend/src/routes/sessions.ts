@@ -53,8 +53,9 @@ router.post(
       }
       const accessToken = mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
-      const startDate = new Date(2023, 0o5, 0o5, 17, 0, 0, 0);
-      const endDate = new Date(2023, 0o5, 0o5, 18, 0, 0, 0);
+      if (!data.resource.start_time || !data.resource.end_time) {
+        throw ServiceError.ERROR_GETTING_EVENT_DATA;
+      }
 
       const session = new Session({
         preSession: null,
@@ -63,8 +64,8 @@ router.post(
         menteeId: menteeMongoId,
         mentorId: mentorMongoId,
         missedSessionReason: null,
-        startTime: data.resource?.start_time ?? startDate,
-        endTime: data.resource?.end_time ?? endDate,
+        startTime: data.resource.start_time,
+        endTime: data.resource.end_time,
         calendlyUri: req.body.calendlyURI,
         preSessionCompleted: false,
         postSessionMentorCompleted: false,
