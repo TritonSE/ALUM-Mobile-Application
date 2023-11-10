@@ -1,3 +1,10 @@
+# secrets
 .env
+.dev.env
+
+# building
+lib/
+
+
 node_modules/
 .eslintcache
