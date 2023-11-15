@@ -264,10 +264,12 @@ router.get(
 );
 
 router.get(
-  "/sessions/allSessions",
+  "/allSessions",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
     try {
+      res.header('Access-Control-Allow-Origin', '*');
+      console.log("Getting all sessions - admin");
       const role = req.body.role;
       if (role != "admin") {
         throw InternalError.ERROR_NOT_ADMIN;
@@ -292,15 +294,17 @@ router.get(
       ];
 
       const sessionsArray: {
-        id: ObjectId;
-        startTime: Date;
-        endTime: Date;
+        id: ObjectId
         day: string;
         menteeId: ObjectId;
         mentorId: ObjectId;
         missed: boolean;
         missedSessionReason: string;
         hasPassed: boolean;
+        fullDateString: string;
+        dateShortHandString: string;
+        startTimeString: string;
+        endTimeString: string;
       }[] = [];
       
       allSessions.forEach((session) => {
@@ -311,22 +315,28 @@ router.get(
           mentorId,
           missedSessionReason,
         } = session;
+        const [fullDateString, dateShortHandString, startTimeString, endTimeString] = 
+          formatDateTimeRange(startTime, endTime);
         const hasPassed = dateNow.getTime() - endTime.getTime() > 0;
         sessionsArray.push({
           id: session._id,
-          startTime,
-          endTime,
           day: dayNames[startTime.getDay()],
           menteeId,
           mentorId,
           missed: missedSessionReason != null,
           missedSessionReason,
           hasPassed,
+          fullDateString,
+          dateShortHandString,
+          startTimeString,
+          endTimeString
         });
-      });
+      }); 
+
+      console.log(sessionsArray);
 
       return res.status(200).json({
-        message: `All sessions`,
+        message: "All sessions",
         sessions: sessionsArray,
       });
     } catch(e) {

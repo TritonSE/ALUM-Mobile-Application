@@ -6,7 +6,7 @@ import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
-import { createUser } from "../services/auth";
+import { createUser, createAdmin } from "../services/auth";
 import { getMenteeId, getMentorId, updateMentor, updateMentee } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
@@ -157,6 +157,21 @@ router.post(
       });
     } catch (err) {
       next(err);
+    }
+  }
+);
+
+router.post(
+  '/admin', 
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email, password }: CreateMentorRequestBodyType = req.body;
+      await createAdmin(email, password);
+      res.status(201).json({
+        message: `New admin with email ${email} was created`,
+      })
+    } catch {
+      console.log("cannot post admin");
     }
   }
 );

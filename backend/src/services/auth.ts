@@ -32,6 +32,20 @@ async function createUser(uid: string, email: string, password: string, type: st
   }
 }
 
+async function createAdmin(email: string, password: string){
+  try{
+    const userRecord = await firebaseAuth.createUser({
+      email, 
+      password
+    });
+    const customClaims = {role : "admin"};
+    await firebaseAuth.setCustomUserClaims(userRecord.uid, customClaims);
+    return userRecord;
+  } catch(e){
+    throw ValidationError.USED_EMAIL;
+  }
+}
+
 async function decodeAuthToken(token: string) {
   try {
     const userInfo = await firebaseAuth.verifyIdToken(token);
@@ -41,4 +55,4 @@ async function decodeAuthToken(token: string) {
   }
 }
 
-export { createUser, decodeAuthToken };
+export { createUser, createAdmin, decodeAuthToken };

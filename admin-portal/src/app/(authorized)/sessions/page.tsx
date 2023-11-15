@@ -1,63 +1,35 @@
-import React from 'react';
+'use client'
+
+import React, {useEffect, useState} from 'react';
 import * as firebase from 'firebase/compat/app';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import '../../../styles/Sessions.module.css'
-
-const sessionsData = [
-  { sessionDate: '2023-10-27', time: '10:00 AM', mentor: 'John', mentee: 'Alice', missedSession: 'Yes', reason: 'Sick' },
-  { sessionDate: '2023-10-28', time: '2:00 PM', mentor: 'Mary', mentee: 'Bob', missedSession: 'No', reason: '' },
-  // Add more data as needed
-];
-
-const SessionsTable = () => {
-  return (
-    <table className="sessions-table">
-      <thead>
-        <tr>
-          <th>Session Date</th>
-          <th>Time</th>
-          <th>Mentor</th>
-          <th>Mentee</th>
-          <th>Missed Session</th>
-          <th>Reason for Missing</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sessionsData.map((session, index) => (
-          <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
-            <td>{session.sessionDate}</td>
-            <td>{session.time}</td>
-            <td>{session.mentor}</td>
-            <td>{session.mentee}</td>
-            <td>{session.missedSession}</td>
-            <td>{session.reason}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword   } from "firebase/auth";
+import signIn from "../../../firebase/signin";
+import { getToken } from '@/firebase/token';
+import app from "@/firebase/config";
+import '../../../styles/Sessions.module.css';
+import { ObjectId } from 'mongoose';
 
 type GetSessionData = {
   message: string;
-  session: GetSession;
+  session: GetSession[];
 }
 
 type GetSession = {
+  id: ObjectId | string;
+  day: string;
+  menteeId: ObjectId | string;
+  mentorId: ObjectId | string;
+  missed: boolean;
   missedSessionReason: string;
-  menteeId: string;
-  mentorId: string;
-  menteeName: string;
-  mentorName: string;
+  hasPassed: boolean;
   fullDateString: string;
+  dateShortHandString: string;
   startTimeString: string;
   endTimeString: string;
 }
 
 async function getSessionData(authKey: string) {
-  let url = "http://localhost:3000/sessions/allSessions";
-  // let key = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjBkMGU4NmJkNjQ3NDBjYWQyNDc1NjI4ZGEyZWM0OTZkZjUyYWRiNWQiLCJ0eXAiOiJKV1QifQ.eyJyb2xlIjoibWVudGVlIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2FsdW0tZGV2LTcyZDRmIiwiYXVkIjoiYWx1bS1kZXYtNzJkNGYiLCJhdXRoX3RpbWUiOjE2OTgzODE2NjIsInVzZXJfaWQiOiI2NTFmMTVmMDRjM2FiNmM4ZWMwOTNhMjMiLCJzdWIiOiI2NTFmMTVmMDRjM2FiNmM4ZWMwOTNhMjMiLCJpYXQiOjE2OTgzODE2NjIsImV4cCI6MTY5ODM4NTI2MiwiZW1haWwiOiJtZW50ZWVAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbIm1lbnRlZUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.cpCQ21nRR4ol-zmLBls0jygbnImnQr6bkwG87W1RZJOTDeM9IZfSAbJAh21abOh0LEYrkkXaMv76t0RC21fG4lIXzPHlT_PEbQWkUjaXz1s22MmWsDwV-ihddHb6RWaNo5KhuOD8T9wX5LfMPIPRZyP_RX0usK2wilZV7I5GITIY5JukblOlwJ25b80janOIdQ7m_BOvgGYn_MjTDDL0Pgl1nhfH7Z3P7tSEdPAEwABKCW3lomQcppY9rafboXldyMCTeQ3fLWZPYMj50f7inyblNqvxTsSpK3IW2rACjvlKrI_5UazZ0h22IeZ0P2LZRu1DfF4jjVaC1QEMwIBIvw";
-  
+  let url = "http://localhost:3000/allSessions";
   const headers = {
     Authorization: `Bearer ${authKey}`,
   };
@@ -66,58 +38,219 @@ async function getSessionData(authKey: string) {
   return data
 }
 
-export default function SessionsPage() {
-  // Method 1
-  // https://firebase.google.com/docs/auth/admin/verify-id-tokens#web
-  /*let data = null;
-  const user = firebase.default.auth().currentUser;
-  if (user) {
-    user.getIdToken().then(
-      async (token) => {
-        try {
-          data = await getSessionData(token);
-        } catch(e) {
-          console.log(e);
-        }
-      }
-    );
-  }
-  */
 
-  // Method 2
-  // https://firebase.google.com/docs/auth/web/start
-  // Chat GPT answer
-  let data = null;
-  const auth = getAuth();
+async function getSessionDataWithAuth() {
+  return new Promise<GetSessionData>((resolve, reject) => {
+    const auth = getAuth(app);
+    signInWithEmailAndPassword(auth, "admin@gmail.com", "12345678#");
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        user.getIdToken().then(
+          async (token) => {
+            try {
+              console.log("token: ", token);
+              const data = await getSessionData(token);
+              resolve(data);
+            } catch (e) {
+              console.log(e);
+              reject(e);
+            }
+          }
+        );
+      }
+    });
+  });
+}
+
+
+export default async function SessionsPage() {
+  let url = "http://localhost:3000/allSessions";
+  // let data = null
+  const [data, setData] = useState<GetSessionData>();
+  let sessions;
+  const auth = getAuth(app);
+  signInWithEmailAndPassword(auth, "admin@gmail.com", "12345678#");
+  
+  var dataNew: GetSessionData = {
+    message: "default message",
+    session: [
+      {
+        id: "null",
+        day: "day",
+        menteeId: "mentee",
+        mentorId: "mentor",
+        missed: true,
+        missedSessionReason: "missed",
+        hasPassed: true,
+        fullDateString: "full date",
+        dateShortHandString: "date short hand",
+        startTimeString: "start time",
+        endTimeString: "end time"
+      }
+    ]
+  };
+  
   onAuthStateChanged(auth, (user) => {
     if (user) {
       user.getIdToken().then(
         async (token) => {
           try {
-            data = await getSessionData(token);
+            const headers = {
+              Authorization: `Bearer ${token}`,
+            };
+            fetch(url, {headers}).then(
+              res => res.json()
+            ).then(
+              dataToSet => {
+                // data = dataToSet;
+                setData(dataToSet);
+                dataNew = dataToSet;
+                console.log(data);
+              }
+            )
           } catch(e) {
-            console.log(e);
+            console.log("Error in using token: " + e);
           }
         }
-      );
+      )
     }
-  });
+  }) 
 
-  if (data) {
-    console.log("data received");
-    console.log(data);
-  } else {
-    console.log("data not receieved");
-  }
+  /*
+  const [data, setData] = useState<GetSessionData>();
+  await getSessionDataWithAuth().then(
+      (res: GetSessionData) => setData(res)
+    ).catch(
+      (error) => console.error(error)
+    );
+  */
+  return (
+    <>
+      <main>
+        <div>
+          <h1> 'This is the sessions page!' </h1>
+          {(typeof data === 'undefined') ? (
+            <div>
+              <p>Data is loading...</p>
+            </div>
+          ) : (
+            <div>
+              <p>Data has loaded!</p>
+              <p>Message: {data.message}</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+}
+
+
+// SessionsPage.tsx
+/*
+export default async function SessionsPage() {
+  const auth = getAuth();
+  const [data, setData] = useState<any>();
+  
+  useEffect(() => {
+    signInWithEmailAndPassword(auth, 'admin@gmail.com', '12345678#')
+      .then(() => {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            user.getIdToken().then(async (token) => {
+              fetchSessions(token);
+            });
+          }
+        });
+      })
+      .catch((error) => {
+        console.error('Error signing in:', error);
+      });
+  }, [auth]);
+
+  const fetchSessions = (token: string) => {
+    const url = 'http://localhost:3000/allSessions';
+    const headers = { Authorization: `Bearer ${token}` };
+
+    fetch(url, { headers })
+      .then((res) => res.json())
+      .then((dataToSet) => {
+        setData(dataToSet);
+      })
+      .catch((error) => {
+        console.error('Error fetching sessions:', error);
+      });
+  };
 
   return (
     <>
       <main>
         <div>
           <h1> 'This is the sessions page!' </h1>
-          <SessionsTable />
+          {(typeof data === 'undefined') ? (
+            <div>
+              <p>Data is loading...</p>
+            </div>
+          ) : (
+            <div>
+              <p>Data has loaded!</p>
+              <p>Message: {data.message}</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+};
+*/
+
+/*
+export default function SessionsPage() {
+  let url = "http://localhost:3000/allSessions";
+  const [data, setData] = useState<GetSessionData>();
+  const auth = getAuth(app);
+
+  // Move signInWithEmailAndPassword outside of onAuthStateChanged
+  signInWithEmailAndPassword(auth, "admin@gmail.com", "12345678#").then(
+    async (userCredential) => {
+      // User successfully signed in
+      const token = await userCredential.user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      fetch(url, { headers }).then(
+        res => res.json()
+      ).then(
+        dataToSet => {
+          setData(dataToSet);
+          console.log(data);
+        }
+      );
+    },
+    (error) => {
+      console.error("Error signing in:", error);
+    }
+  );
+
+  return (
+    <>
+      <main>
+        <div>
+          <h1> 'This is the sessions page!' </h1>
+          {(typeof data === 'undefined') ? (
+            <div>
+              <p>Data is loading...</p>
+            </div>
+          ) : (
+            <div>
+              <p>Data has loaded!</p>
+              <p>Message: {data.message}</p>
+            </div>
+          )}
         </div>
       </main>
     </>
   );
 }
+*/
