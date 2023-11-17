@@ -35,9 +35,16 @@ struct MentorPostData: Codable {
 
 struct SelfGetData: Decodable {
     var status: String
-    var sessionId: String?
+    var name: String
+    var pastSessionId: String
+    var upcomingSessionId: String
+    var menteeNames: [String]?
+    var mentorName: [String]?
+    var mentorMajor: String?
+    var mentorUniversity: String?
+    var mentorCareer: String?
     var pairedMentorId: String?
-    var pairedMenteeId: String?
+    var pairedIds: [String]?
 }
 
 struct MenteeGetData: Decodable {
@@ -64,7 +71,7 @@ class UserService {
             try JSONDecoder().decode(SelfGetData.self, from: responseData)
         })
 
-        print("SUCCESS - \(route.label) - \(userData.pairedMenteeId) - \(userData.pairedMentorId)")
+        print("SUCCESS - \(route.label) - \(String(describing: userData.pairedIds)) - \(String(describing: userData.pairedMentorId))")
         return userData
     }
 

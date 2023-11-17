@@ -25,6 +25,9 @@ class CurrentUserModel: ObservableObject {
     @Published var showInternalError: Bool
     @Published var showNetworkError: Bool
     @Published var errorMessage: String?
+    
+    @Published var mentorObj: MentorObject
+    @Published var menteeObj: MenteeObject
 
     @Published var sessionId: String?
     @Published var pairedMentorId: String?
@@ -39,6 +42,8 @@ class CurrentUserModel: ObservableObject {
         self.showTabBar = true
         self.showInternalError = false
         self.showNetworkError = false
+        self.mentorObj = MentorObject()
+        self.menteeObj = MenteeObject()
     }
 
     ///  Since async operations are involved, this function will limit updating the current
@@ -126,7 +131,7 @@ class CurrentUserModel: ObservableObject {
                 self.pairedMentorId = userPairedMentorId
             }
         } else if self.role == .mentor {
-            guard let userPairedMenteeId = userData.pairedMenteeId else {
+            guard let userPairedMenteeId = userData.pairedIds?[0] else {
                 DispatchQueue.main.async {
                     CurrentUserModel.shared.showInternalError.toggle()
                 }
@@ -139,7 +144,7 @@ class CurrentUserModel: ObservableObject {
         }
 
         DispatchQueue.main.async {
-            self.sessionId = userData.sessionId
+            self.sessionId = userData.upcomingSessionId
         }
     }
 

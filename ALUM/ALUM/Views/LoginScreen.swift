@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Firebase
 
 struct LoginScreen: View {
     @ObservedObject var currentUser: CurrentUserModel = CurrentUserModel.shared

@@ -23,6 +23,7 @@ final class MenteeProfileViewmodel: ObservableObject {
         DispatchQueue.main.async {
             self.mentee = menteeData.mentee
             self.selfView = self.currentUser.uid == menteeData.mentee.id
+            self.currentUser.menteeObj.MenteeProfile = menteeData.mentee
         }
     }
 

@@ -27,18 +27,20 @@ struct MentorProfileScreen: View {
             }
         }
         .onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.fetchMentorInfo(userID: uID)
-                } catch {
-                    print("Error")
+            if (currentUser.mentorObj.MentorProfile == nil){
+                Task {
+                    do {
+                        try await viewModel.fetchMentorInfo(userID: uID)
+                    } catch {
+                        print("Error")
+                    }
                 }
             }
         })
     }
 
     var content: some View {
-        let mentor = viewModel.mentor!
+        let mentor = currentUser.mentorObj.MentorProfile!
 
         return GeometryReader { grr in
             VStack(spacing: 0) {
@@ -128,7 +130,7 @@ extension MentorProfileScreen {
                 }
                 .padding(.top, 57)
             }
-            Text(viewModel.mentor!.name)
+            Text(currentUser.mentorObj.MentorProfile!.name)
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
         }
     }
@@ -139,7 +141,7 @@ extension MentorProfileScreen {
                 Image(systemName: "graduationcap")
                     .frame(width: 25.25, height: 11)
                     .foregroundColor(Color("ALUM Primary Purple"))
-                Text(viewModel.mentor!.major + " @ " + viewModel.mentor!.college)
+                Text(currentUser.mentorObj.MentorProfile!.major + " @ " + currentUser.mentorObj.MentorProfile!.college)
                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
             }
             .padding(.bottom, 6)
@@ -147,11 +149,11 @@ extension MentorProfileScreen {
                 Image(systemName: "suitcase")
                     .frame(width: 25.25, height: 11)
                     .foregroundColor(Color("ALUM Primary Purple"))
-                Text(viewModel.mentor!.career)
+                Text(currentUser.mentorObj.MentorProfile!.career)
                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
             }
             .padding(.bottom, 6)
-            Text("NHS " + String(viewModel.mentor!.graduationYear))
+            Text("NHS " + String(currentUser.mentorObj.MentorProfile!.graduationYear))
                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .padding(.bottom, 6)
         }
@@ -165,13 +167,13 @@ extension MentorProfileScreen {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
                 .padding(.bottom, 8)
-            Text(viewModel.mentor!.about)
+            Text(currentUser.mentorObj.MentorProfile!.about)
                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .lineSpacing(5)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 32)
-            RenderTags(tags: viewModel.mentor!.topicsOfExpertise, title: "Topics of Expertise")
+            RenderTags(tags: currentUser.mentorObj.MentorProfile!.topicsOfExpertise, title: "Topics of Expertise")
                 .padding(.leading, 16)
                 .padding(.bottom, 8)
         }
@@ -185,14 +187,14 @@ extension MentorProfileScreen {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
                 .padding(.top, 27)
-            WrappingHStack(0 ..< viewModel.mentor!.menteeIds!.count, id: \.self) { index in
+            WrappingHStack(0 ..< currentUser.mentorObj.MentorProfile!.menteeIds!.count, id: \.self) { index in
                 CustomNavLink(destination:
                                 MenteeProfileScreen(
-                                    uID: viewModel.mentor!.menteeIds![index]
+                                    uID: currentUser.mentorObj.MentorProfile!.menteeIds![index]
                                 )
                                     .customNavigationTitle("Mentee Profile")
                 ) {
-                    MenteeCard(isEmpty: true, uID: viewModel.mentor!.menteeIds![index])
+                    MenteeCard(isEmpty: true, uID: currentUser.mentorObj.MentorProfile!.menteeIds![index])
                         .padding(.bottom, 15)
                         .padding(.trailing, 10)
                 }
