@@ -5,7 +5,7 @@ env:
 on:
   push:
     branches:
-      - deployment/Adhithya/Admin-portal-setup
+      - feature/Adhithya/DeploymentForAdminPortal
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
