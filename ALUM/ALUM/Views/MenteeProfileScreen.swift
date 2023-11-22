@@ -25,18 +25,20 @@ struct MenteeProfileScreen: View {
                     .padding(.top, 0)
             }
         }.onAppear(perform: {
-            Task {
-                do {
-                    try await viewModel.fetchMenteeInfo(userID: uID)
-                } catch {
-                    print("Error")
+            if (currentUser.menteeObj.MenteeProfile == nil){
+                Task {
+                    do {
+                        try await viewModel.fetchMenteeInfo(userID: uID)
+                    } catch {
+                        print("Error")
+                    }
                 }
             }
         })
     }
 
     var content: some View {
-        let mentee = viewModel.mentee!
+        let mentee = currentUser.menteeObj.MenteeProfile!
 
         return
         GeometryReader { grr in
@@ -109,7 +111,7 @@ extension MenteeProfileScreen {
                 }
                 .padding(.top, 57)
             }
-            Text(viewModel.mentee!.name)
+            Text(currentUser.menteeObj.MenteeProfile!.name)
                 .font(Font.custom("Metropolis-Regular", size: 34, relativeTo: .largeTitle))
         }
     }
@@ -119,7 +121,7 @@ extension MenteeProfileScreen {
                 Image(systemName: "graduationcap")
                     .frame(width: 25.25, height: 11)
                     .foregroundColor(Color("ALUM Primary Purple"))
-                Text(String(viewModel.mentee!.grade) + "th Grade @ NHS")
+                Text(String(currentUser.menteeObj.MenteeProfile!.grade) + "th Grade @ NHS")
                     .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
             }
             .padding(.bottom, 18)
@@ -129,16 +131,16 @@ extension MenteeProfileScreen {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 16)
                 .padding(.bottom, 8)
-            Text(viewModel.mentee!.about )
+            Text(currentUser.menteeObj.MenteeProfile!.about )
                 .font(Font.custom("Metropolis-Regular", size: 17, relativeTo: .headline))
                 .lineSpacing(5)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 32)
-            RenderTags(tags: viewModel.mentee!.careerInterests, title: "Career Interests")
+            RenderTags(tags: currentUser.menteeObj.MenteeProfile!.careerInterests, title: "Career Interests")
                 .padding(.leading, 16)
                 .padding(.bottom, 8)
-            RenderTags(tags: viewModel.mentee!.topicsOfInterest, title: "Topics of Interest")
+            RenderTags(tags: currentUser.menteeObj.MenteeProfile!.topicsOfInterest, title: "Topics of Interest")
                 .padding(.leading, 16)
                 .padding(.bottom, 8)
         }
@@ -155,7 +157,7 @@ extension MenteeProfileScreen {
                 .padding(.bottom, 8)
             CustomNavLink(destination:
                             MentorProfileScreen(
-                                uID: viewModel.mentee!.mentorId ?? ""
+                                uID: currentUser.menteeObj.MenteeProfile!.mentorId ?? ""
                             )
                                 .onAppear(perform: {
                                     currentUser.showTabBar = false
@@ -165,7 +167,7 @@ extension MenteeProfileScreen {
                                     })
                                         .customNavigationTitle("Mentor Profile")
             ) {
-                MentorCard(isEmpty: true, uID: viewModel.mentee!.mentorId ?? "")
+                MentorCard(isEmpty: true, uID: currentUser.menteeObj.MenteeProfile!.mentorId ?? "")
                     .padding(.bottom, 10)
             }
         }

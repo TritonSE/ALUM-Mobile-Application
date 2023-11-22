@@ -21,6 +21,7 @@ final class MentorProfileViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.mentor = mentorData.mentor
                 self.selfView = self.currentUser.uid == mentorData.mentor.id
+                self.currentUser.mentorObj.MentorProfile = mentorData.mentor
             }
         } catch {
             print("An error occurred: \(error)")
