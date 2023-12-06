@@ -1,14 +1,17 @@
 /**
  * This file will contain helper functions pertaining to user routes
  */
+// import { Request } from "express";
+// import mongoose from "mongoose";
+// import { Image } from "../models/image";
 import { Request } from "express";
 import mongoose from "mongoose";
-import { Image } from "../models/image";
 import { InternalError, ServiceError } from "../errors";
+import { Mentor, Mentee } from "../models";
 import { Pairing } from "../models/pairing";
+// import { User } from "../models/users";
+import { Image } from "../models/image";
 import { UpdateMenteeRequestBodyType, UpdateMentorRequestBodyType } from "../types";
-import { Mentor } from "../models/mentor";
-import { Mentee } from "../models/mentee";
 import { validateCalendlyAccessToken, validateCalendlyLink } from "./calendly";
 
 async function saveImage(req: Request): Promise<mongoose.Types.ObjectId> {
@@ -85,4 +88,34 @@ async function updateMentee(updatedMentee: UpdateMenteeRequestBodyType, userID: 
   }
 }
 
-export { getMentorId, getMenteeId, updateMentor, updateMentee, saveImage };
+async function updateFCMToken(fcmToken: string, userId: string, role: string) {
+  console.log("FCM Token: ", fcmToken);
+  if (role === "mentee") {
+    const user = await Mentee.findById(userId);
+    if (!user) {
+      throw ServiceError.MENTEE_WAS_NOT_FOUND;
+    }
+    try {
+      user.fcmToken = fcmToken;
+      return await user.save();
+    } catch (error) {
+      throw ServiceError.MENTEE_WAS_NOT_SAVED;
+    }
+  } else if (role === "mentor") {
+    const user = await Mentor.findById(userId);
+    if (!user) {
+      throw ServiceError.MENTOR_WAS_NOT_FOUND;
+    }
+
+    try {
+      user.fcmToken = fcmToken;
+      return await user.save();
+    } catch (error) {
+      throw ServiceError.MENTOR_WAS_NOT_SAVED;
+    }
+  } else {
+    throw ServiceError.INVALID_ROLE_WAS_FOUND;
+  }
+}
+
+export { getMentorId, getMenteeId, updateMentor, updateMentee, saveImage, updateFCMToken };

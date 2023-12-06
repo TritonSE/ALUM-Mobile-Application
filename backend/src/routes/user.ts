@@ -3,11 +3,12 @@
  * new users
  */
 import express, { NextFunction, Request, Response } from "express";
+// import { Infer } from "caketype";
 import mongoose from "mongoose";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentee, Mentor, Pairing } from "../models";
 import { createUser } from "../services/auth";
-import { getMenteeId, getMentorId, updateMentor, updateMentee } from "../services/user";
+import { updateMentor, updateMentee } from "../services/user";
 import {
   CreateMenteeRequestBodyCake,
   CreateMentorRequestBodyCake,
@@ -25,7 +26,6 @@ import { verifyAuthToken } from "../middleware/auth";
 import { defaultImageID } from "../config";
 import { CustomError } from "../errors";
 import { AuthError } from "../errors/auth";
-import { getUpcomingSession, getLastSession } from "../services/session";
 import { validateCalendlyAccessToken, validateCalendlyLink } from "../services/calendly";
 
 const router = express.Router();
@@ -75,12 +75,14 @@ router.post(
       const imageId = defaultImageID;
       const about = "N/A";
       const pairingId = "N/A";
+      const fcmToken = "N/A";
       const mentee = new Mentee({
         name,
         imageId,
         about,
         status,
         pairingId,
+        fcmToken,
         ...args,
       });
       await mentee.save();
@@ -138,6 +140,7 @@ router.post(
       const about = "N/A";
       const zoomLink = "N/A";
       const pairingIds: string[] = [];
+      const fcmToken = "N/A";
       const mentor = new Mentor({
         name,
         imageId,
@@ -145,6 +148,7 @@ router.post(
         zoomLink,
         status,
         pairingIds,
+        fcmToken,
         personalAccessToken,
         calendlyLink,
         ...args,
@@ -533,82 +537,5 @@ router.patch(
  * If user is mentee,
  *  mentorId, status, upcomingSessionId
  */
-router.get(
-  "/user/me",
-  [verifyAuthToken],
-  async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const userId = req.body.uid;
-      const role = req.body.role;
-      console.log(`GET /user/me uid - ${req.body.uid}`);
-
-      const getUpcomingSessionPromise = getUpcomingSession(userId, role);
-      const getPastSessionPromise = getLastSession(userId, role);
-      if (role === "mentee") {
-        // GET mentee document
-        const mentee = await Mentee.findById(userId);
-        if (!mentee) {
-          throw ServiceError.MENTEE_WAS_NOT_FOUND;
-        }
-
-        if (mentee.status !== "paired") {
-          res.status(200).send({
-            status: mentee.status,
-          });
-          return;
-        }
-        const getPairedMentorIdPromise = getMentorId(mentee.pairingId);
-        const [upcomingSessionId, pastSessionId, pairedMentorId] = await Promise.all([
-          getUpcomingSessionPromise,
-          getPastSessionPromise,
-          getPairedMentorIdPromise,
-        ]);
-        res.status(200).send({
-          status: mentee.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
-          pairedMentorId,
-        });
-      } else if (role === "mentor") {
-        const mentor = await Mentor.findById(userId);
-        if (!mentor) {
-          throw ServiceError.MENTOR_WAS_NOT_FOUND;
-        }
-
-        if (mentor.status !== "paired") {
-          res.status(200).send({
-            status: mentor.status,
-          });
-          return;
-        }
-
-        const getMenteeIdsPromises = mentor.pairingIds.map(async (pairingId) =>
-          getMenteeId(pairingId)
-        );
-
-        // For MVP, we assume there is only 1 mentee 1 mentor pairing
-        const getMenteeIdsPromise = getMenteeIdsPromises[0];
-
-        const [upcomingSessionId, pastSessionId, pairedMenteeId] = await Promise.all([
-          getUpcomingSessionPromise,
-          getPastSessionPromise,
-          getMenteeIdsPromise,
-        ]);
-
-        res.status(200).send({
-          status: mentor.status,
-          sessionId: upcomingSessionId ?? pastSessionId,
-          pairedMenteeId,
-        });
-        return;
-      }
-    } catch (e) {
-      if (e instanceof CustomError) {
-        next(e);
-        return;
-      }
-      next(InternalError.ERROR_GETTING_MENTEE);
-    }
-  }
-);
 
 export { router as userRouter };

@@ -9,5 +9,12 @@
 		<string>Metropolis-ExtraBoldItalic.otf</string>
 		<string>Metropolis-Thin.otf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

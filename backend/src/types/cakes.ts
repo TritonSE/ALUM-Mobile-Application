@@ -17,6 +17,9 @@ export const CreateMenteeRequestBodyCake = bake({
   mentorshipGoal: string,
 });
 
+/**
+ * POST /mentor
+ */
 export const CreateMentorRequestBodyCake = bake({
   name: string,
   email: string,
@@ -34,6 +37,11 @@ export const CreateMentorRequestBodyCake = bake({
 });
 
 // PATCH user/id
+export const UpdateUserCake = bake({
+  fcmToken: string,
+  uid: string,
+  role: string,
+});
 export const UpdateMentorRequestBodyCake = bake({
   name: string,
   about: string,

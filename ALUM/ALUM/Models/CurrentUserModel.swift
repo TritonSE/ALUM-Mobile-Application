@@ -13,9 +13,14 @@ enum UserRole {
     case mentee
 }
 
+struct FCMToken: Codable {
+    var fcmToken: String
+}
+
 class CurrentUserModel: ObservableObject {
     static let shared = CurrentUserModel()
 
+    @Published var fcmToken: String?
     @Published var isLoading: Bool
     @Published var uid: String?
     @Published var role: UserRole?
@@ -31,6 +36,7 @@ class CurrentUserModel: ObservableObject {
     @Published var pairedMenteeId: String?
 
     init() {
+        self.fcmToken = nil
         self.isLoading = true
         self.isLoggedIn = false
         self.uid = nil
@@ -61,6 +67,7 @@ class CurrentUserModel: ObservableObject {
                 self.setCurrentUser(isLoading: false, isLoggedIn: false, uid: nil, role: nil)
             } else {
                 try await self.setFromFirebaseUser(user: user!)
+                try await sendFcmToken(fcmToken: fcmToken!)
             }
         } catch {
             // in case setFromFirebaseUser fails, just make the user login again
@@ -152,5 +159,32 @@ class CurrentUserModel: ObservableObject {
             userStatus = try await UserService.shared.getMentor(userID: userID).mentor.status ?? ""
         }
         return userStatus
+    }
+
+    func sendFcmTokenHelper(fcmToken: String) {
+        Task {
+            do {
+                try await sendFcmToken(fcmToken: fcmToken)
+            } catch {
+                print("Error in sending FCM Token")
+            }
+        }
+    }
+
+    func sendFcmToken(fcmToken: String) async throws {
+        print(fcmToken)
+        print(self.uid)
+        var tokenToSend: FCMToken = FCMToken(fcmToken: fcmToken)
+        let route = APIRoute.patchUser(userId: self.uid ?? "")
+        var request = try await route.createURLRequest()
+        guard let jsonData = try? JSONEncoder().encode(tokenToSend) else {
+            DispatchQueue.main.async {
+                CurrentUserModel.shared.showInternalError.toggle()
+            }
+            throw AppError.internalError(.jsonParsingError, message: "Failed to Encode Data")
+        }
+        request.httpBody = jsonData
+        let responseData = try await ServiceHelper.shared.sendRequestWithSafety(route: route, request: request)
+        print("SUCCESS - \(route.label)")
     }
 }

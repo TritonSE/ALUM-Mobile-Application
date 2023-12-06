@@ -4,6 +4,7 @@
 
 import express, { NextFunction, Request, Response } from "express";
 import mongoose, { ObjectId } from "mongoose";
+// import schedule from "node-schedule";
 // import { boolean } from "caketype";
 import { validateReqBodyWithCake } from "../middleware/validation";
 import { Mentor, Mentee, Session } from "../models";
@@ -12,6 +13,7 @@ import { verifyAuthToken } from "../middleware/auth";
 import { getCalendlyEventDate, deleteCalendlyEvent } from "../services/calendly";
 import { createPreSessionNotes, createPostSessionNotes, deleteNotes } from "../services/note";
 import { getMentorId } from "../services/user";
+import { sendNotification } from "../services/notifications";
 import { InternalError, ServiceError } from "../errors";
 import { formatDateTimeRange } from "../services/session";
 
@@ -51,6 +53,10 @@ router.post(
       }
       const accessToken = mentor.personalAccessToken;
       const data = await getCalendlyEventDate(req.body.calendlyURI, accessToken);
+      if (!data.resource.start_time || !data.resource.end_time) {
+        throw ServiceError.ERROR_GETTING_EVENT_DATA;
+      }
+
       const session = new Session({
         preSession: null,
         postSessionMentee: null,
@@ -64,6 +70,8 @@ router.post(
         preSessionCompleted: false,
         postSessionMentorCompleted: false,
         postSessionMenteeCompleted: false,
+        upcomingSessionNotifSent: false,
+        postSessionNotifSent: false,
       });
       const sessionId = session._id;
       const preNoteId = await createPreSessionNotes(sessionId);
@@ -73,6 +81,20 @@ router.post(
       session.postSessionMentee = postMenteeNoteId._id;
       session.postSessionMentor = postMentorNoteId._id;
       await session.save();
+
+      await sendNotification(
+        "New session booked!",
+        "You have a new session with " + mentee.name + ". Check out your session details \u{1F60E}",
+        mentor.fcmToken
+      );
+      await sendNotification(
+        "New session booked!",
+        "You have a new session with " +
+          mentor.name +
+          ". Fill out your pre-session notes now \u{1F60E}",
+        mentee.fcmToken
+      );
+
       return res.status(201).json({
         sessionId: session._id,
         mentorId: session.mentorId,
@@ -80,6 +102,7 @@ router.post(
       });
     } catch (e) {
       next();
+      console.log(e);
       return res.status(400).json({
         error: e,
       });
@@ -135,6 +158,8 @@ router.get(
         preSessionCompleted,
         postSessionMenteeCompleted,
         postSessionMentorCompleted,
+        upcomingSessionNotifSent,
+        postSessionNotifSent,
       } = session;
       const [fullDateString, dateShortHandString, startTimeString, endTimeString] =
         formatDateTimeRange(startTime, endTime);
@@ -160,6 +185,8 @@ router.get(
           postSessionMenteeCompleted,
           postSessionMentorCompleted,
           hasPassed,
+          upcomingSessionNotifSent,
+          postSessionNotifSent,
           location: mentor.location,
         },
       });
@@ -286,6 +313,10 @@ router.patch(
       if (!mentor) {
         throw InternalError.ERROR_GETTING_MENTOR;
       }
+      const mentee = await Mentee.findById(currSession.menteeId);
+      if (!mentee) {
+        throw InternalError.ERROR_GETTING_MENTEE;
+      }
       const personalAccessToken = mentor.personalAccessToken;
       await deleteCalendlyEvent(oldCalendlyURI, personalAccessToken);
       const newEventData = await getCalendlyEventDate(newCalendlyURI, personalAccessToken);
@@ -295,6 +326,20 @@ router.patch(
         calendlyUri: newCalendlyURI,
       };
       await Session.findByIdAndUpdate(sessionId, { $set: updates }, { new: true });
+      await sendNotification(
+        "A session has been rescheduled",
+        "Your upcoming session with " +
+          mentor.name +
+          " has been rescheduled! Check out your new session details.",
+        mentee.fcmToken
+      );
+      await sendNotification(
+        "A session has been rescheduled",
+        "" +
+          mentee.name +
+          " has rescheduled your upcoming session! Check out your session details.",
+        mentor.fcmToken
+      );
       return res.status(200).json({
         message: "Successfuly updated the session!",
       });
@@ -314,6 +359,8 @@ router.delete(
   "/sessions/:sessionId",
   [verifyAuthToken],
   async (req: Request, res: Response, next: NextFunction) => {
+    console.log("Deleting a session");
+    const role = req.body.role;
     const sessionId = req.params.sessionId;
 
     console.log(`DELETE /sessions uid - ${req.body.uid} sessionId - ${sessionId}`);
@@ -324,10 +371,37 @@ router.delete(
     const mentor = await Mentor.findById(session.mentorId);
     if (!mentor) throw ServiceError.MENTOR_WAS_NOT_FOUND;
     const personalAccessToken = mentor.personalAccessToken;
+    const mentee = await Mentee.findById(session.menteeId);
+    if (!mentee) throw ServiceError.MENTEE_WAS_NOT_FOUND;
     try {
       deleteCalendlyEvent(uri, personalAccessToken);
       await deleteNotes(session.preSession, session.postSessionMentee, session.postSessionMentor);
       await Session.findByIdAndDelete(sessionId);
+      if (role === "mentee") {
+        await sendNotification(
+          "A session has been cancelled.",
+          "Your session with " + mentor.name + " has been cancelled.",
+          mentee.fcmToken
+        );
+        await sendNotification(
+          "A session has been cancelled.",
+          "" + mentee.name + " has cancelled your upcoming session.",
+          mentor.fcmToken
+        );
+      } else if (role === "mentor") {
+        await sendNotification(
+          "A session has been cancelled.",
+          "Your session with " + mentee.name + " has been cancelled.",
+          mentor.fcmToken
+        );
+        await sendNotification(
+          "A session has been cancelled.",
+          "" +
+            mentor.name +
+            " has cancelled your upcoming session. \u{1F494} Reschedule to save your pre-session notes.",
+          mentee.fcmToken
+        );
+      }
       return res.status(200).json({
         message: "calendly successfully cancelled, notes deleted, session deleted.",
       });
