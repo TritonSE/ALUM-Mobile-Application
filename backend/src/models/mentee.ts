@@ -10,6 +10,7 @@ interface MenteeInterface {
   careerInterests: string[];
   mentorshipGoal: string;
   pairingId: string;
+  fcmToken: string;
   status: UserStatusType;
 }
 
@@ -22,6 +23,7 @@ interface MenteeDoc extends mongoose.Document {
   careerInterests: string[];
   mentorshipGoal: string;
   pairingId: string;
+  fcmToken: string;
   status: UserStatusType;
 }
 
@@ -69,6 +71,10 @@ const MenteeSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ["paired", "approved", "under review"],
+    required: true,
+  },
+  fcmToken: {
+    type: String,
     required: true,
   },
 });

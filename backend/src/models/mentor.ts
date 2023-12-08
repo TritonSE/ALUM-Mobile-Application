@@ -22,6 +22,7 @@ interface MentorInterface {
   status: UserStatusType;
   personalAccessToken: string;
   location: string;
+  fcmToken: string;
 }
 
 interface MentorDoc extends mongoose.Document {
@@ -40,6 +41,7 @@ interface MentorDoc extends mongoose.Document {
   status: UserStatusType;
   personalAccessToken: string;
   location: string;
+  fcmToken: string;
 }
 
 interface MentorModelInterface extends mongoose.Model<MentorDoc> {
@@ -109,6 +111,10 @@ const mentorSchema = new mongoose.Schema({
     required: true,
   },
   location: {
+    type: String,
+    required: true,
+  },
+  fcmToken: {
     type: String,
     required: true,
   },

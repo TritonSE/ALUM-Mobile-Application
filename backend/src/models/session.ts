@@ -18,6 +18,8 @@ interface SessionInterface {
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
+  upcomingSessionNotifSent: boolean;
+  postSessionNotifSent: boolean;
 }
 
 export interface SessionDoc extends mongoose.Document {
@@ -33,6 +35,8 @@ export interface SessionDoc extends mongoose.Document {
   preSessionCompleted: boolean;
   postSessionMentorCompleted: boolean;
   postSessionMenteeCompleted: boolean;
+  upcomingSessionNotifSent: boolean;
+  postSessionNotifSent: boolean;
 }
 
 interface SessionModelInterface extends mongoose.Model<SessionDoc> {
@@ -85,6 +89,14 @@ const SessionSchema = new mongoose.Schema({
     required: true,
   },
   postSessionMenteeCompleted: {
+    type: Boolean,
+    required: true,
+  },
+  upcomingSessionNotifSent: {
+    type: Boolean,
+    required: true,
+  },
+  postSessionNotifSent: {
     type: Boolean,
     required: true,
   },
